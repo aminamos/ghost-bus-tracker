@@ -1,0 +1,11 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "ghost-bus-tracker",
+  "main": "src/index.js",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "account_id": "8c6fafe89fca4db5a8330ef5311ade58",
+  "vars": {
+    "AGENCY_NAME": "Metro Transit (Twin Cities)"
+  }
+}

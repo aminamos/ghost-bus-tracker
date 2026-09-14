@@ -1,0 +1,65 @@
+[
+  {
+    "scan_time": "2026-09-14T00:35:12.771265+00:00",
+    "ghost_bus_rate_pct": 13.63,
+    "overall_on_time_pct": 73.3,
+    "total_scheduled_trips": 477,
+    "total_tracked_vehicles": 412,
+    "total_ghost_trips": 65,
+    "mean_delay_sec": 242.2
+  },
+  {
+    "scan_time": "2026-09-14T00:35:23.071428+00:00",
+    "ghost_bus_rate_pct": 13.63,
+    "overall_on_time_pct": 73.3,
+    "total_scheduled_trips": 477,
+    "total_tracked_vehicles": 412,
+    "total_ghost_trips": 65,
+    "mean_delay_sec": 242.2
+  },
+  {
+    "scan_time": "2026-09-14T00:36:37.249091+00:00",
+    "ghost_bus_rate_pct": 13.36,
+    "overall_on_time_pct": 73.73,
+    "total_scheduled_trips": 479,
+    "total_tracked_vehicles": 415,
+    "total_ghost_trips": 64,
+    "mean_delay_sec": 257.4
+  },
+  {
+    "scan_time": "2026-09-14T00:36:42.708679+00:00",
+    "ghost_bus_rate_pct": 13.36,
+    "overall_on_time_pct": 73.73,
+    "total_scheduled_trips": 479,
+    "total_tracked_vehicles": 415,
+    "total_ghost_trips": 64,
+    "mean_delay_sec": 257.4
+  },
+  {
+    "scan_time": "2026-09-14T00:36:50.166021+00:00",
+    "ghost_bus_rate_pct": 13.36,
+    "overall_on_time_pct": 73.73,
+    "total_scheduled_trips": 479,
+    "total_tracked_vehicles": 414,
+    "total_ghost_trips": 64,
+    "mean_delay_sec": 257.4
+  },
+  {
+    "scan_time": "2026-09-14T00:41:28.827985+00:00",
+    "ghost_bus_rate_pct": 14.01,
+    "overall_on_time_pct": 72.03,
+    "total_scheduled_trips": 471,
+    "total_tracked_vehicles": 405,
+    "total_ghost_trips": 66,
+    "mean_delay_sec": 275.1
+  },
+  {
+    "scan_time": "2026-09-14T00:41:35.799649+00:00",
+    "ghost_bus_rate_pct": 14.01,
+    "overall_on_time_pct": 72.03,
+    "total_scheduled_trips": 471,
+    "total_tracked_vehicles": 405,
+    "total_ghost_trips": 66,
+    "mean_delay_sec": 275.1
+  }
+]

@@ -1,0 +1,69 @@
+name: Automated Transit Reliability & Ghost Bus Tracker
+
+on:
+  schedule:
+    # Run every 30 minutes
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+    inputs:
+      force_sample:
+        description: 'Force use of sample feed instead of live API'
+        required: false
+        default: false
+        type: boolean
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+      - '.github/workflows/track.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: git-scraping-tracker
+  cancel-in-progress: false
+
+jobs:
+  track-and-scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Fetch GTFS-RT Feeds and Update Reliability Metrics
+        run: |
+          if [ "${{ inputs.force_sample }}" = "true" ]; then
+            python -m src.cli scan --sample --save --report
+          else
+            python -m src.cli scan --live --save --report --fallback-sample
+          fi
+
+      - name: Commit and Push Updates
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/latest.json data/history.json RELIABILITY.md
+          
+          if git diff --staged --quiet; then
+            echo "No feed changes detected. Working directory clean."
+          else
+            GHOST_RATE=$(python -c "import json; d=json.load(open('data/latest.json')); print(f'{d.get(\"ghost_bus_rate_pct\", 0)}%')")
+            SCAN_TIME=$(date -u +"%Y-%m-%d %H:%M:%SZ")
+            git commit -m "Automated transit scan: ${SCAN_TIME} [ghost rate: ${GHOST_RATE}] [skip ci]"
+            git push origin main
+          fi
