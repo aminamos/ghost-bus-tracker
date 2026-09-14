@@ -21,7 +21,7 @@ if hasattr(sys.stdout, "reconfigure"):
     try:
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
         sys.stderr.reconfigure(encoding="utf-8", errors="replace")
-    except Exception:
+    except Exception:  # pragma: no cover
         pass
 
 
@@ -179,6 +179,7 @@ def build_parser() -> argparse.ArgumentParser:
     scan_p.add_argument("--report", action="store_true", help="Generate or update RELIABILITY.md")
     scan_p.add_argument("--quiet", action="store_true", help="Do not print terminal scorecard")
     scan_p.add_argument("--fallback-sample", action="store_true", default=True, help="Fallback to sample feed if network fails")
+    scan_p.add_argument("--no-fallback-sample", dest="fallback_sample", action="store_false", help="Disable fallback to sample feed")
     scan_p.add_argument("--latest-file", type=str, help="Custom path for latest.json")
     scan_p.add_argument("--history-file", type=str, help="Custom path for history.json")
     scan_p.add_argument("--report-file", type=str, help="Custom path for RELIABILITY.md")
@@ -217,5 +218,5 @@ def main(argv: Optional[list] = None) -> int:
         return 1
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     sys.exit(main())
