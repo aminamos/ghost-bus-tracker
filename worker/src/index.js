@@ -5,6 +5,25 @@
 
 import { DEFAULT_LATEST, DEFAULT_HISTORY } from "./snapshot_data.js";
 
+const DATA_BASE =
+  "https://raw.githubusercontent.com/aminamos/ghost-bus-tracker/main/data";
+const UPSTREAM_CACHE_TTL = 300; // git-scraping workflow commits every 30 min
+
+// Serve the freshest committed snapshot from the repo, cached at the edge.
+// Falls back to the bundled snapshot (deploy-time copy) if GitHub is down.
+async function fetchSnapshot(file, fallback) {
+  try {
+    const res = await fetch(`${DATA_BASE}/${file}`, {
+      cf: { cacheEverything: true, cacheTtl: UPSTREAM_CACHE_TTL },
+      headers: { "User-Agent": "GhostBusTracker-Worker/0.1.0" },
+    });
+    if (!res.ok) throw new Error(`upstream ${res.status}`);
+    return await res.json();
+  } catch {
+    return fallback;
+  }
+}
+
 function jsonResponse(data, status = 200) {
   return new Response(JSON.stringify(data, null, 2), {
     status,
@@ -402,25 +421,26 @@ export default {
 
     // Latest Snapshot API
     if (path === "/api/latest") {
-      return jsonResponse(DEFAULT_LATEST);
+      return jsonResponse(await fetchSnapshot("latest.json", DEFAULT_LATEST));
     }
 
     // History API
     if (path === "/api/history") {
-      return jsonResponse(DEFAULT_HISTORY);
+      return jsonResponse(await fetchSnapshot("history.json", DEFAULT_HISTORY));
     }
 
     // Summary Scorecard API
     if (path === "/api/summary") {
+      const latest = await fetchSnapshot("latest.json", DEFAULT_LATEST);
       return jsonResponse({
-        agency: DEFAULT_LATEST.agency,
-        scan_time: DEFAULT_LATEST.scan_time,
-        ghost_bus_rate_pct: DEFAULT_LATEST.ghost_bus_rate_pct,
-        overall_on_time_pct: DEFAULT_LATEST.overall_on_time_pct,
-        total_scheduled_trips: DEFAULT_LATEST.total_scheduled_trips,
-        total_tracked_vehicles: DEFAULT_LATEST.total_tracked_vehicles,
-        total_ghost_trips: DEFAULT_LATEST.total_ghost_trips,
-        mean_delay_sec: DEFAULT_LATEST.mean_delay_sec,
+        agency: latest.agency,
+        scan_time: latest.scan_time,
+        ghost_bus_rate_pct: latest.ghost_bus_rate_pct,
+        overall_on_time_pct: latest.overall_on_time_pct,
+        total_scheduled_trips: latest.total_scheduled_trips,
+        total_tracked_vehicles: latest.total_tracked_vehicles,
+        total_ghost_trips: latest.total_ghost_trips,
+        mean_delay_sec: latest.mean_delay_sec,
       });
     }
 
@@ -439,7 +459,11 @@ export default {
 
     // Web Dashboard (Root)
     if (path === "/" || path === "/index.html") {
-      const html = renderHtml(DEFAULT_LATEST, DEFAULT_HISTORY);
+      const [latest, history] = await Promise.all([
+        fetchSnapshot("latest.json", DEFAULT_LATEST),
+        fetchSnapshot("history.json", DEFAULT_HISTORY),
+      ]);
+      const html = renderHtml(latest, history);
       return new Response(html, {
         headers: {
           "Content-Type": "text/html; charset=utf-8",
