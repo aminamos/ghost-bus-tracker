@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 import pytest
+import requests
 
 from src.cli import main, run_scan
 from src.fetcher import FeedFetcher
@@ -11,7 +12,7 @@ from src.reporter import ReportGenerator
 
 
 def test_cli_scan_live_with_fallback(tmp_path):
-    """Test scan with live flag and fallback when mock fails."""
+    """Fallback sample data must never be persisted to committed artifacts."""
     latest_file = tmp_path / "latest.json"
     history_file = tmp_path / "history.json"
     report_file = tmp_path / "RELIABILITY.md"
@@ -36,7 +37,11 @@ def test_cli_scan_live_with_fallback(tmp_path):
             "--report-file", str(report_file),
         ])
         assert code == 0
-        assert latest_file.is_file()
+        # Sample fallback runs the analysis but writes nothing to disk —
+        # latest.json, history.json and RELIABILITY.md keep the last real data.
+        assert not latest_file.exists()
+        assert not history_file.exists()
+        assert not report_file.exists()
 
 
 def test_cli_scan_error_without_fallback(tmp_path):
@@ -180,18 +185,26 @@ def test_cli_summary_corrupted_file(tmp_path, capsys):
     assert code == 1
 
 
-def test_cli_report_fallback_scan(tmp_path):
+def test_cli_report_fallback_scan(tmp_path, sample_data_dir):
     """Test report command auto-triggering scan when input file is missing."""
     target_report = tmp_path / "auto_gen.md"
     missing_input = tmp_path / "auto_snap.json"
     target_history = tmp_path / "history.json"
 
-    code = main([
-        "report",
-        "--input", str(missing_input),
-        "--history", str(target_history),
-        "--output", str(target_report),
-    ])
+    # Deterministic "live" feeds: serve the bundled sample protobufs through
+    # the normal fetch methods so no real network call happens.
+    probe = FeedFetcher()
+    vehicles, v_ts = probe.fetch_vehicle_positions(sample_data_dir / "vehiclepositions_sample.pb")
+    trips, t_ts = probe.fetch_trip_updates(sample_data_dir / "tripupdates_sample.pb")
+
+    with patch.object(FeedFetcher, "fetch_vehicle_positions", return_value=(vehicles, v_ts)), \
+         patch.object(FeedFetcher, "fetch_trip_updates", return_value=(trips, t_ts)):
+        code = main([
+            "report",
+            "--input", str(missing_input),
+            "--history", str(target_history),
+            "--output", str(target_report),
+        ])
     assert code == 0
     assert target_report.is_file()
 

@@ -61,6 +61,7 @@ class ReportGenerator:
             total_tracked_vehicles=snapshot.total_tracked_vehicles,
             total_ghost_trips=snapshot.total_ghost_trips,
             mean_delay_sec=snapshot.mean_delay_sec,
+            source=snapshot.source,
         ).model_dump()
 
         history.append(entry)
@@ -91,11 +92,17 @@ class ReportGenerator:
             )
         )
 
+        source_label = (
+            "⚠️ SAMPLE feed (live fetch failed — not persisted)"
+            if snapshot.source == "sample"
+            else "live GTFS-RT feed"
+        )
+
         md: List[str] = [
             "# 🚌 Automated Public Transit Reliability & Ghost Bus Tracker",
             "",
             f"> Real-time monitoring and git-scraping reliability index for **{snapshot.agency}**.",
-            f"> **Status:** {status_badge} | **Last Scan:** `{snapshot.scan_time}`",
+            f"> **Status:** {status_badge} | **Last Scan:** `{snapshot.scan_time}` | **Source:** {source_label}",
             "",
             "---",
             "",

@@ -52,6 +52,7 @@ def test_cli_scan_sample(tmp_path):
     with open(latest_file, "r", encoding="utf-8") as f:
         data = json.load(f)
     assert data["total_scheduled_trips"] > 0
+    assert data["source"] == "sample"
 
 
 def test_cli_summary(tmp_path, capsys):

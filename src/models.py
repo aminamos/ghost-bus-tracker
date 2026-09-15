@@ -26,16 +26,6 @@ class VehicleSnapshot(BaseModel):
     timestamp: Optional[int] = None
 
 
-class StopTimeUpdateSnapshot(BaseModel):
-    stop_sequence: Optional[int] = None
-    stop_id: Optional[str] = None
-    arrival_delay: Optional[int] = None
-    arrival_time: Optional[int] = None
-    departure_delay: Optional[int] = None
-    departure_time: Optional[int] = None
-    schedule_relationship: str = "SCHEDULED"
-
-
 class TripSnapshot(BaseModel):
     trip_id: str
     route_id: str
@@ -87,6 +77,9 @@ class ReliabilitySnapshot(BaseModel):
     scan_time: str
     feed_timestamp: Optional[int] = None
     agency: str
+    # "live" = real GTFS-RT feed, "sample" = bundled offline sample data.
+    # Sample snapshots are marked so they can never masquerade as real scans.
+    source: str = "live"
     total_scheduled_trips: int = 0
     total_tracked_vehicles: int = 0
     total_ghost_trips: int = 0
@@ -111,3 +104,4 @@ class HistoryEntry(BaseModel):
     total_tracked_vehicles: int
     total_ghost_trips: int
     mean_delay_sec: float
+    source: str = "live"

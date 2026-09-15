@@ -36,6 +36,8 @@ def run_scan(args: argparse.Namespace) -> int:
     )
 
     try:
+        source = "live"
+        used_fallback = False
         if getattr(args, "sample", False):
             vp_src = args.vp_feed or config.SAMPLE_VP_FILE
             tu_src = args.tu_feed or config.SAMPLE_TU_FILE
@@ -45,6 +47,7 @@ def run_scan(args: argparse.Namespace) -> int:
             vehicles, v_ts = fetcher.fetch_vehicle_positions(vp_src)
             trips, t_ts = fetcher.fetch_trip_updates(tu_src)
             feed_ts = t_ts or v_ts
+            source = "sample"
         else:
             vp_src = args.vp_feed or config.VEHICLE_POSITIONS_URL
             tu_src = args.tu_feed or config.TRIP_UPDATES_URL
@@ -57,23 +60,37 @@ def run_scan(args: argparse.Namespace) -> int:
                 if args.fallback_sample:
                     logger.warning(f"Live feed fetch failed ({e}). Falling back to sample data...")
                     vehicles, trips, feed_ts = fetcher.load_sample_feeds()
+                    source = "sample"
+                    used_fallback = True
                 else:
                     raise
 
         # Run analysis
         snapshot = analyzer.analyze(vehicles, trips, feed_timestamp=feed_ts)
+        snapshot.source = source
 
-        # Output / Save
+        # Sample data pulled in as an implicit fallback must never land in
+        # committed artifacts — latest.json, history.json, RELIABILITY.md all
+        # get committed by the track workflow. Explicit --sample saves are fine
+        # (they're marked source="sample"), but a failed live fetch should
+        # leave the last real data untouched.
         if args.save:
-            saved_json = reporter.save_latest_json(snapshot)
-            history = reporter.update_history_json(snapshot)
-            logger.info(f"Metrics saved to {saved_json}")
+            if used_fallback:
+                logger.warning("Skipping --save: fallback sample data is never persisted to the metrics store")
+                history = None
+            else:
+                saved_json = reporter.save_latest_json(snapshot)
+                history = reporter.update_history_json(snapshot)
+                logger.info(f"Metrics saved to {saved_json}")
         else:
             history = None
 
         if args.report or args.save:
-            saved_report = reporter.write_markdown_report(snapshot, history)
-            logger.info(f"Dashboard updated at {saved_report}")
+            if used_fallback:
+                logger.warning("Skipping report write: snapshot is sample fallback data")
+            else:
+                saved_report = reporter.write_markdown_report(snapshot, history)
+                logger.info(f"Dashboard updated at {saved_report}")
 
         if not args.quiet:
             print("\n" + reporter.generate_console_summary(snapshot) + "\n")
@@ -178,7 +195,7 @@ def build_parser() -> argparse.ArgumentParser:
     scan_p.add_argument("--save", action="store_true", help="Save metrics to data/latest.json and update history.json")
     scan_p.add_argument("--report", action="store_true", help="Generate or update RELIABILITY.md")
     scan_p.add_argument("--quiet", action="store_true", help="Do not print terminal scorecard")
-    scan_p.add_argument("--fallback-sample", action="store_true", default=True, help="Fallback to sample feed if network fails")
+    scan_p.add_argument("--fallback-sample", action="store_true", help="Fallback to sample feed if network fails")
     scan_p.add_argument("--no-fallback-sample", dest="fallback_sample", action="store_false", help="Disable fallback to sample feed")
     scan_p.add_argument("--latest-file", type=str, help="Custom path for latest.json")
     scan_p.add_argument("--history-file", type=str, help="Custom path for history.json")

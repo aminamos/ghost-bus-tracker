@@ -1,6 +1,7 @@
 """Fetcher module for GTFS-RT vehicle positions, trip updates, and REST feeds."""
 
 import logging
+import statistics
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Union
 import requests
@@ -9,7 +10,6 @@ from google.transit import gtfs_realtime_pb2
 from src import config
 from src.models import (
     ScheduleRelationship,
-    StopTimeUpdateSnapshot,
     TripSnapshot,
     VehicleSnapshot,
 )
@@ -141,8 +141,10 @@ class FeedFetcher:
                 elif stu.HasField("arrival") and stu.arrival.HasField("delay"):
                     delays.append(stu.arrival.delay)
 
-            # Latest or first reported delay
-            rep_delay = delays[0] if delays else None
+            # Representative delay = median across per-stop delays. The first
+            # stop's delay is usually ~0 (origin departure) while lateness
+            # accumulates downstream; the median resists both ends.
+            rep_delay = int(round(statistics.median(delays))) if delays else None
 
             is_canceled = (rel_name == ScheduleRelationship.CANCELED.value)
 

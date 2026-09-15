@@ -9,17 +9,65 @@ const DATA_BASE =
   "https://raw.githubusercontent.com/aminamos/ghost-bus-tracker/main/data";
 const UPSTREAM_CACHE_TTL = 300; // git-scraping workflow commits every 30 min
 
-// Serve the freshest committed snapshot from the repo, cached at the edge.
-// Falls back to the bundled snapshot (deploy-time copy) if GitHub is down.
-async function fetchSnapshot(file, fallback) {
+// Escape feed-derived values before interpolating them into HTML.
+function esc(v) {
+  return String(v ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+// Serve the freshest committed snapshot from the repo, cached at the edge via
+// the Cache API under a fixed internal key (TTL: UPSTREAM_CACHE_TTL).
+// Pass fresh=true to bypass the cache match, fetch upstream directly, and
+// overwrite the cache entry. Falls back to the bundled snapshot (deploy-time
+// copy) if GitHub is down and no still-valid cache entry exists.
+// Note: cache.match() does not return entries past their Cache-Control max-age.
+async function fetchSnapshot(file, fallback, ctx, fresh = false) {
+  const cache = caches.default;
+  const cacheKey = `https://gbt-cache.internal/${file}`;
+  const upstreamUrl = fresh
+    ? `${DATA_BASE}/${file}?_=${Date.now()}` // defeat any intermediary caching
+    : `${DATA_BASE}/${file}`;
+
+  // Normal path: serve a still-valid edge-cached copy if one exists.
+  if (!fresh) {
+    try {
+      const hit = await cache.match(cacheKey);
+      if (hit) return await hit.json();
+    } catch {
+      // Cache read failed — continue to upstream.
+    }
+  }
+
   try {
-    const res = await fetch(`${DATA_BASE}/${file}`, {
-      cf: { cacheEverything: true, cacheTtl: UPSTREAM_CACHE_TTL },
+    const res = await fetch(upstreamUrl, {
       headers: { "User-Agent": "GhostBusTracker-Worker/0.1.0" },
     });
     if (!res.ok) throw new Error(`upstream ${res.status}`);
-    return await res.json();
+    const body = await res.text();
+    const data = JSON.parse(body); // validate before storing so we never cache non-JSON
+    const toStore = new Response(body, {
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "Cache-Control": `public, max-age=${UPSTREAM_CACHE_TTL}`,
+      },
+    });
+    const put = cache.put(cacheKey, toStore).catch(() => {});
+    if (ctx && typeof ctx.waitUntil === "function") ctx.waitUntil(put);
+    else await put;
+    return data;
   } catch {
+    // Upstream failed: a still-valid cache entry is better than nothing
+    // (reachable when fresh=1 skipped the first match, or it raced an update).
+    try {
+      const hit = await cache.match(cacheKey);
+      if (hit) return await hit.json();
+    } catch {
+      // ignore — use bundled fallback
+    }
     return fallback;
   }
 }
@@ -42,8 +90,8 @@ function renderHtml(latest, history) {
   const statusBadge = isHealthy
     ? `<span class="badge badge-success">🟢 Healthy (&lt;5% Ghosts)</span>`
     : isElevated
-    ? `<span class="badge badge-warning">🟡 Elevated Ghosts (${latest.ghost_bus_rate_pct}%)</span>`
-    : `<span class="badge badge-danger">🔴 Critical Ghosting (${latest.ghost_bus_rate_pct}%)</span>`;
+    ? `<span class="badge badge-warning">🟡 Elevated Ghosts (${esc(latest.ghost_bus_rate_pct)}%)</span>`
+    : `<span class="badge badge-danger">🔴 Critical Ghosting (${esc(latest.ghost_bus_rate_pct)}%)</span>`;
 
   const dist = latest.delay_distribution || {};
   const totalTrips = latest.total_scheduled_trips || 1;
@@ -54,7 +102,7 @@ function renderHtml(latest, history) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ghost Bus Tracker | ${latest.agency}</title>
+  <title>Ghost Bus Tracker | ${esc(latest.agency)}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -250,7 +298,7 @@ function renderHtml(latest, history) {
         <div class="brand-icon">🚌</div>
         <div>
           <h1>Ghost Bus Tracker</h1>
-          <div class="subtitle">Automated Public Transit Reliability &amp; Ghost Run Detection for <strong>${latest.agency}</strong></div>
+          <div class="subtitle">Automated Public Transit Reliability &amp; Ghost Run Detection for <strong>${esc(latest.agency)}</strong></div>
         </div>
       </div>
       <div class="header-actions">
@@ -264,28 +312,28 @@ function renderHtml(latest, history) {
     <div class="kpi-grid">
       <div class="kpi-card">
         <div class="kpi-title">Ghost Bus Rate</div>
-        <div class="kpi-value text-ghost">${latest.ghost_bus_rate_pct}%</div>
-        <div class="kpi-desc">${latest.total_ghost_trips} missing or dropped runs</div>
+        <div class="kpi-value text-ghost">${esc(latest.ghost_bus_rate_pct)}%</div>
+        <div class="kpi-desc">${esc(latest.total_ghost_trips)} missing or dropped runs</div>
       </div>
       <div class="kpi-card">
         <div class="kpi-title">On-Time Adherence</div>
-        <div class="kpi-value text-success">${latest.overall_on_time_pct}%</div>
+        <div class="kpi-value text-success">${esc(latest.overall_on_time_pct)}%</div>
         <div class="kpi-desc">Departures within -1m to +5m</div>
       </div>
       <div class="kpi-card">
         <div class="kpi-title">Active GPS Fleet</div>
-        <div class="kpi-value text-primary">${latest.total_tracked_vehicles}</div>
+        <div class="kpi-value text-primary">${esc(latest.total_tracked_vehicles)}</div>
         <div class="kpi-desc">Transponders reporting live coordinates</div>
       </div>
       <div class="kpi-card">
         <div class="kpi-title">Scheduled Runs</div>
-        <div class="kpi-value">${latest.total_scheduled_trips}</div>
+        <div class="kpi-value">${esc(latest.total_scheduled_trips)}</div>
         <div class="kpi-desc">Total active service runs scheduled</div>
       </div>
       <div class="kpi-card">
         <div class="kpi-title">Mean Schedule Deviation</div>
-        <div class="kpi-value text-warning">+${(latest.mean_delay_sec / 60.0).toFixed(1)}m</div>
-        <div class="kpi-desc">+${latest.mean_delay_sec}s average delay</div>
+        <div class="kpi-value text-warning">+${esc((latest.mean_delay_sec / 60.0).toFixed(1))}m</div>
+        <div class="kpi-desc">+${esc(latest.mean_delay_sec)}s average delay</div>
       </div>
     </div>
 
@@ -293,18 +341,18 @@ function renderHtml(latest, history) {
     <div class="card">
       <div class="card-title">⏱️ Schedule Adherence &amp; Delay Breakdown</div>
       <div class="dist-bar">
-        <div class="dist-seg bg-ontime" style="width: ${pct(dist.on_time || 0)}%" title="On-Time: ${dist.on_time}"></div>
-        <div class="dist-seg bg-early" style="width: ${pct(dist.early || 0)}%" title="Early: ${dist.early}"></div>
-        <div class="dist-seg bg-minor" style="width: ${pct(dist.minor_delay || 0)}%" title="Minor Delay: ${dist.minor_delay}"></div>
-        <div class="dist-seg bg-severe" style="width: ${pct(dist.severe_delay || 0)}%" title="Severe Delay: ${dist.severe_delay}"></div>
-        <div class="dist-seg bg-ghost" style="width: ${pct(dist.ghost || 0)}%" title="Ghost/Missing: ${dist.ghost}"></div>
+        <div class="dist-seg bg-ontime" style="width: ${pct(dist.on_time || 0)}%" title="On-Time: ${esc(dist.on_time)}"></div>
+        <div class="dist-seg bg-early" style="width: ${pct(dist.early || 0)}%" title="Early: ${esc(dist.early)}"></div>
+        <div class="dist-seg bg-minor" style="width: ${pct(dist.minor_delay || 0)}%" title="Minor Delay: ${esc(dist.minor_delay)}"></div>
+        <div class="dist-seg bg-severe" style="width: ${pct(dist.severe_delay || 0)}%" title="Severe Delay: ${esc(dist.severe_delay)}"></div>
+        <div class="dist-seg bg-ghost" style="width: ${pct(dist.ghost || 0)}%" title="Ghost/Missing: ${esc(dist.ghost)}"></div>
       </div>
       <div class="dist-legend">
-        <div class="legend-item"><span class="legend-dot bg-ontime"></span> On-Time: <strong>${dist.on_time || 0}</strong> (${pct(dist.on_time || 0)}%)</div>
-        <div class="legend-item"><span class="legend-dot bg-early"></span> Early (&gt;1m): <strong>${dist.early || 0}</strong> (${pct(dist.early || 0)}%)</div>
-        <div class="legend-item"><span class="legend-dot bg-minor"></span> Minor Delay (+5-15m): <strong>${dist.minor_delay || 0}</strong> (${pct(dist.minor_delay || 0)}%)</div>
-        <div class="legend-item"><span class="legend-dot bg-severe"></span> Severe Delay (&gt;15m): <strong>${dist.severe_delay || 0}</strong> (${pct(dist.severe_delay || 0)}%)</div>
-        <div class="legend-item"><span class="legend-dot bg-ghost"></span> Ghost / Missing: <strong>${dist.ghost || 0}</strong> (${pct(dist.ghost || 0)}%)</div>
+        <div class="legend-item"><span class="legend-dot bg-ontime"></span> On-Time: <strong>${esc(dist.on_time || 0)}</strong> (${pct(dist.on_time || 0)}%)</div>
+        <div class="legend-item"><span class="legend-dot bg-early"></span> Early (&gt;1m): <strong>${esc(dist.early || 0)}</strong> (${pct(dist.early || 0)}%)</div>
+        <div class="legend-item"><span class="legend-dot bg-minor"></span> Minor Delay (+5-15m): <strong>${esc(dist.minor_delay || 0)}</strong> (${pct(dist.minor_delay || 0)}%)</div>
+        <div class="legend-item"><span class="legend-dot bg-severe"></span> Severe Delay (&gt;15m): <strong>${esc(dist.severe_delay || 0)}</strong> (${pct(dist.severe_delay || 0)}%)</div>
+        <div class="legend-item"><span class="legend-dot bg-ghost"></span> Ghost / Missing: <strong>${esc(dist.ghost || 0)}</strong> (${pct(dist.ghost || 0)}%)</div>
       </div>
     </div>
 
@@ -328,13 +376,13 @@ function renderHtml(latest, history) {
           <tbody>
             ${(latest.worst_routes_by_ghost || []).map(r => `
               <tr>
-                <td><span class="route-pill">${r.route_name || r.route_id}</span></td>
-                <td>${r.total_trips}</td>
-                <td>${r.tracked_vehicles}</td>
-                <td><strong class="text-ghost">${r.ghost_trips}</strong></td>
-                <td><strong class="text-ghost">${r.ghost_rate_pct}%</strong></td>
-                <td>${r.on_time_pct}%</td>
-                <td>+${(r.avg_delay_sec / 60.0).toFixed(1)}m</td>
+                <td><span class="route-pill">${esc(r.route_name || r.route_id)}</span></td>
+                <td>${esc(r.total_trips)}</td>
+                <td>${esc(r.tracked_vehicles)}</td>
+                <td><strong class="text-ghost">${esc(r.ghost_trips)}</strong></td>
+                <td><strong class="text-ghost">${esc(r.ghost_rate_pct)}%</strong></td>
+                <td>${esc(r.on_time_pct)}%</td>
+                <td>+${esc((r.avg_delay_sec / 60.0).toFixed(1))}m</td>
               </tr>
             `).join('')}
           </tbody>
@@ -359,11 +407,11 @@ function renderHtml(latest, history) {
           <tbody>
             ${(latest.sample_ghost_trips || []).slice(0, 10).map(g => `
               <tr>
-                <td><code style="font-family: var(--font-mono); color: #93c5fd;">${g.trip_id}</code></td>
-                <td>Route ${g.route_id}</td>
-                <td>${g.start_time || 'N/A'}</td>
-                <td><span class="badge badge-warning">${g.status}</span></td>
-                <td style="color: #fca5a5;">${g.reason}</td>
+                <td><code style="font-family: var(--font-mono); color: #93c5fd;">${esc(g.trip_id)}</code></td>
+                <td>Route ${esc(g.route_id)}</td>
+                <td>${esc(g.start_time || 'N/A')}</td>
+                <td><span class="badge badge-warning">${esc(g.status)}</span></td>
+                <td style="color: #fca5a5;">${esc(g.reason)}</td>
               </tr>
             `).join('')}
           </tbody>
@@ -373,7 +421,7 @@ function renderHtml(latest, history) {
 
     <footer>
       <p>Ghost Bus Tracker &bull; Powered by Cloudflare Workers &amp; Git-Scraping &bull; <a href="https://github.com/aminamos/ghost-bus-tracker" target="_blank">GitHub Repository</a></p>
-      <p style="margin-top: 0.5rem; font-size: 0.8rem;">Feed Snapshot Time: <code>${latest.scan_time}</code></p>
+      <p style="margin-top: 0.5rem; font-size: 0.8rem;">Feed Snapshot Time: <code>${esc(latest.scan_time)}</code></p>
     </footer>
   </div>
 
@@ -391,7 +439,7 @@ function renderHtml(latest, history) {
       try {
         const btn = document.querySelector('button');
         btn.textContent = '⏳ Refreshing...';
-        const res = await fetch('/api/latest');
+        const res = await fetch('/api/latest?fresh=1');
         if (res.ok) {
           window.location.reload();
         }
@@ -408,6 +456,8 @@ export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const path = url.pathname;
+    // ?fresh / ?fresh=1 bypasses the edge cache and re-fetches upstream.
+    const fresh = url.searchParams.has("fresh");
 
     // Health check
     if (path === "/health" || path === "/api/health") {
@@ -421,17 +471,17 @@ export default {
 
     // Latest Snapshot API
     if (path === "/api/latest") {
-      return jsonResponse(await fetchSnapshot("latest.json", DEFAULT_LATEST));
+      return jsonResponse(await fetchSnapshot("latest.json", DEFAULT_LATEST, ctx, fresh));
     }
 
     // History API
     if (path === "/api/history") {
-      return jsonResponse(await fetchSnapshot("history.json", DEFAULT_HISTORY));
+      return jsonResponse(await fetchSnapshot("history.json", DEFAULT_HISTORY, ctx, fresh));
     }
 
     // Summary Scorecard API
     if (path === "/api/summary") {
-      const latest = await fetchSnapshot("latest.json", DEFAULT_LATEST);
+      const latest = await fetchSnapshot("latest.json", DEFAULT_LATEST, ctx, fresh);
       return jsonResponse({
         agency: latest.agency,
         scan_time: latest.scan_time,
@@ -460,8 +510,8 @@ export default {
     // Web Dashboard (Root)
     if (path === "/" || path === "/index.html") {
       const [latest, history] = await Promise.all([
-        fetchSnapshot("latest.json", DEFAULT_LATEST),
-        fetchSnapshot("history.json", DEFAULT_HISTORY),
+        fetchSnapshot("latest.json", DEFAULT_LATEST, ctx, fresh),
+        fetchSnapshot("history.json", DEFAULT_HISTORY, ctx, fresh),
       ]);
       const html = renderHtml(latest, history);
       return new Response(html, {

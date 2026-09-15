@@ -65,5 +65,20 @@ jobs:
             GHOST_RATE=$(python -c "import json; d=json.load(open('data/latest.json')); print(f'{d.get(\"ghost_bus_rate_pct\", 0)}%')")
             SCAN_TIME=$(date -u +"%Y-%m-%d %H:%M:%SZ")
             git commit -m "Automated transit scan: ${SCAN_TIME} [ghost rate: ${GHOST_RATE}] [skip ci]"
-            git push origin main
+            
+            # Retry push with rebase in case a human commit landed meanwhile.
+            # Scan commits are tagged [skip ci], so rebasing is safe.
+            for attempt in 1 2 3; do
+              if git push origin main; then
+                echo "Push succeeded on attempt ${attempt}."
+                break
+              fi
+              if [ "$attempt" -lt 3 ]; then
+                echo "Push rejected (attempt ${attempt}/3). Rebasing onto origin/main and retrying..."
+                git pull --rebase origin main || { echo "Rebase failed; aborting."; git rebase --abort; exit 1; }
+              else
+                echo "Push failed after 3 attempts."
+                exit 1
+              fi
+            done
           fi

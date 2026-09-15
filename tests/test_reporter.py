@@ -33,6 +33,7 @@ def test_update_history_json(tmp_path, sample_snapshot):
     h1 = reporter.update_history_json(sample_snapshot, history_path=history_file, max_entries=2)
     assert len(h1) == 1
     assert h1[0]["ghost_bus_rate_pct"] == 30.0
+    assert h1[0]["source"] == "live"
 
     # Second entry
     h2 = reporter.update_history_json(sample_snapshot, history_path=history_file, max_entries=2)
@@ -61,6 +62,15 @@ def test_generate_markdown_content(sample_snapshot):
     assert "Top Worst Routes by Ghost Bus Rate" in md
     assert "Recent Reliability Trend" in md
     assert "Methodology & Definitions" in md
+    assert "**Source:** live GTFS-RT feed" in md
+
+
+def test_generate_markdown_marks_sample_source(sample_snapshot):
+    """Snapshots built from sample data are visibly labeled in the report."""
+    sample_snapshot.source = "sample"
+    reporter = ReportGenerator()
+    md = reporter.generate_markdown(sample_snapshot)
+    assert "SAMPLE feed" in md
 
 
 def test_write_markdown_report_to_disk(tmp_path, sample_snapshot):

@@ -56,6 +56,25 @@ def test_parse_trip_updates(mock_gtfs_rt_bytes):
     assert t3.has_vehicle_assigned is False
 
 
+def test_parse_trip_updates_median_delay():
+    """Representative delay is the median across stop_time_updates, not the first stop's."""
+    from google.transit import gtfs_realtime_pb2
+
+    feed = gtfs_realtime_pb2.FeedMessage()
+    feed.header.gtfs_realtime_version = "2.0"
+    ent = feed.entity.add()
+    ent.id = "e1"
+    ent.trip_update.trip.trip_id = "trip_med"
+    ent.trip_update.trip.route_id = "9"
+    for delay in (0, 300, 600, 900):  # median = (300 + 600) / 2 = 450
+        stu = ent.trip_update.stop_time_update.add()
+        stu.departure.delay = delay
+
+    trips, _ = FeedFetcher().parse_trip_updates(feed.SerializeToString())
+    assert len(trips) == 1
+    assert trips[0].delay_seconds == 450
+
+
 def test_read_bytes_from_local_file(tmp_path):
     """Test reading raw bytes from a local file."""
     test_file = tmp_path / "test.bin"

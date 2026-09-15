@@ -42,10 +42,12 @@ class ReliabilityAnalyzer:
         for trip in trips:
             updated_trip = trip.model_copy()
 
-            # Condition 1: Explicitly marked CANCELED in GTFS-RT
+            # Condition 1: Explicitly marked CANCELED in GTFS-RT.
+            # Canceled trips are their own category: NOT ghosts, NOT tracked,
+            # and excluded from delay stats. No ghost_reason applies.
             if updated_trip.is_canceled:
-                updated_trip.is_ghost = True
-                updated_trip.ghost_reason = "Scheduled trip marked CANCELED by agency"
+                updated_trip.is_ghost = False
+                updated_trip.ghost_reason = None
             # Condition 2: Trip update exists but no vehicle assigned and no GPS broadcast for trip_id
             elif not updated_trip.has_vehicle_assigned and updated_trip.trip_id not in active_trip_ids:
                 updated_trip.is_ghost = True
@@ -62,12 +64,45 @@ class ReliabilityAnalyzer:
 
         return analyzed_trips
 
+    @staticmethod
+    def _parse_start_time_seconds(start_time: str) -> Optional[int]:
+        """Parses a GTFS 'HH:MM:SS' start time into seconds after midnight.
+
+        GTFS times may exceed 24:00:00 for after-midnight service, so plain
+        time parsing is intentionally avoided. Returns None if unparseable.
+        """
+        try:
+            parts = start_time.strip().split(":")
+            if len(parts) != 3:
+                return None
+            hours, minutes, seconds = (int(p) for p in parts)
+            if hours < 0 or not (0 <= minutes < 60) or not (0 <= seconds < 60):
+                return None
+            return hours * 3600 + minutes * 60 + seconds
+        except (ValueError, AttributeError):
+            return None
+
     def calculate_headway_metrics(
         self, trips: List[TripSnapshot]
     ) -> List[HeadwayMetric]:
         """Calculates headway regularity and Excess Wait Time (EWT) for routes with multiple runs."""
         route_delays: Dict[str, List[int]] = {}
+        route_start_times: Dict[str, List[int]] = {}
+
         for trip in trips:
+            # Canceled trips never ran: they contribute neither delay samples
+            # nor scheduled start times to headway analysis.
+            if trip.is_canceled:
+                continue
+
+            # Scheduled start times come from all non-canceled trips, including
+            # ghosts — a ghost run was still scheduled to depart at start_time.
+            if trip.start_time:
+                start_sec = self._parse_start_time_seconds(trip.start_time)
+                if start_sec is not None:
+                    route_start_times.setdefault(trip.route_id, []).append(start_sec)
+
+            # Delay samples only from verified tracked (non-ghost) trips.
             if not trip.is_ghost and trip.delay_seconds is not None:
                 route_delays.setdefault(trip.route_id, []).append(trip.delay_seconds)
 
@@ -76,20 +111,43 @@ class ReliabilityAnalyzer:
             if len(delays) < 2:
                 continue
 
+            # Real scheduled headway: median gap between sorted start times of
+            # non-canceled trips on the route. Zero/negative gaps (simultaneous
+            # departures, e.g. opposite directions) are not meaningful headways.
+            starts = sorted(route_start_times.get(route_id, []))
+            gaps = [b - a for a, b in zip(starts, starts[1:]) if b - a > 0]
+            if not gaps:
+                continue  # no real headway measurable for this route
+            scheduled_headway_sec = statistics.median(gaps)
+            scheduled_headway_min = round(scheduled_headway_sec / 60.0, 1)
+
             # Standard deviation of delays indicates bunching vs steady headway
-            delay_std = statistics.pstdev(delays) if len(delays) > 1 else 0.0
+            delay_std = statistics.pstdev(delays)
             avg_delay = statistics.mean(delays)
 
-            # Excess wait time estimate: variance / (2 * mean_headway_estimate)
-            # Typically urban headway is ~15-20 min (900-1200s); delay jitter translates directly to excess wait
-            ewt_min = round(delay_std / 60.0 * 0.5, 2)
-            regularity_score = max(0.0, round(100.0 - (delay_std / 60.0 * 10.0), 1))
+            # Documented approximation: observed headway ≈ scheduled headway
+            # shifted by the average delay of tracked trips on the route.
+            observed_headway_min = round(scheduled_headway_min + (avg_delay / 60.0), 1)
+
+            # Standard EWT formula: EWT = Var(headway) / (2 * E[headway]).
+            # True per-departure headway variance is not observable here, so it
+            # is estimated from the variance of delays (delay jitter is what
+            # produces bunching), and E[headway] is the real scheduled headway.
+            headway_var_sec2 = delay_std ** 2
+            ewt_min = round(headway_var_sec2 / (2.0 * scheduled_headway_sec) / 60.0, 2)
+
+            # Regularity score: 100 when observed headway jitter is zero,
+            # degrading toward 0 as the delay stddev approaches one full
+            # scheduled headway (coefficient of variation of the headway).
+            regularity_score = max(
+                0.0, round(100.0 * (1.0 - delay_std / scheduled_headway_sec), 1)
+            )
 
             metrics.append(
                 HeadwayMetric(
                     route_id=route_id,
-                    scheduled_headway_min=15.0,  # nominal standard headway
-                    observed_headway_min=round(15.0 + (avg_delay / 60.0), 1),
+                    scheduled_headway_min=scheduled_headway_min,
+                    observed_headway_min=observed_headway_min,
                     excess_wait_time_min=ewt_min,
                     headway_regularity_score=min(100.0, regularity_score),
                 )
@@ -122,7 +180,10 @@ class ReliabilityAnalyzer:
             else 0.0
         )
 
-        tracked_trips_count = total_scheduled_trips - total_ghosts
+        total_canceled = len([t for t in annotated_trips if t.is_canceled])
+        # Tracked = verified-running trips only: canceled trips are neither
+        # ghosts nor tracked, so ghost% + tracked% + canceled% partitions 100%.
+        tracked_trips_count = total_scheduled_trips - total_ghosts - total_canceled
         tracking_rate = (
             round((tracked_trips_count / total_scheduled_trips) * 100, 2)
             if total_scheduled_trips > 0
@@ -138,13 +199,28 @@ class ReliabilityAnalyzer:
         valid_delays: List[int] = []
         route_map: Dict[str, Dict[str, Any]] = {}
 
+        # Unique vehicles observed per route. A vehicle is attributed to a
+        # route via its own broadcast route_id, falling back to the route of
+        # the trip it is broadcasting (vehicle positions sometimes lack
+        # route_id). tracked_vehicles counts UNIQUE vehicle_ids, not trips.
+        active_vehicle_ids: Set[str] = {v.vehicle_id for v in vehicles if v.vehicle_id}
+        trip_route_by_id: Dict[str, Optional[str]] = {
+            t.trip_id: t.route_id for t in annotated_trips if t.trip_id
+        }
+        route_vehicle_ids: Dict[str, Set[str]] = {}
+        for v in vehicles:
+            if not v.vehicle_id:
+                continue
+            v_route = v.route_id or trip_route_by_id.get(v.trip_id)
+            if v_route:
+                route_vehicle_ids.setdefault(v_route, set()).add(v.vehicle_id)
+
         for trip in annotated_trips:
             r_id = trip.route_id or "UNKNOWN"
             if r_id not in route_map:
                 route_map[r_id] = {
                     "route_id": r_id,
                     "total_trips": 0,
-                    "tracked_vehicles": 0,
                     "ghost_trips": 0,
                     "canceled_trips": 0,
                     "on_time_trips": 0,
@@ -156,12 +232,17 @@ class ReliabilityAnalyzer:
             rm["total_trips"] += 1
 
             if trip.is_canceled:
+                # Canceled trips are their own bucket: not ghosts, not
+                # tracked, and excluded from delay statistics.
                 rm["canceled_trips"] += 1
-
-            if trip.is_ghost:
+            elif trip.is_ghost:
                 rm["ghost_trips"] += 1
             else:
-                rm["tracked_vehicles"] += 1
+                # Tracked trip: record its assigned vehicle if that vehicle is
+                # actually broadcasting GPS.
+                if trip.vehicle_id and trip.vehicle_id in active_vehicle_ids:
+                    route_vehicle_ids.setdefault(r_id, set()).add(trip.vehicle_id)
+
                 if trip.delay_seconds is not None:
                     valid_delays.append(trip.delay_seconds)
                     rm["delays"].append(trip.delay_seconds)
@@ -217,7 +298,7 @@ class ReliabilityAnalyzer:
                     route_id=r_id,
                     route_name=f"Route {r_id}",
                     total_trips=tot,
-                    tracked_vehicles=stats["tracked_vehicles"],
+                    tracked_vehicles=len(route_vehicle_ids.get(r_id, set())),
                     ghost_trips=ghosts,
                     canceled_trips=stats["canceled_trips"],
                     on_time_trips=stats["on_time_trips"],
