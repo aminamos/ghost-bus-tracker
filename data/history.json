@@ -212,5 +212,15 @@
     "total_ghost_trips": 0,
     "mean_delay_sec": 88.8,
     "source": "live"
+  },
+  {
+    "scan_time": "2026-09-16T12:18:43.297821+00:00",
+    "ghost_bus_rate_pct": 15.35,
+    "overall_on_time_pct": 60.12,
+    "total_scheduled_trips": 977,
+    "total_tracked_vehicles": 825,
+    "total_ghost_trips": 150,
+    "mean_delay_sec": 34.1,
+    "source": "live"
   }
 ]
