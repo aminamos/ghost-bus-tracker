@@ -85,6 +85,39 @@ def test_agency_presets_config():
     assert config.get_preset("muni") == sf
     assert config.get_preset("san-francisco") == sf
 
+    # New Recommended Cities
+    philly = config.get_preset("philly")
+    assert philly is not None and philly["name"] == "SEPTA"
+    assert config.get_preset("septa") == philly
+
+    dc = config.get_preset("dc")
+    assert dc is not None and dc["name"] == "WMATA"
+    assert config.get_preset("wmata") == dc
+
+    la = config.get_preset("la")
+    assert la is not None and la["name"] == "LA Metro"
+    assert config.get_preset("lametro") == la
+
+    seattle = config.get_preset("seattle")
+    assert seattle is not None and "King County" in seattle["agency"]
+    assert config.get_preset("kcm") == seattle
+
+    denver = config.get_preset("denver")
+    assert denver is not None and denver["name"] == "RTD"
+    assert config.get_preset("rtd") == denver
+
+    portland = config.get_preset("portland")
+    assert portland is not None and portland["name"] == "TriMet"
+    assert config.get_preset("trimet") == portland
+
+    atlanta = config.get_preset("atlanta")
+    assert atlanta is not None and atlanta["name"] == "MARTA"
+    assert config.get_preset("marta") == atlanta
+
+    toronto = config.get_preset("toronto")
+    assert toronto is not None and toronto["name"] == "TTC"
+    assert config.get_preset("ttc") == toronto
+
 
 def test_cli_presets_command(capsys):
     """Verify 'ghost-bus presets' prints available presets."""
@@ -95,8 +128,16 @@ def test_cli_presets_command(capsys):
     assert "CHICAGO" in captured.out
     assert "BOSTON" in captured.out
     assert "TWIN-CITIES" in captured.out
-    assert "CTA" in captured.out
-    assert "MBTA" in captured.out
+    assert "SF" in captured.out
+    assert "PHILLY" in captured.out
+    assert "DC" in captured.out
+    assert "LA" in captured.out
+    assert "SEATTLE" in captured.out
+    assert "DENVER" in captured.out
+    assert "PORTLAND" in captured.out
+    assert "ATLANTA" in captured.out
+    assert "TORONTO" in captured.out
+
 
 
 def test_cli_scan_with_preset_sample(tmp_path):
@@ -153,6 +194,24 @@ def test_worker_multi_city_data_and_location_switching():
     assert "79 79th" in cities_content
     assert "Massachusetts Bay Transportation Authority" in cities_content
     assert "1 Harvard - Nubian" in cities_content
+
+    # Verify New Recommended Markets
+    assert "SEPTA" in cities_content
+    assert "Route 23 Germantown Ave" in cities_content
+    assert "WMATA" in cities_content
+    assert "Route S2 16th Street Line" in cities_content
+    assert "LA Metro" in cities_content
+    assert "Line 720 Wilshire Rapid" in cities_content
+    assert "King County Metro" in cities_content
+    assert "RapidRide E Line (Aurora)" in cities_content
+    assert "RTD" in cities_content
+    assert "Route 15 / 15L Colfax Ave" in cities_content
+    assert "TriMet" in cities_content
+    assert "Line 4 Division/Fessenden" in cities_content
+    assert "MARTA" in cities_content
+    assert "Route 83 Campbellton Rd" in cities_content
+    assert "TTC" in cities_content
+    assert "501 Queen Streetcar" in cities_content
 
     # Verify interactive UI elements in index.js
     assert "switchCity" in index_content

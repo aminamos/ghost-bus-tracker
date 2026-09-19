@@ -230,9 +230,17 @@ While the live dashboard at [ghost-bus-tracker.a-8c6.workers.dev](https://ghost-
 | **Chicago, IL** | CTA | `chicago` / `cta` | Free API Key | 'L' Trains & Bus Fleet |
 | **Boston, MA** | MBTA | `boston` / `mbta` | Open (No key) | Subway, Light Rail & Bus |
 | **New York, NY** | MTA | `nyc` / `mta` | Free API Key | NYC Subway & Regional Bus |
+| **Philadelphia, PA** | SEPTA | `philly` / `septa` | Open (No key) | Subway, Trolley & 120+ Bus Routes |
+| **Washington, DC** | WMATA | `dc` / `wmata` | Free API Key | Metrorail & Metrobus Network |
+| **Los Angeles, CA** | LA Metro | `la` / `lametro` | Open (No key) | Metro Rail (6 lines) & 2,200+ Buses |
+| **Seattle, WA** | Sound Transit & KCM | `seattle` / `kcm` | Open (No key) | Link Light Rail, RapidRide & King County Buses |
+| **Denver, CO** | RTD | `denver` / `rtd` | Open (No key) | Commuter Rail, Light Rail & Bus Grid |
+| **Portland, OR** | TriMet | `portland` / `trimet` | Free API Key | MAX Light Rail, Streetcar & Bus Network |
+| **Atlanta, GA** | MARTA | `atlanta` / `marta` | Open (No key) | Heavy Rail (4 lines) & Bus Transit |
+| **Toronto, ON** | TTC | `toronto` / `ttc` | Open (No key) | Subway (Lines 1-4), Streetcars & Buses |
 
 > 💡 **Interactive Location Switching in the Dashboard:**
-> On the live web dashboard at [ghost-bus-tracker.a-8c6.workers.dev](https://ghost-bus-tracker.a-8c6.workers.dev), you can click any transit market chip (e.g. switching between Minneapolis, San Francisco, Chicago, Boston, or New York) to immediately update all KPIs, charts, worst routes, and feed diagnostics. You can also deep-link directly via URL parameter: `?city=sf` or `?city=mpls`.
+> On the live web dashboard at [ghost-bus-tracker.a-8c6.workers.dev](https://ghost-bus-tracker.a-8c6.workers.dev), you can click any transit market chip (e.g. switching between Minneapolis, San Francisco, Chicago, Boston, New York, Philadelphia, D.C., Los Angeles, Seattle, Denver, Portland, Atlanta, or Toronto) to immediately update all KPIs, charts, worst routes, and feed diagnostics. You can also deep-link directly via URL parameter: `?city=philly`, `?city=la`, `?city=dc`, `?city=sf`, `?city=mpls`, etc.
 
 > 💡 **Chicago & The Origin of "Ghost Buses":** The term "Ghost Bus" was famously coined and popularized in Chicago by transit advocacy groups (such as Commuters Take Action) investigating severe phantom bus schedules across the Chicago Transit Authority (CTA).
 
