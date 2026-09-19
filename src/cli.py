@@ -28,11 +28,31 @@ if hasattr(sys.stdout, "reconfigure"):
 def run_scan(args: argparse.Namespace) -> int:
     """Executes a scan of GTFS-RT feeds and computes reliability metrics."""
     fetcher = FeedFetcher()
+
+    preset = None
+    if getattr(args, "preset", None):
+        preset = config.get_preset(args.preset)
+        if not preset:
+            logger.error(
+                f"Unknown preset '{args.preset}'. Available presets: {', '.join(config.AGENCY_PRESETS.keys())}. "
+                f"Run 'ghost-bus presets' to see all supported cities."
+            )
+            return 1
+
+    agency_name = getattr(args, "agency", None) or (preset["agency"] if preset else config.AGENCY_NAME)
+    city_name = getattr(args, "city", None) or (preset["city"] if preset else config.CITY_NAME)
+    transit_system = getattr(args, "transit_system", None) or (preset["name"] if preset else config.TRANSIT_SYSTEM)
+    region_name = getattr(args, "region", None) or (preset["region"] if preset else config.REGION_NAME)
+    state_name = (preset["state"] if preset else config.STATE_NAME)
+    country_name = (preset["country"] if preset else config.COUNTRY_NAME)
+
     analyzer = ReliabilityAnalyzer(
-        agency_name=getattr(args, "agency", None) or config.AGENCY_NAME,
-        city_name=getattr(args, "city", None) or config.CITY_NAME,
-        transit_system=getattr(args, "transit_system", None) or config.TRANSIT_SYSTEM,
-        region_name=getattr(args, "region", None) or config.REGION_NAME,
+        agency_name=agency_name,
+        city_name=city_name,
+        transit_system=transit_system,
+        region_name=region_name,
+        state_name=state_name,
+        country_name=country_name,
     )
     reporter = ReportGenerator(
         latest_path=Path(args.latest_file) if args.latest_file else config.LATEST_FILE,
@@ -54,9 +74,35 @@ def run_scan(args: argparse.Namespace) -> int:
             feed_ts = t_ts or v_ts
             source = "sample"
         else:
-            vp_src = args.vp_feed or config.VEHICLE_POSITIONS_URL
-            tu_src = args.tu_feed or config.TRIP_UPDATES_URL
-            logger.info(f"Fetching live feeds from {vp_src} & {tu_src}...")
+            vp_src = args.vp_feed or (preset["vp_url"] if preset else config.VEHICLE_POSITIONS_URL)
+            tu_src = args.tu_feed or (preset["tu_url"] if preset else config.TRIP_UPDATES_URL)
+
+            # Handle API key if required by preset or provided via CLI / env
+            api_key = getattr(args, "api_key", None)
+            if preset and preset.get("requires_key"):
+                env_var = preset.get("key_env_var")
+                if not api_key and env_var:
+                    api_key = os.getenv(env_var)
+
+                if api_key:
+                    if preset.get("key_param"):
+                        sep = "&" if "?" in vp_src else "?"
+                        vp_src = f"{vp_src}{sep}{preset['key_param']}={api_key}"
+                        sep = "&" if "?" in tu_src else "?"
+                        tu_src = f"{tu_src}{sep}{preset['key_param']}={api_key}"
+                    elif preset.get("key_header"):
+                        fetcher.session.headers.update({preset["key_header"]: api_key})
+                else:
+                    logger.warning(
+                        f"⚠️  {preset['name']} ({preset['city']}) GTFS-RT feed requires an API key from {preset.get('key_url')}."
+                    )
+                    logger.warning(
+                        f"   Pass --api-key <KEY> or set export {preset.get('key_env_var')}=<KEY>."
+                    )
+
+            logger.info(f"Fetching live feeds for {transit_system} ({city_name})...")
+            logger.info(f"  VP Feed: {vp_src}")
+            logger.info(f"  TU Feed: {tu_src}")
             try:
                 vehicles, v_ts = fetcher.fetch_vehicle_positions(vp_src)
                 trips, t_ts = fetcher.fetch_trip_updates(tu_src)
@@ -178,6 +224,29 @@ def run_summary(args: argparse.Namespace) -> int:
         return 1
 
 
+def run_presets(args: argparse.Namespace) -> int:
+    """Lists all built-in city transit agency presets."""
+    print("=" * 70)
+    print(" 🏙️ GHOST BUS TRACKER: BUILT-IN TRANSIT AGENCY PRESETS")
+    print("=" * 70)
+    for p_id, p in config.AGENCY_PRESETS.items():
+        key_status = (
+            "Open (No key required)"
+            if not p.get("requires_key")
+            else f"Requires API Key (env: {p.get('key_env_var')}, register at {p.get('key_url')})"
+        )
+        print(f"\n[{p['id'].upper()}] - {p['name']} ({p['city']})")
+        print(f"  Agency:      {p['agency']}")
+        print(f"  Region:      {p['region']}")
+        print(f"  Access:      {key_status}")
+        print(f"  Description: {p['description']}")
+        print(f"  VP Feed:     {p['vp_url']}")
+        print(f"  TU Feed:     {p['tu_url']}")
+        print(f"  Scan Cmd:    ghost-bus scan --preset {p['id']}")
+    print("\n" + "=" * 70)
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     """Builds CLI argument parser."""
     parser = argparse.ArgumentParser(
@@ -194,6 +263,16 @@ def build_parser() -> argparse.ArgumentParser:
     scan_p = subparsers.add_parser("scan", help="Fetch feeds and analyze transit reliability")
     scan_p.add_argument("--live", action="store_true", help="Fetch live feeds from network (default)")
     scan_p.add_argument("--sample", "--mock", dest="sample", action="store_true", help="Use local sample feeds")
+    scan_p.add_argument(
+        "--preset",
+        type=str,
+        help="Use built-in city/agency preset (e.g. chicago, cta, boston, mbta, twin-cities, nyc)",
+    )
+    scan_p.add_argument(
+        "--api-key",
+        type=str,
+        help="API key for feeds that require authentication (e.g. CTA or MTA)",
+    )
     scan_p.add_argument("--vp-feed", type=str, help="Custom URL or file path for vehicle positions")
     scan_p.add_argument("--tu-feed", type=str, help="Custom URL or file path for trip updates")
     scan_p.add_argument("--agency", type=str, help="Transit agency name")
@@ -220,6 +299,9 @@ def build_parser() -> argparse.ArgumentParser:
     summary_p = subparsers.add_parser("summary", help="Print quick scorecard from latest snapshot")
     summary_p.add_argument("--input", type=str, help="Input JSON snapshot file (default: data/latest.json)")
 
+    # presets subcommand
+    subparsers.add_parser("presets", help="List built-in city transit agency presets (Chicago CTA, Boston MBTA, etc.)")
+
     return parser
 
 
@@ -238,6 +320,8 @@ def main(argv: Optional[list] = None) -> int:
         return run_report(args)
     elif args.command == "summary":
         return run_summary(args)
+    elif args.command == "presets":
+        return run_presets(args)
     else:
         parser.print_help()
         return 1

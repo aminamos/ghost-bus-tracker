@@ -53,3 +53,70 @@ def test_worker_index_html_includes_city_and_system():
     assert "Metro Transit" in code
     assert "Transit System &amp; Regional Coverage" in code
     assert "Twin Cities" in code
+
+
+def test_agency_presets_config():
+    """Verify built-in agency presets for Chicago, Boston, Minneapolis, and NYC."""
+    chicago = config.get_preset("chicago")
+    assert chicago is not None
+    assert chicago["name"] == "CTA"
+    assert "Chicago" in chicago["city"]
+    assert chicago["requires_key"] is True
+
+    # Test aliases
+    assert config.get_preset("cta") == chicago
+
+    boston = config.get_preset("boston")
+    assert boston is not None
+    assert boston["name"] == "MBTA"
+    assert boston["requires_key"] is False
+    assert config.get_preset("mbta") == boston
+
+    twin_cities = config.get_preset("twin-cities")
+    assert twin_cities is not None
+    assert config.get_preset("msp") == twin_cities
+
+
+def test_cli_presets_command(capsys):
+    """Verify 'ghost-bus presets' prints available presets."""
+    from src.cli import main
+    code = main(["presets"])
+    assert code == 0
+    captured = capsys.readouterr()
+    assert "CHICAGO" in captured.out
+    assert "BOSTON" in captured.out
+    assert "TWIN-CITIES" in captured.out
+    assert "CTA" in captured.out
+    assert "MBTA" in captured.out
+
+
+def test_cli_scan_with_preset_sample(tmp_path):
+    """Verify 'ghost-bus scan --preset chicago --sample' works."""
+    from src.cli import main
+    latest_file = tmp_path / "latest_chicago.json"
+    history_file = tmp_path / "history_chicago.json"
+    code = main([
+        "scan",
+        "--preset", "chicago",
+        "--sample",
+        "--save",
+        "--quiet",
+        "--latest-file", str(latest_file),
+        "--history-file", str(history_file),
+        "--report-file", str(tmp_path / "RELIABILITY.md"),
+    ])
+    assert code == 0
+    assert latest_file.is_file()
+    assert history_file.is_file()
+    with open(latest_file, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    assert data["city"] == "Chicago, IL"
+    assert data["transit_system"] == "CTA"
+
+
+def test_cli_scan_unknown_preset():
+    """Verify scanning an invalid preset returns error."""
+    from src.cli import main
+    code = main(["scan", "--preset", "atlantis-transit"])
+    assert code == 1
+

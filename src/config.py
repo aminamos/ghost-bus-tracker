@@ -47,3 +47,89 @@ MAX_HISTORY_SNAPSHOTS = int(os.getenv("GBT_MAX_HISTORY", "100"))
 # HTTP Request Timeout (seconds)
 REQUEST_TIMEOUT_SEC = int(os.getenv("GBT_REQUEST_TIMEOUT", "15"))
 USER_AGENT = "GhostBusTracker/0.1.0 (+https://github.com/aminamos/ghost-bus-tracker)"
+
+# Built-in City and Transit Agency Presets
+AGENCY_PRESETS = {
+    "twin-cities": {
+        "id": "twin-cities",
+        "name": "Metro Transit",
+        "agency": "Metro Transit (Twin Cities)",
+        "city": "Minneapolis–Saint Paul, MN",
+        "region": "Twin Cities Metropolitan Area, Minnesota",
+        "state": "Minnesota",
+        "country": "USA",
+        "vp_url": "https://svc.metrotransit.org/mtgtfs/vehiclepositions.pb",
+        "tu_url": "https://svc.metrotransit.org/mtgtfs/tripupdates.pb",
+        "requires_key": False,
+        "description": "Minneapolis–St. Paul bus network, METRO Light Rail (Blue & Green lines), and BRT.",
+    },
+    "chicago": {
+        "id": "chicago",
+        "name": "CTA",
+        "agency": "Chicago Transit Authority",
+        "city": "Chicago, IL",
+        "region": "Chicagoland / Cook County, Illinois",
+        "state": "Illinois",
+        "country": "USA",
+        "vp_url": "https://www.transitchicago.com/api/1.0/gtfs-realtime/vehiclepositions.pb",
+        "tu_url": "https://www.transitchicago.com/api/1.0/gtfs-realtime/tripupdates.pb",
+        "requires_key": True,
+        "key_env_var": "CTA_API_KEY",
+        "key_param": "key",
+        "key_url": "https://www.transitchicago.com/developers/",
+        "description": "Chicago 'L' rapid transit and urban bus fleet (origin of the 'ghost bus' phenomenon).",
+    },
+    "boston": {
+        "id": "boston",
+        "name": "MBTA",
+        "agency": "Massachusetts Bay Transportation Authority",
+        "city": "Boston, MA",
+        "region": "Greater Boston, Massachusetts",
+        "state": "Massachusetts",
+        "country": "USA",
+        "vp_url": "https://cdn.mbta.com/realtime/VehiclePositions.pb",
+        "tu_url": "https://cdn.mbta.com/realtime/TripUpdates.pb",
+        "requires_key": False,
+        "description": "Greater Boston subway, light rail, trolley, and bus network.",
+    },
+    "nyc": {
+        "id": "nyc",
+        "name": "MTA",
+        "agency": "Metropolitan Transportation Authority",
+        "city": "New York, NY",
+        "region": "New York Metropolitan Area",
+        "state": "New York",
+        "country": "USA",
+        "vp_url": "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs",
+        "tu_url": "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs",
+        "requires_key": True,
+        "key_env_var": "MTA_API_KEY",
+        "key_header": "x-api-key",
+        "key_url": "https://api.mta.info/",
+        "description": "New York City Subway and regional bus network.",
+    },
+}
+
+PRESET_ALIASES = {
+    "minneapolis": "twin-cities",
+    "st-paul": "twin-cities",
+    "stpaul": "twin-cities",
+    "msp": "twin-cities",
+    "metro-transit": "twin-cities",
+    "cta": "chicago",
+    "chi": "chicago",
+    "chicago-transit": "chicago",
+    "mbta": "boston",
+    "mta": "nyc",
+    "new-york": "nyc",
+    "new-york-city": "nyc",
+    "nyct": "nyc",
+}
+
+
+def get_preset(name: str):
+    """Resolves an agency or city name to a preset dict, or None if not found."""
+    key = str(name).lower().strip().replace(" ", "-").replace("_", "")
+    target_id = PRESET_ALIASES.get(key, key)
+    return AGENCY_PRESETS.get(target_id)
+

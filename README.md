@@ -31,6 +31,7 @@ Automated public transit reliability, schedule adherence, and **ghost bus** trac
     - [2. View Terminal Scorecard Summary](#2-view-terminal-scorecard-summary)
     - [3. Re-render Markdown Dashboard](#3-re-render-markdown-dashboard)
 - [Running Tests](#running-tests)
+- [Multi-City & Agency Presets](#multi-city--agency-presets)
 - [Cloudflare Workers Deployment](#cloudflare-workers-deployment)
   - [API Endpoints](#api-endpoints)
 - [Repository Structure](#repository-structure)
@@ -212,6 +213,50 @@ The test suite runs with `pytest` and `pytest-cov`, providing 97%+ code coverage
 
 ```bash
 uv run pytest tests/ --cov=src --cov-report=term-missing
+```
+
+---
+
+<a id="multi-city--agency-presets"></a>
+<a id="multi-city-agency-presets"></a>
+## 🏙️ Multi-City & Agency Presets
+
+While the live dashboard at [ghost-bus-tracker.a-8c6.workers.dev](https://ghost-bus-tracker.a-8c6.workers.dev) defaults to **Minneapolis–Saint Paul (Metro Transit)**, Ghost Bus Tracker is a universal engine built on standard GTFS-RT Protocol Buffers. It includes built-in presets for other major cities:
+
+| City / Region | Agency | Preset ID | Access / Auth | Network |
+| :--- | :--- | :--- | :--- | :--- |
+| **Minneapolis–St. Paul, MN** | Metro Transit | `twin-cities` | Open (No key) | Bus, METRO Light Rail & BRT |
+| **Chicago, IL** | CTA | `chicago` / `cta` | Free API Key | 'L' Trains & Bus Fleet |
+| **Boston, MA** | MBTA | `boston` / `mbta` | Open (No key) | Subway, Light Rail & Bus |
+| **New York, NY** | MTA | `nyc` / `mta` | Free API Key | NYC Subway & Regional Bus |
+
+> 💡 **Chicago & The Origin of "Ghost Buses":** The term "Ghost Bus" was famously coined and popularized in Chicago by transit advocacy groups (such as Commuters Take Action) investigating severe phantom bus schedules across the Chicago Transit Authority (CTA).
+
+### CLI Usage for Other Cities
+
+List all built-in presets:
+```bash
+python -m src.cli presets
+```
+
+Scan Boston (MBTA - completely open):
+```bash
+python -m src.cli scan --preset boston
+```
+
+Scan Chicago (CTA - with developer key from [transitchicago.com/developers](https://www.transitchicago.com/developers/)):
+```bash
+# Pass key via flag or export CTA_API_KEY
+python -m src.cli scan --preset chicago --api-key <YOUR_CTA_KEY>
+```
+
+Scan any custom transit agency anywhere in the world:
+```bash
+python -m src.cli scan \
+  --vp-feed https://my-city-transit.org/gtfs-rt/vehicles.pb \
+  --tu-feed https://my-city-transit.org/gtfs-rt/trips.pb \
+  --agency "My City Transit" \
+  --city "Seattle, WA"
 ```
 
 ---

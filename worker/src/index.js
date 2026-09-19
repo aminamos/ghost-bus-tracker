@@ -477,6 +477,11 @@ function renderHtml(latest, history) {
           <div style="color: var(--text); font-weight: 600;">GTFS Realtime (GTFS-RT)</div>
           <div style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.25rem;">Protocol Buffer feeds (<code>vehiclepositions.pb</code> &amp; <code>tripupdates.pb</code>) via Metro Transit open data.</div>
         </div>
+        <div>
+          <div style="font-weight: 700; color: #f1f5f9; margin-bottom: 0.35rem;">🏙️ Multi-City Presets &amp; Origin</div>
+          <div style="color: var(--text); font-weight: 600;">Chicago (CTA), Boston (MBTA), NYC</div>
+          <div style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.25rem;">The "ghost bus" term originated in Chicago (CTA). The tracker CLI supports <code>--preset chicago</code>, <code>--preset boston</code>, and any GTFS-RT agency worldwide.</div>
+        </div>
       </div>
     </div>
 
