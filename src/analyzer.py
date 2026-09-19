@@ -23,11 +23,21 @@ class ReliabilityAnalyzer:
         on_time_threshold_sec: int = config.ON_TIME_THRESHOLD_SEC,
         minor_delay_threshold_sec: int = config.MINOR_DELAY_THRESHOLD_SEC,
         agency_name: str = config.AGENCY_NAME,
+        city_name: str = config.CITY_NAME,
+        transit_system: str = config.TRANSIT_SYSTEM,
+        region_name: str = config.REGION_NAME,
+        state_name: str = config.STATE_NAME,
+        country_name: str = config.COUNTRY_NAME,
     ):
         self.early_threshold_sec = early_threshold_sec
         self.on_time_threshold_sec = on_time_threshold_sec
         self.minor_delay_threshold_sec = minor_delay_threshold_sec
         self.agency_name = agency_name
+        self.city_name = city_name
+        self.transit_system = transit_system
+        self.region_name = region_name
+        self.state_name = state_name
+        self.country_name = country_name
 
     def identify_ghost_trips(
         self, trips: List[TripSnapshot], vehicles: List[VehicleSnapshot]
@@ -344,6 +354,11 @@ class ReliabilityAnalyzer:
             scan_time=now_iso,
             feed_timestamp=feed_timestamp,
             agency=self.agency_name,
+            city=self.city_name,
+            transit_system=self.transit_system,
+            region=self.region_name,
+            state=self.state_name,
+            country=self.country_name,
             total_scheduled_trips=total_scheduled_trips,
             total_tracked_vehicles=total_tracked_vehicles,
             total_ghost_trips=total_ghosts,

@@ -102,7 +102,8 @@ function renderHtml(latest, history) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ghost Bus Tracker | ${esc(latest.agency)}</title>
+  <title>Ghost Bus Tracker | Metro Transit — Minneapolis &amp; Saint Paul, MN</title>
+  <meta name="description" content="Automated transit reliability, schedule adherence, and ghost bus tracking for Metro Transit in Minneapolis–Saint Paul (Twin Cities), Minnesota.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -156,6 +157,30 @@ function renderHtml(latest, history) {
     }
     h1 { font-size: 1.75rem; font-weight: 800; letter-spacing: -0.025em; }
     .subtitle { color: var(--text-muted); font-size: 0.925rem; margin-top: 0.25rem; }
+    .header-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.6rem;
+    }
+    .header-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      color: #cbd5e1;
+    }
+    .header-pill strong { color: #f1f5f9; font-weight: 700; }
+    .header-pill.accent {
+      background: rgba(59, 130, 246, 0.15);
+      border-color: rgba(59, 130, 246, 0.35);
+      color: #93c5fd;
+    }
     .header-actions { display: flex; align-items: center; gap: 0.75rem; }
     .badge {
       display: inline-flex;
@@ -297,8 +322,17 @@ function renderHtml(latest, history) {
       <div class="brand">
         <div class="brand-icon">🚌</div>
         <div>
-          <h1>Ghost Bus Tracker</h1>
-          <div class="subtitle">Automated Public Transit Reliability &amp; Ghost Run Detection for <strong>${esc(latest.agency)}</strong></div>
+          <div style="display: flex; align-items: baseline; gap: 0.65rem; flex-wrap: wrap;">
+            <h1>Ghost Bus Tracker</h1>
+            <span class="header-pill accent" style="font-size: 0.8rem;">📍 Minneapolis–Saint Paul, MN</span>
+          </div>
+          <div class="subtitle">Automated Transit Reliability &amp; Ghost Bus Detection for <strong>${esc(latest.transit_system || 'Metro Transit')}</strong> in <strong>${esc(latest.city || 'Minneapolis–Saint Paul (Twin Cities), Minnesota')}</strong></div>
+          <div class="header-pills">
+            <span class="header-pill">🏙️ <strong>City:</strong> Minneapolis &amp; Saint Paul</span>
+            <span class="header-pill">🚍 <strong>Transit System:</strong> Metro Transit</span>
+            <span class="header-pill">🗺️ <strong>Coverage:</strong> Twin Cities 7-County Metro Area</span>
+            <span class="header-pill">🚊 <strong>Modes:</strong> Bus, METRO Light Rail &amp; BRT</span>
+          </div>
         </div>
       </div>
       <div class="header-actions">
@@ -419,9 +453,36 @@ function renderHtml(latest, history) {
       </div>
     </div>
 
+    <!-- Transit System & Regional Coverage Details -->
+    <div class="card" style="background: rgba(17, 24, 39, 0.7); border: 1px solid var(--card-border);">
+      <div class="card-title">📍 Transit System &amp; Regional Coverage</div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; font-size: 0.875rem;">
+        <div>
+          <div style="font-weight: 700; color: #f1f5f9; margin-bottom: 0.35rem;">🚍 Transit System &amp; Agency</div>
+          <div style="color: var(--text); font-weight: 600;">Metro Transit</div>
+          <div style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.25rem;">Operating division of the Metropolitan Council; primary transit provider in the Twin Cities region.</div>
+        </div>
+        <div>
+          <div style="font-weight: 700; color: #f1f5f9; margin-bottom: 0.35rem;">🏙️ Primary Cities &amp; Jurisdiction</div>
+          <div style="color: var(--text); font-weight: 600;">Minneapolis &amp; Saint Paul, MN</div>
+          <div style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.25rem;">State of Minnesota, USA. Covers Hennepin, Ramsey, Anoka, Carver, Dakota, Scott &amp; Washington counties.</div>
+        </div>
+        <div>
+          <div style="font-weight: 700; color: #f1f5f9; margin-bottom: 0.35rem;">🚊 Transit Network Modes</div>
+          <div style="color: var(--text); font-weight: 600;">Bus, Light Rail &amp; BRT</div>
+          <div style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.25rem;">METRO Blue &amp; Green Light Rail lines, METRO BRT (A, C, D, Orange, Red lines), and 100+ bus routes.</div>
+        </div>
+        <div>
+          <div style="font-weight: 700; color: #f1f5f9; margin-bottom: 0.35rem;">📡 Real-Time Data Protocol</div>
+          <div style="color: var(--text); font-weight: 600;">GTFS Realtime (GTFS-RT)</div>
+          <div style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.25rem;">Protocol Buffer feeds (<code>vehiclepositions.pb</code> &amp; <code>tripupdates.pb</code>) via Metro Transit open data.</div>
+        </div>
+      </div>
+    </div>
+
     <footer>
-      <p>Ghost Bus Tracker &bull; Powered by Cloudflare Workers &amp; Git-Scraping &bull; <a href="https://github.com/aminamos/ghost-bus-tracker" target="_blank">GitHub Repository</a></p>
-      <p style="margin-top: 0.5rem; font-size: 0.8rem;">Feed Snapshot Time: <code>${esc(latest.scan_time)}</code></p>
+      <p>Tracking <strong>Metro Transit</strong> • Serving Minneapolis &amp; Saint Paul, Minnesota (Twin Cities 7-County Metropolitan Area) • Powered by Cloudflare Workers &amp; Git-Scraping • <a href="https://github.com/aminamos/ghost-bus-tracker" target="_blank" rel="noopener">GitHub Repository</a> • <a href="https://www.metrotransit.org" target="_blank" rel="noopener">Metro Transit Official Site</a></p>
+      <p style="margin-top: 0.5rem; font-size: 0.8rem;">GTFS-RT Feed Snapshot Time: <code>${esc(latest.scan_time)}</code></p>
     </footer>
   </div>
 
@@ -483,7 +544,12 @@ export default {
     if (path === "/api/summary") {
       const latest = await fetchSnapshot("latest.json", DEFAULT_LATEST, ctx, fresh);
       return jsonResponse({
-        agency: latest.agency,
+        agency: latest.agency || "Metro Transit (Twin Cities)",
+        transit_system: latest.transit_system || "Metro Transit",
+        city: latest.city || "Minneapolis–Saint Paul, MN",
+        region: latest.region || "Twin Cities Metropolitan Area, Minnesota",
+        state: latest.state || "Minnesota",
+        country: latest.country || "USA",
         scan_time: latest.scan_time,
         ghost_bus_rate_pct: latest.ghost_bus_rate_pct,
         overall_on_time_pct: latest.overall_on_time_pct,

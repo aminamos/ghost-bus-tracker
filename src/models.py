@@ -77,6 +77,11 @@ class ReliabilitySnapshot(BaseModel):
     scan_time: str
     feed_timestamp: Optional[int] = None
     agency: str
+    city: str = "Minneapolis–Saint Paul, MN"
+    transit_system: str = "Metro Transit"
+    region: str = "Twin Cities Metropolitan Area, Minnesota"
+    state: str = "Minnesota"
+    country: str = "USA"
     # "live" = real GTFS-RT feed, "sample" = bundled offline sample data.
     # Sample snapshots are marked so they can never masquerade as real scans.
     source: str = "live"
@@ -103,5 +108,8 @@ class HistoryEntry(BaseModel):
     total_scheduled_trips: int
     total_tracked_vehicles: int
     total_ghost_trips: int
-    mean_delay_sec: float
+    mean_delay_sec: Optional[float] = None
+    agency: Optional[str] = None
+    city: Optional[str] = None
+    transit_system: Optional[str] = None
     source: str = "live"

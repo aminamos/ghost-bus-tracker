@@ -1,7 +1,7 @@
 # 🚌 Automated Public Transit Reliability & Ghost Bus Tracker
 
-> Real-time monitoring and git-scraping reliability index for **Metro Transit (Twin Cities)**.
-> **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-09-19T11:16:01.074324+00:00` | **Source:** live GTFS-RT feed
+> Real-time monitoring and git-scraping reliability index for **Metro Transit** in **Minneapolis–Saint Paul, MN** (Twin Cities Metropolitan Area, Minnesota).
+> **Transit System:** Metro Transit (Bus, METRO Light Rail & BRT) | **Location:** Minneapolis–Saint Paul, MN | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-09-19T11:16:01.074324+00:00` | **Source:** live GTFS-RT feed
 
 ---
 

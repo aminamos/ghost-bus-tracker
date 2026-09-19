@@ -25,6 +25,11 @@ DEFAULT_NEXTRIP_STOPS_URL = "https://svc.metrotransit.org/nextrip/stops"
 VEHICLE_POSITIONS_URL = os.getenv("GBT_VP_URL", DEFAULT_VP_URL)
 TRIP_UPDATES_URL = os.getenv("GBT_TU_URL", DEFAULT_TU_URL)
 AGENCY_NAME = os.getenv("GBT_AGENCY_NAME", "Metro Transit (Twin Cities)")
+CITY_NAME = os.getenv("GBT_CITY_NAME", "Minneapolis–Saint Paul, MN")
+TRANSIT_SYSTEM = os.getenv("GBT_TRANSIT_SYSTEM", "Metro Transit")
+REGION_NAME = os.getenv("GBT_REGION_NAME", "Twin Cities Metropolitan Area, Minnesota")
+STATE_NAME = os.getenv("GBT_STATE_NAME", "Minnesota")
+COUNTRY_NAME = os.getenv("GBT_COUNTRY_NAME", "USA")
 
 # Reliability Thresholds (seconds)
 # Early: departure is more than 60s ahead of schedule (causes riders to miss the bus!)

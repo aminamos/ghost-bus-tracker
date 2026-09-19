@@ -6,6 +6,9 @@
   "compatibility_flags": ["nodejs_compat"],
   "account_id": "8c6fafe89fca4db5a8330ef5311ade58",
   "vars": {
-    "AGENCY_NAME": "Metro Transit (Twin Cities)"
+    "AGENCY_NAME": "Metro Transit (Twin Cities)",
+    "CITY_NAME": "Minneapolis–Saint Paul, MN",
+    "TRANSIT_SYSTEM": "Metro Transit",
+    "REGION_NAME": "Twin Cities Metropolitan Area, Minnesota"
   }
 }

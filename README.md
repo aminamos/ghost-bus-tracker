@@ -6,11 +6,14 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Cloudflare Workers](https://img.shields.io/badge/Deployed-Cloudflare%20Workers-f38020.svg)](https://ghost-bus-tracker.a-8c6.workers.dev)
 
-Automated public transit reliability, schedule adherence, and **ghost bus** tracking engine built on GTFS and GTFS Realtime (GTFS-RT) Protocol Buffer feeds.
+Automated public transit reliability, schedule adherence, and **ghost bus** tracking engine for **Metro Transit**, the primary transit operator serving the **Minneapolis–Saint Paul ("Twin Cities") seven-county metropolitan area in Minnesota, USA**. Built on GTFS and GTFS Realtime (GTFS-RT) Protocol Buffer feeds.
 
-Live web dashboard: **[ghost-bus-tracker.a-8c6.workers.dev](https://ghost-bus-tracker.a-8c6.workers.dev)**  
-Auto-updating Markdown report: **[`RELIABILITY.md`](RELIABILITY.md)**  
-Data snapshots: **[`data/latest.json`](data/latest.json)** & **[`data/history.json`](data/history.json)**
+- **Transit Agency:** [Metro Transit](https://www.metrotransit.org) (Metropolitan Council)
+- **Service Location:** Minneapolis & Saint Paul, Minnesota, USA (Hennepin, Ramsey, Anoka, Carver, Dakota, Scott & Washington counties)
+- **Transit Network:** Urban & suburban bus routes, METRO Light Rail (Blue & Green lines), and METRO Bus Rapid Transit (A, C, D, Orange & Red lines)
+- **Live web dashboard:** **[ghost-bus-tracker.a-8c6.workers.dev](https://ghost-bus-tracker.a-8c6.workers.dev)**  
+- **Auto-updating Markdown report:** **[`RELIABILITY.md`](RELIABILITY.md)**  
+- **Data snapshots:** **[`data/latest.json`](data/latest.json)** & **[`data/history.json`](data/history.json)**
 
 ---
 

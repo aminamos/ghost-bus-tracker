@@ -98,11 +98,16 @@ class ReportGenerator:
             else "live GTFS-RT feed"
         )
 
+        agency_val = snapshot.agency
+        city_val = getattr(snapshot, "city", None) or "Minneapolis–Saint Paul, MN"
+        system_val = getattr(snapshot, "transit_system", None) or agency_val
+        region_val = getattr(snapshot, "region", None) or "Twin Cities Metropolitan Area, Minnesota"
+
         md: List[str] = [
             "# 🚌 Automated Public Transit Reliability & Ghost Bus Tracker",
             "",
-            f"> Real-time monitoring and git-scraping reliability index for **{snapshot.agency}**.",
-            f"> **Status:** {status_badge} | **Last Scan:** `{snapshot.scan_time}` | **Source:** {source_label}",
+            f"> Real-time monitoring and git-scraping reliability index for **{agency_val}** in **{city_val}** ({region_val}).",
+            f"> **Transit System:** {system_val} (Bus, METRO Light Rail & BRT) | **Location:** {city_val} | **Status:** {status_badge} | **Last Scan:** `{snapshot.scan_time}` | **Source:** {source_label}",
             "",
             "---",
             "",
@@ -266,10 +271,14 @@ class ReportGenerator:
 
     def generate_console_summary(self, snapshot: ReliabilitySnapshot) -> str:
         """Formats a clean terminal scorecard."""
+        city_val = getattr(snapshot, "city", None) or "Minneapolis–Saint Paul, MN"
+        system_val = getattr(snapshot, "transit_system", None) or "Metro Transit"
         lines = [
             "=" * 60,
             f" [BUS] GHOST BUS TRACKER: {snapshot.agency.upper()}",
-            f" Scan Time: {snapshot.scan_time}",
+            f" Transit System:    {system_val} (Bus, METRO Light Rail & BRT)",
+            f" Location:          {city_val}",
+            f" Scan Time:         {snapshot.scan_time}",
             "=" * 60,
             f" Scheduled Trips:    {snapshot.total_scheduled_trips}",
             f" Active GPS Fleet:   {snapshot.total_tracked_vehicles}",

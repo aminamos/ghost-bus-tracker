@@ -28,7 +28,12 @@ if hasattr(sys.stdout, "reconfigure"):
 def run_scan(args: argparse.Namespace) -> int:
     """Executes a scan of GTFS-RT feeds and computes reliability metrics."""
     fetcher = FeedFetcher()
-    analyzer = ReliabilityAnalyzer(agency_name=args.agency or config.AGENCY_NAME)
+    analyzer = ReliabilityAnalyzer(
+        agency_name=getattr(args, "agency", None) or config.AGENCY_NAME,
+        city_name=getattr(args, "city", None) or config.CITY_NAME,
+        transit_system=getattr(args, "transit_system", None) or config.TRANSIT_SYSTEM,
+        region_name=getattr(args, "region", None) or config.REGION_NAME,
+    )
     reporter = ReportGenerator(
         latest_path=Path(args.latest_file) if args.latest_file else config.LATEST_FILE,
         history_path=Path(args.history_file) if args.history_file else config.HISTORY_FILE,
@@ -192,6 +197,9 @@ def build_parser() -> argparse.ArgumentParser:
     scan_p.add_argument("--vp-feed", type=str, help="Custom URL or file path for vehicle positions")
     scan_p.add_argument("--tu-feed", type=str, help="Custom URL or file path for trip updates")
     scan_p.add_argument("--agency", type=str, help="Transit agency name")
+    scan_p.add_argument("--city", type=str, help="City / Metropolitan area name")
+    scan_p.add_argument("--transit-system", type=str, help="Transit system name")
+    scan_p.add_argument("--region", type=str, help="Region name")
     scan_p.add_argument("--save", action="store_true", help="Save metrics to data/latest.json and update history.json")
     scan_p.add_argument("--report", action="store_true", help="Generate or update RELIABILITY.md")
     scan_p.add_argument("--quiet", action="store_true", help="Do not print terminal scorecard")
