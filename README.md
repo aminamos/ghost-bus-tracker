@@ -14,6 +14,28 @@ Data snapshots: **[`data/latest.json`](data/latest.json)** & **[`data/history.js
 
 ---
 
+## Table of Contents
+
+- [What is a "Ghost Bus"?](#what-is-a-ghost-bus)
+- [Methodology & Metrics Calculation](#methodology--metrics-calculation)
+  - [Core Metrics](#core-metrics)
+- [Architecture & Git-Scraping](#architecture--git-scraping)
+- [Quick Start & CLI Usage](#quick-start--cli-usage)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [CLI Commands](#cli-commands)
+    - [1. Scan Transit Feeds](#1-scan-transit-feeds)
+    - [2. View Terminal Scorecard Summary](#2-view-terminal-scorecard-summary)
+    - [3. Re-render Markdown Dashboard](#3-re-render-markdown-dashboard)
+- [Running Tests](#running-tests)
+- [Cloudflare Workers Deployment](#cloudflare-workers-deployment)
+  - [API Endpoints](#api-endpoints)
+- [Repository Structure](#repository-structure)
+- [License](#license)
+
+---
+
+<a id="what-is-a-ghost-bus"></a>
 ## 👻 What is a "Ghost Bus"?
 
 In urban public transit, a **Ghost Bus** is a scheduled run that transit apps and countdown arrival boards tell riders is coming, but which never actually arrives. Commuters wait in the elements only to watch the arrival time count down to "Due" or "Now" and then vanish from the board into thin air.
@@ -25,6 +47,8 @@ Ghost buses occur primarily due to:
 
 ---
 
+<a id="methodology--metrics-calculation"></a>
+<a id="methodology-metrics-calculation"></a>
 ## 📐 Methodology & Metrics Calculation
 
 Ghost Bus Tracker correlates **GTFS-RT Vehicle Positions** (`vehiclepositions.pb`) with **GTFS-RT Trip Updates** (`tripupdates.pb`) across sliding transit service windows:
@@ -83,6 +107,8 @@ flowchart LR
 
 ---
 
+<a id="architecture--git-scraping"></a>
+<a id="architecture-git-scraping"></a>
 ## ⚡ Architecture & Git-Scraping
 
 This repository uses **Git-Scraping** (Simon Willison pattern) powered by GitHub Actions:
@@ -95,6 +121,8 @@ This repository uses **Git-Scraping** (Simon Willison pattern) powered by GitHub
 
 ---
 
+<a id="quick-start--cli-usage"></a>
+<a id="quick-start-cli-usage"></a>
 ## 🚀 Quick Start & CLI Usage
 
 ### Prerequisites
@@ -174,6 +202,7 @@ python -m src.cli report --input data/latest.json --output RELIABILITY.md
 
 ---
 
+<a id="running-tests"></a>
 ## 🧪 Running Tests
 
 The test suite runs with `pytest` and `pytest-cov`, providing 97%+ code coverage:
@@ -184,6 +213,7 @@ uv run pytest tests/ --cov=src --cov-report=term-missing
 
 ---
 
+<a id="cloudflare-workers-deployment"></a>
 ## ☁️ Cloudflare Workers Deployment
 
 The project includes an edge-hosted interactive web dashboard inside `worker/`:
@@ -206,6 +236,7 @@ Live Worker URL: [https://ghost-bus-tracker.a-8c6.workers.dev](https://ghost-bus
 
 ---
 
+<a id="repository-structure"></a>
 ## 📁 Repository Structure
 
 ```text
@@ -252,6 +283,7 @@ ghost-bus-tracker/
 
 ---
 
+<a id="license"></a>
 ## 📄 License
 
 This project is open source and available under the [MIT License](LICENSE).
