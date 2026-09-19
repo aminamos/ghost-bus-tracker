@@ -12,6 +12,10 @@ import {
   normalizeCityKey,
   getAllCitiesData,
 } from "./cities_data.js";
+import {
+  GLOBAL_TRANSIT_CATALOG,
+  searchGlobalCatalog,
+} from "./mobility_catalog.js";
 
 const DATA_BASE =
   "https://raw.githubusercontent.com/aminamos/ghost-bus-tracker/main/data";
@@ -258,6 +262,28 @@ function renderHtml(activeKey, allCities) {
     .badge-success { background: rgba(16, 185, 129, 0.15); color: #34d399; border-color: rgba(16, 185, 129, 0.3); }
     .badge-warning { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border-color: rgba(245, 158, 11, 0.3); }
     .badge-danger { background: rgba(239, 68, 68, 0.15); color: #f87171; border-color: rgba(239, 68, 68, 0.3); }
+    .badge-info { background: rgba(59, 130, 246, 0.15); color: #93c5fd; border-color: rgba(59, 130, 246, 0.3); }
+    .catalog-filter-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      color: #94a3b8;
+      padding: 0.35rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    .catalog-filter-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+    }
+    .catalog-filter-btn.active {
+      background: rgba(59, 130, 246, 0.2);
+      border-color: #3b82f6;
+      color: #93c5fd;
+    }
     .btn {
       background: var(--card);
       border: 1px solid var(--card-border);
@@ -591,6 +617,50 @@ function renderHtml(activeKey, allCities) {
       </div>
     </div>
 
+    <!-- Global Transit Feeds Explorer (MobilityDatabase Catalog) -->
+    <div class="card" id="catalogCard">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem; margin-bottom:0.75rem;">
+        <div class="card-title" style="margin-bottom:0;">🌐 Global Transit Feeds Explorer (MobilityDatabase Catalog)</div>
+        <span class="badge badge-info" style="font-size:0.75rem;">990+ Global Feeds Directory</span>
+      </div>
+      <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1rem;">
+        Explore official GTFS Realtime feeds across North America, Europe, Latin America, and Australasia directly from the verified open MobilityDatabase catalog — no CLI commands or terminal needed.
+      </p>
+      <div style="display:flex; gap:0.5rem; margin-bottom:1rem; flex-wrap:wrap;">
+        <input type="text" id="catalogSearch" class="search-box" style="margin-bottom:0; flex:1; min-width:240px;" placeholder="Filter by provider, city, country, or feed type (e.g. Broward, Carcassonne, France, Spain, DART, Dublin)..." oninput="filterGlobalCatalog()">
+        <div style="display:flex; gap:0.35rem; align-items:center; flex-wrap:wrap;">
+          <button class="catalog-filter-btn active" onclick="setCatalogFilter('all', this)">All</button>
+          <button class="catalog-filter-btn" onclick="setCatalogFilter('USA', this)">🇺🇸 USA</button>
+          <button class="catalog-filter-btn" onclick="setCatalogFilter('France', this)">🇫🇷 France</button>
+          <button class="catalog-filter-btn" onclick="setCatalogFilter('Spain', this)">🇪🇸 Spain</button>
+          <button class="catalog-filter-btn" onclick="setCatalogFilter('Brazil', this)">🇧🇷 Brazil</button>
+          <button class="catalog-filter-btn" onclick="setCatalogFilter('Canada', this)">🇨🇦 Canada</button>
+          <button class="catalog-filter-btn" onclick="setCatalogFilter('UK', this)">🇬🇧 UK</button>
+          <button class="catalog-filter-btn" onclick="setCatalogFilter('Australia', this)">🇦🇺 Australia</button>
+        </div>
+      </div>
+      <div class="table-container" style="max-height: 480px; overflow-y: auto;">
+        <table id="catalogTable">
+          <thead>
+            <tr>
+              <th>Transit Provider / Agency</th>
+              <th>Location</th>
+              <th>Feed Name &amp; Entities</th>
+              <th>Access Protocol</th>
+              <th>Real-Time Endpoints</th>
+            </tr>
+          </thead>
+          <tbody id="catalogTableBody">
+            <!-- Rendered dynamically by client JS -->
+          </tbody>
+        </table>
+      </div>
+      <div style="margin-top:0.75rem; display:flex; justify-content:space-between; align-items:center; font-size:0.8rem; color:var(--text-muted); flex-wrap:wrap; gap:0.5rem;">
+        <span id="catalogCount">Loading feeds...</span>
+        <span>Source: <a href="https://mobilitydatabase.org" target="_blank" rel="noopener">MobilityDatabase (MobilityData)</a> • Edge API: <a href="/api/catalog" target="_blank">/api/catalog</a></span>
+      </div>
+    </div>
+
     <footer>
       <p id="footerText">Tracking <strong>${esc(latest.transit_system)}</strong> • Serving <strong>${esc(latest.city)}</strong> (${esc(latest.region)}) • Powered by Cloudflare Workers &amp; Git-Scraping • <a href="https://github.com/aminamos/ghost-bus-tracker" target="_blank" rel="noopener">GitHub Repository</a> • <a href="${esc(cityData.website || 'https://www.metrotransit.org')}" target="_blank" rel="noopener" id="footerAgencyLink">${esc(latest.transit_system)} Official Site</a></p>
       <p style="margin-top: 0.5rem; font-size: 0.8rem;">GTFS-RT Feed Snapshot Time: <code id="footerScanTime">${esc(latest.scan_time)}</code></p>
@@ -601,7 +671,92 @@ function renderHtml(activeKey, allCities) {
     // Embedded client data for instant, zero-latency market switching
     const CITIES_DATA = ${JSON.stringify(allCities)};
     const CITY_ALIASES = ${JSON.stringify(CITY_ALIASES)};
+    const GLOBAL_CATALOG = ${JSON.stringify(GLOBAL_TRANSIT_CATALOG)};
     let currentCityKey = "${activeKey}";
+    let activeCatalogCountry = 'all';
+
+    function setCatalogFilter(country, btn) {
+      activeCatalogCountry = country;
+      document.querySelectorAll('.catalog-filter-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      filterGlobalCatalog();
+    }
+
+    function filterGlobalCatalog() {
+      const input = document.getElementById('catalogSearch');
+      const q = (input ? input.value : '').toLowerCase().trim();
+      const tbody = document.getElementById('catalogTableBody');
+      const countEl = document.getElementById('catalogCount');
+      if (!tbody) return;
+
+      const filtered = GLOBAL_CATALOG.filter(f => {
+        const matchesCountry = activeCatalogCountry === 'all' || f.country.toLowerCase() === activeCatalogCountry.toLowerCase();
+        if (!matchesCountry) return false;
+        if (!q) return true;
+        return (
+          f.provider.toLowerCase().includes(q) ||
+          f.location.toLowerCase().includes(q) ||
+          f.country.toLowerCase().includes(q) ||
+          f.feed_name.toLowerCase().includes(q)
+        );
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:2rem; color:var(--text-muted);">No transit feeds matched "' + escHtml(q) + '". Try searching "France", "Broward", "Spain", or "DART".</td></tr>';
+      } else {
+        tbody.innerHTML = filtered.map(f => {
+          const typeBadges = (f.entity_types || []).map(t => {
+            if (t === 'vp') return '<span class="badge badge-success" style="font-size:0.7rem; padding:0.15rem 0.45rem;">VehiclePositions</span>';
+            if (t === 'tu') return '<span class="badge badge-info" style="font-size:0.7rem; padding:0.15rem 0.45rem;">TripUpdates</span>';
+            if (t === 'sa') return '<span class="badge badge-warning" style="font-size:0.7rem; padding:0.15rem 0.45rem;">ServiceAlerts</span>';
+            return '<span class="badge" style="font-size:0.7rem; padding:0.15rem 0.45rem;">' + escHtml(t) + '</span>';
+          }).join(' ');
+
+          const authBadge = f.auth_type === 'open'
+            ? '<span class="badge badge-success" style="font-size:0.72rem; padding:0.2rem 0.5rem;">🔓 Open Access</span>'
+            : '<span class="badge badge-warning" style="font-size:0.72rem; padding:0.2rem 0.5rem;">🔑 API Key Req.</span>';
+
+          const directLink = f.direct_url
+            ? '<a href="' + escHtml(f.direct_url) + '" target="_blank" rel="noopener" class="btn" style="padding:0.25rem 0.6rem; font-size:0.75rem;">📡 Live VP Feed</a>'
+            : '';
+          const tuLink = f.tu_url
+            ? '<a href="' + escHtml(f.tu_url) + '" target="_blank" rel="noopener" class="btn" style="padding:0.25rem 0.6rem; font-size:0.75rem;">⏱️ TU Feed</a>'
+            : '';
+
+          return \`
+            <tr>
+              <td>
+                <div style="font-weight:700; color:#f1f5f9; display:flex; align-items:center; gap:0.4rem;">
+                  <span>\${escHtml(f.flag || '🌐')}</span>
+                  <span>\${escHtml(f.provider)}</span>
+                  \${f.official ? '<span title="Verified Official Transit Provider" style="color:#60a5fa; font-size:0.85rem;">✓</span>' : ''}
+                </div>
+                <div style="font-size:0.78rem; color:var(--text-muted); margin-top:0.2rem;">MDB Feed #\${escHtml(f.mdb_id)}</div>
+              </td>
+              <td>
+                <div style="color:var(--text); font-weight:500;">\${escHtml(f.location)}</div>
+                <div style="font-size:0.78rem; color:var(--text-muted);">\${escHtml(f.country)}</div>
+              </td>
+              <td>
+                <div style="font-weight:600; color:#cbd5e1; margin-bottom:0.25rem;">\${escHtml(f.feed_name)}</div>
+                <div style="display:flex; gap:0.3rem; flex-wrap:wrap;">\${typeBadges}</div>
+              </td>
+              <td>\${authBadge}</td>
+              <td>
+                <div style="display:flex; gap:0.4rem; flex-wrap:wrap; align-items:center;">
+                  \${directLink}
+                  \${tuLink}
+                </div>
+              </td>
+            </tr>
+          \`;
+        }).join('');
+      }
+
+      if (countEl) {
+        countEl.textContent = 'Showing ' + filtered.length + ' of ' + GLOBAL_CATALOG.length + ' verified feeds';
+      }
+    }
 
     function escHtml(str) {
       return String(str ?? "")
@@ -848,6 +1003,7 @@ function renderHtml(activeKey, allCities) {
       } else {
         renderTrendChart(CITIES_DATA[currentCityKey]?.history);
       }
+      filterGlobalCatalog();
     });
 
     // Handle browser back/forward buttons
@@ -933,6 +1089,35 @@ export default {
       return jsonResponse({
         markets: CITY_PRESETS,
         aliases: CITY_ALIASES,
+      });
+    }
+
+    // Global MobilityDatabase Catalog & Feeds API
+    if (path === "/api/catalog" || path === "/api/feeds") {
+      const q =
+        url.searchParams.get("q") ||
+        url.searchParams.get("search") ||
+        url.searchParams.get("query") ||
+        "";
+      const country = url.searchParams.get("country") || "";
+      const limit = Math.min(
+        parseInt(url.searchParams.get("limit") || "100", 10) || 100,
+        200
+      );
+
+      let results = searchGlobalCatalog(q, limit);
+      if (country && country.toLowerCase() !== "all") {
+        results = results.filter(
+          (f) => f.country.toLowerCase() === country.toLowerCase()
+        );
+      }
+      return jsonResponse({
+        status: "ok",
+        total_matching: results.length,
+        catalog_total: GLOBAL_TRANSIT_CATALOG.length,
+        query: q || null,
+        country: country || null,
+        feeds: results,
       });
     }
 

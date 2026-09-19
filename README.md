@@ -292,10 +292,12 @@ npx wrangler deploy    # Deploy to Cloudflare Workers edge
 Live Worker URL: [https://ghost-bus-tracker.a-8c6.workers.dev](https://ghost-bus-tracker.a-8c6.workers.dev)
 
 ### API Endpoints
-- `GET /`: Interactive web dashboard
-- `GET /api/latest`: Latest JSON reliability snapshot
-- `GET /api/history`: Historical time-series reliability log
-- `GET /api/summary`: Scorecard KPI object
+- `GET /`: Interactive multi-market web dashboard with Global Feeds Explorer
+- `GET /api/latest`: Latest JSON reliability snapshot (supports `?city=<preset>`)
+- `GET /api/history`: Historical time-series reliability log (supports `?city=<preset>`)
+- `GET /api/summary`: Scorecard KPI object (supports `?city=<preset>`)
+- `GET /api/markets`: List of all 13 supported transit markets and aliases
+- `GET /api/catalog`: Global MobilityDatabase directory of 990+ transit streams (supports `?q=<search>` and `?country=<country>`)
 - `GET /api/routes`: Upstream Metro Transit route proxy
 - `GET /health`: Worker healthcheck
 

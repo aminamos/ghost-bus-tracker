@@ -244,3 +244,31 @@ def test_cli_scan_with_sf_preset_sample(tmp_path):
     assert data["transit_system"] == "SFMTA"
 
 
+def test_worker_mobility_catalog_integration():
+    """Verify MobilityDatabase global catalog integration in Cloudflare Worker."""
+    catalog_path = Path("worker/src/mobility_catalog.js")
+    index_path = Path("worker/src/index.js")
+    assert catalog_path.is_file(), "mobility_catalog.js should exist"
+    assert index_path.is_file(), "index.js should exist"
+
+    catalog_content = catalog_path.read_text(encoding="utf-8")
+    index_content = index_path.read_text(encoding="utf-8")
+
+    # Catalog contents
+    assert "Broward County Transit" in catalog_content
+    assert "Carcassonne Agglo" in catalog_content
+    assert "Dallas Area Rapid Transit (DART)" in catalog_content
+    assert "searchGlobalCatalog" in catalog_content
+    assert "GLOBAL_TRANSIT_CATALOG" in catalog_content
+
+    # Index integration
+    assert "GLOBAL_TRANSIT_CATALOG" in index_content
+    assert "searchGlobalCatalog" in index_content
+    assert "/api/catalog" in index_content
+    assert "/api/feeds" in index_content
+    assert "catalogTable" in index_content
+    assert "filterGlobalCatalog" in index_content
+    assert "setCatalogFilter" in index_content
+
+
+
