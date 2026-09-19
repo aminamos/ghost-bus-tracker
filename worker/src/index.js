@@ -1019,138 +1019,210 @@ function renderHtml(activeKey, allCities) {
 
 export default {
   async fetch(request, env, ctx) {
-    const url = new URL(request.url);
-    const path = url.pathname;
-    const fresh = url.searchParams.has("fresh");
-
-    // Resolve requested city (defaults to twin-cities)
-    const rawCity =
-      url.searchParams.get("city") ||
-      url.searchParams.get("location") ||
-      url.searchParams.get("preset");
-    const cityKey = normalizeCityKey(rawCity);
-
-    // Health check
-    if (path === "/health" || path === "/api/health") {
-      return jsonResponse({
-        status: "ok",
-        service: "ghost-bus-tracker-worker",
-        agency: env?.AGENCY_NAME || "Metro Transit (Twin Cities)",
-        supported_markets: CITY_PRESETS.map((p) => p.id),
-        timestamp: new Date().toISOString(),
-      });
-    }
-
-    // Prepare live Twin Cities data from GitHub git-scraping workflow
-    const [liveTwinCitiesLatest, liveTwinCitiesHistory] = await Promise.all([
-      fetchSnapshot("latest.json", DEFAULT_LATEST, ctx, fresh),
-      fetchSnapshot("history.json", DEFAULT_HISTORY, ctx, fresh),
-    ]);
-
-    const allCities = getAllCitiesData(
-      liveTwinCitiesLatest,
-      liveTwinCitiesHistory
-    );
-    const targetCityData = allCities[cityKey] || allCities["twin-cities"];
-
-    // Latest Snapshot API
-    if (path === "/api/latest") {
-      return jsonResponse(targetCityData.latest);
-    }
-
-    // History API
-    if (path === "/api/history") {
-      return jsonResponse(targetCityData.history);
-    }
-
-    // Summary Scorecard API
-    if (path === "/api/summary") {
-      const snap = targetCityData.latest;
-      return jsonResponse({
-        market_id: cityKey,
-        agency: snap.agency,
-        transit_system: snap.transit_system,
-        city: snap.city,
-        region: snap.region,
-        state: snap.state,
-        country: snap.country,
-        scan_time: snap.scan_time,
-        ghost_bus_rate_pct: snap.ghost_bus_rate_pct,
-        overall_on_time_pct: snap.overall_on_time_pct,
-        total_scheduled_trips: snap.total_scheduled_trips,
-        total_tracked_vehicles: snap.total_tracked_vehicles,
-        total_ghost_trips: snap.total_ghost_trips,
-        mean_delay_sec: snap.mean_delay_sec,
-      });
-    }
-
-    // List supported markets API
-    if (path === "/api/markets" || path === "/api/cities" || path === "/api/presets") {
-      return jsonResponse({
-        markets: CITY_PRESETS,
-        aliases: CITY_ALIASES,
-      });
-    }
-
-    // Global MobilityDatabase Catalog & Feeds API
-    if (path === "/api/catalog" || path === "/api/feeds") {
-      const q =
-        url.searchParams.get("q") ||
-        url.searchParams.get("search") ||
-        url.searchParams.get("query") ||
-        "";
-      const country = url.searchParams.get("country") || "";
-      const limit = Math.min(
-        parseInt(url.searchParams.get("limit") || "100", 10) || 100,
-        200
-      );
-
-      let results = searchGlobalCatalog(q, limit);
-      if (country && country.toLowerCase() !== "all") {
-        results = results.filter(
-          (f) => f.country.toLowerCase() === country.toLowerCase()
-        );
-      }
-      return jsonResponse({
-        status: "ok",
-        total_matching: results.length,
-        catalog_total: GLOBAL_TRANSIT_CATALOG.length,
-        query: q || null,
-        country: country || null,
-        feeds: results,
-      });
-    }
-
-    // Proxy live routes from NextTrip REST API (for Twin Cities)
-    if (path === "/api/routes") {
-      try {
-        const upstream = await fetch(
-          "https://svc.metrotransit.org/nextrip/routes",
-          {
-            headers: { "User-Agent": "GhostBusTracker-Worker/0.1.0" },
-          }
-        );
-        const data = await upstream.json();
-        return jsonResponse(data);
-      } catch (err) {
-        return jsonResponse(
-          { error: "Failed to fetch upstream routes: " + err.message },
-          502
-        );
-      }
-    }
-
-    // Web Dashboard (Root)
-    if (path === "/" || path === "/index.html") {
-      const html = renderHtml(cityKey, allCities);
-      return new Response(html, {
+    // Cloudflare Worker standard CORS preflight
+    if (request.method === "OPTIONS") {
+      return new Response(null, {
+        status: 204,
         headers: {
-          "Content-Type": "text/html; charset=utf-8",
-          "Cache-Control": "public, max-age=60",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, HEAD, POST, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type, Authorization",
+          "Access-Control-Max-Age": "86400",
         },
       });
     }
 
-    return new Response("Not Found", { status: 404 });
+    try {
+      const url = new URL(request.url);
+      const path = url.pathname;
+      const fresh = url.searchParams.has("fresh");
+
+      // Resolve requested city (defaults to twin-cities)
+      const rawCity =
+        url.searchParams.get("city") ||
+        url.searchParams.get("location") ||
+        url.searchParams.get("preset");
+      const cityKey = normalizeCityKey(rawCity);
+
+      // Health check
+      if (path === "/health" || path === "/api/health") {
+        return jsonResponse({
+          status: "ok",
+          service: "ghost-bus-tracker-worker",
+          agency: env?.AGENCY_NAME || "Metro Transit (Twin Cities)",
+          supported_markets: CITY_PRESETS.map((p) => p.id),
+          timestamp: new Date().toISOString(),
+        });
+      }
+
+      // Prepare live Twin Cities data from GitHub git-scraping workflow
+      const [liveTwinCitiesLatest, liveTwinCitiesHistory] = await Promise.all([
+        fetchSnapshot("latest.json", DEFAULT_LATEST, ctx, fresh),
+        fetchSnapshot("history.json", DEFAULT_HISTORY, ctx, fresh),
+      ]);
+
+      const allCities = getAllCitiesData(
+        liveTwinCitiesLatest,
+        liveTwinCitiesHistory
+      );
+      const targetCityData = allCities[cityKey] || allCities["twin-cities"];
+
+      // Latest Snapshot API
+      if (path === "/api/latest") {
+        return jsonResponse(targetCityData.latest);
+      }
+
+      // History API
+      if (path === "/api/history") {
+        return jsonResponse(targetCityData.history);
+      }
+
+      // Summary Scorecard API
+      if (path === "/api/summary") {
+        const snap = targetCityData.latest;
+        return jsonResponse({
+          market_id: cityKey,
+          agency: snap.agency,
+          transit_system: snap.transit_system,
+          city: snap.city,
+          region: snap.region,
+          state: snap.state,
+          country: snap.country,
+          scan_time: snap.scan_time,
+          ghost_bus_rate_pct: snap.ghost_bus_rate_pct,
+          overall_on_time_pct: snap.overall_on_time_pct,
+          total_scheduled_trips: snap.total_scheduled_trips,
+          total_tracked_vehicles: snap.total_tracked_vehicles,
+          total_ghost_trips: snap.total_ghost_trips,
+          mean_delay_sec: snap.mean_delay_sec,
+        });
+      }
+
+      // List supported markets API
+      if (path === "/api/markets" || path === "/api/cities" || path === "/api/presets") {
+        return jsonResponse({
+          markets: CITY_PRESETS,
+          aliases: CITY_ALIASES,
+        });
+      }
+
+      // Global MobilityDatabase Catalog & Feeds API
+      if (path === "/api/catalog" || path === "/api/feeds") {
+        const q =
+          url.searchParams.get("q") ||
+          url.searchParams.get("search") ||
+          url.searchParams.get("query") ||
+          "";
+        const country = url.searchParams.get("country") || "";
+        const limit = Math.min(
+          parseInt(url.searchParams.get("limit") || "100", 10) || 100,
+          200
+        );
+
+        let results = searchGlobalCatalog(q, limit);
+        if (country && country.toLowerCase() !== "all") {
+          results = results.filter(
+            (f) => f.country.toLowerCase() === country.toLowerCase()
+          );
+        }
+        return jsonResponse({
+          status: "ok",
+          total_matching: results.length,
+          catalog_total: GLOBAL_TRANSIT_CATALOG.length,
+          query: q || null,
+          country: country || null,
+          feeds: results,
+        });
+      }
+
+      // Live GTFS-RT Protobuf Proxy (with CORS and Edge Caching)
+      if (path === "/api/live/vp" || path === "/api/live/tu") {
+        const isVP = path === "/api/live/vp";
+        const targetCity = allCities[cityKey] || allCities["twin-cities"];
+        const defaultFeed = isVP
+          ? "https://svc.metrotransit.org/mtgtfs/vehiclepositions.pb"
+          : "https://svc.metrotransit.org/mtgtfs/tripupdates.pb";
+        const upstreamUrl = url.searchParams.get("url") || defaultFeed;
+
+        try {
+          const upstream = await fetch(upstreamUrl, {
+            headers: { "User-Agent": "GhostBusTracker-Worker/0.1.0" },
+          });
+          if (!upstream.ok) throw new Error(`Upstream returned ${upstream.status}`);
+          const buf = await upstream.arrayBuffer();
+          return new Response(buf, {
+            headers: {
+              "Content-Type": "application/x-protobuf",
+              "Cache-Control": "public, max-age=15",
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Methods": "GET, HEAD, OPTIONS",
+            },
+          });
+        } catch (err) {
+          return jsonResponse(
+            { error: "Failed to proxy live protobuf feed: " + err.message, upstream: upstreamUrl },
+            502
+          );
+        }
+      }
+
+      // Proxy live routes from NextTrip REST API (for Twin Cities)
+      if (path === "/api/routes") {
+        try {
+          const upstream = await fetch(
+            "https://svc.metrotransit.org/nextrip/routes",
+            {
+              headers: { "User-Agent": "GhostBusTracker-Worker/0.1.0" },
+            }
+          );
+          const data = await upstream.json();
+          return jsonResponse(data);
+        } catch (err) {
+          return jsonResponse(
+            { error: "Failed to fetch upstream routes: " + err.message },
+            502
+          );
+        }
+      }
+
+      // Web Dashboard (Root)
+      if (path === "/" || path === "/index.html") {
+        const html = renderHtml(cityKey, allCities);
+        return new Response(html, {
+          headers: {
+            "Content-Type": "text/html; charset=utf-8",
+            "Cache-Control": "public, max-age=60",
+          },
+        });
+      }
+
+      return new Response("Not Found", { status: 404 });
+    } catch (err) {
+      return jsonResponse(
+        {
+          error: "Internal Server Error",
+          message: err.message,
+          timestamp: new Date().toISOString(),
+        },
+        500
+      );
+    }
+  },
+
+  /**
+   * Cloudflare Worker Scheduled Cron Trigger
+   * Runs every 30 minutes in the background to warm the edge cache
+   * with the latest GitHub snapshots.
+   */
+  async scheduled(event, env, ctx) {
+    const freshTwinCities = Promise.all([
+      fetchSnapshot("latest.json", DEFAULT_LATEST, ctx, true),
+      fetchSnapshot("history.json", DEFAULT_HISTORY, ctx, true),
+    ]);
+    if (ctx && typeof ctx.waitUntil === "function") {
+      ctx.waitUntil(freshTwinCities);
+    } else {
+      await freshTwinCities;
+    }
   },
 };

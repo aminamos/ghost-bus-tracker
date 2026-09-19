@@ -271,4 +271,31 @@ def test_worker_mobility_catalog_integration():
     assert "setCatalogFilter" in index_content
 
 
+def test_cloudflare_worker_deploy_defaults():
+    """Verify repository conforms with default Cloudflare Worker deploy standards."""
+    root_wrangler = Path("wrangler.jsonc")
+    worker_wrangler = Path("worker/wrangler.jsonc")
+    root_pkg = Path("package.json")
+    index_path = Path("worker/src/index.js")
+
+    assert root_wrangler.is_file(), "Root wrangler.jsonc should exist for standard deploy"
+    assert worker_wrangler.is_file(), "Worker wrangler.jsonc should exist"
+    assert root_pkg.is_file(), "Root package.json should exist for standard npm deploy script"
+
+    root_wrangler_text = root_wrangler.read_text(encoding="utf-8")
+    assert "ghost-bus-tracker" in root_wrangler_text
+    assert "worker/src/index.js" in root_wrangler_text
+    assert "crons" in root_wrangler_text
+
+    root_pkg_text = root_pkg.read_text(encoding="utf-8")
+    assert '"deploy": "wrangler deploy"' in root_pkg_text
+
+    index_text = index_path.read_text(encoding="utf-8")
+    assert "scheduled(" in index_text
+    assert 'request.method === "OPTIONS"' in index_text
+    assert "/api/live/vp" in index_text
+    assert "/api/live/tu" in index_text
+
+
+
 

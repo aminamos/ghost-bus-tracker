@@ -45,6 +45,10 @@ coverage.xml
 .DS_Store
 Thumbs.db
 
-# Cloudflare Wrangler
+# Cloudflare Wrangler & Node
 .wrangler/
 worker/.wrangler/
+node_modules/
+worker/node_modules/
+package-lock.json
+

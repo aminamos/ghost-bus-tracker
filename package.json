@@ -1,0 +1,22 @@
+{
+  "name": "ghost-bus-tracker",
+  "version": "0.1.0",
+  "description": "Automated transit reliability, schedule adherence, and ghost bus tracking",
+  "private": true,
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "dry-run": "wrangler deploy --dry-run"
+  },
+  "devDependencies": {
+    "wrangler": "^4.135.0"
+  },
+  "keywords": [
+    "cloudflare-workers",
+    "gtfs-rt",
+    "transit",
+    "ghost-buses"
+  ],
+  "author": "Amin",
+  "license": "MIT"
+}
