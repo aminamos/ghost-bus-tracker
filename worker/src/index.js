@@ -1,9 +1,17 @@
 /**
  * Cloudflare Worker for Ghost Bus Tracker
- * Automated public transit reliability and ghost bus monitoring
+ * Automated public transit reliability, schedule adherence, and ghost bus monitoring.
+ * Supports multi-city transit markets: Minneapolis–Saint Paul (Metro Transit),
+ * San Francisco (SFMTA Muni), Chicago (CTA), Boston (MBTA), New York City (MTA).
  */
 
 import { DEFAULT_LATEST, DEFAULT_HISTORY } from "./snapshot_data.js";
+import {
+  CITY_PRESETS,
+  CITY_ALIASES,
+  normalizeCityKey,
+  getAllCitiesData,
+} from "./cities_data.js";
 
 const DATA_BASE =
   "https://raw.githubusercontent.com/aminamos/ghost-bus-tracker/main/data";
@@ -20,19 +28,14 @@ function esc(v) {
 }
 
 // Serve the freshest committed snapshot from the repo, cached at the edge via
-// the Cache API under a fixed internal key (TTL: UPSTREAM_CACHE_TTL).
-// Pass fresh=true to bypass the cache match, fetch upstream directly, and
-// overwrite the cache entry. Falls back to the bundled snapshot (deploy-time
-// copy) if GitHub is down and no still-valid cache entry exists.
-// Note: cache.match() does not return entries past their Cache-Control max-age.
+// Cache API under a fixed internal key (TTL: UPSTREAM_CACHE_TTL).
 async function fetchSnapshot(file, fallback, ctx, fresh = false) {
   const cache = caches.default;
   const cacheKey = `https://gbt-cache.internal/${file}`;
   const upstreamUrl = fresh
-    ? `${DATA_BASE}/${file}?_=${Date.now()}` // defeat any intermediary caching
+    ? `${DATA_BASE}/${file}?_=${Date.now()}`
     : `${DATA_BASE}/${file}`;
 
-  // Normal path: serve a still-valid edge-cached copy if one exists.
   if (!fresh) {
     try {
       const hit = await cache.match(cacheKey);
@@ -48,7 +51,7 @@ async function fetchSnapshot(file, fallback, ctx, fresh = false) {
     });
     if (!res.ok) throw new Error(`upstream ${res.status}`);
     const body = await res.text();
-    const data = JSON.parse(body); // validate before storing so we never cache non-JSON
+    const data = JSON.parse(body);
     const toStore = new Response(body, {
       headers: {
         "Content-Type": "application/json; charset=utf-8",
@@ -60,8 +63,6 @@ async function fetchSnapshot(file, fallback, ctx, fresh = false) {
     else await put;
     return data;
   } catch {
-    // Upstream failed: a still-valid cache entry is better than nothing
-    // (reachable when fresh=1 skipped the first match, or it raced an update).
     try {
       const hit = await cache.match(cacheKey);
       if (hit) return await hit.json();
@@ -84,26 +85,31 @@ function jsonResponse(data, status = 200) {
   });
 }
 
-function renderHtml(latest, history) {
+function renderHtml(activeKey, allCities) {
+  const cityData = allCities[activeKey] || allCities["twin-cities"];
+  const latest = cityData.latest;
+  const history = cityData.history || [];
+
   const isHealthy = latest.ghost_bus_rate_pct < 5.0;
   const isElevated = latest.ghost_bus_rate_pct < 15.0;
   const statusBadge = isHealthy
-    ? `<span class="badge badge-success">🟢 Healthy (&lt;5% Ghosts)</span>`
+    ? `<span class="badge badge-success" id="statusBadge">🟢 Healthy (&lt;5% Ghosts)</span>`
     : isElevated
-    ? `<span class="badge badge-warning">🟡 Elevated Ghosts (${esc(latest.ghost_bus_rate_pct)}%)</span>`
-    : `<span class="badge badge-danger">🔴 Critical Ghosting (${esc(latest.ghost_bus_rate_pct)}%)</span>`;
+    ? `<span class="badge badge-warning" id="statusBadge">🟡 Elevated Ghosts (${esc(latest.ghost_bus_rate_pct)}%)</span>`
+    : `<span class="badge badge-danger" id="statusBadge">🔴 Critical Ghosting (${esc(latest.ghost_bus_rate_pct)}%)</span>`;
 
   const dist = latest.delay_distribution || {};
   const totalTrips = latest.total_scheduled_trips || 1;
   const pct = (n) => ((n / totalTrips) * 100).toFixed(1);
+  const cov = latest.coverage_details || {};
 
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ghost Bus Tracker | Metro Transit — Minneapolis &amp; Saint Paul, MN</title>
-  <meta name="description" content="Automated transit reliability, schedule adherence, and ghost bus tracking for Metro Transit in Minneapolis–Saint Paul (Twin Cities), Minnesota.">
+  <title id="pageTitle">Ghost Bus Tracker | ${esc(latest.transit_system)} — ${esc(latest.city)}</title>
+  <meta name="description" content="Automated transit reliability, schedule adherence, and ghost bus tracking for ${esc(latest.transit_system)} in ${esc(latest.city)}.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -129,10 +135,66 @@ function renderHtml(latest, history) {
       color: var(--text);
       font-family: var(--font-sans);
       line-height: 1.5;
-      padding: 2rem 1rem;
+      padding: 1.5rem 1rem 3rem;
       min-height: 100vh;
     }
     .container { max-width: 1200px; margin: 0 auto; }
+    
+    /* Market Selector Bar */
+    .market-selector-container {
+      background: rgba(17, 24, 39, 0.7);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .market-selector-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+    }
+    .market-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .city-chip {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      color: #cbd5e1;
+      padding: 0.4rem 0.8rem;
+      border-radius: 9999px;
+      font-size: 0.825rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s ease;
+      font-family: inherit;
+      user-select: none;
+    }
+    .city-chip:hover {
+      background: rgba(255, 255, 255, 0.09);
+      border-color: rgba(255, 255, 255, 0.2);
+      color: #fff;
+    }
+    .city-chip.active {
+      background: rgba(59, 130, 246, 0.25);
+      border-color: #3b82f6;
+      color: #93c5fd;
+      box-shadow: 0 0 12px rgba(59, 130, 246, 0.35);
+    }
+    .city-chip .chip-icon { font-size: 1rem; }
+
     header {
       display: flex;
       flex-wrap: wrap;
@@ -143,7 +205,7 @@ function renderHtml(latest, history) {
       border-bottom: 1px solid var(--card-border);
       margin-bottom: 2rem;
     }
-    .brand { display: flex; align-items: center; gap: 1rem; }
+    .brand { display: flex; align-items: flex-start; gap: 1rem; }
     .brand-icon {
       font-size: 2.25rem;
       background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(236, 72, 153, 0.2));
@@ -154,6 +216,7 @@ function renderHtml(latest, history) {
       align-items: center;
       justify-content: center;
       border-radius: 16px;
+      flex-shrink: 0;
     }
     h1 { font-size: 1.75rem; font-weight: 800; letter-spacing: -0.025em; }
     .subtitle { color: var(--text-muted); font-size: 0.925rem; margin-top: 0.25rem; }
@@ -181,7 +244,7 @@ function renderHtml(latest, history) {
       border-color: rgba(59, 130, 246, 0.35);
       color: #93c5fd;
     }
-    .header-actions { display: flex; align-items: center; gap: 0.75rem; }
+    .header-actions { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
     .badge {
       display: inline-flex;
       align-items: center;
@@ -209,6 +272,7 @@ function renderHtml(latest, history) {
       gap: 0.5rem;
       transition: all 0.2s ease;
       text-decoration: none;
+      font-family: inherit;
     }
     .btn:hover { background: var(--card-hover); border-color: rgba(255, 255, 255, 0.2); }
     .kpi-grid {
@@ -224,6 +288,7 @@ function renderHtml(latest, history) {
       border-radius: 16px;
       position: relative;
       overflow: hidden;
+      transition: transform 0.2s ease;
     }
     .kpi-title { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); font-weight: 600; margin-bottom: 0.5rem; }
     .kpi-value { font-size: 2rem; font-weight: 800; font-family: var(--font-mono); }
@@ -251,7 +316,7 @@ function renderHtml(latest, history) {
       margin-bottom: 1rem;
       background: rgba(255, 255, 255, 0.05);
     }
-    .dist-seg { height: 100%; transition: width 0.3s ease; }
+    .dist-seg { height: 100%; transition: width 0.4s ease; }
     .bg-ontime { background: #10b981; }
     .bg-early { background: #3b82f6; }
     .bg-minor { background: #f59e0b; }
@@ -267,6 +332,18 @@ function renderHtml(latest, history) {
     }
     .legend-item { display: flex; align-items: center; gap: 0.5rem; }
     .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+    /* Trend Chart */
+    .chart-container {
+      width: 100%;
+      height: 220px;
+      position: relative;
+    }
+    svg.trend-chart {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
 
     /* Tables */
     .table-container { overflow-x: auto; }
@@ -318,27 +395,48 @@ function renderHtml(latest, history) {
 </head>
 <body>
   <div class="container">
+    <!-- Market Selector Bar -->
+    <div class="market-selector-container">
+      <span class="market-selector-label">📍 Select Transit Market:</span>
+      <div class="market-chips" role="tablist" aria-label="Transit Market Selector">
+        ${CITY_PRESETS.map((cp) => `
+          <button
+            class="city-chip ${cp.id === activeKey ? 'active' : ''}"
+            data-city="${cp.id}"
+            onclick="switchCity('${cp.id}')"
+            role="tab"
+            aria-selected="${cp.id === activeKey ? 'true' : 'false'}"
+          >
+            <span class="chip-icon">${cp.icon}</span>
+            <span>${esc(cp.shortName)} (${esc(cp.agency.split(' ')[0])})</span>
+          </button>
+        `).join("")}
+      </div>
+    </div>
+
     <header>
       <div class="brand">
-        <div class="brand-icon">🚌</div>
+        <div class="brand-icon" id="brandIcon">${esc(cityData.icon || "🚌")}</div>
         <div>
           <div style="display: flex; align-items: baseline; gap: 0.65rem; flex-wrap: wrap;">
             <h1>Ghost Bus Tracker</h1>
-            <span class="header-pill accent" style="font-size: 0.8rem;">📍 Minneapolis–Saint Paul, MN</span>
+            <span class="header-pill accent" id="headerCityPill" style="font-size: 0.8rem;">📍 ${esc(latest.city)}</span>
           </div>
-          <div class="subtitle">Automated Transit Reliability &amp; Ghost Bus Detection for <strong>${esc(latest.transit_system || 'Metro Transit')}</strong> in <strong>${esc(latest.city || 'Minneapolis–Saint Paul (Twin Cities), Minnesota')}</strong></div>
+          <div class="subtitle" id="subtitleText">
+            Automated Transit Reliability &amp; Ghost Bus Detection for <strong>${esc(latest.transit_system)}</strong> in <strong>${esc(latest.city)}</strong>
+          </div>
           <div class="header-pills">
-            <span class="header-pill">🏙️ <strong>City:</strong> Minneapolis &amp; Saint Paul</span>
-            <span class="header-pill">🚍 <strong>Transit System:</strong> Metro Transit</span>
-            <span class="header-pill">🗺️ <strong>Coverage:</strong> Twin Cities 7-County Metro Area</span>
-            <span class="header-pill">🚊 <strong>Modes:</strong> Bus, METRO Light Rail &amp; BRT</span>
+            <span class="header-pill" id="pillCity">🏙️ <strong>City:</strong> ${esc(latest.city)}</span>
+            <span class="header-pill" id="pillSystem">🚍 <strong>Transit System:</strong> ${esc(latest.transit_system)}</span>
+            <span class="header-pill" id="pillCoverage">🗺️ <strong>Coverage:</strong> ${esc(latest.region)}</span>
+            <span class="header-pill" id="pillModes">🚊 <strong>Modes:</strong> ${esc(cov.modes || "Bus, Light Rail & Rapid Transit")}</span>
           </div>
         </div>
       </div>
       <div class="header-actions">
-        ${statusBadge}
-        <button class="btn" onclick="fetchLiveMetrics()">🔄 Refresh Feed</button>
-        <a class="btn" href="/api/latest" target="_blank">⚡ JSON API</a>
+        <div id="badgeContainer">${statusBadge}</div>
+        <button class="btn" id="refreshBtn" onclick="fetchLiveMetrics()">🔄 Refresh Feed</button>
+        <a class="btn" id="apiLink" href="/api/latest?city=${esc(activeKey)}" target="_blank">⚡ JSON API</a>
       </div>
     </header>
 
@@ -346,47 +444,55 @@ function renderHtml(latest, history) {
     <div class="kpi-grid">
       <div class="kpi-card">
         <div class="kpi-title">Ghost Bus Rate</div>
-        <div class="kpi-value text-ghost">${esc(latest.ghost_bus_rate_pct)}%</div>
-        <div class="kpi-desc">${esc(latest.total_ghost_trips)} missing or dropped runs</div>
+        <div class="kpi-value text-ghost" id="kpiGhostRate">${esc(latest.ghost_bus_rate_pct)}%</div>
+        <div class="kpi-desc" id="kpiGhostDesc">${esc(latest.total_ghost_trips)} missing or dropped runs</div>
       </div>
       <div class="kpi-card">
         <div class="kpi-title">On-Time Adherence</div>
-        <div class="kpi-value text-success">${esc(latest.overall_on_time_pct)}%</div>
+        <div class="kpi-value text-success" id="kpiOnTime">${esc(latest.overall_on_time_pct)}%</div>
         <div class="kpi-desc">Departures within -1m to +5m</div>
       </div>
       <div class="kpi-card">
         <div class="kpi-title">Active GPS Fleet</div>
-        <div class="kpi-value text-primary">${esc(latest.total_tracked_vehicles)}</div>
+        <div class="kpi-value text-primary" id="kpiFleet">${esc(latest.total_tracked_vehicles)}</div>
         <div class="kpi-desc">Transponders reporting live coordinates</div>
       </div>
       <div class="kpi-card">
         <div class="kpi-title">Scheduled Runs</div>
-        <div class="kpi-value">${esc(latest.total_scheduled_trips)}</div>
+        <div class="kpi-value" id="kpiScheduled">${esc(latest.total_scheduled_trips)}</div>
         <div class="kpi-desc">Total active service runs scheduled</div>
       </div>
       <div class="kpi-card">
         <div class="kpi-title">Mean Schedule Deviation</div>
-        <div class="kpi-value text-warning">+${esc((latest.mean_delay_sec / 60.0).toFixed(1))}m</div>
-        <div class="kpi-desc">+${esc(latest.mean_delay_sec)}s average delay</div>
+        <div class="kpi-value text-warning" id="kpiMeanDelay">+${esc((latest.mean_delay_sec / 60.0).toFixed(1))}m</div>
+        <div class="kpi-desc" id="kpiMeanDelayDesc">+${esc(latest.mean_delay_sec)}s average delay</div>
       </div>
     </div>
 
     <!-- Delay Distribution Bar -->
     <div class="card">
       <div class="card-title">⏱️ Schedule Adherence &amp; Delay Breakdown</div>
-      <div class="dist-bar">
-        <div class="dist-seg bg-ontime" style="width: ${pct(dist.on_time || 0)}%" title="On-Time: ${esc(dist.on_time)}"></div>
-        <div class="dist-seg bg-early" style="width: ${pct(dist.early || 0)}%" title="Early: ${esc(dist.early)}"></div>
-        <div class="dist-seg bg-minor" style="width: ${pct(dist.minor_delay || 0)}%" title="Minor Delay: ${esc(dist.minor_delay)}"></div>
-        <div class="dist-seg bg-severe" style="width: ${pct(dist.severe_delay || 0)}%" title="Severe Delay: ${esc(dist.severe_delay)}"></div>
-        <div class="dist-seg bg-ghost" style="width: ${pct(dist.ghost || 0)}%" title="Ghost/Missing: ${esc(dist.ghost)}"></div>
+      <div class="dist-bar" id="distBar">
+        <div class="dist-seg bg-ontime" id="segOnTime" style="width: ${pct(dist.on_time || 0)}%" title="On-Time"></div>
+        <div class="dist-seg bg-early" id="segEarly" style="width: ${pct(dist.early || 0)}%" title="Early"></div>
+        <div class="dist-seg bg-minor" id="segMinor" style="width: ${pct(dist.minor_delay || 0)}%" title="Minor Delay"></div>
+        <div class="dist-seg bg-severe" id="segSevere" style="width: ${pct(dist.severe_delay || 0)}%" title="Severe Delay"></div>
+        <div class="dist-seg bg-ghost" id="segGhost" style="width: ${pct(dist.ghost || 0)}%" title="Ghost/Missing"></div>
       </div>
       <div class="dist-legend">
-        <div class="legend-item"><span class="legend-dot bg-ontime"></span> On-Time: <strong>${esc(dist.on_time || 0)}</strong> (${pct(dist.on_time || 0)}%)</div>
-        <div class="legend-item"><span class="legend-dot bg-early"></span> Early (&gt;1m): <strong>${esc(dist.early || 0)}</strong> (${pct(dist.early || 0)}%)</div>
-        <div class="legend-item"><span class="legend-dot bg-minor"></span> Minor Delay (+5-15m): <strong>${esc(dist.minor_delay || 0)}</strong> (${pct(dist.minor_delay || 0)}%)</div>
-        <div class="legend-item"><span class="legend-dot bg-severe"></span> Severe Delay (&gt;15m): <strong>${esc(dist.severe_delay || 0)}</strong> (${pct(dist.severe_delay || 0)}%)</div>
-        <div class="legend-item"><span class="legend-dot bg-ghost"></span> Ghost / Missing: <strong>${esc(dist.ghost || 0)}</strong> (${pct(dist.ghost || 0)}%)</div>
+        <div class="legend-item"><span class="legend-dot bg-ontime"></span> On-Time: <strong id="legOnTime">${esc(dist.on_time || 0)} (${pct(dist.on_time || 0)}%)</strong></div>
+        <div class="legend-item"><span class="legend-dot bg-early"></span> Early (&gt;1m): <strong id="legEarly">${esc(dist.early || 0)} (${pct(dist.early || 0)}%)</strong></div>
+        <div class="legend-item"><span class="legend-dot bg-minor"></span> Minor Delay (+5-15m): <strong id="legMinor">${esc(dist.minor_delay || 0)} (${pct(dist.minor_delay || 0)}%)</strong></div>
+        <div class="legend-item"><span class="legend-dot bg-severe"></span> Severe Delay (&gt;15m): <strong id="legSevere">${esc(dist.severe_delay || 0)} (${pct(dist.severe_delay || 0)}%)</strong></div>
+        <div class="legend-item"><span class="legend-dot bg-ghost"></span> Ghost / Missing: <strong id="legGhost">${esc(dist.ghost || 0)} (${pct(dist.ghost || 0)}%)</strong></div>
+      </div>
+    </div>
+
+    <!-- Trend Chart Card -->
+    <div class="card">
+      <div class="card-title">📈 Ghost Bus Rate &amp; Reliability History (Recent Scans)</div>
+      <div class="chart-container" id="chartContainer">
+        <!-- SVG Trend Chart rendered here -->
       </div>
     </div>
 
@@ -407,8 +513,8 @@ function renderHtml(latest, history) {
               <th>Avg Delay</th>
             </tr>
           </thead>
-          <tbody>
-            ${(latest.worst_routes_by_ghost || []).map(r => `
+          <tbody id="routesTableBody">
+            ${(latest.worst_routes_by_ghost || []).map((r) => `
               <tr>
                 <td><span class="route-pill">${esc(r.route_name || r.route_id)}</span></td>
                 <td>${esc(r.total_trips)}</td>
@@ -418,7 +524,7 @@ function renderHtml(latest, history) {
                 <td>${esc(r.on_time_pct)}%</td>
                 <td>+${esc((r.avg_delay_sec / 60.0).toFixed(1))}m</td>
               </tr>
-            `).join('')}
+            `).join("")}
           </tbody>
         </table>
       </div>
@@ -428,7 +534,7 @@ function renderHtml(latest, history) {
     <div class="card">
       <div class="card-title">👻 Confirmed Ghost Runs (Active Feed Diagnostics)</div>
       <div class="table-container">
-        <table>
+        <table id="ghostTripsTable">
           <thead>
             <tr>
               <th>Trip ID</th>
@@ -438,16 +544,16 @@ function renderHtml(latest, history) {
               <th>Diagnostic Reason</th>
             </tr>
           </thead>
-          <tbody>
-            ${(latest.sample_ghost_trips || []).slice(0, 10).map(g => `
+          <tbody id="ghostTripsBody">
+            ${(latest.sample_ghost_trips || []).slice(0, 10).map((g) => `
               <tr>
                 <td><code style="font-family: var(--font-mono); color: #93c5fd;">${esc(g.trip_id)}</code></td>
                 <td>Route ${esc(g.route_id)}</td>
-                <td>${esc(g.start_time || 'N/A')}</td>
+                <td>${esc(g.start_time || "N/A")}</td>
                 <td><span class="badge badge-warning">${esc(g.status)}</span></td>
                 <td style="color: #fca5a5;">${esc(g.reason)}</td>
               </tr>
-            `).join('')}
+            `).join("")}
           </tbody>
         </table>
       </div>
@@ -456,42 +562,252 @@ function renderHtml(latest, history) {
     <!-- Transit System & Regional Coverage Details -->
     <div class="card" style="background: rgba(17, 24, 39, 0.7); border: 1px solid var(--card-border);">
       <div class="card-title">📍 Transit System &amp; Regional Coverage</div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; font-size: 0.875rem;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; font-size: 0.875rem;" id="coverageGrid">
         <div>
           <div style="font-weight: 700; color: #f1f5f9; margin-bottom: 0.35rem;">🚍 Transit System &amp; Agency</div>
-          <div style="color: var(--text); font-weight: 600;">Metro Transit</div>
-          <div style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.25rem;">Operating division of the Metropolitan Council; primary transit provider in the Twin Cities region.</div>
+          <div style="color: var(--text); font-weight: 600;" id="covAgency">${esc(latest.transit_system)}</div>
+          <div style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.25rem;" id="covAgencyDesc">${esc(cov.agency_desc || latest.agency)}</div>
         </div>
         <div>
           <div style="font-weight: 700; color: #f1f5f9; margin-bottom: 0.35rem;">🏙️ Primary Cities &amp; Jurisdiction</div>
-          <div style="color: var(--text); font-weight: 600;">Minneapolis &amp; Saint Paul, MN</div>
-          <div style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.25rem;">State of Minnesota, USA. Covers Hennepin, Ramsey, Anoka, Carver, Dakota, Scott &amp; Washington counties.</div>
+          <div style="color: var(--text); font-weight: 600;" id="covJurisdiction">${esc(latest.city)}</div>
+          <div style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.25rem;" id="covJurisdictionDesc">${esc(cov.jurisdiction_desc || latest.region)}</div>
         </div>
         <div>
           <div style="font-weight: 700; color: #f1f5f9; margin-bottom: 0.35rem;">🚊 Transit Network Modes</div>
-          <div style="color: var(--text); font-weight: 600;">Bus, Light Rail &amp; BRT</div>
-          <div style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.25rem;">METRO Blue &amp; Green Light Rail lines, METRO BRT (A, C, D, Orange, Red lines), and 100+ bus routes.</div>
+          <div style="color: var(--text); font-weight: 600;" id="covModes">${esc(cov.modes || "Bus, Rail & Rapid Transit")}</div>
+          <div style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.25rem;" id="covModesDesc">${esc(cov.modes_desc || "Transit services in metropolitan area")}</div>
         </div>
         <div>
           <div style="font-weight: 700; color: #f1f5f9; margin-bottom: 0.35rem;">📡 Real-Time Data Protocol</div>
-          <div style="color: var(--text); font-weight: 600;">GTFS Realtime (GTFS-RT)</div>
-          <div style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.25rem;">Protocol Buffer feeds (<code>vehiclepositions.pb</code> &amp; <code>tripupdates.pb</code>) via Metro Transit open data.</div>
+          <div style="color: var(--text); font-weight: 600;" id="covProtocol">${esc(cov.protocol || "GTFS Realtime (GTFS-RT)")}</div>
+          <div style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.25rem;" id="covProtocolDesc">${esc(cov.protocol_desc || "VehiclePositions & TripUpdates protobuf feeds")}</div>
         </div>
         <div>
           <div style="font-weight: 700; color: #f1f5f9; margin-bottom: 0.35rem;">🏙️ Multi-City Presets &amp; Origin</div>
-          <div style="color: var(--text); font-weight: 600;">Chicago (CTA), Boston (MBTA), NYC</div>
-          <div style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.25rem;">The "ghost bus" term originated in Chicago (CTA). The tracker CLI supports <code>--preset chicago</code>, <code>--preset boston</code>, and any GTFS-RT agency worldwide.</div>
+          <div style="color: var(--text); font-weight: 600;" id="covPresetTitle">${esc(cov.preset_info || "Multi-City Presets")}</div>
+          <div style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.25rem;" id="covPresetDesc">${esc(cov.preset_info_desc || "CLI presets available for mpls, sf, chicago, boston, nyc.")}</div>
         </div>
       </div>
     </div>
 
     <footer>
-      <p>Tracking <strong>Metro Transit</strong> • Serving Minneapolis &amp; Saint Paul, Minnesota (Twin Cities 7-County Metropolitan Area) • Powered by Cloudflare Workers &amp; Git-Scraping • <a href="https://github.com/aminamos/ghost-bus-tracker" target="_blank" rel="noopener">GitHub Repository</a> • <a href="https://www.metrotransit.org" target="_blank" rel="noopener">Metro Transit Official Site</a></p>
-      <p style="margin-top: 0.5rem; font-size: 0.8rem;">GTFS-RT Feed Snapshot Time: <code>${esc(latest.scan_time)}</code></p>
+      <p id="footerText">Tracking <strong>${esc(latest.transit_system)}</strong> • Serving <strong>${esc(latest.city)}</strong> (${esc(latest.region)}) • Powered by Cloudflare Workers &amp; Git-Scraping • <a href="https://github.com/aminamos/ghost-bus-tracker" target="_blank" rel="noopener">GitHub Repository</a> • <a href="${esc(cityData.website || 'https://www.metrotransit.org')}" target="_blank" rel="noopener" id="footerAgencyLink">${esc(latest.transit_system)} Official Site</a></p>
+      <p style="margin-top: 0.5rem; font-size: 0.8rem;">GTFS-RT Feed Snapshot Time: <code id="footerScanTime">${esc(latest.scan_time)}</code></p>
     </footer>
   </div>
 
   <script>
+    // Embedded client data for instant, zero-latency market switching
+    const CITIES_DATA = ${JSON.stringify(allCities)};
+    const CITY_ALIASES = ${JSON.stringify(CITY_ALIASES)};
+    let currentCityKey = "${activeKey}";
+
+    function escHtml(str) {
+      return String(str ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function renderTrendChart(history) {
+      const container = document.getElementById("chartContainer");
+      if (!container) return;
+      if (!history || history.length === 0) {
+        container.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#9ca3af;font-size:0.875rem;">No historical scans available for this transit market yet.</div>';
+        return;
+      }
+
+      // Sort chronological
+      const pts = [...history].sort((a, b) => new Date(a.scan_time) - new Date(b.scan_time));
+      const width = container.clientWidth || 900;
+      const height = 200;
+      const padLeft = 45;
+      const padRight = 20;
+      const padTop = 20;
+      const padBottom = 35;
+      const chartW = width - padLeft - padRight;
+      const chartH = height - padTop - padBottom;
+
+      const maxRate = Math.max(...pts.map(p => p.ghost_bus_rate_pct), 30);
+      const minRate = 0;
+
+      const getX = (idx) => padLeft + (idx / Math.max(pts.length - 1, 1)) * chartW;
+      const getY = (val) => padTop + chartH - ((val - minRate) / (maxRate - minRate)) * chartH;
+
+      const ghostPoints = pts.map((p, i) => \`\${getX(i)},\${getY(p.ghost_bus_rate_pct)}\`).join(" ");
+      const onTimePoints = pts.map((p, i) => \`\${getX(i)},\${getY(p.overall_on_time_pct / 3)}\`).join(" "); // scaled for visual context
+
+      let svg = \`<svg class="trend-chart" viewBox="0 0 \${width} \${height}">
+        <defs>
+          <linearGradient id="ghostGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#ec4899" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#ec4899" stop-opacity="0.0"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Grid Lines -->
+        <line x1="\${padLeft}" y1="\${getY(0)}" x2="\${width - padRight}" y2="\${getY(0)}" stroke="rgba(255,255,255,0.08)" stroke-dasharray="3,3"/>
+        <line x1="\${padLeft}" y1="\${getY(10)}" x2="\${width - padRight}" y2="\${getY(10)}" stroke="rgba(255,255,255,0.08)" stroke-dasharray="3,3"/>
+        <line x1="\${padLeft}" y1="\${getY(20)}" x2="\${width - padRight}" y2="\${getY(20)}" stroke="rgba(255,255,255,0.08)" stroke-dasharray="3,3"/>
+        <line x1="\${padLeft}" y1="\${getY(30)}" x2="\${width - padRight}" y2="\${getY(30)}" stroke="rgba(255,255,255,0.08)" stroke-dasharray="3,3"/>
+
+        <!-- Y Axis Labels -->
+        <text x="\${padLeft - 8}" y="\${getY(0) + 4}" fill="#9ca3af" font-size="11" text-anchor="end" font-family="JetBrains Mono">0%</text>
+        <text x="\${padLeft - 8}" y="\${getY(10) + 4}" fill="#9ca3af" font-size="11" text-anchor="end" font-family="JetBrains Mono">10%</text>
+        <text x="\${padLeft - 8}" y="\${getY(20) + 4}" fill="#9ca3af" font-size="11" text-anchor="end" font-family="JetBrains Mono">20%</text>
+        <text x="\${padLeft - 8}" y="\${getY(30) + 4}" fill="#9ca3af" font-size="11" text-anchor="end" font-family="JetBrains Mono">30%</text>
+
+        <!-- Area fill under ghost rate -->
+        <polygon points="\${padLeft},\${getY(0)} \${ghostPoints} \${getX(pts.length - 1)},\${getY(0)}" fill="url(#ghostGrad)" />
+
+        <!-- Line: Ghost Bus Rate -->
+        <polyline points="\${ghostPoints}" fill="none" stroke="#ec4899" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />\`;
+
+      // Data dots and labels
+      pts.forEach((p, i) => {
+        const x = getX(i);
+        const y = getY(p.ghost_bus_rate_pct);
+        const dateObj = new Date(p.scan_time);
+        const timeLabel = isNaN(dateObj.getTime()) ? p.scan_time.slice(-8) : dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        svg += \`
+          <circle cx="\${x}" cy="\${y}" r="4.5" fill="#ec4899" stroke="#111827" stroke-width="2" />
+          <text x="\${x}" y="\${y - 9}" fill="#f472b6" font-size="10.5" font-weight="700" text-anchor="middle" font-family="JetBrains Mono">\${p.ghost_bus_rate_pct}%</text>
+          <text x="\${x}" y="\${height - 10}" fill="#9ca3af" font-size="10" text-anchor="middle" font-family="JetBrains Mono">\${timeLabel}</text>
+        \`;
+      });
+
+      svg += \`</svg>\`;
+      container.innerHTML = svg;
+    }
+
+    function switchCity(cityKey) {
+      const normalized = CITY_ALIASES[cityKey.toLowerCase()] || cityKey;
+      const data = CITIES_DATA[normalized];
+      if (!data) return;
+
+      currentCityKey = normalized;
+
+      // 1. Update chip buttons
+      document.querySelectorAll('.city-chip').forEach(btn => {
+        const isMatch = btn.getAttribute('data-city') === normalized;
+        btn.classList.toggle('active', isMatch);
+        btn.setAttribute('aria-selected', isMatch ? 'true' : 'false');
+      });
+
+      // 2. Update page title & URLs without full reload
+      const latest = data.latest;
+      const cov = latest.coverage_details || {};
+      document.getElementById('pageTitle').textContent = \`Ghost Bus Tracker | \${latest.transit_system} — \${latest.city}\`;
+      
+      const newUrl = new URL(window.location);
+      newUrl.searchParams.set('city', normalized);
+      window.history.replaceState({ city: normalized }, '', newUrl);
+      try { localStorage.setItem('gbt_selected_city', normalized); } catch(e){}
+
+      // 3. Update Header & Pills
+      document.getElementById('brandIcon').textContent = data.icon || "🚌";
+      document.getElementById('headerCityPill').textContent = \`📍 \${latest.city}\`;
+      document.getElementById('subtitleText').innerHTML = \`Automated Transit Reliability &amp; Ghost Bus Detection for <strong>\${escHtml(latest.transit_system)}</strong> in <strong>\${escHtml(latest.city)}</strong>\`;
+      document.getElementById('pillCity').innerHTML = \`🏙️ <strong>City:</strong> \${escHtml(latest.city)}\`;
+      document.getElementById('pillSystem').innerHTML = \`🚍 <strong>Transit System:</strong> \${escHtml(latest.transit_system)}\`;
+      document.getElementById('pillCoverage').innerHTML = \`🗺️ <strong>Coverage:</strong> \${escHtml(latest.region)}\`;
+      document.getElementById('pillModes').innerHTML = \`🚊 <strong>Modes:</strong> \${escHtml(cov.modes || "Bus, Rail & Transit")}\`;
+
+      // 4. Update Status Badge
+      const isHealthy = latest.ghost_bus_rate_pct < 5.0;
+      const isElevated = latest.ghost_bus_rate_pct < 15.0;
+      const badgeHtml = isHealthy
+        ? \`<span class="badge badge-success" id="statusBadge">🟢 Healthy (&lt;5% Ghosts)</span>\`
+        : isElevated
+        ? \`<span class="badge badge-warning" id="statusBadge">🟡 Elevated Ghosts (\${escHtml(latest.ghost_bus_rate_pct)}%)</span>\`
+        : \`<span class="badge badge-danger" id="statusBadge">🔴 Critical Ghosting (\${escHtml(latest.ghost_bus_rate_pct)}%)</span>\`;
+      document.getElementById('badgeContainer').innerHTML = badgeHtml;
+
+      // 5. Update KPI Cards
+      document.getElementById('kpiGhostRate').textContent = \`\${latest.ghost_bus_rate_pct}%\`;
+      document.getElementById('kpiGhostDesc').textContent = \`\${latest.total_ghost_trips} missing or dropped runs\`;
+      document.getElementById('kpiOnTime').textContent = \`\${latest.overall_on_time_pct}%\`;
+      document.getElementById('kpiFleet').textContent = latest.total_tracked_vehicles;
+      document.getElementById('kpiScheduled').textContent = latest.total_scheduled_trips;
+      document.getElementById('kpiMeanDelay').textContent = \`+\${(latest.mean_delay_sec / 60.0).toFixed(1)}m\`;
+      document.getElementById('kpiMeanDelayDesc').textContent = \`+\${latest.mean_delay_sec}s average delay\`;
+
+      // 6. Update Delay Distribution Bar & Legend
+      const dist = latest.delay_distribution || {};
+      const totalTrips = latest.total_scheduled_trips || 1;
+      const pct = (n) => ((n / totalTrips) * 100).toFixed(1);
+
+      document.getElementById('segOnTime').style.width = \`\${pct(dist.on_time || 0)}%\`;
+      document.getElementById('segEarly').style.width = \`\${pct(dist.early || 0)}%\`;
+      document.getElementById('segMinor').style.width = \`\${pct(dist.minor_delay || 0)}%\`;
+      document.getElementById('segSevere').style.width = \`\${pct(dist.severe_delay || 0)}%\`;
+      document.getElementById('segGhost').style.width = \`\${pct(dist.ghost || 0)}%\`;
+
+      document.getElementById('legOnTime').textContent = \`\${dist.on_time || 0} (\${pct(dist.on_time || 0)}%)\`;
+      document.getElementById('legEarly').textContent = \`\${dist.early || 0} (\${pct(dist.early || 0)}%)\`;
+      document.getElementById('legMinor').textContent = \`\${dist.minor_delay || 0} (\${pct(dist.minor_delay || 0)}%)\`;
+      document.getElementById('legSevere').textContent = \`\${dist.severe_delay || 0} (\${pct(dist.severe_delay || 0)}%)\`;
+      document.getElementById('legGhost').textContent = \`\${dist.ghost || 0} (\${pct(dist.ghost || 0)}%)\`;
+
+      // 7. Render Trend Chart
+      renderTrendChart(data.history);
+
+      // 8. Update Worst Routes Table
+      const routesBody = document.getElementById('routesTableBody');
+      const routes = latest.worst_routes_by_ghost || [];
+      routesBody.innerHTML = routes.map(r => \`
+        <tr>
+          <td><span class="route-pill">\${escHtml(r.route_name || r.route_id)}</span></td>
+          <td>\${escHtml(r.total_trips)}</td>
+          <td>\${escHtml(r.tracked_vehicles)}</td>
+          <td><strong class="text-ghost">\${escHtml(r.ghost_trips)}</strong></td>
+          <td><strong class="text-ghost">\${escHtml(r.ghost_rate_pct)}%</strong></td>
+          <td>\${escHtml(r.on_time_pct)}%</td>
+          <td>+\${(r.avg_delay_sec / 60.0).toFixed(1)}m</td>
+        </tr>
+      \`).join('');
+
+      // 9. Update Ghost Trips Diagnostics Log
+      const ghostBody = document.getElementById('ghostTripsBody');
+      const ghosts = latest.sample_ghost_trips || [];
+      ghostBody.innerHTML = ghosts.slice(0, 10).map(g => \`
+        <tr>
+          <td><code style="font-family: var(--font-mono); color: #93c5fd;">\${escHtml(g.trip_id)}</code></td>
+          <td>Route \${escHtml(g.route_id)}</td>
+          <td>\${escHtml(g.start_time || "N/A")}</td>
+          <td><span class="badge badge-warning">\${escHtml(g.status)}</span></td>
+          <td style="color: #fca5a5;">\${escHtml(g.reason)}</td>
+        </tr>
+      \`).join('');
+
+      // 10. Update Coverage Card
+      document.getElementById('covAgency').textContent = latest.transit_system;
+      document.getElementById('covAgencyDesc').textContent = cov.agency_desc || latest.agency;
+      document.getElementById('covJurisdiction').textContent = latest.city;
+      document.getElementById('covJurisdictionDesc').textContent = cov.jurisdiction_desc || latest.region;
+      document.getElementById('covModes').textContent = cov.modes || "Bus, Rail & Transit";
+      document.getElementById('covModesDesc').textContent = cov.modes_desc || "Transit routes across metro area";
+      document.getElementById('covProtocol').textContent = cov.protocol || "GTFS Realtime (GTFS-RT)";
+      document.getElementById('covProtocolDesc').textContent = cov.protocol_desc || "Protobuf feeds";
+      document.getElementById('covPresetTitle').textContent = cov.preset_info || "Multi-City Presets";
+      document.getElementById('covPresetDesc').textContent = cov.preset_info_desc || "CLI presets available for mpls, sf, chicago, boston, nyc.";
+
+      // 11. Update API link & Footer
+      document.getElementById('apiLink').href = \`/api/latest?city=\${normalized}\`;
+      document.getElementById('footerAgencyLink').href = data.website || "https://www.metrotransit.org";
+      document.getElementById('footerAgencyLink').textContent = \`\${latest.transit_system} Official Site\`;
+      document.getElementById('footerScanTime').textContent = latest.scan_time;
+      document.getElementById('footerText').innerHTML = \`Tracking <strong>\${escHtml(latest.transit_system)}</strong> • Serving <strong>\${escHtml(latest.city)}</strong> (\${escHtml(latest.region)}) • Powered by Cloudflare Workers &amp; Git-Scraping • <a href="https://github.com/aminamos/ghost-bus-tracker" target="_blank" rel="noopener">GitHub Repository</a> • <a href="\${escHtml(data.website || 'https://www.metrotransit.org')}" target="_blank" rel="noopener">\${escHtml(latest.transit_system)} Official Site</a>\`;
+
+      // Clear search box filter
+      const searchBox = document.getElementById('routeSearch');
+      if (searchBox) searchBox.value = '';
+    }
+
     function filterRoutes() {
       const q = document.getElementById('routeSearch').value.toLowerCase();
       const rows = document.querySelectorAll('#routesTable tbody tr');
@@ -503,16 +819,43 @@ function renderHtml(latest, history) {
 
     async function fetchLiveMetrics() {
       try {
-        const btn = document.querySelector('button');
+        const btn = document.getElementById('refreshBtn');
         btn.textContent = '⏳ Refreshing...';
-        const res = await fetch('/api/latest?fresh=1');
+        const res = await fetch(\`/api/latest?city=\${currentCityKey}&fresh=1\`);
         if (res.ok) {
-          window.location.reload();
+          const freshData = await res.json();
+          if (CITIES_DATA[currentCityKey]) {
+            CITIES_DATA[currentCityKey].latest = freshData;
+            switchCity(currentCityKey);
+          }
+          btn.textContent = '🔄 Refresh Feed';
         }
       } catch (e) {
         alert('Failed to refresh feed: ' + e);
+        const btn = document.getElementById('refreshBtn');
+        if (btn) btn.textContent = '🔄 Refresh Feed';
       }
     }
+
+    // Auto-detect city from query string or localStorage on load
+    window.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const cityQuery = urlParams.get('city') || urlParams.get('location') || urlParams.get('preset');
+      const initialKey = cityQuery || currentCityKey;
+      const normalized = CITY_ALIASES[String(initialKey).toLowerCase()] || initialKey;
+      if (normalized && CITIES_DATA[normalized]) {
+        switchCity(normalized);
+      } else {
+        renderTrendChart(CITIES_DATA[currentCityKey]?.history);
+      }
+    });
+
+    // Handle browser back/forward buttons
+    window.addEventListener('popstate', (e) => {
+      if (e.state && e.state.city) {
+        switchCity(e.state.city);
+      }
+    });
   </script>
 </body>
 </html>`;
@@ -522,8 +865,14 @@ export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const path = url.pathname;
-    // ?fresh / ?fresh=1 bypasses the edge cache and re-fetches upstream.
     const fresh = url.searchParams.has("fresh");
+
+    // Resolve requested city (defaults to twin-cities)
+    const rawCity =
+      url.searchParams.get("city") ||
+      url.searchParams.get("location") ||
+      url.searchParams.get("preset");
+    const cityKey = normalizeCityKey(rawCity);
 
     // Health check
     if (path === "/health" || path === "/api/health") {
@@ -531,60 +880,84 @@ export default {
         status: "ok",
         service: "ghost-bus-tracker-worker",
         agency: env?.AGENCY_NAME || "Metro Transit (Twin Cities)",
+        supported_markets: CITY_PRESETS.map((p) => p.id),
         timestamp: new Date().toISOString(),
       });
     }
 
+    // Prepare live Twin Cities data from GitHub git-scraping workflow
+    const [liveTwinCitiesLatest, liveTwinCitiesHistory] = await Promise.all([
+      fetchSnapshot("latest.json", DEFAULT_LATEST, ctx, fresh),
+      fetchSnapshot("history.json", DEFAULT_HISTORY, ctx, fresh),
+    ]);
+
+    const allCities = getAllCitiesData(
+      liveTwinCitiesLatest,
+      liveTwinCitiesHistory
+    );
+    const targetCityData = allCities[cityKey] || allCities["twin-cities"];
+
     // Latest Snapshot API
     if (path === "/api/latest") {
-      return jsonResponse(await fetchSnapshot("latest.json", DEFAULT_LATEST, ctx, fresh));
+      return jsonResponse(targetCityData.latest);
     }
 
     // History API
     if (path === "/api/history") {
-      return jsonResponse(await fetchSnapshot("history.json", DEFAULT_HISTORY, ctx, fresh));
+      return jsonResponse(targetCityData.history);
     }
 
     // Summary Scorecard API
     if (path === "/api/summary") {
-      const latest = await fetchSnapshot("latest.json", DEFAULT_LATEST, ctx, fresh);
+      const snap = targetCityData.latest;
       return jsonResponse({
-        agency: latest.agency || "Metro Transit (Twin Cities)",
-        transit_system: latest.transit_system || "Metro Transit",
-        city: latest.city || "Minneapolis–Saint Paul, MN",
-        region: latest.region || "Twin Cities Metropolitan Area, Minnesota",
-        state: latest.state || "Minnesota",
-        country: latest.country || "USA",
-        scan_time: latest.scan_time,
-        ghost_bus_rate_pct: latest.ghost_bus_rate_pct,
-        overall_on_time_pct: latest.overall_on_time_pct,
-        total_scheduled_trips: latest.total_scheduled_trips,
-        total_tracked_vehicles: latest.total_tracked_vehicles,
-        total_ghost_trips: latest.total_ghost_trips,
-        mean_delay_sec: latest.mean_delay_sec,
+        market_id: cityKey,
+        agency: snap.agency,
+        transit_system: snap.transit_system,
+        city: snap.city,
+        region: snap.region,
+        state: snap.state,
+        country: snap.country,
+        scan_time: snap.scan_time,
+        ghost_bus_rate_pct: snap.ghost_bus_rate_pct,
+        overall_on_time_pct: snap.overall_on_time_pct,
+        total_scheduled_trips: snap.total_scheduled_trips,
+        total_tracked_vehicles: snap.total_tracked_vehicles,
+        total_ghost_trips: snap.total_ghost_trips,
+        mean_delay_sec: snap.mean_delay_sec,
       });
     }
 
-    // Proxy live routes from NextTrip REST API
+    // List supported markets API
+    if (path === "/api/markets" || path === "/api/cities" || path === "/api/presets") {
+      return jsonResponse({
+        markets: CITY_PRESETS,
+        aliases: CITY_ALIASES,
+      });
+    }
+
+    // Proxy live routes from NextTrip REST API (for Twin Cities)
     if (path === "/api/routes") {
       try {
-        const upstream = await fetch("https://svc.metrotransit.org/nextrip/routes", {
-          headers: { "User-Agent": "GhostBusTracker-Worker/0.1.0" },
-        });
+        const upstream = await fetch(
+          "https://svc.metrotransit.org/nextrip/routes",
+          {
+            headers: { "User-Agent": "GhostBusTracker-Worker/0.1.0" },
+          }
+        );
         const data = await upstream.json();
         return jsonResponse(data);
       } catch (err) {
-        return jsonResponse({ error: "Failed to fetch upstream routes: " + err.message }, 502);
+        return jsonResponse(
+          { error: "Failed to fetch upstream routes: " + err.message },
+          502
+        );
       }
     }
 
     // Web Dashboard (Root)
     if (path === "/" || path === "/index.html") {
-      const [latest, history] = await Promise.all([
-        fetchSnapshot("latest.json", DEFAULT_LATEST, ctx, fresh),
-        fetchSnapshot("history.json", DEFAULT_HISTORY, ctx, fresh),
-      ]);
-      const html = renderHtml(latest, history);
+      const html = renderHtml(cityKey, allCities);
       return new Response(html, {
         headers: {
           "Content-Type": "text/html; charset=utf-8",

@@ -225,10 +225,14 @@ While the live dashboard at [ghost-bus-tracker.a-8c6.workers.dev](https://ghost-
 
 | City / Region | Agency | Preset ID | Access / Auth | Network |
 | :--- | :--- | :--- | :--- | :--- |
-| **Minneapolis–St. Paul, MN** | Metro Transit | `twin-cities` | Open (No key) | Bus, METRO Light Rail & BRT |
+| **Minneapolis–St. Paul, MN** | Metro Transit | `twin-cities` / `mpls` | Open (No key) | Bus, METRO Light Rail & BRT |
+| **San Francisco, CA** | SFMTA (Muni) | `sf` / `sfmta` / `muni` | Free API Key | Muni Metro, Historic Streetcars, Cable Cars & Buses |
 | **Chicago, IL** | CTA | `chicago` / `cta` | Free API Key | 'L' Trains & Bus Fleet |
 | **Boston, MA** | MBTA | `boston` / `mbta` | Open (No key) | Subway, Light Rail & Bus |
 | **New York, NY** | MTA | `nyc` / `mta` | Free API Key | NYC Subway & Regional Bus |
+
+> 💡 **Interactive Location Switching in the Dashboard:**
+> On the live web dashboard at [ghost-bus-tracker.a-8c6.workers.dev](https://ghost-bus-tracker.a-8c6.workers.dev), you can click any transit market chip (e.g. switching between Minneapolis, San Francisco, Chicago, Boston, or New York) to immediately update all KPIs, charts, worst routes, and feed diagnostics. You can also deep-link directly via URL parameter: `?city=sf` or `?city=mpls`.
 
 > 💡 **Chicago & The Origin of "Ghost Buses":** The term "Ghost Bus" was famously coined and popularized in Chicago by transit advocacy groups (such as Commuters Take Action) investigating severe phantom bus schedules across the Chicago Transit Authority (CTA).
 
@@ -237,6 +241,11 @@ While the live dashboard at [ghost-bus-tracker.a-8c6.workers.dev](https://ghost-
 List all built-in presets:
 ```bash
 python -m src.cli presets
+```
+
+Scan San Francisco (SFMTA Muni):
+```bash
+python -m src.cli scan --preset sf --sample
 ```
 
 Scan Boston (MBTA - completely open):
