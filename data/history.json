@@ -1081,5 +1081,18 @@
     "city": null,
     "transit_system": null,
     "source": "live"
+  },
+  {
+    "scan_time": "2026-09-28T16:23:26.267318+00:00",
+    "ghost_bus_rate_pct": 14.55,
+    "overall_on_time_pct": 56.91,
+    "total_scheduled_trips": 873,
+    "total_tracked_vehicles": 739,
+    "total_ghost_trips": 127,
+    "mean_delay_sec": 7.1,
+    "agency": null,
+    "city": null,
+    "transit_system": null,
+    "source": "live"
   }
 ]
