@@ -1,14 +1,5 @@
 [
   {
-    "scan_time": "2026-09-14T00:35:12.771265+00:00",
-    "ghost_bus_rate_pct": 13.63,
-    "overall_on_time_pct": 73.3,
-    "total_scheduled_trips": 477,
-    "total_tracked_vehicles": 412,
-    "total_ghost_trips": 65,
-    "mean_delay_sec": 242.2
-  },
-  {
     "scan_time": "2026-09-14T00:35:23.071428+00:00",
     "ghost_bus_rate_pct": 13.63,
     "overall_on_time_pct": 73.3,
@@ -1155,6 +1146,19 @@
     "total_tracked_vehicles": 895,
     "total_ghost_trips": 156,
     "mean_delay_sec": 56.5,
+    "agency": null,
+    "city": null,
+    "transit_system": null,
+    "source": "live"
+  },
+  {
+    "scan_time": "2026-09-29T23:49:28.225441+00:00",
+    "ghost_bus_rate_pct": 9.82,
+    "overall_on_time_pct": 59.97,
+    "total_scheduled_trips": 764,
+    "total_tracked_vehicles": 642,
+    "total_ghost_trips": 75,
+    "mean_delay_sec": 78.4,
     "agency": null,
     "city": null,
     "transit_system": null,
