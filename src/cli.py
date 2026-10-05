@@ -274,6 +274,56 @@ def run_presets(args: argparse.Namespace) -> int:
     return 0
 
 
+def run_scan_all(args: argparse.Namespace) -> int:
+    """Scans every (or selected) preset, writing per-city JSON and Markdown."""
+    if getattr(args, "sample", False):
+        logger.error("--sample holds only Twin Cities data and cannot back scan-all.")
+        return 1
+
+    if getattr(args, "presets", None):
+        ids = [p.strip() for p in args.presets.split(",") if p.strip()]
+    else:
+        ids = list(config.AGENCY_PRESETS.keys())
+
+    ok, failed, skipped = [], [], []
+    for pid in ids:
+        preset = config.get_preset(pid)
+        if not preset:
+            logger.error(f"Unknown preset '{pid}'. Skipping.")
+            failed.append(pid)
+            continue
+        if preset.get("requires_key") and not os.getenv(preset.get("key_env_var", "")):
+            logger.warning(f"Skipping {pid}: set {preset.get('key_env_var')} to scan it.")
+            skipped.append(pid)
+            continue
+        city_args = argparse.Namespace(
+            preset=preset["id"],
+            api_key=getattr(args, "api_key", None),
+            vp_feed=None,
+            tu_feed=None,
+            agency=None,
+            city=None,
+            transit_system=None,
+            region=None,
+            live=True,
+            sample=False,
+            save=True,
+            report=True,
+            quiet=True,
+            fallback_sample=getattr(args, "fallback_sample", False),
+            latest_file=str(config.DATA_DIR / "latest" / f"{preset['id']}.json"),
+            history_file=str(config.DATA_DIR / "history" / f"{preset['id']}.json"),
+            report_file=str(config.BASE_DIR / f"RELIABILITY-{preset['id']}.md"),
+            debug=getattr(args, "debug", False),
+        )
+        code = run_scan(city_args)
+        (ok if code == 0 else failed).append(pid)
+        logger.info(f"scan-all {preset['id']}: {'ok' if code == 0 else 'FAILED'}")
+
+    print(f"scan-all: {len(ok)} ok, {len(failed)} failed, {len(skipped)} skipped (no key)")
+    return 1 if failed else 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     """Builds CLI argument parser."""
     parser = argparse.ArgumentParser(
@@ -330,6 +380,14 @@ def build_parser() -> argparse.ArgumentParser:
     # presets subcommand
     subparsers.add_parser("presets", help="List built-in city transit agency presets (Chicago CTA, Boston MBTA, etc.)")
 
+    # scan-all subcommand
+    all_p = subparsers.add_parser("scan-all", help="Scan all city presets, writing per-city snapshots")
+    all_p.add_argument("--presets", type=str, help="Comma-separated preset ids (default: all)")
+    all_p.add_argument("--fallback-sample", dest="fallback_sample", action="store_true", help="Fallback to sample feed if network fails")
+    all_p.add_argument("--no-fallback-sample", dest="fallback_sample", action="store_false", help="Disable fallback to sample feed")
+    all_p.set_defaults(fallback_sample=False)
+    all_p.add_argument("--debug", action="store_true", help="Print debug stack traces on error")
+
     return parser
 
 
@@ -344,6 +402,8 @@ def main(argv: Optional[list] = None) -> int:
 
     if args.command == "scan":
         return run_scan(args)
+    elif args.command == "scan-all":
+        return run_scan_all(args)
     elif args.command == "report":
         return run_report(args)
     elif args.command == "summary":

@@ -46,11 +46,20 @@ jobs:
           pip install -r requirements.txt
 
       - name: Fetch GTFS-RT Feeds and Update Reliability Metrics
+        env:
+          CTA_API_KEY: ${{ secrets.CTA_API_KEY }}
+          MTA_API_KEY: ${{ secrets.MTA_API_KEY }}
+          BAY_AREA_511_KEY: ${{ secrets.BAY_AREA_511_KEY }}
+          WMATA_API_KEY: ${{ secrets.WMATA_API_KEY }}
+          TRIMET_APP_ID: ${{ secrets.TRIMET_APP_ID }}
+          LAMETRO_API_KEY: ${{ secrets.LAMETRO_API_KEY }}
+          OBA_API_KEY: ${{ secrets.OBA_API_KEY }}
         run: |
           if [ "${{ inputs.force_sample }}" = "true" ]; then
             python -m src.cli scan --sample --save --report
           else
             python -m src.cli scan --live --save --report --fallback-sample
+            python -m src.cli scan-all || echo "scan-all finished with failures (see per-city log lines above)"
           fi
 
       - name: Commit and Push Updates
@@ -58,6 +67,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/latest.json data/history.json RELIABILITY.md
+          git add data/latest data/history 'RELIABILITY-*.md'
           
           if git diff --staged --quiet; then
             echo "No feed changes detected. Working directory clean."

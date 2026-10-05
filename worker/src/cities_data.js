@@ -808,20 +808,20 @@ export const CITY_FEED_URLS = {
     tu: "https://api.511.org/transit/tripupdates?agency=SF",
   },
   philly: {
-    vp: "https://www3.septa.org/developer/gtfs-rt/vehiclepositions.pb",
-    tu: "https://www3.septa.org/developer/gtfs-rt/tripupdates.pb",
+    vp: "https://www3.septa.org/gtfsrt/septa-pa-us/Vehicle/rtVehiclePosition.pb",
+    tu: "https://www3.septa.org/gtfsrt/septa-pa-us/Trip/rtTripUpdates.pb",
   },
   dc: {
     vp: "https://api.wmata.com/gtfs/bus-gtfs-rt/vehiclepositions.pb",
     tu: "https://api.wmata.com/gtfs/bus-gtfs-rt/tripupdates.pb",
   },
   la: {
-    vp: "https://api.metro.net/agencies/lametro/vehicle_positions.pb",
-    tu: "https://api.metro.net/agencies/lametro/trip_updates.pb",
+    vp: "https://api.goswift.ly/real-time/lametro/gtfs-rt-vehicle-positions",
+    tu: "https://api.goswift.ly/real-time/lametro/gtfs-rt-trip-updates",
   },
   seattle: {
-    vp: "https://api.soundtransit.org/gtfs-rt/vehicle-positions.pb",
-    tu: "https://api.soundtransit.org/gtfs-rt/trip-updates.pb",
+    vp: "https://api.pugetsound.onebusaway.org/api/gtfs_realtime/vehicle-positions-for-agency/40.pb",
+    tu: "https://api.pugetsound.onebusaway.org/api/gtfs_realtime/trip-updates-for-agency/40.pb",
   },
   denver: {
     vp: "https://www.rtd-denver.com/files/gtfs-rt/VehiclePosition.pb",
@@ -836,31 +836,26 @@ export const CITY_FEED_URLS = {
     tu: "https://gtfs-rt.itsmarta.com/TMGTFSRealTimeWebService/tripupdate/tripupdates.pb",
   },
   toronto: {
-    vp: "https://opendata.toronto.ca/transportation/ttc/gtfs-rt/vehicle-positions.pb",
-    tu: "https://opendata.toronto.ca/transportation/ttc/gtfs-rt/trip-updates.pb",
+    vp: "https://gtfsrt.ttc.ca/vehicles/position?format=binary",
+    tu: "https://gtfsrt.ttc.ca/trips/update?format=binary",
   },
 };
 
-export function getAllCitiesData(liveTwinCitiesLatest = null, liveTwinCitiesHistory = null, tcLive = true) {
-  const tcLatest = liveTwinCitiesLatest || DEFAULT_LATEST;
-  const tcHistory = liveTwinCitiesHistory || DEFAULT_HISTORY;
-  // tcLive=false means tcLatest is the bundled fallback, whose buckets may
-  // not partition its total; it gets reconciled below like other statics.
-
-  const twinCitiesSnapshot = {
-    ...tcLatest,
-    coverage_details: tcLatest.coverage_details || {
-      agency: "Metro Transit",
-      agency_desc: "Operating division of the Metropolitan Council; primary transit provider in the Twin Cities region.",
-      jurisdiction: "Minneapolis & Saint Paul, MN",
-      jurisdiction_desc: "State of Minnesota, USA. Covers Hennepin, Ramsey, Anoka, Carver, Dakota, Scott & Washington counties.",
-      modes: "Bus, METRO Light Rail & BRT",
-      modes_desc: "METRO Blue & Green Light Rail lines, METRO BRT (A, C, D, Orange, Red lines), and 100+ bus routes.",
-      protocol: "GTFS Realtime (GTFS-RT)",
-      protocol_desc: "Protocol Buffer feeds (vehiclepositions.pb & tripupdates.pb) via Metro Transit open data.",
-      preset_info: "Default Open Feed",
-      preset_info_desc: "Open public feed with zero authentication required. Automated git-scraping scans run every 30 minutes.",
-    },
+// liveByCity maps market id -> { latest, history, live }. Any market absent
+// from the map (or flagged live=false) serves its bundled static snapshot,
+// which gets reconciled below. Live snapshots pass through untouched.
+export function getAllCitiesData(liveByCity = {}) {
+  const TC_COVERAGE_DEFAULT = {
+    agency: "Metro Transit",
+    agency_desc: "Operating division of the Metropolitan Council; primary transit provider in the Twin Cities region.",
+    jurisdiction: "Minneapolis & Saint Paul, MN",
+    jurisdiction_desc: "State of Minnesota, USA. Covers Hennepin, Ramsey, Anoka, Carver, Dakota, Scott & Washington counties.",
+    modes: "Bus, METRO Light Rail & BRT",
+    modes_desc: "METRO Blue & Green Light Rail lines, METRO BRT (A, C, D, Orange, Red lines), and 100+ bus routes.",
+    protocol: "GTFS Realtime (GTFS-RT)",
+    protocol_desc: "Protocol Buffer feeds (vehiclepositions.pb & tripupdates.pb) via Metro Transit open data.",
+    preset_info: "Default Open Feed",
+    preset_info_desc: "Open public feed with zero authentication required. Automated git-scraping scans run every 30 minutes.",
   };
 
   const cities = {
@@ -872,8 +867,9 @@ export function getAllCitiesData(liveTwinCitiesLatest = null, liveTwinCitiesHist
       city: "Minneapolis–Saint Paul, MN",
       icon: "🏙️",
       website: "https://www.metrotransit.org",
-      latest: twinCitiesSnapshot,
-      history: Array.isArray(tcHistory) ? tcHistory : [tcHistory],
+      latest: { ...DEFAULT_LATEST, coverage_details: DEFAULT_LATEST.coverage_details || TC_COVERAGE_DEFAULT },
+      history: DEFAULT_HISTORY,
+      live: false,
     },
     sf: {
       id: "sf",
@@ -1009,14 +1005,27 @@ export function getAllCitiesData(liveTwinCitiesLatest = null, liveTwinCitiesHist
     },
   };
 
+  // Overlay live snapshots. Live data passes through untouched; anything
+  // still flagged live=false below serves (and reconciles) its bundle.
+  for (const [id, live] of Object.entries(liveByCity)) {
+    const entry = cities[id];
+    if (!entry || !live || !live.live) continue;
+    if (live.latest) {
+      entry.latest = id === "twin-cities"
+        ? { ...live.latest, coverage_details: live.latest.coverage_details || TC_COVERAGE_DEFAULT }
+        : live.latest;
+    }
+    if (live.history) entry.history = live.history;
+    entry.live = true;
+  }
+
   // Reconcile bundled static snapshots so buckets partition the total:
   // total = early + on_time + minor + severe + ghost + canceled, with rates
-  // derived from that total. Live Twin Cities data is skipped on purpose:
-  // it may hold tracked trips without delay samples, and its fleet count is
-  // physical buses, not tracked trips, so rewriting it would corrupt data.
-  // The bundled TC fallback (tcLive=false) is reconciled like other statics.
+  // derived from that total. Live snapshots are skipped on purpose: they
+  // may hold tracked trips without delay samples, and fleet counts are
+  // physical buses, not tracked trips, so rewriting them would corrupt data.
   for (const entry of Object.values(cities)) {
-    if (entry.id === "twin-cities" && tcLive) continue;
+    if (entry.live) continue;
     const snap = entry.latest;
     const d = snap.delay_distribution || {};
     const buckets =

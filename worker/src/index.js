@@ -1110,45 +1110,56 @@ export default {
         });
       }
 
-      // Prepare live Twin Cities data from GitHub git-scraping workflow
-      const [latestRes, historyRes] = await Promise.all([
-        fetchSnapshot("latest.json", DEFAULT_LATEST, ctx, fresh),
-        fetchSnapshot("history.json", DEFAULT_HISTORY, ctx, fresh),
-      ]);
-
-      const tcStale = latestRes.stale || historyRes.stale;
-      const allCities = getAllCitiesData(
-        latestRes.data,
-        historyRes.data,
-        !tcStale
+      // Assemble live snapshots per market from the git-scraping workflow.
+      // Per-city files (data/latest/<id>.json); Twin Cities additionally
+      // falls back to the legacy root files, then the bundle.
+      const liveByCity = {};
+      await Promise.all(
+        CITY_PRESETS.map(async (cp) => {
+          const [latestRes, historyRes] = await Promise.all([
+            fetchSnapshot(`latest/${cp.id}.json`, null, ctx, fresh),
+            fetchSnapshot(`history/${cp.id}.json`, null, ctx, fresh),
+          ]);
+          let latest = latestRes.data;
+          let live = !latestRes.stale;
+          let history = historyRes.stale ? null : historyRes.data;
+          if (!latest && cp.id === "twin-cities") {
+            const legacy = await fetchSnapshot("latest.json", DEFAULT_LATEST, ctx, fresh);
+            latest = legacy.data;
+            live = !legacy.stale;
+            if (!history) {
+              const legacyHist = await fetchSnapshot("history.json", DEFAULT_HISTORY, ctx, fresh);
+              history = legacyHist.data;
+            }
+          }
+          if (latest) liveByCity[cp.id] = { latest, history, live };
+        })
       );
+
+      const allCities = getAllCitiesData(liveByCity);
       const targetCityData = allCities[cityKey] || allCities["twin-cities"];
-      // Only Twin Cities refreshes from the live pipeline. The other 12
-      // markets are bundled static snapshots, always flagged as such.
-      const cityIsLive = cityKey === "twin-cities" && !tcStale;
+      const cityIsLive = !!targetCityData.live;
 
       // Latest Snapshot API
       if (path === "/api/latest") {
         return jsonResponse({ ...targetCityData.latest, stale: !cityIsLive, live: cityIsLive });
       }
-
-      // History API: Twin Cities reads the full ever-growing series from D1,
-      // falling back to the GitHub JSON when D1 is unreachable. Static
-      // markets serve their bundled snapshots.
+      // History API: per-market full series from D1, falling back to the
+      // GitHub JSON or bundled snapshot when D1 is unreachable.
       if (path === "/api/history") {
-        if (cityKey === "twin-cities" && env && env.HISTORY_DB) {
+        if (env && env.HISTORY_DB) {
           try {
             const rows = await env.HISTORY_DB.prepare(
               "SELECT scan_time, ghost_bus_rate_pct, overall_on_time_pct, " +
               "total_scheduled_trips, total_tracked_vehicles, total_ghost_trips, " +
               "mean_delay_sec, agency, city, transit_system, source " +
-              "FROM scans ORDER BY scan_time ASC"
-            ).all();
+              "FROM scans WHERE market_id = ? ORDER BY scan_time ASC"
+            ).bind(cityKey).all();
             if (rows.results && rows.results.length > 0) {
               return jsonResponse(rows.results);
             }
           } catch {
-            // D1 read failed; fall through to the JSON snapshot below.
+            // D1 read failed; fall through to the snapshot below.
           }
         }
         return jsonResponse(targetCityData.history);
@@ -1307,34 +1318,71 @@ export default {
 
   /**
    * Cloudflare Worker Scheduled Cron Trigger
-   * Runs every 30 minutes: warms the edge cache with the latest GitHub
-   * snapshots and upserts the fresh snapshot into D1, which is the
-   * durable all-time history store behind /api/history.
+   * Runs every 30 minutes: warms the edge cache with the per-market GitHub
+   * snapshots and upserts them into D1, the durable all-time history store
+   * behind /api/history. Each market's full history file is replayed with
+   * INSERT OR IGNORE, so a missed tick backfills itself on the next one.
    */
   async scheduled(event, env, ctx) {
     const work = (async () => {
-      const [latestRes, historyRes] = await Promise.all([
-        fetchSnapshot("latest.json", DEFAULT_LATEST, ctx, true),
-        fetchSnapshot("history.json", DEFAULT_HISTORY, ctx, true),
-      ]);
-      if (!latestRes.stale && env && env.HISTORY_DB) {
-        const s = latestRes.data;
-        try {
-          await env.HISTORY_DB.prepare(
-            "INSERT OR IGNORE INTO scans (scan_time, ghost_bus_rate_pct, " +
-            "overall_on_time_pct, total_scheduled_trips, total_tracked_vehicles, " +
-            "total_ghost_trips, mean_delay_sec, agency, city, transit_system, source) " +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
-          ).bind(
-            s.scan_time, s.ghost_bus_rate_pct, s.overall_on_time_pct,
-            s.total_scheduled_trips, s.total_tracked_vehicles, s.total_ghost_trips,
-            s.mean_delay_sec ?? null, s.agency ?? null, s.city ?? null,
-            s.transit_system ?? null, s.source ?? "live"
-          ).run();
-        } catch {
-          // D1 write failed; the next tick retries. Cache is already warm.
-        }
+      if (!env || !env.HISTORY_DB) {
+        await Promise.all([
+          fetchSnapshot("latest.json", DEFAULT_LATEST, ctx, true),
+          fetchSnapshot("history.json", DEFAULT_HISTORY, ctx, true),
+        ]);
+        return;
       }
+      const upsert = (marketId, s) => {
+        if (!s || !s.scan_time) return Promise.resolve();
+        return env.HISTORY_DB.prepare(
+          "INSERT OR IGNORE INTO scans (market_id, scan_time, ghost_bus_rate_pct, " +
+          "overall_on_time_pct, total_scheduled_trips, total_tracked_vehicles, " +
+          "total_ghost_trips, mean_delay_sec, agency, city, transit_system, source) " +
+          "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+        ).bind(
+          marketId, s.scan_time, s.ghost_bus_rate_pct, s.overall_on_time_pct,
+          s.total_scheduled_trips, s.total_tracked_vehicles, s.total_ghost_trips,
+          s.mean_delay_sec ?? null, s.agency ?? null, s.city ?? null,
+          s.transit_system ?? null, s.source ?? "live"
+        ).run().catch(() => {});
+      };
+      await Promise.all(CITY_PRESETS.map(async (cp) => {
+        try {
+          const [latestRes, historyRes] = await Promise.all([
+            fetchSnapshot(`latest/${cp.id}.json`, null, ctx, true),
+            fetchSnapshot(`history/${cp.id}.json`, null, ctx, true),
+          ]);
+          const pend = [];
+          if (!latestRes.stale && latestRes.data) pend.push(upsert(cp.id, latestRes.data));
+          const hist = !historyRes.stale && Array.isArray(historyRes.data) ? historyRes.data : [];
+          for (const row of hist) {
+            pend.push(upsert(cp.id, {
+              scan_time: row.scan_time,
+              ghost_bus_rate_pct: row.ghost_bus_rate_pct,
+              overall_on_time_pct: row.overall_on_time_pct,
+              total_scheduled_trips: row.total_scheduled_trips,
+              total_tracked_vehicles: row.total_tracked_vehicles,
+              total_ghost_trips: row.total_ghost_trips,
+              mean_delay_sec: row.mean_delay_sec,
+              agency: row.agency, city: row.city,
+              transit_system: row.transit_system, source: row.source,
+            }));
+          }
+          // Legacy Twin Cities root files predate the per-city layout.
+          if (cp.id === "twin-cities") {
+            const [legLatest, legHist] = await Promise.all([
+              fetchSnapshot("latest.json", DEFAULT_LATEST, ctx, true),
+              fetchSnapshot("history.json", DEFAULT_HISTORY, ctx, true),
+            ]);
+            if (!legLatest.stale && legLatest.data) pend.push(upsert(cp.id, legLatest.data));
+            const legRows = !legHist.stale && Array.isArray(legHist.data) ? legHist.data : [];
+            for (const row of legRows) pend.push(upsert(cp.id, row));
+          }
+          await Promise.all(pend);
+        } catch {
+          // Per-market failure must not block other markets; next tick retries.
+        }
+      }));
     })();
     if (ctx && typeof ctx.waitUntil === "function") {
       ctx.waitUntil(work);

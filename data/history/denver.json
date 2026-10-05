@@ -1,0 +1,28 @@
+[
+  {
+    "scan_time": "2026-10-05T12:10:52.156805+00:00",
+    "ghost_bus_rate_pct": 46.25,
+    "overall_on_time_pct": 0.0,
+    "total_scheduled_trips": 534,
+    "total_tracked_vehicles": 435,
+    "total_ghost_trips": 247,
+    "mean_delay_sec": 0.0,
+    "agency": "Regional Transportation District",
+    "city": "Denver, CO",
+    "transit_system": "RTD",
+    "source": "live"
+  },
+  {
+    "scan_time": "2026-10-05T12:14:29.170532+00:00",
+    "ghost_bus_rate_pct": 45.54,
+    "overall_on_time_pct": 0.0,
+    "total_scheduled_trips": 549,
+    "total_tracked_vehicles": 452,
+    "total_ghost_trips": 250,
+    "mean_delay_sec": 0.0,
+    "agency": "Regional Transportation District",
+    "city": "Denver, CO",
+    "transit_system": "RTD",
+    "source": "live"
+  }
+]

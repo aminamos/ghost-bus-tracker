@@ -246,8 +246,8 @@ While the live dashboard at [ghost-bus-tracker.a-8c6.workers.dev](https://ghost-
 | **New York, NY** | MTA | `nyc` / `mta` | Free API Key | NYC Subway & Regional Bus |
 | **Philadelphia, PA** | SEPTA | `philly` / `septa` | Open (No key) | Subway, Trolley & 120+ Bus Routes |
 | **Washington, DC** | WMATA | `dc` / `wmata` | Free API Key | Metrorail & Metrobus Network |
-| **Los Angeles, CA** | LA Metro | `la` / `lametro` | Open (No key) | Metro Rail (6 lines) & 2,200+ Buses |
-| **Seattle, WA** | Sound Transit & KCM | `seattle` / `kcm` | Open (No key) | Link Light Rail, RapidRide & King County Buses |
+| **Los Angeles, CA** | LA Metro | `la` / `lametro` | Free API Key (Swiftly) | Bus & Metro Rail via Swiftly GTFS-RT |
+| **Seattle, WA** | Sound Transit & KCM | `seattle` / `kcm` | Free API Key (OneBusAway) | Link Light Rail, Sounder & Buses |
 | **Denver, CO** | RTD | `denver` / `rtd` | Open (No key) | Commuter Rail, Light Rail & Bus Grid |
 | **Portland, OR** | TriMet | `portland` / `trimet` | Free API Key | MAX Light Rail, Streetcar & Bus Network |
 | **Atlanta, GA** | MARTA | `atlanta` / `marta` | Open (No key) | Heavy Rail (4 lines) & Bus Transit |
@@ -281,7 +281,31 @@ Scan Chicago (CTA - with developer key from [transitchicago.com/developers](http
 python -m src.cli scan --preset chicago --api-key <YOUR_CTA_KEY>
 ```
 
-> Only Twin Cities has a live git-scraping pipeline and bundled sample feeds. The dashboard's other 12 markets are static snapshots for comparison, not live data.
+> The cron pipeline scans every market: open feeds always, keyed feeds when their key is configured. Until a market's first live scan lands, the dashboard shows its bundled static snapshot.
+
+### Scanning every city
+
+```bash
+# All 13 presets: writes data/latest/<id>.json, data/history/<id>.json, RELIABILITY-<id>.md
+python -m src.cli scan-all
+
+# Subset only
+python -m src.cli scan-all --presets boston,philly,seattle
+```
+
+Seven agencies need free API keys; without them `scan-all` skips the city with a warning:
+
+| Agency | Env var | Register |
+| :--- | :--- | :--- |
+| Chicago CTA | `CTA_API_KEY` | transitchicago.com/developers |
+| NYC MTA | `MTA_API_KEY` | api.mta.info |
+| SF SFMTA | `BAY_AREA_511_KEY` | 511.org/open-data/token |
+| DC WMATA | `WMATA_API_KEY` | developer.wmata.com |
+| Portland TriMet | `TRIMET_APP_ID` | developer.trimet.org |
+| LA Metro | `LAMETRO_API_KEY` | goswift.ly/realtime-api-key |
+| Seattle Sound Transit | `OBA_API_KEY` | soundtransit.org open transit data |
+
+The cron workflow passes these through from GitHub Actions secrets of the same names. The other six markets scan with no key.
 
 Scan any custom transit agency anywhere in the world:
 ```bash
@@ -332,8 +356,10 @@ ghost-bus-tracker/
 │       ├── track.yml           # Git-scraping cron workflow (runs every 30m)
 │       └── ci.yml              # Multi-python version CI test suite
 ├── data/
-│   ├── latest.json             # Latest reliability snapshot
-│   └── history.json            # Rolling historical reliability trend
+│   ├── latest.json             # Latest Twin Cities snapshot (legacy path)
+│   ├── history.json            # Twin Cities history (legacy path, uncapped)
+│   ├── latest/<id>.json        # Per-market latest snapshot (scan-all)
+│   └── history/<id>.json       # Per-market full history (scan-all)
 ├── sample_data/
 │   ├── vehiclepositions_sample.pb   # Real GTFS-RT binary vehicle snapshot
 │   └── tripupdates_sample.pb        # Real GTFS-RT binary trip update snapshot
@@ -355,10 +381,13 @@ ghost-bus-tracker/
 │   └── test_coverage_edge_cases.py  # Branch coverage tests
 ├── worker/
 │   ├── package.json
-│   ├── wrangler.jsonc          # Cloudflare Worker configuration
+│   ├── wrangler.jsonc          # Cloudflare Worker configuration (D1 binding)
+│   ├── schema.sql              # D1 scans table: all-time per-market history
 │   └── src/
 │       ├── index.js            # Worker edge handler and HTML dashboard
-│       └── snapshot_data.js    # Bundled snapshot data
+│       ├── cities_data.js      # Per-market bundles, presets, feed allowlist
+│       ├── mobility_catalog.js # Curated MobilityDatabase sample
+│       └── snapshot_data.js    # Bundled Twin Cities fallback snapshot
 ├── pyproject.toml
 ├── requirements.txt
 ├── RELIABILITY.md              # Auto-updating reliability dashboard

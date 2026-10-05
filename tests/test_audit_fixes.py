@@ -134,3 +134,21 @@ def test_history_explicit_cap_still_trims(tmp_path, sample_snapshot):
             sample_snapshot, history_path=history_file, max_entries=2
         )
     assert len(history) == 2
+
+
+def test_scan_all_rejects_sample():
+    from src.cli import run_scan_all
+    import argparse
+
+    args = argparse.Namespace(sample=True, presets=None)
+    assert run_scan_all(args) == 1
+
+
+def test_scan_all_skips_keyed_without_env(monkeypatch):
+    for var in ["CTA_API_KEY", "MTA_API_KEY", "BAY_AREA_511_KEY", "WMATA_API_KEY", "TRIMET_APP_ID"]:
+        monkeypatch.delenv(var, raising=False)
+    assert main(["scan-all", "--presets", "chicago,nyc,sf,dc,portland"]) == 0
+
+
+def test_scan_all_unknown_preset_fails():
+    assert main(["scan-all", "--presets", "atlantis"]) == 1

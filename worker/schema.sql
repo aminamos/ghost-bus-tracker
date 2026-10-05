@@ -1,7 +1,9 @@
 -- Durable time-series store for Ghost Bus Tracker scans.
--- One row per scan; scan_time is unique across the pipeline's 30-minute cadence.
+-- One row per market per scan; Twin Cities rows predate the market_id
+-- column and were backfilled to 'twin-cities'.
 CREATE TABLE IF NOT EXISTS scans (
-  scan_time TEXT PRIMARY KEY,
+  market_id TEXT NOT NULL DEFAULT 'twin-cities',
+  scan_time TEXT NOT NULL,
   ghost_bus_rate_pct REAL NOT NULL,
   overall_on_time_pct REAL NOT NULL,
   total_scheduled_trips INTEGER NOT NULL,
@@ -11,6 +13,7 @@ CREATE TABLE IF NOT EXISTS scans (
   agency TEXT,
   city TEXT,
   transit_system TEXT,
-  source TEXT NOT NULL DEFAULT 'live'
+  source TEXT NOT NULL DEFAULT 'live',
+  PRIMARY KEY (market_id, scan_time)
 );
 CREATE INDEX IF NOT EXISTS idx_scans_time ON scans (scan_time);
