@@ -45,24 +45,29 @@ MINOR_DELAY_THRESHOLD_SEC = int(os.getenv("GBT_MINOR_DELAY_SEC", "900"))
 # Steady state is ~48 scans/day, a few MB per year, so the default is unbounded.
 MAX_HISTORY_SNAPSHOTS = int(os.getenv("GBT_MAX_HISTORY", "0"))
 
-# One shared key tried for every keyed feed when the agency-specific variable
-# is unset. Same key, similar services: set this once instead of seven vars.
-# Socrata/Tyler Tech portals share a single app token across all datasets,
-# so that token belongs here rather than in per-agency variables.
-SHARED_API_KEY_ENV = "GTFS_RT_API_KEY"
+# Same key for similar endpoints: a preset's VP and TU feeds always share the
+# preset's own key (run_scan applies it to both URLs). Cross-provider sharing
+# happens only inside a declared auth group: presets carrying the same
+# key_group fall back to that group's env var when their agency variable is
+# unset. Socrata/Tyler Tech portals share one app token across all datasets,
+# so Socrata-backed presets declare key_group "socrata" instead of getting
+# per-agency variables. No current preset is Socrata-backed; the mechanism
+# waits for the first one.
+SHARED_KEY_GROUP_ENV = {"socrata": "SOCRATA_API_KEY"}
 
 
 def resolve_api_key(preset, cli_key=None):
-    """Resolves the API key for a preset: CLI flag, agency env, shared env."""
+    """Resolves the API key for a preset: CLI flag, agency env, group env."""
     if cli_key:
         return cli_key
     if preset:
         env_var = preset.get("key_env_var")
         if env_var and os.getenv(env_var):
             return os.getenv(env_var)
-    shared = os.getenv(SHARED_API_KEY_ENV)
-    if shared:
-        return shared
+        group = preset.get("key_group")
+        group_env = SHARED_KEY_GROUP_ENV.get(group) if group else None
+        if group_env and os.getenv(group_env):
+            return os.getenv(group_env)
     return None
 
 # HTTP Request Timeout (seconds)

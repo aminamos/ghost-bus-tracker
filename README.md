@@ -305,7 +305,7 @@ Seven agencies need free API keys; without any key `scan-all` skips the city wit
 | LA Metro | `LAMETRO_API_KEY` | goswift.ly/realtime-api-key |
 | Seattle Sound Transit | `OBA_API_KEY` | soundtransit.org open transit data |
 
-One key for similar services: set `GTFS_RT_API_KEY` once and it is tried for every keyed feed (a single Socrata/Tyler Tech token works this way across all of their portals). Agency variables and `--api-key` still win when set.
+Same key for similar endpoints: a preset's VP and TU feeds share the preset's own key. Across providers, sharing is group-scoped only: presets marked `key_group: socrata` fall back to `SOCRATA_API_KEY` (one Socrata/Tyler Tech token works across all of their portals). Agency variables and `--api-key` still win when set. No current preset is Socrata-backed.
 
 The cron workflow passes these through from GitHub Actions secrets of the same names. The other six markets scan with no key.
 

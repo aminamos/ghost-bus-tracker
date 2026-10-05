@@ -101,7 +101,7 @@ def run_scan(args: argparse.Namespace) -> int:
             tu_src = args.tu_feed or (preset["tu_url"] if preset else config.TRIP_UPDATES_URL)
 
             # Handle API key if required by preset or provided via CLI / env.
-            # Order: --api-key flag, agency variable, shared GTFS_RT_API_KEY.
+            # Order: --api-key flag, agency variable, auth-group variable.
             api_key = getattr(args, "api_key", None)
             if preset and preset.get("requires_key"):
                 api_key = config.resolve_api_key(preset, api_key)
@@ -118,8 +118,10 @@ def run_scan(args: argparse.Namespace) -> int:
                     logger.warning(
                         f"⚠️  {preset['name']} ({preset['city']}) GTFS-RT feed requires an API key from {preset.get('key_url')}."
                     )
+                    group_env = config.SHARED_KEY_GROUP_ENV.get(preset.get("key_group") or "", "")
+                    hint = f", or set {group_env}=<KEY> (shared {preset.get('key_group')} token)" if group_env else ""
                     logger.warning(
-                        f"   Pass --api-key <KEY>, set {preset.get('key_env_var')}=<KEY>, or set {config.SHARED_API_KEY_ENV}=<KEY> once for all keyed feeds."
+                        f"   Pass --api-key <KEY> or set {preset.get('key_env_var')}=<KEY>{hint}."
                     )
 
             logger.info(f"Fetching live feeds for {transit_system} ({city_name})...")
@@ -292,7 +294,9 @@ def run_scan_all(args: argparse.Namespace) -> int:
             failed.append(pid)
             continue
         if preset.get("requires_key") and not config.resolve_api_key(preset, getattr(args, "api_key", None)):
-            logger.warning(f"Skipping {pid}: set {preset.get('key_env_var')} or {config.SHARED_API_KEY_ENV} to scan it.")
+            group_env = config.SHARED_KEY_GROUP_ENV.get(preset.get("key_group") or "", "")
+            hint = f" or {group_env}" if group_env else ""
+            logger.warning(f"Skipping {pid}: set {preset.get('key_env_var')}{hint} to scan it.")
             skipped.append(pid)
             continue
         city_args = argparse.Namespace(
