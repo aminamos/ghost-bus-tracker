@@ -1446,9 +1446,9 @@ export default {
   /**
    * Cloudflare Worker Scheduled Cron Trigger
    * Runs every 30 minutes: warms the edge cache with the per-market GitHub
-   * snapshots and upserts them into D1, the durable all-time history store
-   * behind /api/history. Each market's full history file is replayed with
-   * INSERT OR IGNORE, so a missed tick backfills itself on the next one.
+   * snapshots, upserts them into D1, and archives versioned JSON copies to
+   * R2. Each market's full history file is replayed idempotently into both
+   * stores, so a missed tick backfills itself on the next one.
    */
   async scheduled(event, env, ctx) {
     const work = (async () => {
@@ -1501,8 +1501,13 @@ export default {
             archive(cp.id, latestRes.data);
           }
           const hist = !historyRes.stale && Array.isArray(historyRes.data) ? historyRes.data : [];
-          for (const row of hist) {
-            pend.push(upsert(cp.id, {
+          // Catch-up: every retained history row gets a D1 upsert plus an R2
+          // copy when its versioned key is absent, so a missed tick leaves no
+          // permanent gap in either store. The full latest snapshot above
+          // always overwrites its own key afterwards.
+          const backfillRow = async (marketId, row) => {
+            if (!row || !row.scan_time) return;
+            const snap = {
               scan_time: row.scan_time,
               ghost_bus_rate_pct: row.ghost_bus_rate_pct,
               overall_on_time_pct: row.overall_on_time_pct,
@@ -1512,8 +1517,21 @@ export default {
               mean_delay_sec: row.mean_delay_sec,
               agency: row.agency, city: row.city,
               transit_system: row.transit_system, source: row.source,
-            }));
-          }
+            };
+            await upsert(marketId, snap).catch(() => {});
+            if (env && env.SNAPSHOT_BUCKET) {
+              const key = `snapshots/${marketId}/${String(row.scan_time).replace(/[:]/g, "-")}.json`;
+              try {
+                const existing = await env.SNAPSHOT_BUCKET.head(key);
+                if (!existing) {
+                  await env.SNAPSHOT_BUCKET.put(key, JSON.stringify(snap), {
+                    httpMetadata: { contentType: "application/json; charset=utf-8" },
+                  });
+                }
+              } catch { /* next tick retries */ }
+            }
+          };
+          for (const row of hist) pend.push(backfillRow(cp.id, row));
           // Legacy Twin Cities root files predate the per-city layout.
           if (cp.id === "twin-cities") {
             const [legLatest, legHist] = await Promise.all([
@@ -1525,7 +1543,7 @@ export default {
               archive(cp.id, legLatest.data);
             }
             const legRows = !legHist.stale && Array.isArray(legHist.data) ? legHist.data : [];
-            for (const row of legRows) pend.push(upsert(cp.id, row));
+            for (const row of legRows) pend.push(backfillRow(cp.id, row));
           }
           await Promise.all(pend);
         } catch {

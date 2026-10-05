@@ -54,6 +54,7 @@ jobs:
           TRIMET_APP_ID: ${{ secrets.TRIMET_APP_ID }}
           LAMETRO_API_KEY: ${{ secrets.LAMETRO_API_KEY }}
           OBA_API_KEY: ${{ secrets.OBA_API_KEY }}
+          GTFS_RT_API_KEY: ${{ secrets.GTFS_RT_API_KEY }}
         run: |
           if [ "${{ inputs.force_sample }}" = "true" ]; then
             python -m src.cli scan --sample --save --report

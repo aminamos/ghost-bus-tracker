@@ -293,7 +293,7 @@ python -m src.cli scan-all
 python -m src.cli scan-all --presets boston,philly,seattle
 ```
 
-Seven agencies need free API keys; without them `scan-all` skips the city with a warning:
+Seven agencies need free API keys; without any key `scan-all` skips the city with a warning:
 
 | Agency | Env var | Register |
 | :--- | :--- | :--- |
@@ -304,6 +304,8 @@ Seven agencies need free API keys; without them `scan-all` skips the city with a
 | Portland TriMet | `TRIMET_APP_ID` | developer.trimet.org |
 | LA Metro | `LAMETRO_API_KEY` | goswift.ly/realtime-api-key |
 | Seattle Sound Transit | `OBA_API_KEY` | soundtransit.org open transit data |
+
+One key for similar services: set `GTFS_RT_API_KEY` once and it is tried for every keyed feed (a single Socrata/Tyler Tech token works this way across all of their portals). Agency variables and `--api-key` still win when set.
 
 The cron workflow passes these through from GitHub Actions secrets of the same names. The other six markets scan with no key.
 

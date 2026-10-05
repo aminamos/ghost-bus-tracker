@@ -100,12 +100,11 @@ def run_scan(args: argparse.Namespace) -> int:
             vp_src = args.vp_feed or (preset["vp_url"] if preset else config.VEHICLE_POSITIONS_URL)
             tu_src = args.tu_feed or (preset["tu_url"] if preset else config.TRIP_UPDATES_URL)
 
-            # Handle API key if required by preset or provided via CLI / env
+            # Handle API key if required by preset or provided via CLI / env.
+            # Order: --api-key flag, agency variable, shared GTFS_RT_API_KEY.
             api_key = getattr(args, "api_key", None)
             if preset and preset.get("requires_key"):
-                env_var = preset.get("key_env_var")
-                if not api_key and env_var:
-                    api_key = os.getenv(env_var)
+                api_key = config.resolve_api_key(preset, api_key)
 
                 if api_key:
                     if preset.get("key_param"):
@@ -120,7 +119,7 @@ def run_scan(args: argparse.Namespace) -> int:
                         f"⚠️  {preset['name']} ({preset['city']}) GTFS-RT feed requires an API key from {preset.get('key_url')}."
                     )
                     logger.warning(
-                        f"   Pass --api-key <KEY> or set export {preset.get('key_env_var')}=<KEY>."
+                        f"   Pass --api-key <KEY>, set {preset.get('key_env_var')}=<KEY>, or set {config.SHARED_API_KEY_ENV}=<KEY> once for all keyed feeds."
                     )
 
             logger.info(f"Fetching live feeds for {transit_system} ({city_name})...")
@@ -292,8 +291,8 @@ def run_scan_all(args: argparse.Namespace) -> int:
             logger.error(f"Unknown preset '{pid}'. Skipping.")
             failed.append(pid)
             continue
-        if preset.get("requires_key") and not os.getenv(preset.get("key_env_var", "")):
-            logger.warning(f"Skipping {pid}: set {preset.get('key_env_var')} to scan it.")
+        if preset.get("requires_key") and not config.resolve_api_key(preset, getattr(args, "api_key", None)):
+            logger.warning(f"Skipping {pid}: set {preset.get('key_env_var')} or {config.SHARED_API_KEY_ENV} to scan it.")
             skipped.append(pid)
             continue
         city_args = argparse.Namespace(

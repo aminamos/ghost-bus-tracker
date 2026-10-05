@@ -145,10 +145,31 @@ def test_scan_all_rejects_sample():
 
 
 def test_scan_all_skips_keyed_without_env(monkeypatch):
-    for var in ["CTA_API_KEY", "MTA_API_KEY", "BAY_AREA_511_KEY", "WMATA_API_KEY", "TRIMET_APP_ID"]:
+    for var in ["CTA_API_KEY", "MTA_API_KEY", "BAY_AREA_511_KEY", "WMATA_API_KEY",
+                "TRIMET_APP_ID", "LAMETRO_API_KEY", "OBA_API_KEY", config.SHARED_API_KEY_ENV]:
         monkeypatch.delenv(var, raising=False)
     assert main(["scan-all", "--presets", "chicago,nyc,sf,dc,portland"]) == 0
 
-
 def test_scan_all_unknown_preset_fails():
     assert main(["scan-all", "--presets", "atlantis"]) == 1
+
+
+def test_resolve_api_key_order(monkeypatch):
+    preset = config.get_preset("chicago")
+    monkeypatch.delenv("CTA_API_KEY", raising=False)
+    monkeypatch.delenv(config.SHARED_API_KEY_ENV, raising=False)
+    assert config.resolve_api_key(preset) is None
+    monkeypatch.setenv(config.SHARED_API_KEY_ENV, "shared-123")
+    assert config.resolve_api_key(preset) == "shared-123"
+    monkeypatch.setenv("CTA_API_KEY", "cta-456")
+    assert config.resolve_api_key(preset) == "cta-456"
+    assert config.resolve_api_key(preset, cli_key="flag-789") == "flag-789"
+
+
+def test_shared_key_unskips_keyed_city(monkeypatch):
+    for var in ["CTA_API_KEY", "MTA_API_KEY", "BAY_AREA_511_KEY", "WMATA_API_KEY",
+                "TRIMET_APP_ID", "LAMETRO_API_KEY", "OBA_API_KEY"]:
+        monkeypatch.delenv(var, raising=False)
+    monkeypatch.setenv(config.SHARED_API_KEY_ENV, "shared-123")
+    preset = config.get_preset("chicago")
+    assert config.resolve_api_key(preset) == "shared-123"
