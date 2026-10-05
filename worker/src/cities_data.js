@@ -1007,11 +1007,13 @@ export function getAllCitiesData(liveTwinCitiesLatest = null, liveTwinCitiesHist
     },
   };
 
-  // Reconcile snapshots so buckets partition the total:
+  // Reconcile bundled static snapshots so buckets partition the total:
   // total = early + on_time + minor + severe + ghost + canceled, with rates
-  // derived from that total. Live pipeline data already satisfies this, so
-  // live values pass through unchanged; stale bundled typos get corrected.
-  for (const [key, entry] of Object.entries(cities)) {
+  // derived from that total. Twin Cities is skipped on purpose: live data
+  // may hold tracked trips without delay samples, and its fleet count is
+  // physical buses, not tracked trips, so rewriting it would corrupt data.
+  for (const entry of Object.values(cities)) {
+    if (entry.id === "twin-cities") continue;
     const snap = entry.latest;
     const d = snap.delay_distribution || {};
     const buckets =
