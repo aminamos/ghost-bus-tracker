@@ -141,7 +141,7 @@ def test_cli_presets_command(capsys):
 
 
 def test_cli_scan_with_preset_sample(tmp_path):
-    """Verify 'ghost-bus scan --preset chicago --sample' works."""
+    """Sample bundle holds Twin Cities feeds: preset labels stay Twin Cities."""
     from src.cli import main
     latest_file = tmp_path / "latest_chicago.json"
     history_file = tmp_path / "history_chicago.json"
@@ -160,8 +160,8 @@ def test_cli_scan_with_preset_sample(tmp_path):
     assert history_file.is_file()
     with open(latest_file, "r", encoding="utf-8") as f:
         data = json.load(f)
-    assert data["city"] == "Chicago, IL"
-    assert data["transit_system"] == "CTA"
+    assert data["city"] == "Minneapolis–Saint Paul, MN"
+    assert data["source"] == "sample"
 
 
 def test_cli_scan_unknown_preset():
@@ -222,7 +222,7 @@ def test_worker_multi_city_data_and_location_switching():
 
 
 def test_cli_scan_with_sf_preset_sample(tmp_path):
-    """Verify scanning SF preset with sample feeds sets location metadata properly."""
+    """Sample bundle holds Twin Cities feeds: SF preset labels are not applied."""
     from src.cli import main
     latest_file = tmp_path / "latest_sf.json"
     history_file = tmp_path / "history_sf.json"
@@ -238,10 +238,11 @@ def test_cli_scan_with_sf_preset_sample(tmp_path):
     ])
     assert code == 0
     assert latest_file.is_file()
+    assert history_file.is_file()
     with open(latest_file, "r", encoding="utf-8") as f:
         data = json.load(f)
-    assert data["city"] == "San Francisco, CA"
-    assert data["transit_system"] == "SFMTA"
+    assert data["city"] == "Minneapolis–Saint Paul, MN"
+    assert data["source"] == "sample"
 
 
 def test_worker_mobility_catalog_integration():

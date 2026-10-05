@@ -9,7 +9,9 @@ import { DEFAULT_LATEST, DEFAULT_HISTORY } from "./snapshot_data.js";
 import {
   CITY_PRESETS,
   CITY_ALIASES,
+  CITY_FEED_URLS,
   normalizeCityKey,
+  lookupCityKey,
   getAllCitiesData,
 } from "./cities_data.js";
 import {
@@ -20,6 +22,20 @@ import {
 const DATA_BASE =
   "https://raw.githubusercontent.com/aminamos/ghost-bus-tracker/main/data";
 const UPSTREAM_CACHE_TTL = 300; // git-scraping workflow commits every 30 min
+
+// Hosts the live proxy may fetch. A ?url= outside this set gets a 400.
+// Derived from the canonical per-market feed URLs (CITY_FEED_URLS).
+function allowedProxyHost(host) {
+  const allowed = new Set(
+    Object.values(CITY_FEED_URLS).flatMap(({ vp, tu }) => {
+      const hosts = [];
+      try { hosts.push(new URL(vp).hostname.toLowerCase()); } catch { /* skip */ }
+      try { hosts.push(new URL(tu).hostname.toLowerCase()); } catch { /* skip */ }
+      return hosts;
+    })
+  );
+  return allowed.has(String(host || "").toLowerCase());
+}
 
 // Escape feed-derived values before interpolating them into HTML.
 function esc(v) {
@@ -33,9 +49,10 @@ function esc(v) {
 
 // Serve the freshest committed snapshot from the repo, cached at the edge via
 // Cache API under a fixed internal key (TTL: UPSTREAM_CACHE_TTL).
+// Returns { data, stale }: stale is true when serving bundled fallback data.
 async function fetchSnapshot(file, fallback, ctx, fresh = false) {
   const cache = caches.default;
-  const cacheKey = `https://gbt-cache.internal/${file}`;
+  const cacheKey = new Request(`https://gbt-cache.internal/${file}`, { method: "GET" });
   const upstreamUrl = fresh
     ? `${DATA_BASE}/${file}?_=${Date.now()}`
     : `${DATA_BASE}/${file}`;
@@ -43,9 +60,9 @@ async function fetchSnapshot(file, fallback, ctx, fresh = false) {
   if (!fresh) {
     try {
       const hit = await cache.match(cacheKey);
-      if (hit) return await hit.json();
+      if (hit) return { data: await hit.json(), stale: false };
     } catch {
-      // Cache read failed — continue to upstream.
+      // Cache read failed, continue to upstream.
     }
   }
 
@@ -65,15 +82,15 @@ async function fetchSnapshot(file, fallback, ctx, fresh = false) {
     const put = cache.put(cacheKey, toStore).catch(() => {});
     if (ctx && typeof ctx.waitUntil === "function") ctx.waitUntil(put);
     else await put;
-    return data;
+    return { data, stale: false };
   } catch {
     try {
       const hit = await cache.match(cacheKey);
-      if (hit) return await hit.json();
+      if (hit) return { data: await hit.json(), stale: true };
     } catch {
-      // ignore — use bundled fallback
+      // ignore, use bundled fallback
     }
-    return fallback;
+    return { data: fallback, stale: true };
   }
 }
 
@@ -89,11 +106,11 @@ function jsonResponse(data, status = 200) {
   });
 }
 
-function renderHtml(activeKey, allCities) {
+function renderHtml(activeKey, allCities, cityIsLive = (activeKey === "twin-cities")) {
   const cityData = allCities[activeKey] || allCities["twin-cities"];
   const latest = cityData.latest;
   const history = cityData.history || [];
-
+  const staticNote = cityIsLive ? "" : `<div id="staticNote" style="margin-top:0.5rem;font-size:0.8rem;color:var(--text-muted);">Static snapshot for this market (live refresh covers Twin Cities only).</div>`;
   const isHealthy = latest.ghost_bus_rate_pct < 5.0;
   const isElevated = latest.ghost_bus_rate_pct < 15.0;
   const statusBadge = isHealthy
@@ -461,8 +478,9 @@ function renderHtml(activeKey, allCities) {
       </div>
       <div class="header-actions">
         <div id="badgeContainer">${statusBadge}</div>
-        <button class="btn" id="refreshBtn" onclick="fetchLiveMetrics()">🔄 Refresh Feed</button>
+        <button class="btn" id="refreshBtn" onclick="fetchLiveMetrics()"${cityIsLive ? "" : ' disabled title="Live refresh covers Twin Cities only"'}>🔄 Refresh Feed</button>
         <a class="btn" id="apiLink" href="/api/latest?city=${esc(activeKey)}" target="_blank">⚡ JSON API</a>
+        ${staticNote}
       </div>
     </header>
 
@@ -621,10 +639,10 @@ function renderHtml(activeKey, allCities) {
     <div class="card" id="catalogCard">
       <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem; margin-bottom:0.75rem;">
         <div class="card-title" style="margin-bottom:0;">🌐 Global Transit Feeds Explorer (MobilityDatabase Catalog)</div>
-        <span class="badge badge-info" style="font-size:0.75rem;">990+ Global Feeds Directory</span>
+        <span class="badge badge-info" style="font-size:0.75rem;">Curated sample from the 990+ feed MobilityDatabase</span>
       </div>
       <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1rem;">
-        Explore official GTFS Realtime feeds across North America, Europe, Latin America, and Australasia directly from the verified open MobilityDatabase catalog — no CLI commands or terminal needed.
+        Explore official GTFS Realtime feeds across North America, Europe, Latin America, and Australasia from a curated sample of the verified open MobilityDatabase catalog (full catalog holds 990+ feeds; this explorer bundles a subset for instant search).
       </p>
       <div style="display:flex; gap:0.5rem; margin-bottom:1rem; flex-wrap:wrap;">
         <input type="text" id="catalogSearch" class="search-box" style="margin-bottom:0; flex:1; min-width:240px;" placeholder="Filter by provider, city, country, or feed type (e.g. Broward, Carcassonne, France, Spain, DART, Dublin)..." oninput="filterGlobalCatalog()">
@@ -668,10 +686,11 @@ function renderHtml(activeKey, allCities) {
   </div>
 
   <script>
-    // Embedded client data for instant, zero-latency market switching
-    const CITIES_DATA = ${JSON.stringify(allCities)};
-    const CITY_ALIASES = ${JSON.stringify(CITY_ALIASES)};
-    const GLOBAL_CATALOG = ${JSON.stringify(GLOBAL_TRANSIT_CATALOG)};
+    // Embedded client data for instant, zero-latency market switching.
+    // "<" is escaped so a feed value containing </script> cannot break context.
+    const CITIES_DATA = ${JSON.stringify(allCities).replace(/</g, "\\u003c")};
+    const CITY_ALIASES = ${JSON.stringify(CITY_ALIASES).replace(/</g, "\\u003c")};
+    const GLOBAL_CATALOG = ${JSON.stringify(GLOBAL_TRANSIT_CATALOG).replace(/</g, "\\u003c")};
     let currentCityKey = "${activeKey}";
     let activeCatalogCountry = 'all';
 
@@ -775,8 +794,11 @@ function renderHtml(activeKey, allCities) {
         return;
       }
 
+      // Parse scan_time robustly: bundled snapshots use ISO, older rows use
+      // a space separator that Safari Date.parse rejects, so normalize first.
+      const parseScanTime = (s) => new Date(String(s || "").replace(" ", "T"));
       // Sort chronological
-      const pts = [...history].sort((a, b) => new Date(a.scan_time) - new Date(b.scan_time));
+      const pts = [...history].sort((a, b) => parseScanTime(a.scan_time) - parseScanTime(b.scan_time));
       const width = container.clientWidth || 900;
       const height = 200;
       const padLeft = 45;
@@ -786,8 +808,13 @@ function renderHtml(activeKey, allCities) {
       const chartW = width - padLeft - padRight;
       const chartH = height - padTop - padBottom;
 
-      const maxRate = Math.max(...pts.map(p => p.ghost_bus_rate_pct), 30);
+      // Dynamic ceiling: data maximum rounded up to the next 10, minimum 10.
+      const dataMax = Math.max(...pts.map(p => p.ghost_bus_rate_pct), 0);
+      const maxRate = Math.max(10, Math.ceil(dataMax / 10) * 10);
       const minRate = 0;
+      const step = maxRate <= 20 ? 5 : 10;
+      const ticks = [];
+      for (let t = 0; t <= maxRate; t += step) ticks.push(t);
 
       const getX = (idx) => padLeft + (idx / Math.max(pts.length - 1, 1)) * chartW;
       const getY = (val) => padTop + chartH - ((val - minRate) / (maxRate - minRate)) * chartH;
@@ -804,16 +831,10 @@ function renderHtml(activeKey, allCities) {
         </defs>
 
         <!-- Grid Lines -->
-        <line x1="\${padLeft}" y1="\${getY(0)}" x2="\${width - padRight}" y2="\${getY(0)}" stroke="rgba(255,255,255,0.08)" stroke-dasharray="3,3"/>
-        <line x1="\${padLeft}" y1="\${getY(10)}" x2="\${width - padRight}" y2="\${getY(10)}" stroke="rgba(255,255,255,0.08)" stroke-dasharray="3,3"/>
-        <line x1="\${padLeft}" y1="\${getY(20)}" x2="\${width - padRight}" y2="\${getY(20)}" stroke="rgba(255,255,255,0.08)" stroke-dasharray="3,3"/>
-        <line x1="\${padLeft}" y1="\${getY(30)}" x2="\${width - padRight}" y2="\${getY(30)}" stroke="rgba(255,255,255,0.08)" stroke-dasharray="3,3"/>
+        \${ticks.map(t => \`<line x1="\${padLeft}" y1="\${getY(t)}" x2="\${width - padRight}" y2="\${getY(t)}" stroke="rgba(255,255,255,0.08)" stroke-dasharray="3,3"/>\`).join("")}
 
         <!-- Y Axis Labels -->
-        <text x="\${padLeft - 8}" y="\${getY(0) + 4}" fill="#9ca3af" font-size="11" text-anchor="end" font-family="JetBrains Mono">0%</text>
-        <text x="\${padLeft - 8}" y="\${getY(10) + 4}" fill="#9ca3af" font-size="11" text-anchor="end" font-family="JetBrains Mono">10%</text>
-        <text x="\${padLeft - 8}" y="\${getY(20) + 4}" fill="#9ca3af" font-size="11" text-anchor="end" font-family="JetBrains Mono">20%</text>
-        <text x="\${padLeft - 8}" y="\${getY(30) + 4}" fill="#9ca3af" font-size="11" text-anchor="end" font-family="JetBrains Mono">30%</text>
+        \${ticks.map(t => \`<text x="\${padLeft - 8}" y="\${getY(t) + 4}" fill="#9ca3af" font-size="11" text-anchor="end" font-family="JetBrains Mono">\${t}%</text>\`).join("")}
 
         <!-- Area fill under ghost rate -->
         <polygon points="\${padLeft},\${getY(0)} \${ghostPoints} \${getX(pts.length - 1)},\${getY(0)}" fill="url(#ghostGrad)" />
@@ -825,9 +846,8 @@ function renderHtml(activeKey, allCities) {
       pts.forEach((p, i) => {
         const x = getX(i);
         const y = getY(p.ghost_bus_rate_pct);
-        const dateObj = new Date(p.scan_time);
+        const dateObj = parseScanTime(p.scan_time);
         const timeLabel = isNaN(dateObj.getTime()) ? p.scan_time.slice(-8) : dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
         svg += \`
           <circle cx="\${x}" cy="\${y}" r="4.5" fill="#ec4899" stroke="#111827" stroke-width="2" />
           <text x="\${x}" y="\${y - 9}" fill="#f472b6" font-size="10.5" font-weight="700" text-anchor="middle" font-family="JetBrains Mono">\${p.ghost_bus_rate_pct}%</text>
@@ -888,9 +908,31 @@ function renderHtml(activeKey, allCities) {
       document.getElementById('kpiOnTime').textContent = \`\${latest.overall_on_time_pct}%\`;
       document.getElementById('kpiFleet').textContent = latest.total_tracked_vehicles;
       document.getElementById('kpiScheduled').textContent = latest.total_scheduled_trips;
-      document.getElementById('kpiMeanDelay').textContent = \`+\${(latest.mean_delay_sec / 60.0).toFixed(1)}m\`;
-      document.getElementById('kpiMeanDelayDesc').textContent = \`+\${latest.mean_delay_sec}s average delay\`;
+      const meanSign = latest.mean_delay_sec >= 0 ? '+' : '-';
+      const meanAbs = Math.abs(latest.mean_delay_sec);
+      document.getElementById('kpiMeanDelay').textContent = \`\${meanSign}\${(meanAbs / 60.0).toFixed(1)}m\`;
+      document.getElementById('kpiMeanDelayDesc').textContent = \`\${meanSign}\${meanAbs}s average delay\`;
 
+      // Live refresh covers Twin Cities only; other markets are static.
+      const refreshBtn = document.getElementById('refreshBtn');
+      if (refreshBtn) {
+        const live = normalized === 'twin-cities';
+        refreshBtn.disabled = !live;
+        refreshBtn.title = live ? '' : 'Live refresh covers Twin Cities only';
+      }
+      let staticNote = document.getElementById('staticNote');
+      if (normalized !== 'twin-cities' && !staticNote) {
+        const actions = document.querySelector('.header-actions');
+        if (actions) {
+          staticNote = document.createElement('div');
+          staticNote.id = 'staticNote';
+          staticNote.style.cssText = 'margin-top:0.5rem;font-size:0.8rem;color:var(--text-muted);';
+          staticNote.textContent = 'Static snapshot for this market (live refresh covers Twin Cities only).';
+          actions.appendChild(staticNote);
+        }
+      } else if (normalized === 'twin-cities' && staticNote) {
+        staticNote.remove();
+      }
       // 6. Update Delay Distribution Bar & Legend
       const dist = latest.delay_distribution || {};
       const totalTrips = latest.total_scheduled_trips || 1;
@@ -914,7 +956,9 @@ function renderHtml(activeKey, allCities) {
       // 8. Update Worst Routes Table
       const routesBody = document.getElementById('routesTableBody');
       const routes = latest.worst_routes_by_ghost || [];
-      routesBody.innerHTML = routes.map(r => \`
+      routesBody.innerHTML = routes.map(r => {
+        const s = r.avg_delay_sec >= 0 ? '+' : '-';
+        return \`
         <tr>
           <td><span class="route-pill">\${escHtml(r.route_name || r.route_id)}</span></td>
           <td>\${escHtml(r.total_trips)}</td>
@@ -922,9 +966,9 @@ function renderHtml(activeKey, allCities) {
           <td><strong class="text-ghost">\${escHtml(r.ghost_trips)}</strong></td>
           <td><strong class="text-ghost">\${escHtml(r.ghost_rate_pct)}%</strong></td>
           <td>\${escHtml(r.on_time_pct)}%</td>
-          <td>+\${(r.avg_delay_sec / 60.0).toFixed(1)}m</td>
+          <td>\${s}\${(Math.abs(r.avg_delay_sec) / 60.0).toFixed(1)}m</td>
         </tr>
-      \`).join('');
+      }).join('');
 
       // 9. Update Ghost Trips Diagnostics Log
       const ghostBody = document.getElementById('ghostTripsBody');
@@ -973,9 +1017,9 @@ function renderHtml(activeKey, allCities) {
     }
 
     async function fetchLiveMetrics() {
+      const btn = document.getElementById('refreshBtn');
       try {
-        const btn = document.getElementById('refreshBtn');
-        btn.textContent = '⏳ Refreshing...';
+        if (btn) btn.textContent = '⏳ Refreshing...';
         const res = await fetch(\`/api/latest?city=\${currentCityKey}&fresh=1\`);
         if (res.ok) {
           const freshData = await res.json();
@@ -983,12 +1027,11 @@ function renderHtml(activeKey, allCities) {
             CITIES_DATA[currentCityKey].latest = freshData;
             switchCity(currentCityKey);
           }
-          btn.textContent = '🔄 Refresh Feed';
         }
       } catch (e) {
         alert('Failed to refresh feed: ' + e);
-        const btn = document.getElementById('refreshBtn');
-        if (btn) btn.textContent = '🔄 Refresh Feed';
+      } finally {
+        if (btn && !btn.disabled) btn.textContent = '🔄 Refresh Feed';
       }
     }
 
@@ -1037,12 +1080,24 @@ export default {
       const path = url.pathname;
       const fresh = url.searchParams.has("fresh");
 
-      // Resolve requested city (defaults to twin-cities)
+      // Resolve requested city. HTML pages default to Twin Cities, but API
+      // endpoints return 404 for unknown markets instead of silent fallback.
       const rawCity =
         url.searchParams.get("city") ||
         url.searchParams.get("location") ||
         url.searchParams.get("preset");
       const cityKey = normalizeCityKey(rawCity);
+      const strictKey = lookupCityKey(rawCity);
+      const isApi = path.startsWith("/api/");
+      if (rawCity && !strictKey && isApi) {
+        return jsonResponse(
+          {
+            error: `Unknown market '${rawCity}'`,
+            supported_markets: CITY_PRESETS.map((p) => p.id),
+          },
+          404
+        );
+      }
 
       // Health check
       if (path === "/health" || path === "/api/health") {
@@ -1056,20 +1111,24 @@ export default {
       }
 
       // Prepare live Twin Cities data from GitHub git-scraping workflow
-      const [liveTwinCitiesLatest, liveTwinCitiesHistory] = await Promise.all([
+      const [latestRes, historyRes] = await Promise.all([
         fetchSnapshot("latest.json", DEFAULT_LATEST, ctx, fresh),
         fetchSnapshot("history.json", DEFAULT_HISTORY, ctx, fresh),
       ]);
 
       const allCities = getAllCitiesData(
-        liveTwinCitiesLatest,
-        liveTwinCitiesHistory
+        latestRes.data,
+        historyRes.data
       );
+      const tcStale = latestRes.stale || historyRes.stale;
       const targetCityData = allCities[cityKey] || allCities["twin-cities"];
+      // Only Twin Cities refreshes from the live pipeline. The other 12
+      // markets are bundled static snapshots, always flagged as such.
+      const cityIsLive = cityKey === "twin-cities" && !tcStale;
 
       // Latest Snapshot API
       if (path === "/api/latest") {
-        return jsonResponse(targetCityData.latest);
+        return jsonResponse({ ...targetCityData.latest, stale: !cityIsLive, live: cityIsLive });
       }
 
       // History API
@@ -1095,6 +1154,8 @@ export default {
           total_tracked_vehicles: snap.total_tracked_vehicles,
           total_ghost_trips: snap.total_ghost_trips,
           mean_delay_sec: snap.mean_delay_sec,
+          stale: !cityIsLive,
+          live: cityIsLive,
         });
       }
 
@@ -1119,15 +1180,19 @@ export default {
           200
         );
 
-        let results = searchGlobalCatalog(q, limit);
+        // Filter first over the full catalog, then cap: slicing before the
+        // country filter would silently drop matching feeds.
+        let results = searchGlobalCatalog(q, GLOBAL_TRANSIT_CATALOG.length);
         if (country && country.toLowerCase() !== "all") {
           results = results.filter(
             (f) => f.country.toLowerCase() === country.toLowerCase()
           );
         }
+        const totalMatching = results.length;
+        results = results.slice(0, limit);
         return jsonResponse({
           status: "ok",
-          total_matching: results.length,
+          total_matching: totalMatching,
           catalog_total: GLOBAL_TRANSIT_CATALOG.length,
           query: q || null,
           country: country || null,
@@ -1135,15 +1200,25 @@ export default {
         });
       }
 
-      // Live GTFS-RT Protobuf Proxy (with CORS and Edge Caching)
+      // Live GTFS-RT Protobuf Proxy (allowlisted hosts only, with CORS)
       if (path === "/api/live/vp" || path === "/api/live/tu") {
         const isVP = path === "/api/live/vp";
-        const targetCity = allCities[cityKey] || allCities["twin-cities"];
-        const defaultFeed = isVP
-          ? "https://svc.metrotransit.org/mtgtfs/vehiclepositions.pb"
-          : "https://svc.metrotransit.org/mtgtfs/tripupdates.pb";
-        const upstreamUrl = url.searchParams.get("url") || defaultFeed;
-
+        const feeds = CITY_FEED_URLS[cityKey] || CITY_FEED_URLS["twin-cities"];
+        const defaultFeed = isVP ? feeds.vp : feeds.tu;
+        const requested = url.searchParams.get("url");
+        const upstreamUrl = requested || defaultFeed;
+        let parsed;
+        try {
+          parsed = new URL(upstreamUrl);
+        } catch {
+          return jsonResponse({ error: "Invalid url parameter" }, 400);
+        }
+        if (parsed.protocol !== "https:") {
+          return jsonResponse({ error: "Only https feed URLs may be proxied" }, 400);
+        }
+        if (!allowedProxyHost(parsed.hostname)) {
+          return jsonResponse({ error: "Feed host is not allowlisted", host: parsed.hostname }, 400);
+        }
         try {
           const upstream = await fetch(upstreamUrl, {
             headers: { "User-Agent": "GhostBusTracker-Worker/0.1.0" },
@@ -1159,15 +1234,18 @@ export default {
             },
           });
         } catch (err) {
-          return jsonResponse(
-            { error: "Failed to proxy live protobuf feed: " + err.message, upstream: upstreamUrl },
-            502
-          );
+          return jsonResponse({ error: "Failed to proxy live protobuf feed: " + err.message }, 502);
         }
       }
 
-      // Proxy live routes from NextTrip REST API (for Twin Cities)
+      // Proxy live routes from NextTrip REST API (Twin Cities only)
       if (path === "/api/routes") {
+        if (cityKey !== "twin-cities") {
+          return jsonResponse(
+            { error: "The routes proxy only supports the Twin Cities NextTrip feed (?city=twin-cities)" },
+            400
+          );
+        }
         try {
           const upstream = await fetch(
             "https://svc.metrotransit.org/nextrip/routes",
@@ -1187,7 +1265,7 @@ export default {
 
       // Web Dashboard (Root)
       if (path === "/" || path === "/index.html") {
-        const html = renderHtml(cityKey, allCities);
+        const html = renderHtml(cityKey, allCities, cityIsLive);
         return new Response(html, {
           headers: {
             "Content-Type": "text/html; charset=utf-8",

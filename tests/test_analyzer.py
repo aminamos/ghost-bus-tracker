@@ -206,8 +206,8 @@ def test_headway_regularity_calculation():
     assert metrics[0].route_id == "1"
     # Real scheduled headway from start_times: gap of 900s = 15.0 min
     assert metrics[0].scheduled_headway_min == pytest.approx(15.0)
-    # Observed headway = scheduled + avg_delay (15 + 300s/60 = 20.0)
-    assert metrics[0].observed_headway_min == pytest.approx(20.0)
+    # Uniform delay cannot change headway: observed equals scheduled.
+    assert metrics[0].observed_headway_min == pytest.approx(15.0)
     # Standard EWT = Var(headway)/(2*mean headway): pstdev(0,600)=300 ->
     # 300^2 / (2*900) = 50s = 0.83 min
     assert metrics[0].excess_wait_time_min == pytest.approx(0.83)

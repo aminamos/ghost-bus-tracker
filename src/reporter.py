@@ -61,6 +61,9 @@ class ReportGenerator:
             total_tracked_vehicles=snapshot.total_tracked_vehicles,
             total_ghost_trips=snapshot.total_ghost_trips,
             mean_delay_sec=snapshot.mean_delay_sec,
+            agency=snapshot.agency,
+            city=snapshot.city,
+            transit_system=snapshot.transit_system,
             source=snapshot.source,
         ).model_dump()
 
@@ -103,11 +106,19 @@ class ReportGenerator:
         system_val = getattr(snapshot, "transit_system", None) or agency_val
         region_val = getattr(snapshot, "region", None) or "Twin Cities Metropolitan Area, Minnesota"
 
+        def fmt_delay(sec: float) -> str:
+            sign = "+" if sec >= 0 else "-"
+            return f"{sign}{abs(sec)}s"
+
+        def fmt_delay_min(sec: float) -> str:
+            sign = "+" if sec >= 0 else "-"
+            return f"{sign}{round(abs(sec) / 60.0, 1)} min"
+
         md: List[str] = [
             "# 🚌 Automated Public Transit Reliability & Ghost Bus Tracker",
             "",
             f"> Real-time monitoring and git-scraping reliability index for **{agency_val}** in **{city_val}** ({region_val}).",
-            f"> **Transit System:** {system_val} (Bus, METRO Light Rail & BRT) | **Location:** {city_val} | **Status:** {status_badge} | **Last Scan:** `{snapshot.scan_time}` | **Source:** {source_label}",
+            f"> **Transit System:** {system_val} | **Location:** {city_val} | **Status:** {status_badge} | **Last Scan:** `{snapshot.scan_time}` | **Source:** {source_label}",
             "",
             "---",
             "",
@@ -120,8 +131,8 @@ class ReportGenerator:
             f"| **Scheduled Active Trips** | `{snapshot.total_scheduled_trips}` | Total runs operating in current transit schedule window |",
             f"| **Tracked Fleet Vehicles** | `{snapshot.total_tracked_vehicles}` | GPS transponders broadcasting valid coordinates |",
             f"| **Confirmed Ghost Trips** | `{snapshot.total_ghost_trips}` | Disappeared or unassigned scheduled runs |",
-            f"| **Mean Delay** | `+{snapshot.mean_delay_sec}s` (`{round(snapshot.mean_delay_sec / 60.0, 1)} min`) | Average delay across all active tracked runs |",
-            f"| **Median Delay** | `+{snapshot.median_delay_sec}s` (`{round(snapshot.median_delay_sec / 60.0, 1)} min`) | Median schedule deviation |",
+            f"| **Mean Delay** | `{fmt_delay(snapshot.mean_delay_sec)}` (`{fmt_delay_min(snapshot.mean_delay_sec)}`) | Average delay across all active tracked runs |",
+            f"| **Median Delay** | `{fmt_delay(snapshot.median_delay_sec)}` (`{fmt_delay_min(snapshot.median_delay_sec)}`) | Median schedule deviation |",
             "",
             "---",
             "",
@@ -154,7 +165,7 @@ class ReportGenerator:
 
         if snapshot.worst_routes_by_ghost:
             for r in snapshot.worst_routes_by_ghost:
-                avg_m = f"+{round(r.avg_delay_sec / 60.0, 1)}m" if r.avg_delay_sec > 0 else f"{r.avg_delay_sec}s"
+                avg_m = fmt_delay_min(r.avg_delay_sec) if r.avg_delay_sec > 0 else fmt_delay(r.avg_delay_sec)
                 md.append(
                     f"| **{r.route_name or r.route_id}** | {r.total_trips} | {r.tracked_vehicles} | {r.ghost_trips} | **`{r.ghost_rate_pct}%`** | `{r.on_time_pct}%` | `{avg_m}` |"
                 )
@@ -173,8 +184,8 @@ class ReportGenerator:
 
         if snapshot.most_delayed_routes:
             for r in snapshot.most_delayed_routes:
-                avg_m = f"+{round(r.avg_delay_sec / 60.0, 1)} min ({r.avg_delay_sec}s)"
-                max_m = f"+{round(r.max_delay_sec / 60.0, 1)} min ({r.max_delay_sec}s)"
+                avg_m = f"{fmt_delay_min(r.avg_delay_sec)} ({fmt_delay(r.avg_delay_sec)})"
+                max_m = f"{fmt_delay_min(r.max_delay_sec)} ({fmt_delay(r.max_delay_sec)})"
                 md.append(
                     f"| **{r.route_name or r.route_id}** | `{avg_m}` | `{max_m}` | {r.tracked_vehicles} | `{r.on_time_pct}%` |"
                 )
@@ -195,8 +206,9 @@ class ReportGenerator:
 
         if snapshot.headway_metrics:
             for hw in snapshot.headway_metrics:
+                ewt_m = fmt_delay_min(hw.excess_wait_time_min or 0.0)
                 md.append(
-                    f"| **Route {hw.route_id}** | ~{hw.scheduled_headway_min}m | ~{hw.observed_headway_min}m | **`+{hw.excess_wait_time_min} min`** | `{hw.headway_regularity_score} / 100` |"
+                    f"| **Route {hw.route_id}** | ~{hw.scheduled_headway_min}m | ~{hw.observed_headway_min}m | **`{ewt_m}`** | `{hw.headway_regularity_score} / 100` |"
                 )
         else:
             md.append("| *Insufficient route frequency data in current snapshot* | - | - | - | - |")
@@ -234,7 +246,7 @@ class ReportGenerator:
             for h in reversed(history[-8:]):
                 t_str = h["scan_time"][:19].replace("T", " ")
                 md.append(
-                    f"| `{t_str}` | `{h['ghost_bus_rate_pct']}%` | `{h['overall_on_time_pct']}%` | {h['total_scheduled_trips']} | {h['total_tracked_vehicles']} | `+{h['mean_delay_sec']}s` |"
+                    f"| `{t_str}` | `{h['ghost_bus_rate_pct']}%` | `{h['overall_on_time_pct']}%` | {h['total_scheduled_trips']} | {h['total_tracked_vehicles']} | `{fmt_delay(h['mean_delay_sec'])}` |"
                 )
 
         md.extend([
@@ -273,19 +285,24 @@ class ReportGenerator:
         """Formats a clean terminal scorecard."""
         city_val = getattr(snapshot, "city", None) or "Minneapolis–Saint Paul, MN"
         system_val = getattr(snapshot, "transit_system", None) or "Metro Transit"
+        mean_sec = snapshot.mean_delay_sec
+        mean_sign = "+" if mean_sec >= 0 else "-"
+        mean_str = f"{mean_sign}{abs(mean_sec)}s ({mean_sign}{round(abs(mean_sec) / 60.0, 1)}m)"
+        source_str = "SAMPLE (offline bundle)" if snapshot.source == "sample" else "LIVE GTFS-RT feed"
         lines = [
             "=" * 60,
             f" [BUS] GHOST BUS TRACKER: {snapshot.agency.upper()}",
-            f" Transit System:    {system_val} (Bus, METRO Light Rail & BRT)",
+            f" Transit System:    {system_val}",
             f" Location:          {city_val}",
             f" Scan Time:         {snapshot.scan_time}",
+            f" Source:            {source_str}",
             "=" * 60,
             f" Scheduled Trips:    {snapshot.total_scheduled_trips}",
             f" Active GPS Fleet:   {snapshot.total_tracked_vehicles}",
             f" Confirmed Ghosts:   {snapshot.total_ghost_trips}",
             f" Ghost Bus Rate:     {snapshot.ghost_bus_rate_pct}%",
             f" On-Time Adherence:  {snapshot.overall_on_time_pct}%",
-            f" Mean Delay:         +{snapshot.mean_delay_sec}s ({round(snapshot.mean_delay_sec / 60.0, 1)}m)",
+            f" Mean Delay:         {mean_str}",
             "-" * 60,
             " Delay Breakdown:",
             f"   On-Time (-1m..+5m): {snapshot.delay_distribution.on_time}",
@@ -298,8 +315,9 @@ class ReportGenerator:
         if snapshot.worst_routes_by_ghost:
             lines.append(" Top Worst Routes by Ghost Rate:")
             for r in snapshot.worst_routes_by_ghost[:5]:
+                r_sign = "+" if r.avg_delay_sec >= 0 else "-"
                 lines.append(
-                    f"   Route {r.route_id:5s} | Ghost Rate: {r.ghost_rate_pct:5.1f}% ({r.ghost_trips}/{r.total_trips} trips) | Avg Delay: +{r.avg_delay_sec}s"
+                    f"   Route {r.route_id:5s} | Ghost Rate: {r.ghost_rate_pct:5.1f}% ({r.ghost_trips}/{r.total_trips} trips) | Avg Delay: {r_sign}{abs(r.avg_delay_sec)}s"
                 )
             lines.append("=" * 60)
         return "\n".join(lines)

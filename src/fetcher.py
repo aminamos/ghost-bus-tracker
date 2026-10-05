@@ -59,7 +59,11 @@ class FeedFetcher:
             if not entity.HasField("vehicle"):
                 continue
             v = entity.vehicle
-            v_id = v.vehicle.id if v.HasField("vehicle") and v.vehicle.id else entity.id
+            # Never fabricate IDs from entity.id: it lives in a different
+            # namespace and would corrupt ghost correlation. Skip ID-less rows.
+            if not (v.HasField("vehicle") and v.vehicle.id):
+                continue
+            v_id = v.vehicle.id
             trip_id = v.trip.trip_id if v.HasField("trip") and v.trip.trip_id else None
             route_id = v.trip.route_id if v.HasField("trip") and v.trip.route_id else None
             direction_id = (
@@ -67,8 +71,9 @@ class FeedFetcher:
                 if v.HasField("trip") and v.trip.HasField("direction_id")
                 else None
             )
-            lat = v.position.latitude if v.HasField("position") else 0.0
-            lon = v.position.longitude if v.HasField("position") else 0.0
+            # Missing GPS is unknown (None), never (0.0, 0.0) off Ghana.
+            lat = v.position.latitude if v.HasField("position") else None
+            lon = v.position.longitude if v.HasField("position") else None
             bearing = (
                 v.position.bearing
                 if v.HasField("position") and v.position.HasField("bearing")
@@ -110,8 +115,13 @@ class FeedFetcher:
                 continue
             tu = entity.trip_update
             trip_desc = tu.trip
-            trip_id = trip_desc.trip_id if trip_desc.trip_id else entity.id
+            # entity.id is a feed envelope id, not a trip id. Skip rather
+            # than pollute the trip namespace used by ghost correlation.
+            if not trip_desc.trip_id:
+                continue
+            trip_id = trip_desc.trip_id
             route_id = trip_desc.route_id if trip_desc.route_id else "UNKNOWN"
+            direction_id = trip_desc.direction_id if trip_desc.HasField("direction_id") else None
             start_time = trip_desc.start_time if trip_desc.HasField("start_time") else None
             start_date = trip_desc.start_date if trip_desc.HasField("start_date") else None
 
@@ -152,6 +162,7 @@ class FeedFetcher:
                 TripSnapshot(
                     trip_id=str(trip_id),
                     route_id=str(route_id),
+                    direction_id=direction_id,
                     start_time=start_time,
                     start_date=start_date,
                     schedule_relationship=rel_name,

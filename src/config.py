@@ -280,7 +280,7 @@ PRESET_ALIASES = {
 
 def get_preset(name: str):
     """Resolves an agency or city name to a preset dict, or None if not found."""
-    key = str(name).lower().strip().replace(" ", "-").replace("_", "")
+    key = str(name).lower().strip().replace(" ", "-").replace("_", "-")
     target_id = PRESET_ALIASES.get(key, key)
     return AGENCY_PRESETS.get(target_id)
 

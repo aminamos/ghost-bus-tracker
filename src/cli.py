@@ -3,6 +3,7 @@
 import argparse
 import json
 import logging
+import os
 import sys
 from pathlib import Path
 from typing import Optional
@@ -59,11 +60,33 @@ def run_scan(args: argparse.Namespace) -> int:
         history_path=Path(args.history_file) if args.history_file else config.HISTORY_FILE,
         report_path=Path(args.report_file) if args.report_file else config.REPORT_FILE,
     )
+    if getattr(args, "live", False) and getattr(args, "sample", False):
+        logger.error("Pass only one of --live or --sample, not both.")
+        return 1
 
     try:
         source = "live"
         used_fallback = False
         if getattr(args, "sample", False):
+            if preset and preset.get("id") != "twin-cities" and not getattr(args, "vp_feed", None) and not getattr(args, "tu_feed", None):
+                logger.warning(
+                    f"Sample bundle holds Twin Cities feeds, so --preset {preset['id']} labels are not applied. "
+                    "Snapshot is labeled Twin Cities with source=sample. Pass --vp-feed/--tu-feed for real city data."
+                )
+                agency_name = getattr(args, "agency", None) or config.AGENCY_NAME
+                city_name = getattr(args, "city", None) or config.CITY_NAME
+                transit_system = getattr(args, "transit_system", None) or config.TRANSIT_SYSTEM
+                region_name = getattr(args, "region", None) or config.REGION_NAME
+                state_name = config.STATE_NAME
+                country_name = config.COUNTRY_NAME
+                analyzer = ReliabilityAnalyzer(
+                    agency_name=agency_name,
+                    city_name=city_name,
+                    transit_system=transit_system,
+                    region_name=region_name,
+                    state_name=state_name,
+                    country_name=country_name,
+                )
             vp_src = args.vp_feed or config.SAMPLE_VP_FILE
             tu_src = args.tu_feed or config.SAMPLE_TU_FILE
             logger.info("Using sample/offline feeds:")
@@ -101,14 +124,18 @@ def run_scan(args: argparse.Namespace) -> int:
                     )
 
             logger.info(f"Fetching live feeds for {transit_system} ({city_name})...")
-            logger.info(f"  VP Feed: {vp_src}")
-            logger.info(f"  TU Feed: {tu_src}")
+            if api_key:
+                logger.info(f"  VP Feed: {vp_src.replace(api_key, '***')}")
+                logger.info(f"  TU Feed: {tu_src.replace(api_key, '***')}")
+            else:
+                logger.info(f"  VP Feed: {vp_src}")
+                logger.info(f"  TU Feed: {tu_src}")
             try:
                 vehicles, v_ts = fetcher.fetch_vehicle_positions(vp_src)
                 trips, t_ts = fetcher.fetch_trip_updates(tu_src)
                 feed_ts = t_ts or v_ts
             except Exception as e:
-                if args.fallback_sample:
+                if getattr(args, "fallback_sample", False):
                     logger.warning(f"Live feed fetch failed ({e}). Falling back to sample data...")
                     vehicles, trips, feed_ts = fetcher.load_sample_feeds()
                     source = "sample"
@@ -261,8 +288,8 @@ def build_parser() -> argparse.ArgumentParser:
 
     # scan subcommand
     scan_p = subparsers.add_parser("scan", help="Fetch feeds and analyze transit reliability")
-    scan_p.add_argument("--live", action="store_true", help="Fetch live feeds from network (default)")
-    scan_p.add_argument("--sample", "--mock", dest="sample", action="store_true", help="Use local sample feeds")
+    scan_p.add_argument("--live", action="store_true", help="Fetch live feeds from network (default when --sample is absent)")
+    scan_p.add_argument("--sample", "--mock", dest="sample", action="store_true", help="Use bundled Twin Cities sample feeds (labels stay Twin Cities)")
     scan_p.add_argument(
         "--preset",
         type=str,
@@ -282,8 +309,9 @@ def build_parser() -> argparse.ArgumentParser:
     scan_p.add_argument("--save", action="store_true", help="Save metrics to data/latest.json and update history.json")
     scan_p.add_argument("--report", action="store_true", help="Generate or update RELIABILITY.md")
     scan_p.add_argument("--quiet", action="store_true", help="Do not print terminal scorecard")
-    scan_p.add_argument("--fallback-sample", action="store_true", help="Fallback to sample feed if network fails")
+    scan_p.add_argument("--fallback-sample", dest="fallback_sample", action="store_true", help="Fallback to sample feed if network fails (default: fail loudly)")
     scan_p.add_argument("--no-fallback-sample", dest="fallback_sample", action="store_false", help="Disable fallback to sample feed")
+    scan_p.set_defaults(fallback_sample=False)
     scan_p.add_argument("--latest-file", type=str, help="Custom path for latest.json")
     scan_p.add_argument("--history-file", type=str, help="Custom path for history.json")
     scan_p.add_argument("--report-file", type=str, help="Custom path for RELIABILITY.md")

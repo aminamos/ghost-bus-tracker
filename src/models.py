@@ -19,16 +19,16 @@ class VehicleSnapshot(BaseModel):
     trip_id: Optional[str] = None
     route_id: Optional[str] = None
     direction_id: Optional[int] = None
-    latitude: float = 0.0
-    longitude: float = 0.0
+    latitude: Optional[float] = None
+    longitude: Optional[float] = None
     bearing: Optional[float] = None
     speed: Optional[float] = None
     timestamp: Optional[int] = None
 
-
 class TripSnapshot(BaseModel):
     trip_id: str
     route_id: str
+    direction_id: Optional[int] = None
     start_time: Optional[str] = None
     start_date: Optional[str] = None
     schedule_relationship: str = "SCHEDULED"
@@ -67,6 +67,7 @@ class RouteReliability(BaseModel):
 
 class HeadwayMetric(BaseModel):
     route_id: str
+    direction_id: Optional[int] = None
     scheduled_headway_min: Optional[float] = None
     observed_headway_min: Optional[float] = None
     excess_wait_time_min: Optional[float] = None

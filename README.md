@@ -92,9 +92,10 @@ flowchart LR
 1. **Ghost Bus Rate ($\%$)**:
    $$\text{Ghost Bus Rate} = \left( \frac{N_{\text{ghost}}}{N_{\text{scheduled}}} \right) \times 100\%$$
    Where a trip is flagged as ghost if:
-   - Schedule relationship is explicitly marked `CANCELED`, OR
    - Trip is scheduled without any assigned vehicle transponder AND has no active GPS broadcast, OR
-   - Assigned vehicle ID is missing from active GPS transponder broadcasts.
+   - Assigned vehicle ID is missing from active GPS transponder broadcasts, OR
+   - Assigned vehicle is broadcasting off-schedule with no vehicle covering the trip.
+   Trips explicitly marked `CANCELED` are their own bucket: NOT ghosts, NOT tracked, and excluded from delay stats.
 
 2. **On-Time Adherence ($\%$)**:
    Transit industry standard threshold:
@@ -108,6 +109,7 @@ flowchart LR
    Quantifies additional passenger waiting time caused by vehicle bunching and irregular spacing beyond the scheduled headway:
    $$\text{Average Wait Time} = \frac{\sum H_i^2}{2 \sum H_i}$$
    $$\text{EWT} = \text{Observed Average Wait Time} - \text{Scheduled Average Wait Time}$$
+   Approximation notes: headways are computed per route *and direction* from scheduled start times. A uniform delay shifts every departure equally and cannot change headway, so observed headway equals scheduled headway here; EWT is estimated from delay variance (delay jitter is what produces bunching), not from measured departures.
 
 ---
 
@@ -156,46 +158,58 @@ pip install -r requirements.txt
 #### 1. Scan Transit Feeds
 Fetch live GTFS-RT feeds, analyze reliability, and save results:
 ```bash
-# Live scan with automatic fallback to sample data if offline
+# Live scan (fails loudly if the network is unreachable)
 python -m src.cli scan --live --save --report
 
-# Scan using bundled sample/offline feed
+# Live scan with fallback to sample data if offline (opt-in)
+python -m src.cli scan --live --save --report --fallback-sample
+
+# Scan using bundled Twin Cities sample/offline feed
 python -m src.cli scan --sample --save --report
 
 # Custom feed URLs
 python -m src.cli scan --vp-feed https://my-transit.org/vehicles.pb --tu-feed https://my-transit.org/trips.pb --save
 ```
 
+Notes:
+- `--live` is the default when `--sample` is absent; passing both is an error.
+- `--fallback-sample` is off by default, so a failed live fetch fails loudly instead of silently swapping in sample data.
+- `--preset X --sample` keeps Twin Cities labels with `source="sample"`, because the bundle only holds Twin Cities feeds. Pass `--vp-feed`/`--tu-feed` for real city data.
+- API keys are never logged: feed URLs are redacted in log output.
+
 #### 2. View Terminal Scorecard Summary
 ```bash
 python -m src.cli summary
 ```
-Example Output:
+Example Output (`scan --sample`, captured 2026-10-05):
 ```text
 ============================================================
  [BUS] GHOST BUS TRACKER: METRO TRANSIT (TWIN CITIES)
- Scan Time: 2026-09-14T00:35:23.071428+00:00
+ Transit System:    Metro Transit
+ Location:          Minneapolis–Saint Paul, MN
+ Scan Time:         2026-10-05T11:41:39.134102+00:00
+ Source:            SAMPLE (offline bundle)
 ============================================================
  Scheduled Trips:    477
  Active GPS Fleet:   412
- Confirmed Ghosts:   65
- Ghost Bus Rate:     13.63%
- On-Time Adherence:  73.3%
- Mean Delay:         +242.2s (4.0m)
+ Confirmed Ghosts:   64
+ Ghost Bus Rate:     13.42%
+ On-Time Adherence:  55.58%
+ Mean Delay:         +342.9s (+5.7m)
 ------------------------------------------------------------
  Delay Breakdown:
-   On-Time (-1m..+5m): 302
-   Early (>1m early):  7
-   Minor (+5m..+15m):  69
-   Severe (>15m late): 34
-   Ghost / Missing:    65
+   On-Time (-1m..+5m): 229
+   Early (>1m early):  24
+   Minor (+5m..+15m):  117
+   Severe (>15m late):  42
+   Ghost / Missing:    64
 ------------------------------------------------------------
  Top Worst Routes by Ghost Rate:
-   Route 11    | Ghost Rate:  61.5% (8/13 trips) | Avg Delay: +240.0s
-   Route 921   | Ghost Rate:  50.0% (10/20 trips) | Avg Delay: +0.5s
-   Route 540   | Ghost Rate:  42.9% (3/7 trips) | Avg Delay: +139.8s
-   Route 18    | Ghost Rate:  33.3% (8/24 trips) | Avg Delay: +304.3s
-   Route 64    | Ghost Rate:  33.3% (4/12 trips) | Avg Delay: +114.8s
+   Route 11    | Ghost Rate:  53.9% (7/13 trips) | Avg Delay: +339.6s
+   Route 921   | Ghost Rate:  50.0% (10/20 trips) | Avg Delay: +97.7s
+   Route 540   | Ghost Rate:  42.9% (3/7 trips) | Avg Delay: +138.0s
+   Route 18    | Ghost Rate:  33.3% (8/24 trips) | Avg Delay: +443.6s
+   Route 64    | Ghost Rate:  33.3% (4/12 trips) | Avg Delay: +300.0s
 ============================================================
 ```
 
@@ -251,7 +265,7 @@ List all built-in presets:
 python -m src.cli presets
 ```
 
-Scan San Francisco (SFMTA Muni):
+Inspect a preset-fed scan offline (labels stay Twin Cities with `source="sample"`):
 ```bash
 python -m src.cli scan --preset sf --sample
 ```
@@ -266,6 +280,8 @@ Scan Chicago (CTA - with developer key from [transitchicago.com/developers](http
 # Pass key via flag or export CTA_API_KEY
 python -m src.cli scan --preset chicago --api-key <YOUR_CTA_KEY>
 ```
+
+> Only Twin Cities has a live git-scraping pipeline and bundled sample feeds. The dashboard's other 12 markets are static snapshots for comparison, not live data.
 
 Scan any custom transit agency anywhere in the world:
 ```bash
@@ -293,13 +309,16 @@ Live Worker URL: [https://ghost-bus-tracker.a-8c6.workers.dev](https://ghost-bus
 
 ### API Endpoints
 - `GET /`: Interactive multi-market web dashboard with Global Feeds Explorer
-- `GET /api/latest`: Latest JSON reliability snapshot (supports `?city=<preset>`)
+- `GET /api/latest`: Latest JSON reliability snapshot (supports `?city=<preset>`; includes `stale`/`live` flags)
 - `GET /api/history`: Historical time-series reliability log (supports `?city=<preset>`)
-- `GET /api/summary`: Scorecard KPI object (supports `?city=<preset>`)
+- `GET /api/summary`: Scorecard KPI object (supports `?city=<preset>`; includes `stale`/`live` flags)
 - `GET /api/markets`: List of all 13 supported transit markets and aliases
-- `GET /api/catalog`: Global MobilityDatabase directory of 990+ transit streams (supports `?q=<search>` and `?country=<country>`)
-- `GET /api/routes`: Upstream Metro Transit route proxy
+- `GET /api/catalog`: Curated sample of the MobilityDatabase catalog (full catalog holds 990+ feeds; supports `?q=<search>`, `?country=<country>`, `?limit=<n>`)
+- `GET /api/live/vp` and `GET /api/live/tu`: Live GTFS-RT protobuf proxy. Defaults follow `?city=<preset>`; an explicit `?url=` must be `https:` on an allowlisted agency feed host, otherwise the proxy returns 400.
+- `GET /api/routes`: Upstream Metro Transit route proxy (Twin Cities only; other `?city=` values return 400)
 - `GET /health`: Worker healthcheck
+
+Unknown `?city=` values return 404 on `/api/*` endpoints (the HTML dashboard still defaults to Twin Cities). Only Twin Cities refreshes from the live git-scraping pipeline; the other 12 markets are bundled static snapshots, flagged `stale: true` and labeled as static in the dashboard.
 
 ---
 

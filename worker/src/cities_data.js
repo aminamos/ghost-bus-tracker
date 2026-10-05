@@ -774,6 +774,73 @@ export function normalizeCityKey(key) {
   return CITY_ALIASES[clean] || "twin-cities";
 }
 
+// Strict lookup: returns the canonical key, or null when unknown.
+// Use for API endpoints so an unknown ?city= gets a 404 instead of a
+// silent Twin Cities fallback. HTML pages may still default via normalize.
+export function lookupCityKey(key) {
+  if (!key) return "twin-cities";
+  const clean = String(key).toLowerCase().trim().replace(/\s+/g, "-").replace(/_/g, "-");
+  return CITY_ALIASES[clean] || null;
+}
+
+// Canonical GTFS-RT feed URLs per market, mirroring src/config.py presets.
+// Used as the default upstream for the live proxy (?city=) and as the
+// SSRF allowlist (only these hosts may be fetched with ?url=).
+export const CITY_FEED_URLS = {
+  "twin-cities": {
+    vp: "https://svc.metrotransit.org/mtgtfs/vehiclepositions.pb",
+    tu: "https://svc.metrotransit.org/mtgtfs/tripupdates.pb",
+  },
+  chicago: {
+    vp: "https://www.transitchicago.com/api/1.0/gtfs-realtime/vehiclepositions.pb",
+    tu: "https://www.transitchicago.com/api/1.0/gtfs-realtime/tripupdates.pb",
+  },
+  boston: {
+    vp: "https://cdn.mbta.com/realtime/VehiclePositions.pb",
+    tu: "https://cdn.mbta.com/realtime/TripUpdates.pb",
+  },
+  nyc: {
+    vp: "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs",
+    tu: "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs",
+  },
+  sf: {
+    vp: "https://api.511.org/transit/vehiclepositions?agency=SF",
+    tu: "https://api.511.org/transit/tripupdates?agency=SF",
+  },
+  philly: {
+    vp: "https://www3.septa.org/developer/gtfs-rt/vehiclepositions.pb",
+    tu: "https://www3.septa.org/developer/gtfs-rt/tripupdates.pb",
+  },
+  dc: {
+    vp: "https://api.wmata.com/gtfs/bus-gtfs-rt/vehiclepositions.pb",
+    tu: "https://api.wmata.com/gtfs/bus-gtfs-rt/tripupdates.pb",
+  },
+  la: {
+    vp: "https://api.metro.net/agencies/lametro/vehicle_positions.pb",
+    tu: "https://api.metro.net/agencies/lametro/trip_updates.pb",
+  },
+  seattle: {
+    vp: "https://api.soundtransit.org/gtfs-rt/vehicle-positions.pb",
+    tu: "https://api.soundtransit.org/gtfs-rt/trip-updates.pb",
+  },
+  denver: {
+    vp: "https://www.rtd-denver.com/files/gtfs-rt/VehiclePosition.pb",
+    tu: "https://www.rtd-denver.com/files/gtfs-rt/TripUpdate.pb",
+  },
+  portland: {
+    vp: "https://developer.trimet.org/ws/V1/VehiclePositions.pb",
+    tu: "https://developer.trimet.org/ws/V1/TripUpdates.pb",
+  },
+  atlanta: {
+    vp: "https://gtfs-rt.itsmarta.com/TMGTFSRealTimeWebService/vehicle/vehiclepositions.pb",
+    tu: "https://gtfs-rt.itsmarta.com/TMGTFSRealTimeWebService/tripupdate/tripupdates.pb",
+  },
+  toronto: {
+    vp: "https://opendata.toronto.ca/transportation/ttc/gtfs-rt/vehicle-positions.pb",
+    tu: "https://opendata.toronto.ca/transportation/ttc/gtfs-rt/trip-updates.pb",
+  },
+};
+
 export function getAllCitiesData(liveTwinCitiesLatest = null, liveTwinCitiesHistory = null) {
   const tcLatest = liveTwinCitiesLatest || DEFAULT_LATEST;
   const tcHistory = liveTwinCitiesHistory || DEFAULT_HISTORY;
@@ -794,7 +861,7 @@ export function getAllCitiesData(liveTwinCitiesLatest = null, liveTwinCitiesHist
     },
   };
 
-  return {
+  const cities = {
     "twin-cities": {
       id: "twin-cities",
       name: "Twin Cities (Metro Transit)",
@@ -939,4 +1006,32 @@ export function getAllCitiesData(liveTwinCitiesLatest = null, liveTwinCitiesHist
       history: TORONTO_HISTORY,
     },
   };
+
+  // Reconcile snapshots so buckets partition the total:
+  // total = early + on_time + minor + severe + ghost + canceled, with rates
+  // derived from that total. Live pipeline data already satisfies this, so
+  // live values pass through unchanged; stale bundled typos get corrected.
+  for (const [key, entry] of Object.entries(cities)) {
+    const snap = entry.latest;
+    const d = snap.delay_distribution || {};
+    const buckets =
+      (d.early || 0) + (d.on_time || 0) + (d.minor_delay || 0) +
+      (d.severe_delay || 0) + (d.ghost || 0) + (d.canceled || 0);
+    if (buckets <= 0) continue;
+    const total = buckets;
+    const tracked = total - (d.ghost || 0) - (d.canceled || 0);
+    const delayTotal = (d.early || 0) + (d.on_time || 0) + (d.minor_delay || 0) + (d.severe_delay || 0);
+    entry.latest = {
+      ...snap,
+      total_scheduled_trips: total,
+      total_ghost_trips: d.ghost || 0,
+      total_tracked_vehicles: tracked,
+      ghost_bus_rate_pct: Math.round(((d.ghost || 0) / total) * 10000) / 100,
+      vehicle_tracking_rate_pct: Math.round((tracked / total) * 10000) / 100,
+      overall_on_time_pct: delayTotal > 0
+        ? Math.round(((d.on_time || 0) / delayTotal) * 10000) / 100
+        : 0.0,
+    };
+  }
+  return cities;
 }
