@@ -110,7 +110,7 @@ function renderHtml(activeKey, allCities, cityIsLive = (activeKey === "twin-citi
   const cityData = allCities[activeKey] || allCities["twin-cities"];
   const latest = cityData.latest;
   const history = cityData.history || [];
-  const staticNote = cityIsLive ? "" : `<div id="staticNote" style="margin-top:0.5rem;font-size:0.8rem;color:var(--text-muted);">Static snapshot for this market (live refresh covers Twin Cities only).</div>`;
+  const staticNote = cityIsLive ? "" : `<div id="staticNote" style="margin-top:0.5rem;font-size:0.8rem;color:var(--text-muted);">Static snapshot for this market (no live scan ingested yet).</div>`;
   const isHealthy = latest.ghost_bus_rate_pct < 5.0;
   const isElevated = latest.ghost_bus_rate_pct < 15.0;
   const statusBadge = isHealthy
@@ -478,7 +478,7 @@ function renderHtml(activeKey, allCities, cityIsLive = (activeKey === "twin-citi
       </div>
       <div class="header-actions">
         <div id="badgeContainer">${statusBadge}</div>
-        <button class="btn" id="refreshBtn" onclick="fetchLiveMetrics()"${cityIsLive ? "" : ' disabled title="Live refresh covers Twin Cities only"'}>🔄 Refresh Feed</button>
+        <button class="btn" id="refreshBtn" onclick="fetchLiveMetrics()"${cityIsLive ? "" : ' disabled title="No live scan ingested for this market yet"'}>🔄 Refresh Feed</button>
         <a class="btn" id="apiLink" href="/api/latest?city=${esc(activeKey)}" target="_blank">⚡ JSON API</a>
         ${staticNote}
       </div>
@@ -513,7 +513,40 @@ function renderHtml(activeKey, allCities, cityIsLive = (activeKey === "twin-citi
       </div>
     </div>
 
-    <!-- Delay Distribution Bar -->
+    <!-- All Markets Overview (merged view with multi-city filter) -->
+    <div class="card" id="overviewCard">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem; margin-bottom:0.75rem;">
+        <div class="card-title" style="margin-bottom:0;">🌐 All Markets Overview</div>
+        <span class="badge badge-info" style="font-size:0.75rem;" id="overviewCount"></span>
+      </div>
+      <div style="display:flex; gap:0.5rem; margin-bottom:1rem; flex-wrap:wrap;">
+        <input type="text" id="overviewSearch" class="search-box" style="margin-bottom:0; flex:1; min-width:240px;" placeholder="Filter markets (e.g. Chicago, MTA, Canada)..." oninput="renderOverview()">
+        <div style="display:flex; gap:0.35rem; align-items:center;">
+          <button class="catalog-filter-btn" onclick="overviewSelectAll(true)">All</button>
+          <button class="catalog-filter-btn" onclick="overviewSelectAll(false)">None</button>
+          <button class="catalog-filter-btn" onclick="overviewSelectLive(true)">Live only</button>
+        </div>
+      </div>
+      <div class="table-container" style="max-height: 480px; overflow-y: auto;">
+        <table id="overviewTable">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Market</th>
+              <th>Ghost %</th>
+              <th>On-Time %</th>
+              <th>Scheduled</th>
+              <th>Fleet</th>
+              <th>Mean Delay</th>
+              <th>Data</th>
+            </tr>
+          </thead>
+          <tbody id="overviewTableBody">
+          </tbody>
+        </table>
+      </div>
+      <div style="margin-top:0.5rem; font-size:0.8rem; color:var(--text-muted);">Uncheck markets to hide them. Click a market name to open its dashboard. Deep-link a selection with <code>?cities=boston,philly</code>.</div>
+    </div>
     <div class="card">
       <div class="card-title">⏱️ Schedule Adherence &amp; Delay Breakdown</div>
       <div class="dist-bar" id="distBar">
@@ -913,24 +946,25 @@ function renderHtml(activeKey, allCities, cityIsLive = (activeKey === "twin-citi
       document.getElementById('kpiMeanDelay').textContent = \`\${meanSign}\${(meanAbs / 60.0).toFixed(1)}m\`;
       document.getElementById('kpiMeanDelayDesc').textContent = \`\${meanSign}\${meanAbs}s average delay\`;
 
-      // Live refresh covers Twin Cities only; other markets are static.
+      // Refresh is available for markets with live scans; static markets
+      // show a note until their first scan lands.
       const refreshBtn = document.getElementById('refreshBtn');
+      const isLive = !!(CITIES_DATA[normalized] && CITIES_DATA[normalized].live);
       if (refreshBtn) {
-        const live = normalized === 'twin-cities';
-        refreshBtn.disabled = !live;
-        refreshBtn.title = live ? '' : 'Live refresh covers Twin Cities only';
+        refreshBtn.disabled = !isLive;
+        refreshBtn.title = isLive ? '' : 'No live scan ingested for this market yet';
       }
       let staticNote = document.getElementById('staticNote');
-      if (normalized !== 'twin-cities' && !staticNote) {
+      if (!isLive && !staticNote) {
         const actions = document.querySelector('.header-actions');
         if (actions) {
           staticNote = document.createElement('div');
           staticNote.id = 'staticNote';
           staticNote.style.cssText = 'margin-top:0.5rem;font-size:0.8rem;color:var(--text-muted);';
-          staticNote.textContent = 'Static snapshot for this market (live refresh covers Twin Cities only).';
+          staticNote.textContent = 'Static snapshot for this market (no live scan ingested yet).';
           actions.appendChild(staticNote);
         }
-      } else if (normalized === 'twin-cities' && staticNote) {
+      } else if (isLive && staticNote) {
         staticNote.remove();
       }
       // 6. Update Delay Distribution Bar & Legend
@@ -1007,6 +1041,82 @@ function renderHtml(activeKey, allCities, cityIsLive = (activeKey === "twin-citi
       if (searchBox) searchBox.value = '';
     }
 
+    // All Markets Overview: merged comparison with text filter plus
+    // multi-select checkboxes. Hidden set persists in localStorage;
+    // ?cities=a,b deep-links a visible selection.
+    let overviewHidden = new Set();
+    try {
+      const saved = JSON.parse(localStorage.getItem('gbt_overview_hidden') || '[]');
+      if (Array.isArray(saved)) overviewHidden = new Set(saved);
+    } catch(e){}
+
+    function overviewMarketIds() {
+      return Object.keys(CITIES_DATA);
+    }
+
+    function overviewSelectAll(select) {
+      overviewHidden = select ? new Set() : new Set(overviewMarketIds());
+      try { localStorage.setItem('gbt_overview_hidden', JSON.stringify([...overviewHidden])); } catch(e){}
+      renderOverview();
+    }
+
+    function overviewSelectLive(onlyLive) {
+      overviewHidden = new Set(
+        overviewMarketIds().filter(id => onlyLive ? !CITIES_DATA[id].live : false)
+      );
+      try { localStorage.setItem('gbt_overview_hidden', JSON.stringify([...overviewHidden])); } catch(e){}
+      renderOverview();
+    }
+
+    function overviewToggle(id, show) {
+      if (show) overviewHidden.delete(id);
+      else overviewHidden.add(id);
+      try { localStorage.setItem('gbt_overview_hidden', JSON.stringify([...overviewHidden])); } catch(e){}
+      renderOverview();
+    }
+
+    function renderOverview() {
+      const tbody = document.getElementById('overviewTableBody');
+      const countEl = document.getElementById('overviewCount');
+      if (!tbody) return;
+      const input = document.getElementById('overviewSearch');
+      const q = (input ? input.value : '').toLowerCase().trim();
+      const ids = overviewMarketIds().filter(id => {
+        if (overviewHidden.has(id)) return false;
+        if (!q) return true;
+        const d = CITIES_DATA[id];
+        const s = d.latest || {};
+        return (
+          (d.shortName || '').toLowerCase().includes(q) ||
+          (d.agency || '').toLowerCase().includes(q) ||
+          (s.city || '').toLowerCase().includes(q) ||
+          (s.country || '').toLowerCase().includes(q) ||
+          id.includes(q)
+        );
+      });
+      tbody.innerHTML = ids.map(id => {
+        const d = CITIES_DATA[id];
+        const s = d.latest || {};
+        const mean = s.mean_delay_sec || 0;
+        const ms = (mean >= 0 ? '+' : '-') + (Math.abs(mean) / 60.0).toFixed(1) + 'm';
+        const badge = d.live
+          ? '<span class="badge badge-success" style="font-size:0.72rem; padding:0.2rem 0.5rem;">Live</span>'
+          : '<span class="badge badge-warning" style="font-size:0.72rem; padding:0.2rem 0.5rem;">Static</span>';
+        return \`
+        <tr>
+          <td><input type="checkbox" checked onchange="overviewToggle('\${id}', this.checked)" aria-label="Show \${escHtml(d.shortName || id)}"></td>
+          <td><a href="javascript:void(0)" onclick="switchCity('\${id}')" style="color:#93c5fd;">\${escHtml(d.shortName || id)}</a> <span style="color:var(--text-muted); font-size:0.75rem;">\${escHtml(d.agency || '')}</span></td>
+          <td><strong class="text-ghost">\${escHtml(s.ghost_bus_rate_pct)}%</strong></td>
+          <td>\${escHtml(s.overall_on_time_pct)}%</td>
+          <td>\${escHtml(s.total_scheduled_trips)}</td>
+          <td>\${escHtml(s.total_tracked_vehicles)}</td>
+          <td>\${ms}</td>
+          <td>\${badge}</td>
+        </tr>
+      \`).join('');
+      if (countEl) countEl.textContent = \`Showing \${ids.length} of \${overviewMarketIds().length} markets\`;
+    }
+
     function filterRoutes() {
       const q = document.getElementById('routeSearch').value.toLowerCase();
       const rows = document.querySelectorAll('#routesTable tbody tr');
@@ -1025,7 +1135,9 @@ function renderHtml(activeKey, allCities, cityIsLive = (activeKey === "twin-citi
           const freshData = await res.json();
           if (CITIES_DATA[currentCityKey]) {
             CITIES_DATA[currentCityKey].latest = freshData;
+            CITIES_DATA[currentCityKey].live = freshData.live !== false;
             switchCity(currentCityKey);
+            renderOverview();
           }
         }
       } catch (e) {
@@ -1038,6 +1150,21 @@ function renderHtml(activeKey, allCities, cityIsLive = (activeKey === "twin-citi
     // Auto-detect city from query string or localStorage on load
     window.addEventListener('DOMContentLoaded', () => {
       const urlParams = new URLSearchParams(window.location.search);
+      // ?cities=a,b deep-links a visible overview selection (hidden = rest).
+      const citiesParam = urlParams.get('cities');
+      if (citiesParam) {
+        const wanted = new Set(
+          citiesParam.split(',').map(s => {
+            const clean = String(s || '').toLowerCase().trim().replace(/\s+/g, '-').replace(/_/g, '-');
+            return CITY_ALIASES[clean] || clean;
+          }).filter(id => CITIES_DATA[id])
+        );
+        if (wanted.size > 0) {
+          overviewHidden = new Set(overviewMarketIds().filter(id => !wanted.has(id)));
+          try { localStorage.setItem('gbt_overview_hidden', JSON.stringify([...overviewHidden])); } catch(e){}
+        }
+      }
+      renderOverview();
       const cityQuery = urlParams.get('city') || urlParams.get('location') || urlParams.get('preset');
       const initialKey = cityQuery || currentCityKey;
       const normalized = CITY_ALIASES[String(initialKey).toLowerCase()] || initialKey;
@@ -1353,7 +1480,26 @@ export default {
             fetchSnapshot(`history/${cp.id}.json`, null, ctx, true),
           ]);
           const pend = [];
-          if (!latestRes.stale && latestRes.data) pend.push(upsert(cp.id, latestRes.data));
+          // R2 backup: versioned JSON snapshot per scan plus a latest pointer.
+          const archive = (marketId, snap) => {
+            if (!env || !env.SNAPSHOT_BUCKET || !snap || !snap.scan_time) return;
+            const body = JSON.stringify(snap);
+            const safeTime = String(snap.scan_time).replace(/[:]/g, "-");
+            pend.push(
+              env.SNAPSHOT_BUCKET.put(`snapshots/${marketId}/${safeTime}.json`, body, {
+                httpMetadata: { contentType: "application/json; charset=utf-8" },
+              }).catch(() => {})
+            );
+            pend.push(
+              env.SNAPSHOT_BUCKET.put(`snapshots/${marketId}/latest.json`, body, {
+                httpMetadata: { contentType: "application/json; charset=utf-8" },
+              }).catch(() => {})
+            );
+          };
+          if (!latestRes.stale && latestRes.data) {
+            pend.push(upsert(cp.id, latestRes.data));
+            archive(cp.id, latestRes.data);
+          }
           const hist = !historyRes.stale && Array.isArray(historyRes.data) ? historyRes.data : [];
           for (const row of hist) {
             pend.push(upsert(cp.id, {
@@ -1374,7 +1520,10 @@ export default {
               fetchSnapshot("latest.json", DEFAULT_LATEST, ctx, true),
               fetchSnapshot("history.json", DEFAULT_HISTORY, ctx, true),
             ]);
-            if (!legLatest.stale && legLatest.data) pend.push(upsert(cp.id, legLatest.data));
+            if (!legLatest.stale && legLatest.data) {
+              pend.push(upsert(cp.id, legLatest.data));
+              archive(cp.id, legLatest.data);
+            }
             const legRows = !legHist.stale && Array.isArray(legHist.data) ? legHist.data : [];
             for (const row of legRows) pend.push(upsert(cp.id, row));
           }

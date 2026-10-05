@@ -332,17 +332,18 @@ npx wrangler deploy    # Deploy to Cloudflare Workers edge
 Live Worker URL: [https://ghost-bus-tracker.a-8c6.workers.dev](https://ghost-bus-tracker.a-8c6.workers.dev)
 
 ### API Endpoints
-- `GET /`: Interactive multi-market web dashboard with Global Feeds Explorer
+- `GET /`: Interactive multi-market web dashboard with Global Feeds Explorer and an All Markets overview table (text filter plus multi-select, `?cities=` deep-link)
 - `GET /api/latest`: Latest JSON reliability snapshot (supports `?city=<preset>`; includes `stale`/`live` flags)
-- `GET /api/history`: Full all-time Twin Cities series served from D1 (falls back to `data/history.json`); static snapshots for other markets
+- `GET /api/history`: Full all-time per-market series served from D1 (falls back to `data/history.json`); static snapshots for markets with no scan yet
 - `GET /api/summary`: Scorecard KPI object (supports `?city=<preset>`; includes `stale`/`live` flags)
 - `GET /api/markets`: List of all 13 supported transit markets and aliases
 - `GET /api/catalog`: Curated sample of the MobilityDatabase catalog (full catalog holds 990+ feeds; supports `?q=<search>`, `?country=<country>`, `?limit=<n>`)
 - `GET /api/live/vp` and `GET /api/live/tu`: Live GTFS-RT protobuf proxy. Defaults follow `?city=<preset>`; an explicit `?url=` must be `https:` on an allowlisted agency feed host, otherwise the proxy returns 400.
 - `GET /api/routes`: Upstream Metro Transit route proxy (Twin Cities only; other `?city=` values return 400)
 - `GET /health`: Worker healthcheck
+Unknown `?city=` values return 404 on `/api/*` endpoints (the HTML dashboard still defaults to Twin Cities). Until a market's first live scan lands, the dashboard shows its bundled static snapshot.
 
-Unknown `?city=` values return 404 on `/api/*` endpoints (the HTML dashboard still defaults to Twin Cities). Only Twin Cities refreshes from the live git-scraping pipeline; the other 12 markets are bundled static snapshots, flagged `stale: true` and labeled as static in the dashboard.
+Durability: every scan appends to uncapped per-market `data/history/<id>.json` (git-versioned), upserts into the D1 `scans` table (all-time, keyed by market and time), and archives versioned JSON snapshots to the R2 `ghost-bus-snapshots` bucket under `snapshots/<id>/<scan-time>.json` plus a `latest.json` pointer.
 
 ---
 

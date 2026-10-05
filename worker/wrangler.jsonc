@@ -15,6 +15,12 @@
       "database_id": "e8aec674-36d4-402c-a111-6de0c149ab10"
     }
   ],
+  "r2_buckets": [
+    {
+      "binding": "SNAPSHOT_BUCKET",
+      "bucket_name": "ghost-bus-snapshots"
+    }
+  ],
   "vars": {
     "AGENCY_NAME": "Metro Transit (Twin Cities)",
     "CITY_NAME": "Minneapolis–Saint Paul, MN",
