@@ -167,6 +167,12 @@ def test_resolve_api_key_order(monkeypatch):
     assert config.resolve_api_key(preset, cli_key="flag-789") == "flag-789"
 
 
+def test_seattle_needs_no_key():
+    # Verified live 2026-10-05: OBA realtime endpoints return identical data
+    # with a valid token, a garbage key, and no key at all.
+    assert config.get_preset("seattle")["requires_key"] is False
+
+
 def test_group_key_resolves_only_within_group(monkeypatch):
     socrata_preset = {"id": "soc", "requires_key": True, "key_group": "socrata"}
     monkeypatch.delenv("CTA_API_KEY", raising=False)

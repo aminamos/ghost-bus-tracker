@@ -247,7 +247,7 @@ While the live dashboard at [ghost-bus-tracker.a-8c6.workers.dev](https://ghost-
 | **Philadelphia, PA** | SEPTA | `philly` / `septa` | Open (No key) | Subway, Trolley & 120+ Bus Routes |
 | **Washington, DC** | WMATA | `dc` / `wmata` | Free API Key | Metrorail & Metrobus Network |
 | **Los Angeles, CA** | LA Metro | `la` / `lametro` | Free API Key (Swiftly) | Bus & Metro Rail via Swiftly GTFS-RT |
-| **Seattle, WA** | Sound Transit & KCM | `seattle` / `kcm` | Free API Key (OneBusAway) | Link Light Rail, Sounder & Buses |
+| **Seattle, WA** | Sound Transit & KCM | `seattle` / `kcm` | Open (No key) | Link Light Rail, Sounder & Buses |
 | **Denver, CO** | RTD | `denver` / `rtd` | Open (No key) | Commuter Rail, Light Rail & Bus Grid |
 | **Portland, OR** | TriMet | `portland` / `trimet` | Free API Key | MAX Light Rail, Streetcar & Bus Network |
 | **Atlanta, GA** | MARTA | `atlanta` / `marta` | Open (No key) | Heavy Rail (4 lines) & Bus Transit |
@@ -293,7 +293,7 @@ python -m src.cli scan-all
 python -m src.cli scan-all --presets boston,philly,seattle
 ```
 
-Seven agencies need free API keys; without any key `scan-all` skips the city with a warning:
+Six agencies need free API keys; without any key `scan-all` skips the city with a warning:
 
 | Agency | Env var | Register |
 | :--- | :--- | :--- |
@@ -303,11 +303,10 @@ Seven agencies need free API keys; without any key `scan-all` skips the city wit
 | DC WMATA | `WMATA_API_KEY` | developer.wmata.com |
 | Portland TriMet | `TRIMET_APP_ID` | developer.trimet.org |
 | LA Metro | `LAMETRO_API_KEY` | goswift.ly/realtime-api-key |
-| Seattle Sound Transit | `OBA_API_KEY` | soundtransit.org open transit data |
 
 Same key for similar endpoints: a preset's VP and TU feeds share the preset's own key. Across providers, sharing is group-scoped only: presets marked `key_group: socrata` fall back to `SOCRATA_API_KEY` (one Socrata/Tyler Tech token works across all of their portals). Agency variables and `--api-key` still win when set. No current preset is Socrata-backed.
 
-The cron workflow passes these through from GitHub Actions secrets of the same names. The other six markets scan with no key.
+The cron workflow passes these through from GitHub Actions secrets of the same names. The other seven markets scan with no key (Seattle's OneBusAway endpoints don't enforce their documented key).
 
 Scan any custom transit agency anywhere in the world:
 ```bash

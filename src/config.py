@@ -205,7 +205,11 @@ AGENCY_PRESETS = {
         "country": "USA",
         "vp_url": "https://api.pugetsound.onebusaway.org/api/gtfs_realtime/vehicle-positions-for-agency/40.pb",
         "tu_url": "https://api.pugetsound.onebusaway.org/api/gtfs_realtime/trip-updates-for-agency/40.pb",
-        "requires_key": True,
+        # OBA documents an API key, but the realtime protobuf endpoints do not
+        # enforce it (verified live 2026-10-05: identical results with a valid
+        # token, a garbage key, and no key). requires_key stays False so
+        # scan-all does not skip Seattle; flip back if OBA starts enforcing.
+        "requires_key": False,
         "key_env_var": "OBA_API_KEY",
         "key_param": "key",
         "key_url": "https://www.soundtransit.org/help-contacts/business-information/open-transit-data-otd",
