@@ -275,7 +275,7 @@ Scan Boston (MBTA - completely open):
 python -m src.cli scan --preset boston
 ```
 
-Scan Chicago (CTA - apply for a key at [transitchicago.com/developers/bustracker](https://www.transitchicago.com/developers/bustracker/) or [traintrackerapply](https://www.transitchicago.com/developers/traintrackerapply/); keys arrive by email, historically 1-2 weeks. Note 2026-10-05: both key types validate on their native APIs but the GTFS-RT protobuf endpoints reject both with `errCd 101`, so Chicago stays on its static snapshot until CTA grants GTFS-RT access):
+Scan Chicago (CTA - apply for a key at [transitchicago.com/developers/bustracker](https://www.transitchicago.com/developers/bustracker/) or [traintrackerapply](https://www.transitchicago.com/developers/traintrackerapply/); keys arrive by email, historically 1-2 weeks. Note 2026-10-05: both key types validate on their native APIs but the GTFS-RT protobuf endpoints return `errCd 101` for both so far; third-party projects use these same endpoints with a CTA key, so this looks like provisioning lag on CTA's side rather than a wrong URL. Chicago stays on its static snapshot until a key is accepted):
 ```bash
 # Pass key via flag or export CTA_API_KEY
 python -m src.cli scan --preset chicago --api-key <YOUR_CTA_KEY>
