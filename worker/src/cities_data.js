@@ -841,9 +841,11 @@ export const CITY_FEED_URLS = {
   },
 };
 
-export function getAllCitiesData(liveTwinCitiesLatest = null, liveTwinCitiesHistory = null) {
+export function getAllCitiesData(liveTwinCitiesLatest = null, liveTwinCitiesHistory = null, tcLive = true) {
   const tcLatest = liveTwinCitiesLatest || DEFAULT_LATEST;
   const tcHistory = liveTwinCitiesHistory || DEFAULT_HISTORY;
+  // tcLive=false means tcLatest is the bundled fallback, whose buckets may
+  // not partition its total; it gets reconciled below like other statics.
 
   const twinCitiesSnapshot = {
     ...tcLatest,
@@ -1009,11 +1011,12 @@ export function getAllCitiesData(liveTwinCitiesLatest = null, liveTwinCitiesHist
 
   // Reconcile bundled static snapshots so buckets partition the total:
   // total = early + on_time + minor + severe + ghost + canceled, with rates
-  // derived from that total. Twin Cities is skipped on purpose: live data
-  // may hold tracked trips without delay samples, and its fleet count is
+  // derived from that total. Live Twin Cities data is skipped on purpose:
+  // it may hold tracked trips without delay samples, and its fleet count is
   // physical buses, not tracked trips, so rewriting it would corrupt data.
+  // The bundled TC fallback (tcLive=false) is reconciled like other statics.
   for (const entry of Object.values(cities)) {
-    if (entry.id === "twin-cities") continue;
+    if (entry.id === "twin-cities" && tcLive) continue;
     const snap = entry.latest;
     const d = snap.delay_distribution || {};
     const buckets =

@@ -1116,11 +1116,12 @@ export default {
         fetchSnapshot("history.json", DEFAULT_HISTORY, ctx, fresh),
       ]);
 
+      const tcStale = latestRes.stale || historyRes.stale;
       const allCities = getAllCitiesData(
         latestRes.data,
-        historyRes.data
+        historyRes.data,
+        !tcStale
       );
-      const tcStale = latestRes.stale || historyRes.stale;
       const targetCityData = allCities[cityKey] || allCities["twin-cities"];
       // Only Twin Cities refreshes from the live pipeline. The other 12
       // markets are bundled static snapshots, always flagged as such.
