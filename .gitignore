@@ -48,6 +48,7 @@ Thumbs.db
 # Cloudflare Wrangler & Node
 .wrangler/
 worker/.wrangler/
+worker/snapshots/
 node_modules/
 worker/node_modules/
 package-lock.json
