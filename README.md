@@ -275,7 +275,7 @@ Scan Boston (MBTA - completely open):
 python -m src.cli scan --preset boston
 ```
 
-Scan Chicago (CTA - with developer key from [transitchicago.com/developers](https://www.transitchicago.com/developers/)):
+Scan Chicago (CTA - apply for a key at [transitchicago.com/developers/bustracker](https://www.transitchicago.com/developers/bustracker/) or [traintrackerapply](https://www.transitchicago.com/developers/traintrackerapply/); keys arrive by email, historically 1-2 weeks):
 ```bash
 # Pass key via flag or export CTA_API_KEY
 python -m src.cli scan --preset chicago --api-key <YOUR_CTA_KEY>
@@ -297,7 +297,7 @@ Six agencies need free API keys; without any key `scan-all` skips the city with 
 
 | Agency | Env var | Register |
 | :--- | :--- | :--- |
-| Chicago CTA | `CTA_API_KEY` | transitchicago.com/developers |
+| Chicago CTA | `CTA_API_KEY` | transitchicago.com/developers/bustracker (emailed key) |
 | NYC MTA | `MTA_API_KEY` | api.mta.info |
 | SF SFMTA | `BAY_AREA_511_KEY` | 511.org/open-data/token |
 | DC WMATA | `WMATA_API_KEY` | developer.wmata.com |

@@ -792,8 +792,8 @@ export const CITY_FEED_URLS = {
     tu: "https://svc.metrotransit.org/mtgtfs/tripupdates.pb",
   },
   chicago: {
-    vp: "https://www.transitchicago.com/api/1.0/gtfs-realtime/vehiclepositions.pb",
-    tu: "https://www.transitchicago.com/api/1.0/gtfs-realtime/tripupdates.pb",
+    vp: "https://transitdata.transitchicago.com/GtfsRealtime/VehiclePositions.pb",
+    tu: "https://transitdata.transitchicago.com/GtfsRealtime/TripUpdates.pb",
   },
   boston: {
     vp: "https://cdn.mbta.com/realtime/VehiclePositions.pb",
