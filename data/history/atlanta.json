@@ -76,5 +76,18 @@
     "city": "Atlanta, GA",
     "transit_system": "MARTA",
     "source": "live"
+  },
+  {
+    "scan_time": "2026-10-05T18:02:21.796727+00:00",
+    "ghost_bus_rate_pct": 9.06,
+    "overall_on_time_pct": 0.0,
+    "total_scheduled_trips": 320,
+    "total_tracked_vehicles": 180,
+    "total_ghost_trips": 29,
+    "mean_delay_sec": 0.0,
+    "agency": "Metropolitan Atlanta Rapid Transit Authority",
+    "city": "Atlanta, GA",
+    "transit_system": "MARTA",
+    "source": "live"
   }
 ]
