@@ -112,3 +112,25 @@ def test_sample_scan_with_foreign_preset_stays_twin_cities(tmp_path):
     data = json.loads(latest.read_text(encoding="utf-8"))
     assert data["source"] == "sample"
     assert data["city"] == config.CITY_NAME
+
+
+def test_history_defaults_to_unbounded(tmp_path, sample_snapshot):
+    from src.reporter import ReportGenerator
+
+    history_file = tmp_path / "history.json"
+    reporter = ReportGenerator(history_path=history_file)
+    for _ in range(3):
+        history = reporter.update_history_json(sample_snapshot, history_path=history_file)
+    assert len(history) == 3
+
+
+def test_history_explicit_cap_still_trims(tmp_path, sample_snapshot):
+    from src.reporter import ReportGenerator
+
+    history_file = tmp_path / "history.json"
+    reporter = ReportGenerator(history_path=history_file)
+    for _ in range(3):
+        history = reporter.update_history_json(
+            sample_snapshot, history_path=history_file, max_entries=2
+        )
+    assert len(history) == 2

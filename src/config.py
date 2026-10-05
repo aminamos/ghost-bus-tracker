@@ -41,8 +41,9 @@ ON_TIME_THRESHOLD_SEC = int(os.getenv("GBT_ON_TIME_SEC", "300"))
 # Minor delay: between 300s (5m) and 900s (15m) late
 MINOR_DELAY_THRESHOLD_SEC = int(os.getenv("GBT_MINOR_DELAY_SEC", "900"))
 
-# Max historical snapshots to retain in history.json
-MAX_HISTORY_SNAPSHOTS = int(os.getenv("GBT_MAX_HISTORY", "100"))
+# Max historical snapshots to retain in history.json (0 = keep all, forever).
+# Steady state is ~48 scans/day, a few MB per year, so the default is unbounded.
+MAX_HISTORY_SNAPSHOTS = int(os.getenv("GBT_MAX_HISTORY", "0"))
 
 # HTTP Request Timeout (seconds)
 REQUEST_TIMEOUT_SEC = int(os.getenv("GBT_REQUEST_TIMEOUT", "15"))

@@ -38,9 +38,9 @@ class ReportGenerator:
         self,
         snapshot: ReliabilitySnapshot,
         history_path: Optional[Path] = None,
-        max_entries: int = config.MAX_HISTORY_SNAPSHOTS,
+        max_entries: Optional[int] = config.MAX_HISTORY_SNAPSHOTS,
     ) -> List[Dict[str, Any]]:
-        """Appends snapshot summary to history.json, maintaining a rolling window."""
+        """Appends snapshot summary to history.json, keeping all rows unless capped."""
         target = history_path or self.history_path
         target.parent.mkdir(parents=True, exist_ok=True)
 
@@ -69,8 +69,8 @@ class ReportGenerator:
 
         history.append(entry)
 
-        # Keep rolling window of most recent snapshots
-        if len(history) > max_entries:
+        # max_entries=0/None keeps every scan ever; a positive cap trims old rows.
+        if max_entries and len(history) > max_entries:
             history = history[-max_entries:]
 
         with open(target, "w", encoding="utf-8") as f:

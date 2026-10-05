@@ -1132,8 +1132,25 @@ export default {
         return jsonResponse({ ...targetCityData.latest, stale: !cityIsLive, live: cityIsLive });
       }
 
-      // History API
+      // History API: Twin Cities reads the full ever-growing series from D1,
+      // falling back to the GitHub JSON when D1 is unreachable. Static
+      // markets serve their bundled snapshots.
       if (path === "/api/history") {
+        if (cityKey === "twin-cities" && env && env.HISTORY_DB) {
+          try {
+            const rows = await env.HISTORY_DB.prepare(
+              "SELECT scan_time, ghost_bus_rate_pct, overall_on_time_pct, " +
+              "total_scheduled_trips, total_tracked_vehicles, total_ghost_trips, " +
+              "mean_delay_sec, agency, city, transit_system, source " +
+              "FROM scans ORDER BY scan_time ASC"
+            ).all();
+            if (rows.results && rows.results.length > 0) {
+              return jsonResponse(rows.results);
+            }
+          } catch {
+            // D1 read failed; fall through to the JSON snapshot below.
+          }
+        }
         return jsonResponse(targetCityData.history);
       }
 
@@ -1290,18 +1307,39 @@ export default {
 
   /**
    * Cloudflare Worker Scheduled Cron Trigger
-   * Runs every 30 minutes in the background to warm the edge cache
-   * with the latest GitHub snapshots.
+   * Runs every 30 minutes: warms the edge cache with the latest GitHub
+   * snapshots and upserts the fresh snapshot into D1, which is the
+   * durable all-time history store behind /api/history.
    */
   async scheduled(event, env, ctx) {
-    const freshTwinCities = Promise.all([
-      fetchSnapshot("latest.json", DEFAULT_LATEST, ctx, true),
-      fetchSnapshot("history.json", DEFAULT_HISTORY, ctx, true),
-    ]);
+    const work = (async () => {
+      const [latestRes, historyRes] = await Promise.all([
+        fetchSnapshot("latest.json", DEFAULT_LATEST, ctx, true),
+        fetchSnapshot("history.json", DEFAULT_HISTORY, ctx, true),
+      ]);
+      if (!latestRes.stale && env && env.HISTORY_DB) {
+        const s = latestRes.data;
+        try {
+          await env.HISTORY_DB.prepare(
+            "INSERT OR IGNORE INTO scans (scan_time, ghost_bus_rate_pct, " +
+            "overall_on_time_pct, total_scheduled_trips, total_tracked_vehicles, " +
+            "total_ghost_trips, mean_delay_sec, agency, city, transit_system, source) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+          ).bind(
+            s.scan_time, s.ghost_bus_rate_pct, s.overall_on_time_pct,
+            s.total_scheduled_trips, s.total_tracked_vehicles, s.total_ghost_trips,
+            s.mean_delay_sec ?? null, s.agency ?? null, s.city ?? null,
+            s.transit_system ?? null, s.source ?? "live"
+          ).run();
+        } catch {
+          // D1 write failed; the next tick retries. Cache is already warm.
+        }
+      }
+    })();
     if (ctx && typeof ctx.waitUntil === "function") {
-      ctx.waitUntil(freshTwinCities);
+      ctx.waitUntil(work);
     } else {
-      await freshTwinCities;
+      await work;
     }
   },
 };

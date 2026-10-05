@@ -310,7 +310,7 @@ Live Worker URL: [https://ghost-bus-tracker.a-8c6.workers.dev](https://ghost-bus
 ### API Endpoints
 - `GET /`: Interactive multi-market web dashboard with Global Feeds Explorer
 - `GET /api/latest`: Latest JSON reliability snapshot (supports `?city=<preset>`; includes `stale`/`live` flags)
-- `GET /api/history`: Historical time-series reliability log (supports `?city=<preset>`)
+- `GET /api/history`: Full all-time Twin Cities series served from D1 (falls back to `data/history.json`); static snapshots for other markets
 - `GET /api/summary`: Scorecard KPI object (supports `?city=<preset>`; includes `stale`/`live` flags)
 - `GET /api/markets`: List of all 13 supported transit markets and aliases
 - `GET /api/catalog`: Curated sample of the MobilityDatabase catalog (full catalog holds 990+ feeds; supports `?q=<search>`, `?country=<country>`, `?limit=<n>`)
