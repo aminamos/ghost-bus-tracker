@@ -115,5 +115,18 @@
     "city": "Boston, MA",
     "transit_system": "MBTA",
     "source": "live"
+  },
+  {
+    "scan_time": "2026-10-06T06:42:11.165102+00:00",
+    "ghost_bus_rate_pct": 99.21,
+    "overall_on_time_pct": 0.0,
+    "total_scheduled_trips": 633,
+    "total_tracked_vehicles": 7,
+    "total_ghost_trips": 628,
+    "mean_delay_sec": 0.0,
+    "agency": "Massachusetts Bay Transportation Authority",
+    "city": "Boston, MA",
+    "transit_system": "MBTA",
+    "source": "live"
   }
 ]

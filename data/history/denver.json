@@ -115,5 +115,18 @@
     "city": "Denver, CO",
     "transit_system": "RTD",
     "source": "live"
+  },
+  {
+    "scan_time": "2026-10-06T06:42:12.767966+00:00",
+    "ghost_bus_rate_pct": 22.06,
+    "overall_on_time_pct": 0.0,
+    "total_scheduled_trips": 68,
+    "total_tracked_vehicles": 164,
+    "total_ghost_trips": 15,
+    "mean_delay_sec": 0.0,
+    "agency": "Regional Transportation District",
+    "city": "Denver, CO",
+    "transit_system": "RTD",
+    "source": "live"
   }
 ]

@@ -1,7 +1,7 @@
 # 🚌 Automated Public Transit Reliability & Ghost Bus Tracker
 
 > Real-time monitoring and git-scraping reliability index for **King County Metro / Sound Transit** in **Seattle, WA** (Central Puget Sound Region, Washington).
-> **Transit System:** Sound Transit & KCM | **Location:** Seattle, WA | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-10-06T00:28:47.444828+00:00` | **Source:** live GTFS-RT feed
+> **Transit System:** Sound Transit & KCM | **Location:** Seattle, WA | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-10-06T06:42:12.049020+00:00` | **Source:** live GTFS-RT feed
 
 ---
 
@@ -9,11 +9,11 @@
 
 | Metric | Value | Status / Description |
 | :--- | :--- | :--- |
-| **Ghost Bus Rate** | **`21.83%`** | Scheduled runs with missing transponders or unannounced cuts |
+| **Ghost Bus Rate** | **`31.58%`** | Scheduled runs with missing transponders or unannounced cuts |
 | **On-Time Adherence** | **`0.0%`** | Departures within standard window (-1m to +5m) |
-| **Scheduled Active Trips** | `229` | Total runs operating in current transit schedule window |
-| **Tracked Fleet Vehicles** | `164` | GPS transponders broadcasting valid coordinates |
-| **Confirmed Ghost Trips** | `50` | Disappeared or unassigned scheduled runs |
+| **Scheduled Active Trips** | `57` | Total runs operating in current transit schedule window |
+| **Tracked Fleet Vehicles** | `52` | GPS transponders broadcasting valid coordinates |
+| **Confirmed Ghost Trips** | `18` | Disappeared or unassigned scheduled runs |
 | **Mean Delay** | `+0.0s` (`+0.0 min`) | Average delay across all active tracked runs |
 | **Median Delay** | `+0.0s` (`+0.0 min`) | Median schedule deviation |
 
@@ -27,7 +27,7 @@
 | ⏩ **Early Departure** | More than 1 min ahead of schedule | 0 | 0.0% |
 | 🟡 **Minor Delay** | +5m to +15m late | 0 | 0.0% |
 | 🔴 **Severe Delay** | Over 15m late | 0 | 0.0% |
-| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 50 | 21.8% |
+| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 18 | 31.6% |
 | ❌ **Agency Canceled** | Explicitly reported CANCELED | 0 | 0.0% |
 
 ---
@@ -36,16 +36,13 @@
 
 | Route | Total Scheduled | Tracked | Ghost Trips | Ghost Rate (%) | On-Time (%) | Avg Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Route UNKNOWN** | 82 | 37 | 44 | **`53.66%`** | `0.0%` | `+0.0s` |
-| **Route 102734** | 5 | 4 | 2 | **`40.0%`** | `0.0%` | `+0.0s` |
-| **Route 512** | 6 | 4 | 1 | **`16.67%`** | `0.0%` | `+0.0s` |
-| **Route 100232** | 7 | 6 | 1 | **`14.29%`** | `0.0%` | `+0.0s` |
-| **Route 535** | 7 | 6 | 1 | **`14.29%`** | `0.0%` | `+0.0s` |
-| **Route 100236** | 11 | 11 | 1 | **`9.09%`** | `0.0%` | `+0.0s` |
-| **Route 100479** | 22 | 22 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
-| **Route 2LINE** | 21 | 21 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
-| **Route 574** | 6 | 9 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
-| **Route 560** | 7 | 8 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| **Route 100232** | 3 | 1 | 2 | **`66.67%`** | `0.0%` | `+0.0s` |
+| **Route UNKNOWN** | 20 | 7 | 13 | **`65.0%`** | `0.0%` | `+0.0s` |
+| **Route 594** | 5 | 5 | 1 | **`20.0%`** | `0.0%` | `+0.0s` |
+| **Route 2LINE** | 8 | 8 | 1 | **`12.5%`** | `0.0%` | `+0.0s` |
+| **Route 100479** | 12 | 12 | 1 | **`8.33%`** | `0.0%` | `+0.0s` |
+| **Route 100451** | 2 | 2 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| **Route 512** | 2 | 2 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
 
 ---
 
@@ -71,21 +68,21 @@
 
 | Trip ID | Route | Scheduled Departure | Status | Diagnosis / Reason |
 | :--- | :---: | :---: | :--- | :--- |
-| `16687547__H:121:0:Weekday:1:26SEP:52057:12345` | Route UNKNOWN | `N/A` | `SCHEDULED` | Assigned vehicle H:121:0:Weekday:1:26SEP:52057:12345 is missing from active GPS transponder fleet |
-| `2711020` | Route UNKNOWN | `N/A` | `SCHEDULED` | Assigned vehicle 51403 is broadcasting off-schedule with no vehicle covering 2711020 |
+| `LLR_2026-09-30_20260903_Link_MISFencing-PHActive_Weekday_2LINE_4061` | Route 2LINE | `11:54:30` | `DUPLICATED` | Assigned vehicle 205.959442 is broadcasting off-schedule with no vehicle covering LLR_2026-09-30_20260903_Link_MISFencing-PHActive_Weekday_2LINE_4061 |
 | `1254020` | Route UNKNOWN | `N/A` | `SCHEDULED` | Assigned vehicle 41605 is broadcasting off-schedule with no vehicle covering 1254020 |
-| `2504020` | Route UNKNOWN | `N/A` | `SCHEDULED` | Assigned vehicle 41602 is broadcasting off-schedule with no vehicle covering 2504020 |
-| `560087391` | Route UNKNOWN | `N/A` | `SCHEDULED` | Assigned vehicle 9677 is broadcasting off-schedule with no vehicle covering 560087391 |
-| `389020` | Route UNKNOWN | `N/A` | `SCHEDULED` | Assigned vehicle 9201 is broadcasting off-schedule with no vehicle covering 389020 |
-| `16687345__H:121:0:Weekday:1:26SEP:52043:12345` | Route 512 | `N/A` | `SCHEDULED` | Assigned vehicle H:121:0:Weekday:1:26SEP:52043:12345 is missing from active GPS transponder fleet |
-| `4536020` | Route UNKNOWN | `N/A` | `SCHEDULED` | Assigned vehicle 9213 is broadcasting off-schedule with no vehicle covering 4536020 |
-| `3645020` | Route UNKNOWN | `N/A` | `SCHEDULED` | Assigned vehicle 9222 is broadcasting off-schedule with no vehicle covering 3645020 |
-| `3737020` | Route UNKNOWN | `N/A` | `SCHEDULED` | Assigned vehicle 9222 is broadcasting off-schedule with no vehicle covering 3737020 |
-| `16687109__H:121:0:Weekday:1:26SEP:52040:12345` | Route UNKNOWN | `N/A` | `SCHEDULED` | Assigned vehicle H:121:0:Weekday:1:26SEP:52040:12345 is missing from active GPS transponder fleet |
-| `4550020` | Route UNKNOWN | `N/A` | `SCHEDULED` | Assigned vehicle 9723 is broadcasting off-schedule with no vehicle covering 4550020 |
-| `2949020` | Route UNKNOWN | `N/A` | `SCHEDULED` | Assigned vehicle 9722 is broadcasting off-schedule with no vehicle covering 2949020 |
-| `3416020` | Route UNKNOWN | `N/A` | `SCHEDULED` | Assigned vehicle 9306 is broadcasting off-schedule with no vehicle covering 3416020 |
-| `3620020` | Route UNKNOWN | `N/A` | `SCHEDULED` | Assigned vehicle 9304 is broadcasting off-schedule with no vehicle covering 3620020 |
+| `4351020` | Route UNKNOWN | `N/A` | `SCHEDULED` | Assigned vehicle 61406 is broadcasting off-schedule with no vehicle covering 4351020 |
+| `LLR_2026-09-30_20260903_Link_MISFencing-PHActive_Weekday_100479_1044` | Route 100479 | `09:45:30` | `DUPLICATED` | Assigned vehicle 264.269230 is broadcasting off-schedule with no vehicle covering LLR_2026-09-30_20260903_Link_MISFencing-PHActive_Weekday_100479_1044 |
+| `872393961` | Route UNKNOWN | `N/A` | `SCHEDULED` | Assigned vehicle 8273996 is missing from active GPS transponder fleet |
+| `560092511` | Route UNKNOWN | `N/A` | `SCHEDULED` | Assigned vehicle 8273974 is missing from active GPS transponder fleet |
+| `851857171` | Route UNKNOWN | `N/A` | `SCHEDULED` | Assigned vehicle 8273948 is missing from active GPS transponder fleet |
+| `851857211` | Route 100232 | `N/A` | `SCHEDULED` | Assigned vehicle 8273949 is missing from active GPS transponder fleet |
+| `851857141` | Route UNKNOWN | `N/A` | `SCHEDULED` | Assigned vehicle 8273949 is missing from active GPS transponder fleet |
+| `848943401` | Route UNKNOWN | `N/A` | `SCHEDULED` | Assigned vehicle 8273953 is missing from active GPS transponder fleet |
+| `851857221` | Route 100232 | `N/A` | `SCHEDULED` | Assigned vehicle 8273952 is missing from active GPS transponder fleet |
+| `1799020` | Route UNKNOWN | `N/A` | `SCHEDULED` | Assigned vehicle 9212 is broadcasting off-schedule with no vehicle covering 1799020 |
+| `4389020` | Route UNKNOWN | `N/A` | `SCHEDULED` | Assigned vehicle 9212 is broadcasting off-schedule with no vehicle covering 4389020 |
+| `3919020` | Route UNKNOWN | `N/A` | `SCHEDULED` | Assigned vehicle 9220 is broadcasting off-schedule with no vehicle covering 3919020 |
+| `789020` | Route UNKNOWN | `N/A` | `SCHEDULED` | Assigned vehicle 9221 is broadcasting off-schedule with no vehicle covering 789020 |
 
 ---
 
@@ -93,6 +90,7 @@
 
 | Timestamp | Ghost Rate (%) | On-Time (%) | Scheduled Runs | Tracked Fleet | Mean Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: |
+| `2026-10-06 06:42:12` | `31.58%` | `0.0%` | 57 | 52 | `+0.0s` |
 | `2026-10-06 00:28:47` | `21.83%` | `0.0%` | 229 | 164 | `+0.0s` |
 | `2026-10-05 18:39:12` | `22.56%` | `0.0%` | 164 | 104 | `+0.0s` |
 | `2026-10-05 18:02:19` | `21.43%` | `0.0%` | 168 | 113 | `+0.0s` |
@@ -108,4 +106,4 @@
 - **Excess Wait Time (EWT)**: Transit standard metric measuring variance in vehicle headway caused by vehicle bunching.
 - **Git-Scraping**: Every run fetches upstream GTFS-RT binary protobuf feeds, computes reliability metrics, commits versioned JSON snapshots, and renders this dashboard automatically.
 
-*Generated by Ghost Bus Tracker v0.1.0 at `2026-10-06T00:28:47.444828+00:00`.*
+*Generated by Ghost Bus Tracker v0.1.0 at `2026-10-06T06:42:12.049020+00:00`.*
