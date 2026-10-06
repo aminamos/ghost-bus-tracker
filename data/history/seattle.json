@@ -76,5 +76,18 @@
     "city": "Seattle, WA",
     "transit_system": "Sound Transit & KCM",
     "source": "live"
+  },
+  {
+    "scan_time": "2026-10-06T17:21:03.956091+00:00",
+    "ghost_bus_rate_pct": 19.63,
+    "overall_on_time_pct": 0.0,
+    "total_scheduled_trips": 163,
+    "total_tracked_vehicles": 111,
+    "total_ghost_trips": 32,
+    "mean_delay_sec": 0.0,
+    "agency": "King County Metro / Sound Transit",
+    "city": "Seattle, WA",
+    "transit_system": "Sound Transit & KCM",
+    "source": "live"
   }
 ]
