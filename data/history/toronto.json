@@ -141,5 +141,18 @@
     "city": "Toronto, ON",
     "transit_system": "TTC",
     "source": "live"
+  },
+  {
+    "scan_time": "2026-10-06T17:21:57.857257+00:00",
+    "ghost_bus_rate_pct": 7.67,
+    "overall_on_time_pct": 0.0,
+    "total_scheduled_trips": 1891,
+    "total_tracked_vehicles": 1528,
+    "total_ghost_trips": 145,
+    "mean_delay_sec": 0.0,
+    "agency": "Toronto Transit Commission",
+    "city": "Toronto, ON",
+    "transit_system": "TTC",
+    "source": "live"
   }
 ]

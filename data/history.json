@@ -1373,5 +1373,18 @@
     "city": "Minneapolis\u2013Saint Paul, MN",
     "transit_system": "Metro Transit",
     "source": "live"
+  },
+  {
+    "scan_time": "2026-10-06T17:21:51.765596+00:00",
+    "ghost_bus_rate_pct": 12.49,
+    "overall_on_time_pct": 58.22,
+    "total_scheduled_trips": 913,
+    "total_tracked_vehicles": 766,
+    "total_ghost_trips": 114,
+    "mean_delay_sec": 39.0,
+    "agency": "Metro Transit (Twin Cities)",
+    "city": "Minneapolis\u2013Saint Paul, MN",
+    "transit_system": "Metro Transit",
+    "source": "live"
   }
 ]
