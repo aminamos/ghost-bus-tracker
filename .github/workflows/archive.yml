@@ -1,0 +1,101 @@
+name: Daily Worker Snapshot Archive
+
+on:
+  # NOTE: no schedule. The Cloudflare Worker (wrangler.jsonc triggers.crons
+  # */30, R2 snapshots + D1 history) is the system of record and serves live
+  # traffic directly. This workflow remains for manual git-archive backfill
+  # via workflow_dispatch only.
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: git-scraping-archive
+  cancel-in-progress: false
+
+env:
+  WORKER_URL: https://ghost-bus-tracker.a-8c6.workers.dev
+  MARKETS: twin-cities chicago boston nyc sf philly dc la seattle denver portland atlanta toronto
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fetch snapshots from Worker
+        run: |
+          mkdir -p data/latest data/history
+          UPDATED=""
+          for m in $MARKETS; do
+            latest=$(curl -s --fail --max-time 30 "$WORKER_URL/api/latest?city=$m") || { echo "latest fetch failed for $m"; continue; }
+            if [ "$(echo "$latest" | jq -r '.live')" != "true" ]; then
+              echo "skip $m: no live Worker snapshot (bundled/static only)"
+              continue
+            fi
+            # Strip Worker read-time decorations to keep the raw snapshot schema.
+            echo "$latest" | jq 'del(.live, .stale, .coverage_details)' > "data/latest/$m.json"
+            hist=$(curl -s --fail --max-time 30 "$WORKER_URL/api/history?city=$m") || { echo "history fetch failed for $m"; continue; }
+            echo "$hist" | jq 'if length > 500 then .[-500:] else . end' > "data/history/$m.json"
+            UPDATED="$UPDATED $m"
+          done
+          echo "UPDATED_MARKETS=$UPDATED" >> "$GITHUB_ENV"
+          # Legacy root files mirror Twin Cities.
+          if [ -f data/latest/twin-cities.json ]; then
+            cp data/latest/twin-cities.json data/latest.json
+            cp data/history/twin-cities.json data/history.json
+          fi
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Regenerate Markdown dashboards
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          for m in $UPDATED_MARKETS; do
+            python -m src.cli report \
+              --input "data/latest/$m.json" \
+              --history "data/history/$m.json" \
+              --output "RELIABILITY-$m.md"
+          done
+          if [ -f data/latest.json ]; then
+            python -m src.cli report \
+              --input data/latest.json \
+              --history data/history.json \
+              --output RELIABILITY.md
+          fi
+
+      - name: Commit and Push Archive
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/latest.json data/history.json RELIABILITY.md
+          git add data/latest data/history 'RELIABILITY-*.md'
+
+          if git diff --staged --quiet; then
+            echo "No snapshot changes detected. Working directory clean."
+          else
+            SCAN_TIME=$(date -u +"%Y-%m-%d %H:%M:%SZ")
+            git commit -m "Daily Worker snapshot archive: ${SCAN_TIME} [skip ci]"
+            for attempt in 1 2 3; do
+              if git push origin main; then
+                echo "Push succeeded on attempt ${attempt}."
+                break
+              fi
+              if [ "$attempt" -lt 3 ]; then
+                echo "Push rejected (attempt ${attempt}/3). Rebasing onto origin/main and retrying..."
+                git pull --rebase origin main || { echo "Rebase failed; aborting."; git rebase --abort; exit 1; }
+              else
+                echo "Push failed after 3 attempts."
+                exit 1
+              fi
+            done
+          fi
