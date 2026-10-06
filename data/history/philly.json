@@ -89,5 +89,18 @@
     "city": "Philadelphia, PA",
     "transit_system": "SEPTA",
     "source": "live"
+  },
+  {
+    "scan_time": "2026-10-06T00:28:47.018617+00:00",
+    "ghost_bus_rate_pct": 0.17,
+    "overall_on_time_pct": 0.0,
+    "total_scheduled_trips": 606,
+    "total_tracked_vehicles": 311,
+    "total_ghost_trips": 1,
+    "mean_delay_sec": 0.0,
+    "agency": "Southeastern Pennsylvania Transportation Authority",
+    "city": "Philadelphia, PA",
+    "transit_system": "SEPTA",
+    "source": "live"
   }
 ]
