@@ -3,8 +3,8 @@ name: Automated Transit Reliability & Ghost Bus Tracker
 on:
   # NOTE: the every-30-minutes schedule was removed when the scan pipeline
   # moved into the Cloudflare Worker (cron */30 * * * * on ghost-bus-tracker,
-  # snapshots in R2/D1). This workflow remains for manual backfill only; the
-  # daily archive workflow snapshots Worker data back into git.
+  # snapshots in R2/D1). This workflow remains for manual backfill only via
+  # workflow_dispatch.
   workflow_dispatch:
     inputs:
       force_sample:
