@@ -1,7 +1,7 @@
 # 🚌 Automated Public Transit Reliability & Ghost Bus Tracker
 
 > Real-time monitoring and git-scraping reliability index for **Metropolitan Atlanta Rapid Transit Authority** in **Atlanta, GA** (Metro Atlanta (Fulton, DeKalb, Clayton Counties), Georgia).
-> **Transit System:** MARTA | **Location:** Atlanta, GA | **Status:** 🟡 **ELEVATED GHOSTS** | **Last Scan:** `2026-10-06T17:21:56.897043+00:00` | **Source:** live GTFS-RT feed
+> **Transit System:** MARTA | **Location:** Atlanta, GA | **Status:** 🟡 **ELEVATED GHOSTS** | **Last Scan:** `2026-10-21T22:30:36.612000+00:00` | **Source:** live GTFS-RT feed
 
 ---
 
@@ -9,11 +9,11 @@
 
 | Metric | Value | Status / Description |
 | :--- | :--- | :--- |
-| **Ghost Bus Rate** | **`9.11%`** | Scheduled runs with missing transponders or unannounced cuts |
+| **Ghost Bus Rate** | **`5.39%`** | Scheduled runs with missing transponders or unannounced cuts |
 | **On-Time Adherence** | **`0.0%`** | Departures within standard window (-1m to +5m) |
-| **Scheduled Active Trips** | `384` | Total runs operating in current transit schedule window |
-| **Tracked Fleet Vehicles** | `179` | GPS transponders broadcasting valid coordinates |
-| **Confirmed Ghost Trips** | `35` | Disappeared or unassigned scheduled runs |
+| **Scheduled Active Trips** | `482` | Total runs operating in current transit schedule window |
+| **Tracked Fleet Vehicles** | `178` | GPS transponders broadcasting valid coordinates |
+| **Confirmed Ghost Trips** | `26` | Disappeared or unassigned scheduled runs |
 | **Mean Delay** | `+0.0s` (`+0.0 min`) | Average delay across all active tracked runs |
 | **Median Delay** | `+0.0s` (`+0.0 min`) | Median schedule deviation |
 
@@ -27,8 +27,8 @@
 | ⏩ **Early Departure** | More than 1 min ahead of schedule | 0 | 0.0% |
 | 🟡 **Minor Delay** | +5m to +15m late | 0 | 0.0% |
 | 🔴 **Severe Delay** | Over 15m late | 0 | 0.0% |
-| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 35 | 9.1% |
-| ❌ **Agency Canceled** | Explicitly reported CANCELED | 94 | 24.5% |
+| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 26 | 5.4% |
+| ❌ **Agency Canceled** | Explicitly reported CANCELED | 169 | 35.1% |
 
 ---
 
@@ -36,16 +36,16 @@
 
 | Route | Total Scheduled | Tracked | Ghost Trips | Ghost Rate (%) | On-Time (%) | Avg Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Route 117** | 2 | 1 | 1 | **`50.0%`** | `0.0%` | `+0.0s` |
-| **Route 88** | 2 | 2 | 1 | **`50.0%`** | `0.0%` | `+0.0s` |
-| **Route A** | 5 | 4 | 2 | **`40.0%`** | `0.0%` | `+0.0s` |
-| **Route 39** | 6 | 4 | 2 | **`33.33%`** | `0.0%` | `+0.0s` |
-| **Route 71** | 6 | 4 | 2 | **`33.33%`** | `0.0%` | `+0.0s` |
-| **Route 118** | 3 | 4 | 1 | **`33.33%`** | `0.0%` | `+0.0s` |
-| **Route 104** | 3 | 2 | 1 | **`33.33%`** | `0.0%` | `+0.0s` |
-| **Route 187** | 3 | 2 | 1 | **`33.33%`** | `0.0%` | `+0.0s` |
-| **Route 80** | 3 | 2 | 1 | **`33.33%`** | `0.0%` | `+0.0s` |
-| **Route 85** | 3 | 2 | 1 | **`33.33%`** | `0.0%` | `+0.0s` |
+| **Route 74** | 2 | 2 | 1 | **`50.0%`** | `0.0%` | `+0.0s` |
+| **Route 83** | 7 | 5 | 3 | **`42.86%`** | `0.0%` | `+0.0s` |
+| **Route A** | 6 | 4 | 2 | **`33.33%`** | `0.0%` | `+0.0s` |
+| **Route 184** | 3 | 2 | 1 | **`33.33%`** | `0.0%` | `+0.0s` |
+| **Route 51** | 3 | 2 | 1 | **`33.33%`** | `0.0%` | `+0.0s` |
+| **Route 55** | 8 | 5 | 2 | **`25.0%`** | `0.0%` | `+0.0s` |
+| **Route 185** | 4 | 4 | 1 | **`25.0%`** | `0.0%` | `+0.0s` |
+| **Route 95** | 5 | 3 | 1 | **`20.0%`** | `0.0%` | `+0.0s` |
+| **Route 42** | 5 | 3 | 1 | **`20.0%`** | `0.0%` | `+0.0s` |
+| **Route 75** | 5 | 3 | 1 | **`20.0%`** | `0.0%` | `+0.0s` |
 
 ---
 
@@ -71,21 +71,21 @@
 
 | Trip ID | Route | Scheduled Departure | Status | Diagnosis / Reason |
 | :--- | :---: | :---: | :--- | :--- |
-| `11726861` | Route 118 | `13:30:00` | `SCHEDULED` | Assigned vehicle 2309 is broadcasting off-schedule with no vehicle covering 11726861 |
-| `11714097` | Route 75 | `13:30:00` | `SCHEDULED` | Assigned vehicle 2310 is broadcasting off-schedule with no vehicle covering 11714097 |
-| `11710377` | Route 55 | `13:24:00` | `SCHEDULED` | Assigned vehicle 2329 is broadcasting off-schedule with no vehicle covering 11710377 |
-| `11697197` | Route 5 | `13:30:00` | `SCHEDULED` | Assigned vehicle 2381 is broadcasting off-schedule with no vehicle covering 11697197 |
-| `11706662` | Route 39 | `13:46:00` | `SCHEDULED` | Assigned vehicle 2416 is broadcasting off-schedule with no vehicle covering 11706662 |
-| `11720716` | Route 89 | `13:32:00` | `SCHEDULED` | Assigned vehicle 3552 is broadcasting off-schedule with no vehicle covering 11720716 |
-| `11718374` | Route 84 | `13:30:00` | `SCHEDULED` | Assigned vehicle 3554 is broadcasting off-schedule with no vehicle covering 11718374 |
-| `11721767` | Route 95 | `13:25:00` | `SCHEDULED` | Assigned vehicle 3556 is broadcasting off-schedule with no vehicle covering 11721767 |
-| `11735297` | Route 187 | `13:27:00` | `SCHEDULED` | Assigned vehicle 3562 is broadcasting off-schedule with no vehicle covering 11735297 |
-| `11707310` | Route 42 | `13:30:00` | `SCHEDULED` | Assigned vehicle 3593 is broadcasting off-schedule with no vehicle covering 11707310 |
-| `11718841` | Route 85 | `13:13:00` | `SCHEDULED` | Assigned vehicle 3607 is broadcasting off-schedule with no vehicle covering 11718841 |
-| `11736593` | Route 193 | `13:25:00` | `SCHEDULED` | Assigned vehicle 3621 is broadcasting off-schedule with no vehicle covering 11736593 |
-| `11710349` | Route 55 | `13:00:00` | `SCHEDULED` | Assigned vehicle 3625 is broadcasting off-schedule with no vehicle covering 11710349 |
-| `11722996` | Route 104 | `13:30:00` | `SCHEDULED` | Assigned vehicle 3656 is broadcasting off-schedule with no vehicle covering 11722996 |
-| `11700935` | Route 15 | `13:32:00` | `SCHEDULED` | Assigned vehicle 3657 is broadcasting off-schedule with no vehicle covering 11700935 |
+| `11700943` | Route 15 | `15:24:00` | `SCHEDULED` | Assigned vehicle 2303 is broadcasting off-schedule with no vehicle covering 11700943 |
+| `11723973` | Route 111 | `18:19:00` | `SCHEDULED` | Assigned vehicle 2308 is broadcasting off-schedule with no vehicle covering 11723973 |
+| `11721716` | Route 95 | `18:20:00` | `SCHEDULED` | Assigned vehicle 2328 is broadcasting off-schedule with no vehicle covering 11721716 |
+| `11704897` | Route 26 | `18:43:00` | `SCHEDULED` | Assigned vehicle 2359 is broadcasting off-schedule with no vehicle covering 11704897 |
+| `11734499` | Route 184 | `18:49:00` | `SCHEDULED` | Assigned vehicle 3513 is broadcasting off-schedule with no vehicle covering 11734499 |
+| `11784701` | Route 83 | `18:36:00` | `SCHEDULED` | Assigned vehicle 3520 is broadcasting off-schedule with no vehicle covering 11784701 |
+| `11710390` | Route 55 | `18:31:00` | `SCHEDULED` | Assigned vehicle 3580 is broadcasting off-schedule with no vehicle covering 11710390 |
+| `11707320` | Route 42 | `18:30:00` | `SCHEDULED` | Assigned vehicle 3593 is broadcasting off-schedule with no vehicle covering 11707320 |
+| `11706681` | Route 39 | `18:31:00` | `SCHEDULED` | Assigned vehicle 3640 is broadcasting off-schedule with no vehicle covering 11706681 |
+| `11714067` | Route 75 | `17:40:00` | `SCHEDULED` | Assigned vehicle 3649 is broadcasting off-schedule with no vehicle covering 11714067 |
+| `11784700` | Route 83 | `18:24:00` | `SCHEDULED` | Assigned vehicle 3695 is broadcasting off-schedule with no vehicle covering 11784700 |
+| `11784617` | Route 83 | `18:23:00` | `SCHEDULED` | Assigned vehicle 4628 is broadcasting off-schedule with no vehicle covering 11784617 |
+| `11709507` | Route 51 | `18:30:00` | `SCHEDULED` | Assigned vehicle 4640 is broadcasting off-schedule with no vehicle covering 11709507 |
+| `11782195` | Route 20 | `18:30:00` | `SCHEDULED` | Assigned vehicle 4675 is broadcasting off-schedule with no vehicle covering 11782195 |
+| `11726871` | Route 118 | `18:30:00` | `SCHEDULED` | Assigned vehicle 4676 is broadcasting off-schedule with no vehicle covering 11726871 |
 
 ---
 
@@ -93,14 +93,14 @@
 
 | Timestamp | Ghost Rate (%) | On-Time (%) | Scheduled Runs | Tracked Fleet | Mean Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| `2026-10-06 17:21:56` | `9.11%` | `0.0%` | 384 | 179 | `+0.0s` |
-| `2026-10-06 17:21:06` | `8.79%` | `0.0%` | 387 | 179 | `+0.0s` |
-| `2026-10-06 13:46:38` | `8.35%` | `0.0%` | 443 | 174 | `+0.0s` |
-| `2026-10-06 06:42:12` | `0.0%` | `0.0%` | 6 | 5 | `+0.0s` |
-| `2026-10-06 00:28:48` | `12.35%` | `0.0%` | 332 | 165 | `+0.0s` |
-| `2026-10-05 18:39:13` | `6.9%` | `0.0%` | 290 | 170 | `+0.0s` |
-| `2026-10-05 18:02:21` | `9.06%` | `0.0%` | 320 | 180 | `+0.0s` |
-| `2026-10-05 17:57:50` | `9.26%` | `0.0%` | 324 | 177 | `+0.0s` |
+| `2026-10-21 22:30:36` | `5.39%` | `0.0%` | 482 | 178 | `+0.0s` |
+| `2026-10-21 22:00:36` | `5.58%` | `0.0%` | 484 | 178 | `+0.0s` |
+| `2026-10-21 21:30:36` | `5.04%` | `0.0%` | 496 | 183 | `+0.0s` |
+| `2026-10-21 21:00:37` | `3.48%` | `0.0%` | 517 | 184 | `+0.0s` |
+| `2026-10-21 20:30:37` | `5.26%` | `0.0%` | 513 | 186 | `+0.0s` |
+| `2026-10-21 20:00:36` | `5.97%` | `0.0%` | 519 | 185 | `+0.0s` |
+| `2026-10-21 18:30:40` | `6.07%` | `0.0%` | 428 | 173 | `+0.0s` |
+| `2026-10-21 16:01:17` | `10.2%` | `0.0%` | 392 | 177 | `+0.0s` |
 
 ---
 
@@ -112,4 +112,4 @@
 - **Excess Wait Time (EWT)**: Transit standard metric measuring variance in vehicle headway caused by vehicle bunching.
 - **Git-Scraping**: Every run fetches upstream GTFS-RT binary protobuf feeds, computes reliability metrics, commits versioned JSON snapshots, and renders this dashboard automatically.
 
-*Generated by Ghost Bus Tracker v0.1.0 at `2026-10-06T17:21:56.897043+00:00`.*
+*Generated by Ghost Bus Tracker v0.1.0 at `2026-10-21T22:30:36.612000+00:00`.*
