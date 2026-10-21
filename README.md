@@ -1,7 +1,5 @@
 # 🚌 Ghost Bus Tracker
 
-[![CI Test Suite](https://github.com/aminamos/ghost-bus-tracker/actions/workflows/ci.yml/badge.svg)](https://github.com/aminamos/ghost-bus-tracker/actions/workflows/ci.yml)
-[![Automated Transit Scraping](https://github.com/aminamos/ghost-bus-tracker/actions/workflows/track.yml/badge.svg)](https://github.com/aminamos/ghost-bus-tracker/actions/workflows/track.yml)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Cloudflare Workers](https://img.shields.io/badge/Deployed-Cloudflare%20Workers-f38020.svg)](https://ghost-bus-tracker.a-8c6.workers.dev)
@@ -117,13 +115,12 @@ flowchart LR
 <a id="architecture-git-scraping"></a>
 ## ⚡ Architecture & Git-Scraping
 
-This repository uses **Git-Scraping** (Simon Willison pattern) powered by GitHub Actions:
+This repository uses **Git-Scraping** (Simon Willison pattern) powered by the Cloudflare Worker — no GitHub Actions:
 
-- **Cron Schedule (`*/30 * * * *`)**: A GitHub Action runs every 30 minutes.
-- **Ingestion**: Ingests binary Protocol Buffer feeds directly from Twin Cities Metro Transit (or any GTFS-RT compliant agency).
-- **Processing**: The Python engine parses entities, classifies trips, runs statistical aggregations, and computes route rankings.
-- **Commit & Push**: If new reliability data differs from the last run, Git commits the new `data/latest.json`, appends to `data/history.json`, and updates `RELIABILITY.md`.
-- **Git as a Database**: Every commit represents an immutable time-series data point of transit reliability history.
+- **Scan Cron (`*/30 * * * *`)**: The Worker ingests binary GTFS-RT Protocol Buffer feeds every 30 minutes, classifies trips, runs statistical aggregations, and computes route rankings in `worker/src/scan.js` (a port of the Python engine).
+- **Storage**: Each scan writes a versioned snapshot plus a `latest.json` pointer to R2 and upserts a summary row into D1, which serve the live dashboard directly.
+- **Archive Cron (`17 7 * * *`)**: Once a day the Worker renders `RELIABILITY*.md` (via `worker/src/report.js`, byte-identical to the Python reporter) and commits `data/latest/*.json`, `data/history/*.json`, and the reports back to this repo through the GitHub Git Data API (`worker/src/github_archive.js`, needs the `GITHUB_TOKEN` Worker secret). `POST /api/archive` (with the `SCAN_TOKEN`) triggers the same archive on demand.
+- **Git as a Database**: Every archive commit represents an immutable time-series data point of transit reliability history. The Python CLI remains for local scans and backfills.
 
 ---
 
@@ -306,7 +303,7 @@ Six agencies need free API keys; without any key `scan-all` skips the city with 
 
 Same key for similar endpoints: a preset's VP and TU feeds share the preset's own key. Across providers, sharing is group-scoped only: presets marked `key_group: socrata` fall back to `SOCRATA_API_KEY` (one Socrata/Tyler Tech token works across all of their portals). Agency variables and `--api-key` still win when set. No current preset is Socrata-backed.
 
-The cron workflow passes these through from GitHub Actions secrets of the same names. The other seven markets scan with no key (Seattle's OneBusAway endpoints don't enforce their documented key).
+The Worker scan passes these through from Worker secrets of the same names; a market whose key secret is unset is skipped. The other seven markets scan with no key (Seattle's OneBusAway endpoints don't enforce their documented key).
 
 Scan any custom transit agency anywhere in the world:
 ```bash
@@ -353,10 +350,6 @@ Durability: every scan appends to uncapped per-market `data/history/<id>.json` (
 
 ```text
 ghost-bus-tracker/
-├── .github/
-│   └── workflows/
-│       ├── track.yml           # Git-scraping cron workflow (runs every 30m)
-│       └── ci.yml              # Multi-python version CI test suite
 ├── data/
 │   ├── latest.json             # Latest Twin Cities snapshot (legacy path)
 │   ├── history.json            # Twin Cities history (legacy path, uncapped)

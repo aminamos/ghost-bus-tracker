@@ -2,12 +2,22 @@
   "name": "ghost-bus-tracker-worker",
   "version": "0.1.0",
   "description": "Cloudflare Workers edge API and interactive web dashboard for Ghost Bus Tracker",
+  "type": "module",
   "main": "src/index.js",
   "scripts": {
     "dev": "wrangler dev",
-    "deploy": "wrangler deploy"
+    "deploy": "wrangler deploy",
+    "test": "node --test test/"
   },
-  "keywords": ["cloudflare-workers", "gtfs", "transit", "ghost-bus"],
+  "keywords": [
+    "cloudflare-workers",
+    "gtfs",
+    "transit",
+    "ghost-bus"
+  ],
   "author": "Amin",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "gtfs-realtime-bindings": "^2.2.0"
+  }
 }

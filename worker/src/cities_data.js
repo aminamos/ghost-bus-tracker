@@ -1005,18 +1005,23 @@ export function getAllCitiesData(liveByCity = {}) {
     },
   };
 
-  // Overlay live snapshots. Live data passes through untouched; anything
-  // still flagged live=false below serves (and reconciles) its bundle.
+  // Overlay ingested snapshots. Worker-store data (live=true) and the
+  // frozen GitHub archive (live=false) both pass through untouched; only
+  // markets with no ingested data at all serve (and reconcile) the bundle.
   for (const [id, live] of Object.entries(liveByCity)) {
     const entry = cities[id];
-    if (!entry || !live || !live.live) continue;
+    if (!entry || !live) continue;
     if (live.latest) {
       entry.latest = id === "twin-cities"
         ? { ...live.latest, coverage_details: live.latest.coverage_details || TC_COVERAGE_DEFAULT }
         : live.latest;
+      entry.ingested = true;
     }
-    if (live.history) entry.history = live.history;
-    entry.live = true;
+    if (live.history) {
+      entry.history = live.history;
+      entry.ingested = true;
+    }
+    entry.live = !!live.live;
   }
 
   // Reconcile bundled static snapshots so buckets partition the total:
@@ -1025,7 +1030,7 @@ export function getAllCitiesData(liveByCity = {}) {
   // may hold tracked trips without delay samples, and fleet counts are
   // physical buses, not tracked trips, so rewriting them would corrupt data.
   for (const entry of Object.values(cities)) {
-    if (entry.live) continue;
+    if (entry.live || entry.ingested) continue;
     const snap = entry.latest;
     const d = snap.delay_distribution || {};
     const buckets =

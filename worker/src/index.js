@@ -18,6 +18,18 @@ import {
   GLOBAL_TRANSIT_CATALOG,
   searchGlobalCatalog,
 } from "./mobility_catalog.js";
+import {
+  scanAllMarkets,
+  persistSnapshot,
+} from "./scan.js";
+import {
+  buildArchiveFiles,
+  commitFilesToGitHub,
+} from "./github_archive.js";
+
+// Daily cron (wrangler.jsonc triggers.crons) that commits Worker snapshots
+// back to the GitHub repo, replacing the retired GitHub Actions scrapers.
+const ARCHIVE_CRON = "17 7 * * *";
 
 const DATA_BASE =
   "https://raw.githubusercontent.com/aminamos/ghost-bus-tracker/main/data";
@@ -91,6 +103,156 @@ async function fetchSnapshot(file, fallback, ctx, fresh = false) {
       // ignore, use bundled fallback
     }
     return { data: fallback, stale: true };
+  }
+}
+
+// Latest snapshot per market: R2 (written by the scheduled scan) first,
+// frozen GitHub archive as fallback. Returns { data, live }: live is true
+// only for Worker-store data. Results are edge-cached like GitHub reads.
+async function fetchMarketLatest(marketId, env, ctx, fresh = false) {
+  const cache = caches.default;
+  const cacheKey = new Request(`https://gbt-cache.internal/store/latest/${marketId}.json`, { method: "GET" });
+
+  if (!fresh) {
+    try {
+      const hit = await cache.match(cacheKey);
+      if (hit) return await hit.json();
+    } catch {
+      // Cache read failed, continue to storage.
+    }
+  }
+
+  const cacheResult = (result) => {
+    const put = cache.put(
+      cacheKey,
+      new Response(JSON.stringify(result), {
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          "Cache-Control": `public, max-age=${UPSTREAM_CACHE_TTL}`,
+        },
+      })
+    ).catch(() => {});
+    if (ctx && typeof ctx.waitUntil === "function") ctx.waitUntil(put);
+  };
+
+  if (env && env.SNAPSHOT_BUCKET) {
+    try {
+      const obj = await env.SNAPSHOT_BUCKET.get(`snapshots/${marketId}/latest.json`);
+      if (obj) {
+        const result = { data: JSON.parse(await obj.text()), live: true };
+        cacheResult(result);
+        return result;
+      }
+    } catch {
+      // R2 read failed, fall through to GitHub.
+    }
+  }
+
+  const gh = await fetchSnapshot(`latest/${marketId}.json`, null, ctx, fresh);
+  if (gh.data) {
+    const result = { data: gh.data, live: false };
+    cacheResult(result);
+    return result;
+  }
+  return { data: null, live: false };
+}
+
+// Full per-market history series: D1 (written by the scheduled scan) first,
+// frozen GitHub archive as fallback.
+async function fetchMarketHistory(marketId, env, ctx, fresh = false) {
+  const cache = caches.default;
+  const cacheKey = new Request(`https://gbt-cache.internal/store/history/${marketId}.json`, { method: "GET" });
+
+  if (!fresh) {
+    try {
+      const hit = await cache.match(cacheKey);
+      if (hit) return await hit.json();
+    } catch {
+      // Cache read failed, continue to storage.
+    }
+  }
+
+  const cacheResult = (result) => {
+    const put = cache.put(
+      cacheKey,
+      new Response(JSON.stringify(result), {
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          "Cache-Control": `public, max-age=${UPSTREAM_CACHE_TTL}`,
+        },
+      })
+    ).catch(() => {});
+    if (ctx && typeof ctx.waitUntil === "function") ctx.waitUntil(put);
+  };
+
+  if (env && env.HISTORY_DB) {
+    try {
+      const rows = await env.HISTORY_DB.prepare(
+        "SELECT scan_time, ghost_bus_rate_pct, overall_on_time_pct, " +
+        "total_scheduled_trips, total_tracked_vehicles, total_ghost_trips, " +
+        "mean_delay_sec, agency, city, transit_system, source " +
+        "FROM scans WHERE market_id = ? ORDER BY scan_time ASC"
+      ).bind(marketId).all();
+      if (rows.results && rows.results.length > 0) {
+        const result = { data: rows.results, live: true };
+        cacheResult(result);
+        return result;
+      }
+    } catch {
+      // D1 read failed, fall through to GitHub.
+    }
+  }
+
+  const gh = await fetchSnapshot(`history/${marketId}.json`, null, ctx, fresh);
+  if (gh.data) {
+    const result = { data: gh.data, live: false };
+    cacheResult(result);
+    return result;
+  }
+  return { data: null, live: false };
+}
+
+// Live markets only: R2/D1-backed latest + history per market, read fresh.
+async function collectLiveMarkets(env, ctx) {
+  const markets = [];
+  await Promise.all(
+    CITY_PRESETS.map(async (cp) => {
+      const [latestRes, historyRes] = await Promise.all([
+        fetchMarketLatest(cp.id, env, ctx, true),
+        fetchMarketHistory(cp.id, env, ctx, true),
+      ]);
+      if (latestRes.live && latestRes.data) {
+        markets.push({ id: cp.id, latest: latestRes.data, history: historyRes.data || [] });
+      }
+    })
+  );
+  return markets.sort((a, b) => a.id.localeCompare(b.id));
+}
+
+// Commit the current live snapshots to GitHub (data/*.json + RELIABILITY*.md).
+async function runGitHubArchive(env, ctx) {
+  const markets = await collectLiveMarkets(env, ctx);
+  const files = buildArchiveFiles(markets);
+  const scanTime = new Date().toISOString().replace(/\.\d{3}Z$/, "Z");
+  const result = await commitFilesToGitHub({
+    token: env?.GITHUB_TOKEN,
+    repo: env?.GITHUB_REPO || undefined,
+    branch: env?.GITHUB_BRANCH || undefined,
+    files,
+    message: `Daily Worker snapshot archive: ${scanTime} [skip ci]`,
+  });
+  return { ...result, markets: markets.map((m) => m.id) };
+}
+
+async function invalidateMarketCache(marketId) {
+  try {
+    const cache = caches.default;
+    await Promise.all([
+      cache.delete(`https://gbt-cache.internal/store/latest/${marketId}.json`),
+      cache.delete(`https://gbt-cache.internal/store/history/${marketId}.json`),
+    ]);
+  } catch {
+    // Best effort; TTL expiry covers a failed invalidation.
   }
 }
 
@@ -1233,27 +1395,91 @@ export default {
           service: "ghost-bus-tracker-worker",
           agency: env?.AGENCY_NAME || "Metro Transit (Twin Cities)",
           supported_markets: CITY_PRESETS.map((p) => p.id),
+          storage: {
+            r2: !!(env && env.SNAPSHOT_BUCKET),
+            d1: !!(env && env.HISTORY_DB),
+          },
           timestamp: new Date().toISOString(),
         });
       }
 
-      // Assemble live snapshots per market from the git-scraping workflow.
-      // Per-city files (data/latest/<id>.json); Twin Cities additionally
-      // falls back to the legacy root files, then the bundle.
+      // Manual scan trigger (cron equivalent on demand). Guarded by the
+      // SCAN_TOKEN secret; ?city=<id> scans one market, otherwise all.
+      if (path === "/api/scan") {
+        if (request.method !== "POST") {
+          return jsonResponse({ error: "Use POST to trigger a scan" }, 405);
+        }
+        if (!env || !env.SCAN_TOKEN) {
+          return jsonResponse({ error: "Manual scan disabled (no SCAN_TOKEN configured)" }, 503);
+        }
+        const token = request.headers.get("X-Scan-Token") || url.searchParams.get("token");
+        if (token !== env.SCAN_TOKEN) {
+          return jsonResponse({ error: "Unauthorized" }, 401);
+        }
+        const onlyIds = rawCity ? [cityKey] : null;
+        const started = Date.now();
+        const results = await scanAllMarkets(env, onlyIds);
+        const summary = await Promise.all(results.map(async (r) => {
+          let stored = { r2: false, d1: false };
+          if (r.status === "ok" && r.snapshot) {
+            stored = await persistSnapshot(env, r.marketId, r.snapshot);
+            await invalidateMarketCache(r.marketId);
+          }
+          return {
+            market: r.marketId,
+            status: r.status,
+            scan_time: r.snapshot ? r.snapshot.scan_time : null,
+            ghost_bus_rate_pct: r.snapshot ? r.snapshot.ghost_bus_rate_pct : null,
+            stored,
+            error: r.error || null,
+          };
+        }));
+        return jsonResponse({ status: "ok", elapsed_ms: Date.now() - started, results: summary });
+      }
+
+      // Manual GitHub archive trigger (daily-cron equivalent on demand).
+      // Guarded by the SCAN_TOKEN secret, same as /api/scan.
+      if (path === "/api/archive") {
+        if (request.method !== "POST") {
+          return jsonResponse({ error: "Use POST to trigger an archive" }, 405);
+        }
+        if (!env || !env.SCAN_TOKEN) {
+          return jsonResponse({ error: "Manual archive disabled (no SCAN_TOKEN configured)" }, 503);
+        }
+        const token = request.headers.get("X-Scan-Token") || url.searchParams.get("token");
+        if (token !== env.SCAN_TOKEN) {
+          return jsonResponse({ error: "Unauthorized" }, 401);
+        }
+        if (!env.GITHUB_TOKEN) {
+          return jsonResponse({ error: "GitHub archive disabled (no GITHUB_TOKEN configured)" }, 503);
+        }
+        const started = Date.now();
+        try {
+          const result = await runGitHubArchive(env, ctx);
+          return jsonResponse({ status: "ok", elapsed_ms: Date.now() - started, ...result });
+        } catch (e) {
+          return jsonResponse({ error: `Archive failed: ${e.message}` }, 502);
+        }
+      }
+
+      // Assemble live snapshots per market from Worker storage (R2 latest +
+      // D1 history, written by the scheduled scan), falling back to the
+      // frozen GitHub archive, then the bundle. Twin Cities additionally
+      // falls back to the legacy root files.
       const liveByCity = {};
       await Promise.all(
         CITY_PRESETS.map(async (cp) => {
           const [latestRes, historyRes] = await Promise.all([
-            fetchSnapshot(`latest/${cp.id}.json`, null, ctx, fresh),
-            fetchSnapshot(`history/${cp.id}.json`, null, ctx, fresh),
+            fetchMarketLatest(cp.id, env, ctx, fresh),
+            fetchMarketHistory(cp.id, env, ctx, fresh),
           ]);
           let latest = latestRes.data;
-          let live = !latestRes.stale;
-          let history = historyRes.stale ? null : historyRes.data;
+          let live = latestRes.live;
+          let history = historyRes.data;
           if (!latest && cp.id === "twin-cities") {
             const legacy = await fetchSnapshot("latest.json", DEFAULT_LATEST, ctx, fresh);
             latest = legacy.data;
-            live = !legacy.stale;
+            live = false;
             if (!history) {
               const legacyHist = await fetchSnapshot("history.json", DEFAULT_HISTORY, ctx, fresh);
               history = legacyHist.data;
@@ -1271,24 +1497,9 @@ export default {
       if (path === "/api/latest") {
         return jsonResponse({ ...targetCityData.latest, stale: !cityIsLive, live: cityIsLive });
       }
-      // History API: per-market full series from D1, falling back to the
-      // GitHub JSON or bundled snapshot when D1 is unreachable.
+      // History API: per-market full series (D1 first, then the frozen
+      // GitHub archive, then the bundle) assembled with the dashboard data.
       if (path === "/api/history") {
-        if (env && env.HISTORY_DB) {
-          try {
-            const rows = await env.HISTORY_DB.prepare(
-              "SELECT scan_time, ghost_bus_rate_pct, overall_on_time_pct, " +
-              "total_scheduled_trips, total_tracked_vehicles, total_ghost_trips, " +
-              "mean_delay_sec, agency, city, transit_system, source " +
-              "FROM scans WHERE market_id = ? ORDER BY scan_time ASC"
-            ).bind(cityKey).all();
-            if (rows.results && rows.results.length > 0) {
-              return jsonResponse(rows.results);
-            }
-          } catch {
-            // D1 read failed; fall through to the snapshot below.
-          }
-        }
         return jsonResponse(targetCityData.history);
       }
 
@@ -1419,6 +1630,89 @@ export default {
         }
       }
 
+      // Live departures from NextTrip REST API (Twin Cities only).
+      // GET /api/departures?stop=<id>[&route=<short name>][&city=twin-cities]
+      // Small shaped payload for the iOS widget and the ESP32 board.
+      // Default stop 17941 = Hennepin & Spruce Station NB (in front of MCTC).
+      if (path === "/api/departures") {
+        if (cityKey !== "twin-cities") {
+          return jsonResponse(
+            { error: "The departures proxy only supports the Twin Cities NextTrip feed (?city=twin-cities)" },
+            400
+          );
+        }
+        const stopId = (url.searchParams.get("stop") || "17941").trim();
+        if (!/^\d{1,6}$/.test(stopId)) {
+          return jsonResponse({ error: "Invalid stop parameter: expected a numeric stop ID" }, 400);
+        }
+        const routeFilter = (url.searchParams.get("route") || "").trim().toLowerCase();
+        let upstream;
+        try {
+          upstream = await fetch(
+            `https://svc.metrotransit.org/nextripv2/${stopId}`,
+            {
+              headers: { "User-Agent": "GhostBusTracker-Worker/0.1.0" },
+            }
+          );
+        } catch (err) {
+          return jsonResponse(
+            { error: "Failed to fetch upstream departures: " + err.message },
+            502
+          );
+        }
+        if (upstream.status === 400) {
+          return jsonResponse({ error: "Unknown stop ID", stop_id: stopId }, 404);
+        }
+        if (!upstream.ok) {
+          return jsonResponse(
+            { error: `Upstream returned ${upstream.status}` },
+            502
+          );
+        }
+        let data;
+        try {
+          data = await upstream.json();
+        } catch (err) {
+          return jsonResponse({ error: "Upstream returned invalid JSON" }, 502);
+        }
+        const nowMs = Date.now();
+        let departures = Array.isArray(data.departures) ? data.departures : [];
+        if (routeFilter) {
+          departures = departures.filter(
+            (d) => String(d.route_short_name || "").toLowerCase() === routeFilter
+          );
+        }
+        const shaped = departures.slice(0, 8).map((d) => {
+          const depMs = Number(d.departure_time || 0) * 1000;
+          return {
+            route: d.route_short_name || d.route_id || "?",
+            headsign: d.description || d.terminal || "",
+            direction: d.direction_text || "",
+            departs_in_min: depMs > 0 ? Math.max(0, Math.round((depMs - nowMs) / 60000)) : null,
+            departure_text: d.departure_text || "",
+            live: d.actual === true,
+            vehicle_id: d.vehicle_id || null,
+            trip_id: d.trip_id || null,
+          };
+        });
+        const stopDesc = (Array.isArray(data.stops) && data.stops[0] && data.stops[0].description)
+          || `Stop ${stopId}`;
+        return new Response(JSON.stringify({
+          stop_id: stopId,
+          stop_name: stopDesc,
+          generated_at: new Date().toISOString(),
+          ttl_s: 30,
+          departures: shaped,
+        }, null, 2), {
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "Cache-Control": "public, max-age=30",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, HEAD, OPTIONS",
+          },
+        });
+      }
+
       // Web Dashboard (Root)
       if (path === "/" || path === "/index.html") {
         const html = renderHtml(cityKey, allCities, cityIsLive);
@@ -1445,111 +1739,50 @@ export default {
 
   /**
    * Cloudflare Worker Scheduled Cron Trigger
-   * Runs every 30 minutes: warms the edge cache with the per-market GitHub
-   * snapshots, upserts them into D1, and archives versioned JSON copies to
-   * R2. Each market's full history file is replayed idempotently into both
-   * stores, so a missed tick backfills itself on the next one.
+   * Runs every 30 minutes: scans every market's GTFS-RT feeds directly
+   * (the scan-all pipeline, formerly the track.yml cron), stores the full
+   * snapshot JSON in R2 (versioned copy + latest pointer), and upserts the
+   * summary row into D1. Markets needing an API key are skipped unless
+   * their secret is configured; one market's failure never blocks others.
    */
   async scheduled(event, env, ctx) {
     const work = (async () => {
-      if (!env || !env.HISTORY_DB) {
-        await Promise.all([
-          fetchSnapshot("latest.json", DEFAULT_LATEST, ctx, true),
-          fetchSnapshot("history.json", DEFAULT_HISTORY, ctx, true),
-        ]);
+      // Daily archive cron: commit live snapshots to the GitHub repo.
+      if (event && event.cron === ARCHIVE_CRON) {
+        if (!env || !env.GITHUB_TOKEN) {
+          console.log("scheduled archive skipped: no GITHUB_TOKEN configured");
+          return;
+        }
+        try {
+          const result = await runGitHubArchive(env, ctx);
+          console.log(
+            `scheduled archive finished: committed=${result.committed} ` +
+            `sha=${result.sha || "-"} files=${result.files} markets=${result.markets.join(",")}`
+          );
+        } catch (e) {
+          console.log(`scheduled archive failed: ${e.message}`);
+        }
         return;
       }
-      const upsert = (marketId, s) => {
-        if (!s || !s.scan_time) return Promise.resolve();
-        return env.HISTORY_DB.prepare(
-          "INSERT OR IGNORE INTO scans (market_id, scan_time, ghost_bus_rate_pct, " +
-          "overall_on_time_pct, total_scheduled_trips, total_tracked_vehicles, " +
-          "total_ghost_trips, mean_delay_sec, agency, city, transit_system, source) " +
-          "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
-        ).bind(
-          marketId, s.scan_time, s.ghost_bus_rate_pct, s.overall_on_time_pct,
-          s.total_scheduled_trips, s.total_tracked_vehicles, s.total_ghost_trips,
-          s.mean_delay_sec ?? null, s.agency ?? null, s.city ?? null,
-          s.transit_system ?? null, s.source ?? "live"
-        ).run().catch(() => {});
-      };
-      await Promise.all(CITY_PRESETS.map(async (cp) => {
-        try {
-          const [latestRes, historyRes] = await Promise.all([
-            fetchSnapshot(`latest/${cp.id}.json`, null, ctx, true),
-            fetchSnapshot(`history/${cp.id}.json`, null, ctx, true),
-          ]);
-          const pend = [];
-          // R2 backup: versioned JSON snapshot per scan plus a latest pointer.
-          const archive = (marketId, snap) => {
-            if (!env || !env.SNAPSHOT_BUCKET || !snap || !snap.scan_time) return;
-            const body = JSON.stringify(snap);
-            const safeTime = String(snap.scan_time).replace(/[:]/g, "-");
-            pend.push(
-              env.SNAPSHOT_BUCKET.put(`snapshots/${marketId}/${safeTime}.json`, body, {
-                httpMetadata: { contentType: "application/json; charset=utf-8" },
-              }).catch(() => {})
-            );
-            pend.push(
-              env.SNAPSHOT_BUCKET.put(`snapshots/${marketId}/latest.json`, body, {
-                httpMetadata: { contentType: "application/json; charset=utf-8" },
-              }).catch(() => {})
-            );
-          };
-          if (!latestRes.stale && latestRes.data) {
-            pend.push(upsert(cp.id, latestRes.data));
-            archive(cp.id, latestRes.data);
-          }
-          const hist = !historyRes.stale && Array.isArray(historyRes.data) ? historyRes.data : [];
-          // Catch-up: every retained history row gets a D1 upsert plus an R2
-          // copy when its versioned key is absent, so a missed tick leaves no
-          // permanent gap in either store. The full latest snapshot above
-          // always overwrites its own key afterwards.
-          const backfillRow = async (marketId, row) => {
-            if (!row || !row.scan_time) return;
-            const snap = {
-              scan_time: row.scan_time,
-              ghost_bus_rate_pct: row.ghost_bus_rate_pct,
-              overall_on_time_pct: row.overall_on_time_pct,
-              total_scheduled_trips: row.total_scheduled_trips,
-              total_tracked_vehicles: row.total_tracked_vehicles,
-              total_ghost_trips: row.total_ghost_trips,
-              mean_delay_sec: row.mean_delay_sec,
-              agency: row.agency, city: row.city,
-              transit_system: row.transit_system, source: row.source,
-            };
-            await upsert(marketId, snap).catch(() => {});
-            if (env && env.SNAPSHOT_BUCKET) {
-              const key = `snapshots/${marketId}/${String(row.scan_time).replace(/[:]/g, "-")}.json`;
-              try {
-                const existing = await env.SNAPSHOT_BUCKET.head(key);
-                if (!existing) {
-                  await env.SNAPSHOT_BUCKET.put(key, JSON.stringify(snap), {
-                    httpMetadata: { contentType: "application/json; charset=utf-8" },
-                  });
-                }
-              } catch { /* next tick retries */ }
-            }
-          };
-          for (const row of hist) pend.push(backfillRow(cp.id, row));
-          // Legacy Twin Cities root files predate the per-city layout.
-          if (cp.id === "twin-cities") {
-            const [legLatest, legHist] = await Promise.all([
-              fetchSnapshot("latest.json", DEFAULT_LATEST, ctx, true),
-              fetchSnapshot("history.json", DEFAULT_HISTORY, ctx, true),
-            ]);
-            if (!legLatest.stale && legLatest.data) {
-              pend.push(upsert(cp.id, legLatest.data));
-              archive(cp.id, legLatest.data);
-            }
-            const legRows = !legHist.stale && Array.isArray(legHist.data) ? legHist.data : [];
-            for (const row of legRows) pend.push(backfillRow(cp.id, row));
-          }
-          await Promise.all(pend);
-        } catch {
-          // Per-market failure must not block other markets; next tick retries.
+      const started = Date.now();
+      const results = await scanAllMarkets(env);
+      let ok = 0, failed = 0, skipped = 0;
+      await Promise.all(results.map(async (r) => {
+        if (r.status === "ok" && r.snapshot) {
+          ok++;
+          await persistSnapshot(env, r.marketId, r.snapshot);
+          await invalidateMarketCache(r.marketId);
+        } else if (r.status === "skipped") {
+          skipped++;
+        } else {
+          failed++;
+          console.log(`scheduled scan failed for ${r.marketId}: ${r.error}`);
         }
       }));
+      console.log(
+        `scheduled scan finished in ${Date.now() - started}ms: ` +
+        `${ok} ok, ${failed} failed, ${skipped} skipped (no key)`
+      );
     })();
     if (ctx && typeof ctx.waitUntil === "function") {
       ctx.waitUntil(work);
