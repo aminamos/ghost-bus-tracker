@@ -283,7 +283,7 @@ python -m src.cli scan --preset chicago --api-key <YOUR_CTA_KEY>
 ### Scanning every city
 
 ```bash
-# All 13 presets: writes data/latest/<id>.json, data/history/<id>.json, RELIABILITY-<id>.md
+# All 43 presets: writes data/latest/<id>.json, data/history/<id>.json, RELIABILITY-<id>.md
 python -m src.cli scan-all
 
 # Subset only
@@ -302,7 +302,9 @@ Five agencies need free API keys; without any key `scan-all` skips the city with
 
 Same key for similar endpoints: a preset's VP and TU feeds share the preset's own key. Across providers, sharing is group-scoped only: presets marked `key_group: socrata` fall back to `SOCRATA_API_KEY` (one Socrata/Tyler Tech token works across all of their portals). Agency variables and `--api-key` still win when set. No current preset is Socrata-backed.
 
-The Worker scan passes these through from Worker secrets of the same names; a market whose key secret is unset is skipped. The other eight markets scan with no key (Seattle's OneBusAway endpoints don't enforce their documented key, and MTA's api-endpoint feeds no longer require one).
+The Worker scan passes these through from Worker secrets of the same names; a market whose key secret is unset is skipped. The other 38 markets scan with no key (Seattle's OneBusAway endpoints don't enforce their documented key, and MTA's api-endpoint feeds no longer require one). Markets verified against the Mobility Database catalog and live-tested keyless include Austin, Phoenix, Pittsburgh, Edmonton, Halifax, Orlando, Mississauga, Hamilton, Milwaukee, Nashville, Albany, Fort Lauderdale, St. Louis, Cleveland, Cincinnati, Hartford, London (ON), York Region, Durham Region, Madison, Louisville, Providence, Des Moines, Knoxville, Champaign-Urbana, Guelph, Kingston, Duluth, Barrie, and Lansing.
+
+**Derived on-time performance.** Agencies that publish GTFS-RT absolute predicted times but no `delay` field (e.g. Austin, Cincinnati, MiWay, NYC, Atlanta) get delays computed by the Worker itself: `delay = predicted departure − scheduled departure`, joined against the agency's static GTFS `stop_times.txt` on trip id (with a suffix match for prefixed ids like NYCT's) and stop sequence/stop id, anchored on the trip's service date in the agency timezone (`worker/src/static_schedule.js`). Static schedules are cached in R2 and refreshed daily; only trips present in the current RT feed are kept. Pittsburgh's RT trip ids don't join its static schedule, so it reports ghost metrics only for now.
 
 Scan any custom transit agency anywhere in the world:
 ```bash
@@ -333,7 +335,7 @@ Live Worker URL: [https://ghost-bus-tracker.a-8c6.workers.dev](https://ghost-bus
 - `GET /api/latest`: Latest JSON reliability snapshot (supports `?city=<preset>`; includes `stale`/`live` flags)
 - `GET /api/history`: Full all-time per-market series served from D1 (falls back to `data/history.json`); static snapshots for markets with no scan yet
 - `GET /api/summary`: Scorecard KPI object (supports `?city=<preset>`; includes `stale`/`live` flags)
-- `GET /api/markets`: List of all 13 supported transit markets and aliases
+- `GET /api/markets`: List of all 43 supported transit markets and aliases
 - `GET /api/catalog`: Curated sample of the MobilityDatabase catalog (full catalog holds 990+ feeds; supports `?q=<search>`, `?country=<country>`, `?limit=<n>`)
 - `GET /api/live/vp` and `GET /api/live/tu`: Live GTFS-RT protobuf proxy. Defaults follow `?city=<preset>`; an explicit `?url=` must be `https:` on an allowlisted agency feed host, otherwise the proxy returns 400.
 - `GET /api/routes`: Upstream Metro Transit route proxy (Twin Cities only; other `?city=` values return 400)

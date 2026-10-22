@@ -9,6 +9,7 @@
  */
 
 import { CITY_FEED_URLS } from "./cities_data.js";
+import { getStaticSchedule, applyDerivedDelays } from "./static_schedule.js";
 import gtfsBindings from "gtfs-realtime-bindings";
 
 const FeedMessage = gtfsBindings.transit_realtime.FeedMessage;
@@ -29,7 +30,7 @@ export const SCAN_PRESETS = [
   { id: "twin-cities", name: "Metro Transit", agency: "Metro Transit (Twin Cities)", city: "Minneapolis–Saint Paul, MN", region: "Twin Cities Metropolitan Area, Minnesota", state: "Minnesota", country: "USA", requiresKey: false },
   { id: "chicago", name: "CTA", agency: "Chicago Transit Authority", city: "Chicago, IL", region: "Chicagoland / Cook County, Illinois", state: "Illinois", country: "USA", requiresKey: true, keyEnvVar: "CTA_API_KEY", keyParam: "key" },
   { id: "boston", name: "MBTA", agency: "Massachusetts Bay Transportation Authority", city: "Boston, MA", region: "Greater Boston, Massachusetts", state: "Massachusetts", country: "USA", requiresKey: false },
-  { id: "nyc", name: "MTA", agency: "Metropolitan Transportation Authority", city: "New York, NY", region: "New York Metropolitan Area", state: "New York", country: "USA", requiresKey: false },
+  { id: "nyc", name: "MTA", agency: "Metropolitan Transportation Authority", city: "New York, NY", region: "New York Metropolitan Area", state: "New York", country: "USA", requiresKey: false, staticUrl: "https://web.mta.info/developers/data/nyct/subway/google_transit.zip" },
   { id: "sf", name: "SFMTA", agency: "San Francisco Municipal Transportation Agency", city: "San Francisco, CA", region: "San Francisco Bay Area, California", state: "California", country: "USA", requiresKey: true, keyEnvVar: "BAY_AREA_511_KEY", keyParam: "api_key" },
   { id: "philly", name: "SEPTA", agency: "Southeastern Pennsylvania Transportation Authority", city: "Philadelphia, PA", region: "Greater Philadelphia / Delaware Valley, Pennsylvania", state: "Pennsylvania", country: "USA", requiresKey: false },
   { id: "dc", name: "WMATA", agency: "Washington Metropolitan Area Transit Authority", city: "Washington, DC", region: "Washington Metropolitan Area (DC, MD, VA)", state: "District of Columbia", country: "USA", requiresKey: true, keyEnvVar: "WMATA_API_KEY", keyHeader: "api_key" },
@@ -37,8 +38,38 @@ export const SCAN_PRESETS = [
   { id: "seattle", name: "Sound Transit & KCM", agency: "King County Metro / Sound Transit", city: "Seattle, WA", region: "Central Puget Sound Region, Washington", state: "Washington", country: "USA", requiresKey: false },
   { id: "denver", name: "RTD", agency: "Regional Transportation District", city: "Denver, CO", region: "Denver Metropolitan Area, Colorado", state: "Colorado", country: "USA", requiresKey: false },
   { id: "portland", name: "TriMet", agency: "Tri-County Metropolitan Transportation District of Oregon", city: "Portland, OR", region: "Portland Metropolitan Area, Oregon", state: "Oregon", country: "USA", requiresKey: true, keyEnvVar: "TRIMET_APP_ID", keyParam: "appID" },
-  { id: "atlanta", name: "MARTA", agency: "Metropolitan Atlanta Rapid Transit Authority", city: "Atlanta, GA", region: "Metro Atlanta (Fulton, DeKalb, Clayton Counties), Georgia", state: "Georgia", country: "USA", requiresKey: false },
+  { id: "atlanta", name: "MARTA", agency: "Metropolitan Atlanta Rapid Transit Authority", city: "Atlanta, GA", region: "Metro Atlanta (Fulton, DeKalb, Clayton Counties), Georgia", state: "Georgia", country: "USA", requiresKey: false, staticUrl: "https://www.itsmarta.com/google_transit_feed/google_transit.zip" },
   { id: "toronto", name: "TTC", agency: "Toronto Transit Commission", city: "Toronto, ON", region: "Greater Toronto Area, Ontario", state: "Ontario", country: "Canada", requiresKey: false },
+  { id: "austin", name: "Austin", agency: "Capital Metropolitan Transportation Authority", city: "Austin, TX", region: "Austin–Round Rock Metropolitan Area, Texas", state: "Texas", country: "USA", requiresKey: false, staticUrl: "https://data.texas.gov/download/r4v4-vz24/application/zip" },
+  { id: "phoenix", name: "Phoenix", agency: "Valley Metro", city: "Phoenix, AZ", region: "Phoenix–Mesa Metropolitan Area, Arizona", state: "Arizona", country: "USA", requiresKey: false },
+  { id: "pittsburgh", name: "Pittsburgh", agency: "Pittsburgh Regional Transit", city: "Pittsburgh, PA", region: "Pittsburgh Metropolitan Area, Pennsylvania", state: "Pennsylvania", country: "USA", requiresKey: false },
+  { id: "edmonton", name: "Edmonton", agency: "Edmonton Transit Service", city: "Edmonton, AB", region: "Edmonton Metropolitan Region, Alberta", state: "Alberta", country: "Canada", requiresKey: false },
+  { id: "halifax", name: "Halifax", agency: "Halifax Transit", city: "Halifax, NS", region: "Halifax Regional Municipality, Nova Scotia", state: "Nova Scotia", country: "Canada", requiresKey: false, staticUrl: "http://gtfs.halifax.ca/static/google_transit.zip" },
+  { id: "orlando", name: "Orlando", agency: "Central Florida Regional Transportation Authority", city: "Orlando, FL", region: "Orlando Metropolitan Area, Florida", state: "Florida", country: "USA", requiresKey: false },
+  { id: "broward", name: "Fort Lauderdale", agency: "Broward County Transit", city: "Fort Lauderdale, FL", region: "Broward County, Florida", state: "Florida", country: "USA", requiresKey: false },
+  { id: "albany", name: "Albany", agency: "Capital District Transportation Authority", city: "Albany, NY", region: "Capital District, New York", state: "New York", country: "USA", requiresKey: false },
+  { id: "lansing", name: "Lansing", agency: "Capital Area Transportation Authority", city: "Lansing, MI", region: "Lansing Metropolitan Area, Michigan", state: "Michigan", country: "USA", requiresKey: false },
+  { id: "champaign-urbana", name: "Champaign-Urbana", agency: "Champaign-Urbana Mass Transit District", city: "Champaign–Urbana, IL", region: "Champaign County, Illinois", state: "Illinois", country: "USA", requiresKey: false },
+  { id: "cincinnati", name: "Cincinnati", agency: "Southwest Ohio Regional Transit Authority", city: "Cincinnati, OH", region: "Cincinnati Metropolitan Area, Ohio", state: "Ohio", country: "USA", requiresKey: false, staticUrl: "http://www.go-metro.com/uploads/GTFS/google_transit_info.zip" },
+  { id: "hartford", name: "Hartford", agency: "Connecticut Transit", city: "Hartford, CT", region: "Hartford Metropolitan Area, Connecticut", state: "Connecticut", country: "USA", requiresKey: false, staticUrl: "https://www.cttransit.com/sites/default/files/gtfs/googlect_transit.zip" },
+  { id: "des-moines", name: "Des Moines", agency: "Des Moines Area Regional Transit Authority", city: "Des Moines, IA", region: "Des Moines Metropolitan Area, Iowa", state: "Iowa", country: "USA", requiresKey: false, staticUrl: "https://www.ridedart.com/gtfs/data/gtfsdata" },
+  { id: "duluth", name: "Duluth", agency: "Duluth Transit Authority", city: "Duluth, MN", region: "Duluth–Superior Metropolitan Area, Minnesota", state: "Minnesota", country: "USA", requiresKey: false, staticUrl: "https://duluthtransit.com/gtf/google_transit.zip" },
+  { id: "durham", name: "Durham", agency: "Durham Region Transit", city: "Durham, ON", region: "Regional Municipality of Durham, Ontario", state: "Ontario", country: "Canada", requiresKey: false, staticUrl: "https://maps.durham.ca/OpenDataGTFS/GTFS_Durham_TXT.zip" },
+  { id: "cleveland", name: "Cleveland", agency: "Greater Cleveland Regional Transit Authority", city: "Cleveland, OH", region: "Cleveland Metropolitan Area, Ohio", state: "Ohio", country: "USA", requiresKey: false },
+  { id: "guelph", name: "Guelph", agency: "Guelph Transit", city: "Guelph, ON", region: "City of Guelph, Ontario", state: "Ontario", country: "Canada", requiresKey: false },
+  { id: "hamilton", name: "Hamilton", agency: "Hamilton Street Railway", city: "Hamilton, ON", region: "City of Hamilton, Ontario", state: "Ontario", country: "Canada", requiresKey: false, staticUrl: "https://opendata.hamilton.ca/GTFS-Static/google_transit.zip" },
+  { id: "kingston", name: "Kingston", agency: "Kingston Transit", city: "Kingston, ON", region: "City of Kingston, Ontario", state: "Ontario", country: "Canada", requiresKey: false },
+  { id: "london", name: "London", agency: "London Transit Commission", city: "London, ON", region: "City of London, Ontario", state: "Ontario", country: "Canada", requiresKey: false, staticUrl: "http://www.londontransit.ca/gtfsfeed/google_transit.zip" },
+  { id: "st-louis", name: "St. Louis", agency: "Metro Transit (Bi-State Development)", city: "St. Louis, MO", region: "St. Louis Metropolitan Area, Missouri", state: "Missouri", country: "USA", requiresKey: false, staticUrl: "http://metrostlouis.org/Transit/google_transit.zip" },
+  { id: "madison", name: "Madison", agency: "Metro Transit (City of Madison)", city: "Madison, WI", region: "Madison Metropolitan Area, Wisconsin", state: "Wisconsin", country: "USA", requiresKey: false, staticUrl: "http://transitdata.cityofmadison.com/GTFS/mmt_gtfs.zip" },
+  { id: "miway", name: "Mississauga", agency: "MiWay", city: "Mississauga, ON", region: "City of Mississauga, Ontario", state: "Ontario", country: "Canada", requiresKey: false, staticUrl: "https://www.miapp.ca/GTFS/google_transit.zip" },
+  { id: "milwaukee", name: "Milwaukee", agency: "Milwaukee County Transit System", city: "Milwaukee, WI", region: "Milwaukee Metropolitan Area, Wisconsin", state: "Wisconsin", country: "USA", requiresKey: false, staticUrl: "https://kamino.mcts.org/gtfs/google_transit.zip" },
+  { id: "nashville", name: "Nashville", agency: "WeGo Public Transit", city: "Nashville, TN", region: "Nashville Metropolitan Area, Tennessee", state: "Tennessee", country: "USA", requiresKey: false, staticUrl: "https://www.wegotransit.com/googleexport/google_transit.zip" },
+  { id: "providence", name: "Providence", agency: "Rhode Island Public Transit Authority", city: "Providence, RI", region: "Rhode Island", state: "Rhode Island", country: "USA", requiresKey: false },
+  { id: "louisville", name: "Louisville", agency: "Transit Authority of River City", city: "Louisville, KY", region: "Louisville Metropolitan Area, Kentucky", state: "Kentucky", country: "USA", requiresKey: false },
+  { id: "york", name: "York Region", agency: "York Region Transit", city: "York Region, ON", region: "Regional Municipality of York, Ontario", state: "Ontario", country: "Canada", requiresKey: false },
+  { id: "barrie", name: "Barrie", agency: "Barrie Transit", city: "Barrie, ON", region: "City of Barrie, Ontario", state: "Ontario", country: "Canada", requiresKey: false },
+  { id: "knoxville", name: "Knoxville", agency: "Knoxville Area Transit", city: "Knoxville, TN", region: "Knoxville Metropolitan Area, Tennessee", state: "Tennessee", country: "USA", requiresKey: false, staticUrl: "https://knoxville.syncromatics.com/gtfs" },
 ];
 
 export function getScanPreset(id) {
@@ -172,6 +203,21 @@ export function parseTripUpdates(rawBytes) {
     }
     // Representative delay = median across per-stop delays.
     const repDelay = delays.length > 0 ? Math.trunc(pyRound(pyMedian(delays), 0)) : null;
+    // Feeds without delay fields: keep absolute predicted times so the
+    // static schedule join can derive delays (see static_schedule.js).
+    const rtTimes = [];
+    if (repDelay == null) {
+      for (const stu of stopUpdates) {
+        const ev = stu.departure != null ? stu.departure : stu.arrival;
+        if (ev != null && has(ev, "time")) {
+          rtTimes.push({
+            seq: has(stu, "stopSequence") ? stu.stopSequence : null,
+            stop_id: stu.stopId || null,
+            time: toNum(ev.time),
+          });
+        }
+      }
+    }
     const isCanceled = relName === "CANCELED";
     trips.push({
       trip_id: String(desc.tripId),
@@ -182,6 +228,7 @@ export function parseTripUpdates(rawBytes) {
       schedule_relationship: relName,
       vehicle_id: vehicleId,
       delay_seconds: repDelay,
+      rt_times: rtTimes,
       stop_updates_count: stopUpdates.length,
       is_canceled: isCanceled,
       has_vehicle_assigned: vehicleId != null && vehicleId !== "",
@@ -526,6 +573,12 @@ export async function scanMarket(preset, env = {}) {
     ]);
     const { vehicles, feedTimestamp: vTs } = parseVehiclePositions(vpBytes);
     const { trips, feedTimestamp: tTs } = parseTripUpdates(tuBytes);
+    if (preset.staticUrl) {
+      const wanted = new Set(trips.map((t) => t.trip_id).filter(Boolean));
+      const schedule = await getStaticSchedule(env, preset.id, preset.staticUrl, wanted);
+      if (schedule) applyDerivedDelays(trips, schedule, tTs || vTs);
+    }
+    for (const t of trips) delete t.rt_times;
     const snapshot = analyzeReliability(vehicles, trips, presetLabels(preset), {
       feedTimestamp: tTs || vTs,
       thresholds: resolveThresholds(env),

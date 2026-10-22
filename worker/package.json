@@ -18,6 +18,7 @@
   "author": "Amin",
   "license": "MIT",
   "dependencies": {
+    "fflate": "^0.8.2",
     "gtfs-realtime-bindings": "^2.2.0"
   }
 }
