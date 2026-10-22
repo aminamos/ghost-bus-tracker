@@ -1,0 +1,15 @@
+[
+  {
+    "scan_time": "2026-10-22T18:55:46.561000+00:00",
+    "ghost_bus_rate_pct": 42.19,
+    "overall_on_time_pct": 0.0,
+    "total_scheduled_trips": 256,
+    "total_tracked_vehicles": 148,
+    "total_ghost_trips": 108,
+    "mean_delay_sec": 0.0,
+    "agency": "Metropolitan Transportation Authority",
+    "city": "New York, NY",
+    "transit_system": "MTA",
+    "source": "live"
+  }
+]
