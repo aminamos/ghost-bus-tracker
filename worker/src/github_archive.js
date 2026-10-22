@@ -7,7 +7,51 @@
  * (fine-grained PAT with Contents read/write on this repo).
  */
 
-import { generateMarkdown } from "./report.js";
+import { generateMarkdown, pyFloatStr } from "./report.js";
+
+// Fields declared float in src/models.py. Python serializes integral floats
+// as "0.0"; JSON.stringify would emit "0", which changes how the Python CLI
+// re-renders reports from these files. Serialize like Python instead.
+const FLOAT_FIELDS = new Set([
+  "ghost_bus_rate_pct", "vehicle_tracking_rate_pct", "overall_on_time_pct",
+  "mean_delay_sec", "median_delay_sec", "ghost_rate_pct", "on_time_pct",
+  "avg_delay_sec", "scheduled_headway_min", "observed_headway_min",
+  "excess_wait_time_min", "headway_regularity_score",
+]);
+
+function escapeAscii(s) {
+  return s.replace(/[\u0080-\uffff]/g, (c) => "\\u" + c.charCodeAt(0).toString(16).padStart(4, "0"));
+}
+
+/**
+ * JSON with Python formatting (2-space indent): float fields keep ".0",
+ * int fields stay bare. ensureAscii mirrors json.dump (history files);
+ * pydantic's model_dump_json (latest files) writes raw UTF-8.
+ */
+export function pyJsonStringify(value, ensureAscii, key = null, depth = 0) {
+  const pad = "  ".repeat(depth);
+  const padIn = "  ".repeat(depth + 1);
+  if (value === null || value === undefined) return "null";
+  if (typeof value === "number") {
+    return FLOAT_FIELDS.has(key) ? pyFloatStr(value) : String(value);
+  }
+  if (typeof value === "string") {
+    const s = JSON.stringify(value);
+    return ensureAscii ? escapeAscii(s) : s;
+  }
+  if (typeof value === "boolean") return String(value);
+  if (Array.isArray(value)) {
+    if (!value.length) return "[]";
+    const items = value.map((v) => padIn + pyJsonStringify(v, ensureAscii, null, depth + 1));
+    return "[\n" + items.join(",\n") + "\n" + pad + "]";
+  }
+  const keys = Object.keys(value);
+  if (!keys.length) return "{}";
+  const items = keys.map(
+    (k) => padIn + JSON.stringify(k) + ": " + pyJsonStringify(value[k], ensureAscii, k, depth + 1),
+  );
+  return "{\n" + items.join(",\n") + "\n" + pad + "}";
+}
 
 export const HISTORY_CAP = 500;
 export const DEFAULT_REPO = "aminamos/ghost-bus-tracker";
@@ -30,8 +74,8 @@ export function buildArchiveFiles(markets) {
     if (!latest) continue;
     const snapshot = stripDecorations(latest);
     const capped = (history || []).slice(-HISTORY_CAP);
-    const latestJson = JSON.stringify(snapshot, null, 2);
-    const historyJson = JSON.stringify(capped, null, 2);
+    const latestJson = pyJsonStringify(snapshot, false);
+    const historyJson = pyJsonStringify(capped, true);
     const report = generateMarkdown(snapshot, capped);
     files[`data/latest/${id}.json`] = latestJson;
     files[`data/history/${id}.json`] = historyJson;
