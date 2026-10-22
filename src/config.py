@@ -269,7 +269,7 @@ AGENCY_PRESETS = {
     },
     "austin": {
         "id": "austin",
-        "name": "Austin",
+        "name": "CapMetro",
         "agency": "Capital Metropolitan Transportation Authority",
         "city": "Austin, TX",
         "region": "Austin–Round Rock Metropolitan Area, Texas",
@@ -282,7 +282,7 @@ AGENCY_PRESETS = {
     },
     "phoenix": {
         "id": "phoenix",
-        "name": "Phoenix",
+        "name": "Valley Metro",
         "agency": "Valley Metro",
         "city": "Phoenix, AZ",
         "region": "Phoenix–Mesa Metropolitan Area, Arizona",
@@ -295,7 +295,7 @@ AGENCY_PRESETS = {
     },
     "pittsburgh": {
         "id": "pittsburgh",
-        "name": "Pittsburgh",
+        "name": "PRT",
         "agency": "Pittsburgh Regional Transit",
         "city": "Pittsburgh, PA",
         "region": "Pittsburgh Metropolitan Area, Pennsylvania",
@@ -308,7 +308,7 @@ AGENCY_PRESETS = {
     },
     "edmonton": {
         "id": "edmonton",
-        "name": "Edmonton",
+        "name": "ETS",
         "agency": "Edmonton Transit Service",
         "city": "Edmonton, AB",
         "region": "Edmonton Metropolitan Region, Alberta",
@@ -321,7 +321,7 @@ AGENCY_PRESETS = {
     },
     "halifax": {
         "id": "halifax",
-        "name": "Halifax",
+        "name": "Halifax Transit",
         "agency": "Halifax Transit",
         "city": "Halifax, NS",
         "region": "Halifax Regional Municipality, Nova Scotia",
@@ -334,7 +334,7 @@ AGENCY_PRESETS = {
     },
     "orlando": {
         "id": "orlando",
-        "name": "Orlando",
+        "name": "LYNX",
         "agency": "Central Florida Regional Transportation Authority",
         "city": "Orlando, FL",
         "region": "Orlando Metropolitan Area, Florida",
@@ -347,7 +347,7 @@ AGENCY_PRESETS = {
     },
     "broward": {
         "id": "broward",
-        "name": "Fort Lauderdale",
+        "name": "Broward County Transit",
         "agency": "Broward County Transit",
         "city": "Fort Lauderdale, FL",
         "region": "Broward County, Florida",
@@ -360,7 +360,7 @@ AGENCY_PRESETS = {
     },
     "albany": {
         "id": "albany",
-        "name": "Albany",
+        "name": "CDTA",
         "agency": "Capital District Transportation Authority",
         "city": "Albany, NY",
         "region": "Capital District, New York",
@@ -373,7 +373,7 @@ AGENCY_PRESETS = {
     },
     "lansing": {
         "id": "lansing",
-        "name": "Lansing",
+        "name": "CATA",
         "agency": "Capital Area Transportation Authority",
         "city": "Lansing, MI",
         "region": "Lansing Metropolitan Area, Michigan",
@@ -386,7 +386,7 @@ AGENCY_PRESETS = {
     },
     "champaign-urbana": {
         "id": "champaign-urbana",
-        "name": "Champaign-Urbana",
+        "name": "MTD",
         "agency": "Champaign-Urbana Mass Transit District",
         "city": "Champaign–Urbana, IL",
         "region": "Champaign County, Illinois",
@@ -399,7 +399,7 @@ AGENCY_PRESETS = {
     },
     "cincinnati": {
         "id": "cincinnati",
-        "name": "Cincinnati",
+        "name": "Metro",
         "agency": "Southwest Ohio Regional Transit Authority",
         "city": "Cincinnati, OH",
         "region": "Cincinnati Metropolitan Area, Ohio",
@@ -412,7 +412,7 @@ AGENCY_PRESETS = {
     },
     "hartford": {
         "id": "hartford",
-        "name": "Hartford",
+        "name": "CTtransit",
         "agency": "Connecticut Transit",
         "city": "Hartford, CT",
         "region": "Hartford Metropolitan Area, Connecticut",
@@ -425,7 +425,7 @@ AGENCY_PRESETS = {
     },
     "des-moines": {
         "id": "des-moines",
-        "name": "Des Moines",
+        "name": "DART",
         "agency": "Des Moines Area Regional Transit Authority",
         "city": "Des Moines, IA",
         "region": "Des Moines Metropolitan Area, Iowa",
@@ -438,7 +438,7 @@ AGENCY_PRESETS = {
     },
     "duluth": {
         "id": "duluth",
-        "name": "Duluth",
+        "name": "DTA",
         "agency": "Duluth Transit Authority",
         "city": "Duluth, MN",
         "region": "Duluth–Superior Metropolitan Area, Minnesota",
@@ -451,7 +451,7 @@ AGENCY_PRESETS = {
     },
     "durham": {
         "id": "durham",
-        "name": "Durham",
+        "name": "DRT",
         "agency": "Durham Region Transit",
         "city": "Durham, ON",
         "region": "Regional Municipality of Durham, Ontario",
@@ -464,7 +464,7 @@ AGENCY_PRESETS = {
     },
     "cleveland": {
         "id": "cleveland",
-        "name": "Cleveland",
+        "name": "GCRTA",
         "agency": "Greater Cleveland Regional Transit Authority",
         "city": "Cleveland, OH",
         "region": "Cleveland Metropolitan Area, Ohio",
@@ -477,7 +477,7 @@ AGENCY_PRESETS = {
     },
     "guelph": {
         "id": "guelph",
-        "name": "Guelph",
+        "name": "Guelph Transit",
         "agency": "Guelph Transit",
         "city": "Guelph, ON",
         "region": "City of Guelph, Ontario",
@@ -490,7 +490,7 @@ AGENCY_PRESETS = {
     },
     "hamilton": {
         "id": "hamilton",
-        "name": "Hamilton",
+        "name": "HSR",
         "agency": "Hamilton Street Railway",
         "city": "Hamilton, ON",
         "region": "City of Hamilton, Ontario",
@@ -503,7 +503,7 @@ AGENCY_PRESETS = {
     },
     "kingston": {
         "id": "kingston",
-        "name": "Kingston",
+        "name": "Kingston Transit",
         "agency": "Kingston Transit",
         "city": "Kingston, ON",
         "region": "City of Kingston, Ontario",
@@ -516,7 +516,7 @@ AGENCY_PRESETS = {
     },
     "london": {
         "id": "london",
-        "name": "London",
+        "name": "LTC",
         "agency": "London Transit Commission",
         "city": "London, ON",
         "region": "City of London, Ontario",
@@ -529,7 +529,7 @@ AGENCY_PRESETS = {
     },
     "st-louis": {
         "id": "st-louis",
-        "name": "St. Louis",
+        "name": "Metro Transit",
         "agency": "Metro Transit (Bi-State Development)",
         "city": "St. Louis, MO",
         "region": "St. Louis Metropolitan Area, Missouri",
@@ -542,7 +542,7 @@ AGENCY_PRESETS = {
     },
     "madison": {
         "id": "madison",
-        "name": "Madison",
+        "name": "Metro Transit",
         "agency": "Metro Transit (City of Madison)",
         "city": "Madison, WI",
         "region": "Madison Metropolitan Area, Wisconsin",
@@ -555,7 +555,7 @@ AGENCY_PRESETS = {
     },
     "miway": {
         "id": "miway",
-        "name": "Mississauga",
+        "name": "MiWay",
         "agency": "MiWay",
         "city": "Mississauga, ON",
         "region": "City of Mississauga, Ontario",
@@ -568,7 +568,7 @@ AGENCY_PRESETS = {
     },
     "milwaukee": {
         "id": "milwaukee",
-        "name": "Milwaukee",
+        "name": "MCTS",
         "agency": "Milwaukee County Transit System",
         "city": "Milwaukee, WI",
         "region": "Milwaukee Metropolitan Area, Wisconsin",
@@ -581,7 +581,7 @@ AGENCY_PRESETS = {
     },
     "nashville": {
         "id": "nashville",
-        "name": "Nashville",
+        "name": "WeGo",
         "agency": "WeGo Public Transit",
         "city": "Nashville, TN",
         "region": "Nashville Metropolitan Area, Tennessee",
@@ -594,7 +594,7 @@ AGENCY_PRESETS = {
     },
     "providence": {
         "id": "providence",
-        "name": "Providence",
+        "name": "RIPTA",
         "agency": "Rhode Island Public Transit Authority",
         "city": "Providence, RI",
         "region": "Rhode Island",
@@ -607,7 +607,7 @@ AGENCY_PRESETS = {
     },
     "louisville": {
         "id": "louisville",
-        "name": "Louisville",
+        "name": "TARC",
         "agency": "Transit Authority of River City",
         "city": "Louisville, KY",
         "region": "Louisville Metropolitan Area, Kentucky",
@@ -620,7 +620,7 @@ AGENCY_PRESETS = {
     },
     "york": {
         "id": "york",
-        "name": "York Region",
+        "name": "YRT",
         "agency": "York Region Transit",
         "city": "York Region, ON",
         "region": "Regional Municipality of York, Ontario",
@@ -633,7 +633,7 @@ AGENCY_PRESETS = {
     },
     "barrie": {
         "id": "barrie",
-        "name": "Barrie",
+        "name": "Barrie Transit",
         "agency": "Barrie Transit",
         "city": "Barrie, ON",
         "region": "City of Barrie, Ontario",
@@ -646,7 +646,7 @@ AGENCY_PRESETS = {
     },
     "knoxville": {
         "id": "knoxville",
-        "name": "Knoxville",
+        "name": "KAT",
         "agency": "Knoxville Area Transit",
         "city": "Knoxville, TN",
         "region": "Knoxville Metropolitan Area, Tennessee",

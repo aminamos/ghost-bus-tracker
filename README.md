@@ -12,6 +12,7 @@ Automated public transit reliability, schedule adherence, and **ghost bus** trac
 - **Live web dashboard:** **[ghost-bus-tracker.a-8c6.workers.dev](https://ghost-bus-tracker.a-8c6.workers.dev)**  
 - **Auto-updating Markdown report:** **[`RELIABILITY.md`](RELIABILITY.md)**  
 - **Data snapshots:** **[`data/latest.json`](data/latest.json)** & **[`data/history.json`](data/history.json)**
+- **Coverage:** 43 built-in market presets across the US and Canada — 38 scan live with no API key (the other 5 unlock with free agency keys), each with its own dashboard page, JSON APIs, `data/latest/<id>.json`, and `RELIABILITY-<id>.md` report. See [Multi-City & Agency Presets](#multi-city--agency-presets).
 
 ---
 
@@ -220,10 +221,13 @@ python -m src.cli report --input data/latest.json --output RELIABILITY.md
 <a id="running-tests"></a>
 ## 🧪 Running Tests
 
-The test suite runs with `pytest` and `pytest-cov`, providing 97%+ code coverage:
+The Python suite runs with `pytest` (78 tests) and the Worker suite with the
+Node test runner (13 tests, including byte-parity of the JS Markdown reporter
+against the Python one and the derived-delay join logic):
 
 ```bash
 uv run pytest tests/ --cov=src --cov-report=term-missing
+cd worker && npm test
 ```
 
 ---
@@ -249,9 +253,39 @@ While the live dashboard at [ghost-bus-tracker.a-8c6.workers.dev](https://ghost-
 | **Portland, OR** | TriMet | `portland` / `trimet` | Free API Key | MAX Light Rail, Streetcar & Bus Network |
 | **Atlanta, GA** | MARTA | `atlanta` / `marta` | Open (No key) | Heavy Rail (4 lines) & Bus Transit |
 | **Toronto, ON** | TTC | `toronto` / `ttc` | Open (No key) | Subway (Lines 1-4), Streetcars & Buses |
+| **Austin, TX** | CapMetro | `austin` | Open (No key) | Bus & Commuter Rail |
+| **Phoenix, AZ** | Valley Metro | `phoenix` | Open (No key) | Bus & Light Rail |
+| **Pittsburgh, PA** | PRT | `pittsburgh` | Open (No key) | Bus & Light Rail |
+| **Edmonton, AB** | ETS | `edmonton` | Open (No key) | Bus & Light Rail |
+| **Halifax, NS** | Halifax Transit | `halifax` | Open (No key) | Bus & Ferry |
+| **Orlando, FL** | LYNX | `orlando` | Open (No key) | Bus |
+| **Fort Lauderdale, FL** | Broward County Transit | `broward` | Open (No key) | Bus |
+| **Albany, NY** | CDTA | `albany` | Open (No key) | Bus |
+| **Lansing, MI** | CATA | `lansing` | Open (No key) | Bus |
+| **Champaign–Urbana, IL** | MTD | `champaign-urbana` | Open (No key) | Bus |
+| **Cincinnati, OH** | Metro | `cincinnati` | Open (No key) | Bus & Streetcar |
+| **Hartford, CT** | CTtransit | `hartford` | Open (No key) | Bus & BRT |
+| **Des Moines, IA** | DART | `des-moines` | Open (No key) | Bus |
+| **Duluth, MN** | DTA | `duluth` | Open (No key) | Bus |
+| **Durham, ON** | Durham Region Transit | `durham` | Open (No key) | Bus |
+| **Cleveland, OH** | GCRTA | `cleveland` | Open (No key) | Bus, Rail & BRT |
+| **Guelph, ON** | Guelph Transit | `guelph` | Open (No key) | Bus |
+| **Hamilton, ON** | HSR | `hamilton` | Open (No key) | Bus |
+| **Kingston, ON** | Kingston Transit | `kingston` | Open (No key) | Bus |
+| **London, ON** | LTC | `london` | Open (No key) | Bus |
+| **St. Louis, MO** | Metro Transit | `st-louis` | Open (No key) | Bus & Light Rail |
+| **Madison, WI** | Metro Transit | `madison` | Open (No key) | Bus & BRT |
+| **Mississauga, ON** | MiWay | `miway` | Open (No key) | Bus |
+| **Milwaukee, WI** | MCTS | `milwaukee` | Open (No key) | Bus & BRT |
+| **Nashville, TN** | WeGo | `nashville` | Open (No key) | Bus |
+| **Providence, RI** | RIPTA | `providence` | Open (No key) | Bus |
+| **Louisville, KY** | TARC | `louisville` | Open (No key) | Bus |
+| **York Region, ON** | YRT | `york` | Open (No key) | Bus & BRT |
+| **Barrie, ON** | Barrie Transit | `barrie` | Open (No key) | Bus |
+| **Knoxville, TN** | KAT | `knoxville` | Open (No key) | Bus & Trolley |
 
 > 💡 **Interactive Location Switching in the Dashboard:**
-> On the live web dashboard at [ghost-bus-tracker.a-8c6.workers.dev](https://ghost-bus-tracker.a-8c6.workers.dev), you can click any transit market chip (e.g. switching between Minneapolis, San Francisco, Chicago, Boston, New York, Philadelphia, D.C., Los Angeles, Seattle, Denver, Portland, Atlanta, or Toronto) to immediately update all KPIs, charts, worst routes, and feed diagnostics. You can also deep-link directly via URL parameter: `?city=philly`, `?city=la`, `?city=dc`, `?city=sf`, `?city=mpls`, etc.
+> On the live web dashboard at [ghost-bus-tracker.a-8c6.workers.dev](https://ghost-bus-tracker.a-8c6.workers.dev), you can click any of the 43 transit market chips to immediately update all KPIs, charts, worst routes, feed diagnostics, and the regional coverage card (agency, jurisdiction/counties, modes, protocol) for that market. You can also deep-link directly via URL parameter: `?city=austin`, `?city=edmonton`, `?city=miway`, `?city=nyc`, `?city=mpls`, etc. Every market also appears in the All Markets overview table on the dashboard.
 
 > 💡 **Chicago & The Origin of "Ghost Buses":** The term "Ghost Bus" was famously coined and popularized in Chicago by transit advocacy groups (such as Commuters Take Action) investigating severe phantom bus schedules across the Chicago Transit Authority (CTA).
 
@@ -339,10 +373,12 @@ Live Worker URL: [https://ghost-bus-tracker.a-8c6.workers.dev](https://ghost-bus
 - `GET /api/catalog`: Curated sample of the MobilityDatabase catalog (full catalog holds 990+ feeds; supports `?q=<search>`, `?country=<country>`, `?limit=<n>`)
 - `GET /api/live/vp` and `GET /api/live/tu`: Live GTFS-RT protobuf proxy. Defaults follow `?city=<preset>`; an explicit `?url=` must be `https:` on an allowlisted agency feed host, otherwise the proxy returns 400.
 - `GET /api/routes`: Upstream Metro Transit route proxy (Twin Cities only; other `?city=` values return 400)
+- `POST /api/scan`: Trigger a scan on demand (`?city=<preset>`, or all markets; requires the `SCAN_TOKEN` secret via `X-Scan-Token`)
+- `POST /api/archive`: Commit current snapshots to this repo on demand (same token; the daily archive cron uses the same code path)
 - `GET /health`: Worker healthcheck
-Unknown `?city=` values return 404 on `/api/*` endpoints (the HTML dashboard still defaults to Twin Cities). Until a market's first live scan lands, the dashboard shows its bundled static snapshot.
+Unknown `?city=` values return 404 on `/api/*` endpoints (the HTML dashboard still defaults to Twin Cities). Until a market's first live scan lands, the dashboard shows its bundled static snapshot (newer markets show an empty placeholder with their coverage card).
 
-Durability: every scan appends to uncapped per-market `data/history/<id>.json` (git-versioned), upserts into the D1 `scans` table (all-time, keyed by market and time), and archives versioned JSON snapshots to the R2 `ghost-bus-snapshots` bucket under `snapshots/<id>/<scan-time>.json` plus a `latest.json` pointer.
+Durability: every scan upserts into the D1 `scans` table (all-time, keyed by market and time) and archives versioned JSON snapshots to the R2 `ghost-bus-snapshots` bucket under `snapshots/<id>/<scan-time>.json` plus a `latest.json` pointer. The daily archive commits per-market `data/latest/<id>.json`, `data/history/<id>.json` (last 500 scans), and `RELIABILITY-<id>.md` to git.
 
 ---
 
@@ -375,15 +411,22 @@ ghost-bus-tracker/
 │   ├── test_reporter.py        # Report and JSON export tests
 │   ├── test_cli.py             # CLI command verification tests
 │   └── test_coverage_edge_cases.py  # Branch coverage tests
+├── scripts/
+│   └── archive_from_worker.mjs # Local one-shot archive backfill (same code as the Worker cron)
 ├── worker/
 │   ├── package.json
-│   ├── wrangler.jsonc          # Cloudflare Worker configuration (D1 binding)
+│   ├── wrangler.jsonc          # Cloudflare Worker configuration (D1 + R2 + cron triggers)
 │   ├── schema.sql              # D1 scans table: all-time per-market history
-│   └── src/
-│       ├── index.js            # Worker edge handler and HTML dashboard
-│       ├── cities_data.js      # Per-market bundles, presets, feed allowlist
-│       ├── mobility_catalog.js # Curated MobilityDatabase sample
-│       └── snapshot_data.js    # Bundled Twin Cities fallback snapshot
+│   ├── src/
+│   │   ├── index.js            # Worker edge handler and HTML dashboard
+│   │   ├── scan.js             # In-Worker GTFS-RT scan engine (port of the Python engine)
+│   │   ├── static_schedule.js  # Derived delays from static GTFS for no-delay feeds
+│   │   ├── report.js           # Markdown reporter (byte-identical port of src/reporter.py)
+│   │   ├── github_archive.js   # Daily Worker -> GitHub archive commits (Git Data API)
+│   │   ├── cities_data.js      # Per-market bundles, presets, feed allowlist
+│   │   ├── mobility_catalog.js # Curated MobilityDatabase sample
+│   │   └── snapshot_data.js    # Bundled Twin Cities fallback snapshot
+│   └── test/                   # Node tests: report parity, scan parsing, static joins, registries
 ├── pyproject.toml
 ├── requirements.txt
 ├── RELIABILITY.md              # Auto-updating reliability dashboard
