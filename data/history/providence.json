@@ -1,0 +1,15 @@
+[
+  {
+    "scan_time": "2026-10-22T19:17:56.566000+00:00",
+    "ghost_bus_rate_pct": 36.22,
+    "overall_on_time_pct": 63.2,
+    "total_scheduled_trips": 196,
+    "total_tracked_vehicles": 127,
+    "total_ghost_trips": 71,
+    "mean_delay_sec": 180.0,
+    "agency": "Rhode Island Public Transit Authority",
+    "city": "Providence, RI",
+    "transit_system": "Providence",
+    "source": "live"
+  }
+]

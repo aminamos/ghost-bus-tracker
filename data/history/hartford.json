@@ -1,0 +1,15 @@
+[
+  {
+    "scan_time": "2026-10-22T19:17:50.067000+00:00",
+    "ghost_bus_rate_pct": 6.41,
+    "overall_on_time_pct": 99.69,
+    "total_scheduled_trips": 343,
+    "total_tracked_vehicles": 322,
+    "total_ghost_trips": 22,
+    "mean_delay_sec": -1.4,
+    "agency": "Connecticut Transit",
+    "city": "Hartford, CT",
+    "transit_system": "Hartford",
+    "source": "live"
+  }
+]

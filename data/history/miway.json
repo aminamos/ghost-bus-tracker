@@ -1,0 +1,15 @@
+[
+  {
+    "scan_time": "2026-10-22T19:17:57.954000+00:00",
+    "ghost_bus_rate_pct": 5.98,
+    "overall_on_time_pct": 24.06,
+    "total_scheduled_trips": 368,
+    "total_tracked_vehicles": 346,
+    "total_ghost_trips": 22,
+    "mean_delay_sec": -176.5,
+    "agency": "MiWay",
+    "city": "Mississauga, ON",
+    "transit_system": "Mississauga",
+    "source": "live"
+  }
+]

@@ -1,0 +1,15 @@
+[
+  {
+    "scan_time": "2026-10-22T19:17:41.005000+00:00",
+    "ghost_bus_rate_pct": 51.4,
+    "overall_on_time_pct": 79.15,
+    "total_scheduled_trips": 1541,
+    "total_tracked_vehicles": 399,
+    "total_ghost_trips": 792,
+    "mean_delay_sec": 92.2,
+    "agency": "Edmonton Transit Service",
+    "city": "Edmonton, AB",
+    "transit_system": "Edmonton",
+    "source": "live"
+  }
+]

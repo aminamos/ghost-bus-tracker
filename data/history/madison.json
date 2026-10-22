@@ -1,0 +1,15 @@
+[
+  {
+    "scan_time": "2026-10-22T19:17:54.750000+00:00",
+    "ghost_bus_rate_pct": 51.33,
+    "overall_on_time_pct": 75.93,
+    "total_scheduled_trips": 226,
+    "total_tracked_vehicles": 92,
+    "total_ghost_trips": 116,
+    "mean_delay_sec": 68.1,
+    "agency": "Metro Transit (City of Madison)",
+    "city": "Madison, WI",
+    "transit_system": "Madison",
+    "source": "live"
+  }
+]

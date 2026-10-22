@@ -1,18 +1,5 @@
 [
   {
-    "scan_time": "2026-10-08T06:30:09.111000+00:00",
-    "ghost_bus_rate_pct": 32.26,
-    "overall_on_time_pct": 0.0,
-    "total_scheduled_trips": 62,
-    "total_tracked_vehicles": 43,
-    "total_ghost_trips": 20,
-    "mean_delay_sec": 0.0,
-    "agency": "King County Metro / Sound Transit",
-    "city": "Seattle, WA",
-    "transit_system": "Sound Transit & KCM",
-    "source": "live"
-  },
-  {
     "scan_time": "2026-10-08T07:30:09.352000+00:00",
     "ghost_bus_rate_pct": 39.29,
     "overall_on_time_pct": 0.0,
@@ -6493,6 +6480,19 @@
     "total_scheduled_trips": 155,
     "total_tracked_vehicles": 105,
     "total_ghost_trips": 36,
+    "mean_delay_sec": 0.0,
+    "agency": "King County Metro / Sound Transit",
+    "city": "Seattle, WA",
+    "transit_system": "Sound Transit & KCM",
+    "source": "live"
+  },
+  {
+    "scan_time": "2026-10-22T19:00:20.351000+00:00",
+    "ghost_bus_rate_pct": 23.72,
+    "overall_on_time_pct": 0.0,
+    "total_scheduled_trips": 156,
+    "total_tracked_vehicles": 104,
+    "total_ghost_trips": 37,
     "mean_delay_sec": 0.0,
     "agency": "King County Metro / Sound Transit",
     "city": "Seattle, WA",

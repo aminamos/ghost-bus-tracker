@@ -1,0 +1,15 @@
+[
+  {
+    "scan_time": "2026-10-22T19:17:42.996000+00:00",
+    "ghost_bus_rate_pct": 7.0,
+    "overall_on_time_pct": 73.63,
+    "total_scheduled_trips": 100,
+    "total_tracked_vehicles": 62,
+    "total_ghost_trips": 7,
+    "mean_delay_sec": 168.0,
+    "agency": "Capital Area Transportation Authority",
+    "city": "Lansing, MI",
+    "transit_system": "Lansing",
+    "source": "live"
+  }
+]

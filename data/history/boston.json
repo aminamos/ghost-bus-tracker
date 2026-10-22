@@ -1,18 +1,5 @@
 [
   {
-    "scan_time": "2026-10-12T10:30:01.257000+00:00",
-    "ghost_bus_rate_pct": 13.27,
-    "overall_on_time_pct": 0.0,
-    "total_scheduled_trips": 1025,
-    "total_tracked_vehicles": 387,
-    "total_ghost_trips": 136,
-    "mean_delay_sec": 0.0,
-    "agency": "Massachusetts Bay Transportation Authority",
-    "city": "Boston, MA",
-    "transit_system": "MBTA",
-    "source": "live"
-  },
-  {
     "scan_time": "2026-10-12T11:00:00.660000+00:00",
     "ghost_bus_rate_pct": 13.01,
     "overall_on_time_pct": 0.0,
@@ -6493,6 +6480,19 @@
     "total_scheduled_trips": 1733,
     "total_tracked_vehicles": 721,
     "total_ghost_trips": 390,
+    "mean_delay_sec": 0.0,
+    "agency": "Massachusetts Bay Transportation Authority",
+    "city": "Boston, MA",
+    "transit_system": "MBTA",
+    "source": "live"
+  },
+  {
+    "scan_time": "2026-10-22T19:00:19.920000+00:00",
+    "ghost_bus_rate_pct": 19.32,
+    "overall_on_time_pct": 0.0,
+    "total_scheduled_trips": 1806,
+    "total_tracked_vehicles": 765,
+    "total_ghost_trips": 349,
     "mean_delay_sec": 0.0,
     "agency": "Massachusetts Bay Transportation Authority",
     "city": "Boston, MA",

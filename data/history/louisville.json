@@ -1,0 +1,15 @@
+[
+  {
+    "scan_time": "2026-10-22T19:17:57.288000+00:00",
+    "ghost_bus_rate_pct": 3.32,
+    "overall_on_time_pct": 81.19,
+    "total_scheduled_trips": 211,
+    "total_tracked_vehicles": 67,
+    "total_ghost_trips": 7,
+    "mean_delay_sec": 152.9,
+    "agency": "Transit Authority of River City",
+    "city": "Louisville, KY",
+    "transit_system": "Louisville",
+    "source": "live"
+  }
+]

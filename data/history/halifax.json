@@ -1,0 +1,15 @@
+[
+  {
+    "scan_time": "2026-10-22T19:17:42.373000+00:00",
+    "ghost_bus_rate_pct": 34.95,
+    "overall_on_time_pct": 58.65,
+    "total_scheduled_trips": 804,
+    "total_tracked_vehicles": 284,
+    "total_ghost_trips": 281,
+    "mean_delay_sec": 189.6,
+    "agency": "Halifax Transit",
+    "city": "Halifax, NS",
+    "transit_system": "Halifax",
+    "source": "live"
+  }
+]

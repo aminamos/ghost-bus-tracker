@@ -1,0 +1,15 @@
+[
+  {
+    "scan_time": "2026-10-22T19:17:41.230000+00:00",
+    "ghost_bus_rate_pct": 3.3,
+    "overall_on_time_pct": 77.59,
+    "total_scheduled_trips": 637,
+    "total_tracked_vehicles": 585,
+    "total_ghost_trips": 21,
+    "mean_delay_sec": 210.5,
+    "agency": "Valley Metro",
+    "city": "Phoenix, AZ",
+    "transit_system": "Phoenix",
+    "source": "live"
+  }
+]

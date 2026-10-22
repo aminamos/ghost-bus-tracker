@@ -1,18 +1,5 @@
 [
   {
-    "scan_time": "2026-10-11T06:30:37.150000+00:00",
-    "ghost_bus_rate_pct": 0.0,
-    "overall_on_time_pct": 60.0,
-    "total_scheduled_trips": 30,
-    "total_tracked_vehicles": 30,
-    "total_ghost_trips": 0,
-    "mean_delay_sec": 159.2,
-    "agency": "Metro Transit (Twin Cities)",
-    "city": "Minneapolis\u2013Saint Paul, MN",
-    "transit_system": "Metro Transit",
-    "source": "live"
-  },
-  {
     "scan_time": "2026-10-11T06:30:49.433000+00:00",
     "ghost_bus_rate_pct": 0.0,
     "overall_on_time_pct": 60.0,
@@ -6494,6 +6481,19 @@
     "total_tracked_vehicles": 773,
     "total_ghost_trips": 175,
     "mean_delay_sec": 21.0,
+    "agency": "Metro Transit (Twin Cities)",
+    "city": "Minneapolis\u2013Saint Paul, MN",
+    "transit_system": "Metro Transit",
+    "source": "live"
+  },
+  {
+    "scan_time": "2026-10-22T19:00:21.431000+00:00",
+    "ghost_bus_rate_pct": 19.52,
+    "overall_on_time_pct": 58.33,
+    "total_scheduled_trips": 994,
+    "total_tracked_vehicles": 782,
+    "total_ghost_trips": 194,
+    "mean_delay_sec": 40.0,
     "agency": "Metro Transit (Twin Cities)",
     "city": "Minneapolis\u2013Saint Paul, MN",
     "transit_system": "Metro Transit",

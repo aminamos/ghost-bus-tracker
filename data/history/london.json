@@ -1,0 +1,15 @@
+[
+  {
+    "scan_time": "2026-10-22T19:17:53.252000+00:00",
+    "ghost_bus_rate_pct": 73.67,
+    "overall_on_time_pct": 58.7,
+    "total_scheduled_trips": 1409,
+    "total_tracked_vehicles": 184,
+    "total_ghost_trips": 1038,
+    "mean_delay_sec": 347.8,
+    "agency": "London Transit Commission",
+    "city": "London, ON",
+    "transit_system": "London",
+    "source": "live"
+  }
+]

@@ -1,0 +1,15 @@
+[
+  {
+    "scan_time": "2026-10-22T19:17:50.217000+00:00",
+    "ghost_bus_rate_pct": 77.65,
+    "overall_on_time_pct": 74.14,
+    "total_scheduled_trips": 264,
+    "total_tracked_vehicles": 135,
+    "total_ghost_trips": 205,
+    "mean_delay_sec": 228.8,
+    "agency": "Kingston Transit",
+    "city": "Kingston, ON",
+    "transit_system": "Kingston",
+    "source": "live"
+  }
+]

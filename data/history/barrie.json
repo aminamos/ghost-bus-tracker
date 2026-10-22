@@ -1,0 +1,15 @@
+[
+  {
+    "scan_time": "2026-10-22T19:17:57.920000+00:00",
+    "ghost_bus_rate_pct": 7.19,
+    "overall_on_time_pct": 98.45,
+    "total_scheduled_trips": 139,
+    "total_tracked_vehicles": 30,
+    "total_ghost_trips": 10,
+    "mean_delay_sec": 22.1,
+    "agency": "Barrie Transit",
+    "city": "Barrie, ON",
+    "transit_system": "Barrie",
+    "source": "live"
+  }
+]

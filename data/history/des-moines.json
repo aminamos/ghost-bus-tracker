@@ -1,0 +1,15 @@
+[
+  {
+    "scan_time": "2026-10-22T19:17:48.698000+00:00",
+    "ghost_bus_rate_pct": 75.0,
+    "overall_on_time_pct": 82.86,
+    "total_scheduled_trips": 144,
+    "total_tracked_vehicles": 35,
+    "total_ghost_trips": 108,
+    "mean_delay_sec": 140.6,
+    "agency": "Des Moines Area Regional Transit Authority",
+    "city": "Des Moines, IA",
+    "transit_system": "Des Moines",
+    "source": "live"
+  }
+]

@@ -1,0 +1,15 @@
+[
+  {
+    "scan_time": "2026-10-22T19:18:05.558000+00:00",
+    "ghost_bus_rate_pct": 0.0,
+    "overall_on_time_pct": 48.67,
+    "total_scheduled_trips": 113,
+    "total_tracked_vehicles": 40,
+    "total_ghost_trips": 0,
+    "mean_delay_sec": 150.5,
+    "agency": "Knoxville Area Transit",
+    "city": "Knoxville, TN",
+    "transit_system": "Knoxville",
+    "source": "live"
+  }
+]

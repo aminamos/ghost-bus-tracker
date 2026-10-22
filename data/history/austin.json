@@ -1,0 +1,15 @@
+[
+  {
+    "scan_time": "2026-10-22T19:17:44.223000+00:00",
+    "ghost_bus_rate_pct": 61.56,
+    "overall_on_time_pct": 55.65,
+    "total_scheduled_trips": 2474,
+    "total_tracked_vehicles": 411,
+    "total_ghost_trips": 1523,
+    "mean_delay_sec": 25.0,
+    "agency": "Capital Metropolitan Transportation Authority",
+    "city": "Austin, TX",
+    "transit_system": "Austin",
+    "source": "live"
+  }
+]

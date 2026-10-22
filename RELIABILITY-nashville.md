@@ -1,0 +1,95 @@
+# 🚌 Automated Public Transit Reliability & Ghost Bus Tracker
+
+> Real-time monitoring and git-scraping reliability index for **WeGo Public Transit** in **Nashville, TN** (Nashville Metropolitan Area, Tennessee).
+> **Transit System:** Nashville | **Location:** Nashville, TN | **Status:** 🟢 **HEALTHY** | **Last Scan:** `2026-10-22T19:17:56.111000+00:00` | **Source:** live GTFS-RT feed
+
+---
+
+## 📊 Executive Summary Scorecard
+
+| Metric | Value | Status / Description |
+| :--- | :--- | :--- |
+| **Ghost Bus Rate** | **`0.0%`** | Scheduled runs with missing transponders or unannounced cuts |
+| **On-Time Adherence** | **`100.0%`** | Departures within standard window (-1m to +5m) |
+| **Scheduled Active Trips** | `254` | Total runs operating in current transit schedule window |
+| **Tracked Fleet Vehicles** | `199` | GPS transponders broadcasting valid coordinates |
+| **Confirmed Ghost Trips** | `0` | Disappeared or unassigned scheduled runs |
+| **Mean Delay** | `+0.0s` (`+0.0 min`) | Average delay across all active tracked runs |
+| **Median Delay** | `+0.0s` (`+0.0 min`) | Median schedule deviation |
+
+---
+
+## ⏱️ Delay & Reliability Breakdown
+
+| Category | Threshold / Definition | Trip Count | Percentage |
+| :--- | :--- | :--- | :--- |
+| 🟢 **On-Time** | Within -60s to +300s | 253 | 99.6% |
+| ⏩ **Early Departure** | More than 1 min ahead of schedule | 0 | 0.0% |
+| 🟡 **Minor Delay** | +5m to +15m late | 0 | 0.0% |
+| 🔴 **Severe Delay** | Over 15m late | 0 | 0.0% |
+| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 0 | 0.0% |
+| ❌ **Agency Canceled** | Explicitly reported CANCELED | 1 | 0.4% |
+
+---
+
+## 🚨 Top Worst Routes by Ghost Bus Rate
+
+| Route | Total Scheduled | Tracked | Ghost Trips | Ghost Rate (%) | On-Time (%) | Avg Delay |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Route 55** | 26 | 13 | 0 | **`0.0%`** | `100.0%` | `+0.0s` |
+| **Route 18** | 7 | 5 | 0 | **`0.0%`** | `100.0%` | `+0.0s` |
+| **Route 34** | 5 | 4 | 0 | **`0.0%`** | `100.0%` | `+0.0s` |
+| **Route 3** | 21 | 11 | 0 | **`0.0%`** | `100.0%` | `+0.0s` |
+| **Route 14** | 5 | 4 | 0 | **`0.0%`** | `100.0%` | `+0.0s` |
+| **Route 22** | 11 | 8 | 0 | **`0.0%`** | `100.0%` | `+0.0s` |
+| **Route 50** | 14 | 7 | 0 | **`0.0%`** | `100.0%` | `+0.0s` |
+| **Route 28** | 2 | 1 | 0 | **`0.0%`** | `100.0%` | `+0.0s` |
+| **Route 29** | 6 | 5 | 0 | **`0.0%`** | `100.0%` | `+0.0s` |
+| **Route 7** | 13 | 7 | 0 | **`0.0%`** | `100.0%` | `+0.0s` |
+
+---
+
+## 🐌 Most Delayed Routes
+
+| Route | Avg Delay | Max Delay | Tracked Runs | On-Time Adherence |
+| :--- | :---: | :---: | :---: | :---: |
+| *All active tracked routes currently operating within nominal bounds* | - | - | - | - |
+
+---
+
+## ⏱️ Headway Regularity & Excess Wait Time (EWT)
+
+> **Excess Wait Time (EWT)** quantifies how much additional time passengers wait due to bus bunching or irregular headways beyond the scheduled interval.
+
+| Route | Nominal Headway | Observed Headway | Excess Wait Time (EWT) | Regularity Score |
+| :--- | :---: | :---: | :---: | :---: |
+| **Route 55** | ~10.0m | ~10.0m | **`+0.0 min`** | `100.0 / 100` |
+| **Route 55** | ~10.0m | ~10.0m | **`+0.0 min`** | `100.0 / 100` |
+| **Route 18** | ~29.0m | ~29.0m | **`+0.0 min`** | `100.0 / 100` |
+| **Route 34** | ~30.0m | ~30.0m | **`+0.0 min`** | `100.0 / 100` |
+| **Route 3** | ~13.0m | ~13.0m | **`+0.0 min`** | `100.0 / 100` |
+| **Route 3** | ~10.0m | ~10.0m | **`+0.0 min`** | `100.0 / 100` |
+| **Route 14** | ~30.0m | ~30.0m | **`+0.0 min`** | `100.0 / 100` |
+| **Route 22** | ~10.0m | ~10.0m | **`+0.0 min`** | `100.0 / 100` |
+| **Route 22** | ~10.0m | ~10.0m | **`+0.0 min`** | `100.0 / 100` |
+| **Route 14** | ~30.0m | ~30.0m | **`+0.0 min`** | `100.0 / 100` |
+
+---
+
+## 👻 Active Ghost Trips Sample
+
+| Trip ID | Route | Scheduled Departure | Status | Diagnosis / Reason |
+| :--- | :---: | :---: | :--- | :--- |
+| *Zero ghost trips detected! All scheduled runs have verified GPS transponders.* | - | - | - | - |
+
+---
+
+## 🔬 Methodology & Definitions
+
+- **Ghost Bus**: A transit run that is published in GTFS schedules or trip updates but never arrives because no physical vehicle is assigned or broadcasting GPS positions, or because it was dropped without timely passenger notification.
+- **On-Time Adherence**: Departures between 1 minute before scheduled time and up to 5 minutes after scheduled time.
+- **Early Departure**: Vehicles departing more than 60 seconds early. In transit operations, early departures are treated as major service failures because passengers arrive on time only to find the vehicle already gone.
+- **Excess Wait Time (EWT)**: Transit standard metric measuring variance in vehicle headway caused by vehicle bunching.
+- **Git-Scraping**: Every run fetches upstream GTFS-RT binary protobuf feeds, computes reliability metrics, commits versioned JSON snapshots, and renders this dashboard automatically.
+
+*Generated by Ghost Bus Tracker v0.1.0 at `2026-10-22T19:17:56.111000+00:00`.*

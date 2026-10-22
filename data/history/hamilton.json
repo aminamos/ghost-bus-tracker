@@ -1,0 +1,15 @@
+[
+  {
+    "scan_time": "2026-10-22T19:17:51.732000+00:00",
+    "ghost_bus_rate_pct": 45.66,
+    "overall_on_time_pct": 85.59,
+    "total_scheduled_trips": 484,
+    "total_tracked_vehicles": 224,
+    "total_ghost_trips": 221,
+    "mean_delay_sec": 74.6,
+    "agency": "Hamilton Street Railway",
+    "city": "Hamilton, ON",
+    "transit_system": "Hamilton",
+    "source": "live"
+  }
+]

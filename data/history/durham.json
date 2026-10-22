@@ -1,0 +1,15 @@
+[
+  {
+    "scan_time": "2026-10-22T19:17:47.822000+00:00",
+    "ghost_bus_rate_pct": 11.24,
+    "overall_on_time_pct": 79.07,
+    "total_scheduled_trips": 249,
+    "total_tracked_vehicles": 123,
+    "total_ghost_trips": 28,
+    "mean_delay_sec": 151.7,
+    "agency": "Durham Region Transit",
+    "city": "Durham, ON",
+    "transit_system": "Durham",
+    "source": "live"
+  }
+]

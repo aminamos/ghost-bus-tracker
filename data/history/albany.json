@@ -1,0 +1,15 @@
+[
+  {
+    "scan_time": "2026-10-22T19:17:42.860000+00:00",
+    "ghost_bus_rate_pct": 13.29,
+    "overall_on_time_pct": 0.0,
+    "total_scheduled_trips": 301,
+    "total_tracked_vehicles": 161,
+    "total_ghost_trips": 40,
+    "mean_delay_sec": 0.0,
+    "agency": "Capital District Transportation Authority",
+    "city": "Albany, NY",
+    "transit_system": "Albany",
+    "source": "live"
+  }
+]
