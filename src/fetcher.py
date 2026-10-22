@@ -59,12 +59,17 @@ class FeedFetcher:
             if not entity.HasField("vehicle"):
                 continue
             v = entity.vehicle
-            # Never fabricate IDs from entity.id: it lives in a different
-            # namespace and would corrupt ghost correlation. Skip ID-less rows.
-            if not (v.HasField("vehicle") and v.vehicle.id):
-                continue
-            v_id = v.vehicle.id
+            # Descriptor id wins. Feeds like NYCT subway omit the descriptor
+            # but identify the run by entity.id and carry the trip id ghost
+            # correlation keys on, so keep those; rows with neither identity
+            # stay skipped.
             trip_id = v.trip.trip_id if v.HasField("trip") and v.trip.trip_id else None
+            if v.HasField("vehicle") and v.vehicle.id:
+                v_id = v.vehicle.id
+            elif trip_id and entity.id:
+                v_id = entity.id
+            else:
+                continue
             route_id = v.trip.route_id if v.HasField("trip") and v.trip.route_id else None
             direction_id = (
                 v.trip.direction_id

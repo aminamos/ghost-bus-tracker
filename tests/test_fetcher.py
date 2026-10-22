@@ -28,6 +28,37 @@ def test_parse_vehicle_positions(mock_gtfs_rt_bytes):
     assert v1.speed == 12.5
 
 
+def test_parse_vehicle_positions_descriptorless_with_trip():
+    """NYCT subway vehicles carry a trip but no VehicleDescriptor.
+
+    The entity id identifies the run, and the trip id is the correlation
+    key, so the vehicle must be kept; identity-less rows stay skipped.
+    """
+    from google.transit import gtfs_realtime_pb2
+
+    feed = gtfs_realtime_pb2.FeedMessage()
+    feed.header.gtfs_realtime_version = "2.0"
+    feed.header.timestamp = 1792695208
+
+    ent = feed.entity.add()
+    ent.id = "000002"
+    ent.vehicle.trip.trip_id = "083650_5..S"
+    ent.vehicle.trip.route_id = "5"
+    ent.vehicle.current_stop_sequence = 17
+    ent.vehicle.timestamp = 1792695208
+
+    bare = feed.entity.add()
+    bare.id = "000003"
+    bare.vehicle.current_stop_sequence = 3
+
+    fetcher = FeedFetcher()
+    vehicles, _ = fetcher.parse_vehicle_positions(feed.SerializeToString())
+    assert len(vehicles) == 1
+    assert vehicles[0].vehicle_id == "000002"
+    assert vehicles[0].trip_id == "083650_5..S"
+    assert vehicles[0].latitude is None
+
+
 def test_parse_trip_updates(mock_gtfs_rt_bytes):
     """Test parsing of mock trip updates protobuf."""
     _, tu_bytes = mock_gtfs_rt_bytes

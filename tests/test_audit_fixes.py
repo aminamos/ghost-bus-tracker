@@ -148,7 +148,7 @@ def test_scan_all_skips_keyed_without_env(monkeypatch):
     for var in ["CTA_API_KEY", "MTA_API_KEY", "BAY_AREA_511_KEY", "WMATA_API_KEY",
                 "TRIMET_APP_ID", "LAMETRO_API_KEY", "OBA_API_KEY", "SOCRATA_API_KEY"]:
         monkeypatch.delenv(var, raising=False)
-    assert main(["scan-all", "--presets", "chicago,nyc,sf,dc,portland"]) == 0
+    assert main(["scan-all", "--presets", "chicago,sf,dc,portland"]) == 0
 
 def test_scan_all_unknown_preset_fails():
     assert main(["scan-all", "--presets", "atlantis"]) == 1
@@ -165,6 +165,12 @@ def test_resolve_api_key_order(monkeypatch):
     monkeypatch.setenv("CTA_API_KEY", "cta-456")
     assert config.resolve_api_key(preset) == "cta-456"
     assert config.resolve_api_key(preset, cli_key="flag-789") == "flag-789"
+
+
+def test_nyc_needs_no_key():
+    # Verified live 2026-10-22: api-endpoint.mta.info serves the full
+    # NYCT GTFS-RT feed (vehicles + trip updates) with no x-api-key.
+    assert config.get_preset("nyc")["requires_key"] is False
 
 
 def test_seattle_needs_no_key():

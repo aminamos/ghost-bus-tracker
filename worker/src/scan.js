@@ -29,7 +29,7 @@ export const SCAN_PRESETS = [
   { id: "twin-cities", name: "Metro Transit", agency: "Metro Transit (Twin Cities)", city: "Minneapolis–Saint Paul, MN", region: "Twin Cities Metropolitan Area, Minnesota", state: "Minnesota", country: "USA", requiresKey: false },
   { id: "chicago", name: "CTA", agency: "Chicago Transit Authority", city: "Chicago, IL", region: "Chicagoland / Cook County, Illinois", state: "Illinois", country: "USA", requiresKey: true, keyEnvVar: "CTA_API_KEY", keyParam: "key" },
   { id: "boston", name: "MBTA", agency: "Massachusetts Bay Transportation Authority", city: "Boston, MA", region: "Greater Boston, Massachusetts", state: "Massachusetts", country: "USA", requiresKey: false },
-  { id: "nyc", name: "MTA", agency: "Metropolitan Transportation Authority", city: "New York, NY", region: "New York Metropolitan Area", state: "New York", country: "USA", requiresKey: true, keyEnvVar: "MTA_API_KEY", keyHeader: "x-api-key" },
+  { id: "nyc", name: "MTA", agency: "Metropolitan Transportation Authority", city: "New York, NY", region: "New York Metropolitan Area", state: "New York", country: "USA", requiresKey: false },
   { id: "sf", name: "SFMTA", agency: "San Francisco Municipal Transportation Agency", city: "San Francisco, CA", region: "San Francisco Bay Area, California", state: "California", country: "USA", requiresKey: true, keyEnvVar: "BAY_AREA_511_KEY", keyParam: "api_key" },
   { id: "philly", name: "SEPTA", agency: "Southeastern Pennsylvania Transportation Authority", city: "Philadelphia, PA", region: "Greater Philadelphia / Delaware Valley, Pennsylvania", state: "Pennsylvania", country: "USA", requiresKey: false },
   { id: "dc", name: "WMATA", agency: "Washington Metropolitan Area Transit Authority", city: "Washington, DC", region: "Washington Metropolitan Area (DC, MD, VA)", state: "District of Columbia", country: "USA", requiresKey: true, keyEnvVar: "WMATA_API_KEY", keyHeader: "api_key" },
@@ -119,12 +119,20 @@ export function parseVehiclePositions(rawBytes) {
   for (const entity of feed.entity || []) {
     const v = entity.vehicle;
     if (v == null) continue;
-    // Never fabricate IDs from entity.id: skip ID-less rows.
-    if (v.vehicle == null || !v.vehicle.id) continue;
     const trip = v.trip;
+    // Descriptor id wins. Feeds like NYCT subway omit the descriptor but
+    // identify the run by entity.id and carry the trip id ghost correlation
+    // keys on, so keep those; rows with neither identity stay skipped.
+    const vehicleId =
+      v.vehicle != null && v.vehicle.id
+        ? String(v.vehicle.id)
+        : trip != null && trip.tripId && entity.id
+          ? String(entity.id)
+          : null;
+    if (!vehicleId) continue;
     const pos = v.position;
     vehicles.push({
-      vehicle_id: String(v.vehicle.id),
+      vehicle_id: vehicleId,
       trip_id: trip != null && trip.tripId ? trip.tripId : null,
       route_id: trip != null && trip.routeId ? trip.routeId : null,
       direction_id: trip != null && has(trip, "directionId") ? toNum(trip.directionId) : null,

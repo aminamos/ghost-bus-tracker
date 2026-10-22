@@ -240,7 +240,7 @@ While the live dashboard at [ghost-bus-tracker.a-8c6.workers.dev](https://ghost-
 | **San Francisco, CA** | SFMTA (Muni) | `sf` / `sfmta` / `muni` | Free API Key | Muni Metro, Historic Streetcars, Cable Cars & Buses |
 | **Chicago, IL** | CTA | `chicago` / `cta` | Free API Key | 'L' Trains & Bus Fleet |
 | **Boston, MA** | MBTA | `boston` / `mbta` | Open (No key) | Subway, Light Rail & Bus |
-| **New York, NY** | MTA | `nyc` / `mta` | Free API Key | NYC Subway & Regional Bus |
+| **New York, NY** | MTA | `nyc` / `mta` | Open (No key) | NYC Subway (NYCT GTFS-RT) |
 | **Philadelphia, PA** | SEPTA | `philly` / `septa` | Open (No key) | Subway, Trolley & 120+ Bus Routes |
 | **Washington, DC** | WMATA | `dc` / `wmata` | Free API Key | Metrorail & Metrobus Network |
 | **Los Angeles, CA** | LA Metro | `la` / `lametro` | Free API Key (Swiftly) | Bus & Metro Rail via Swiftly GTFS-RT |
@@ -290,12 +290,11 @@ python -m src.cli scan-all
 python -m src.cli scan-all --presets boston,philly,seattle
 ```
 
-Six agencies need free API keys; without any key `scan-all` skips the city with a warning:
+Five agencies need free API keys; without any key `scan-all` skips the city with a warning:
 
 | Agency | Env var | Register |
 | :--- | :--- | :--- |
 | Chicago CTA | `CTA_API_KEY` | transitchicago.com/developers/bustracker (emailed key) |
-| NYC MTA | `MTA_API_KEY` | api.mta.info |
 | SF SFMTA | `BAY_AREA_511_KEY` | 511.org/open-data/token |
 | DC WMATA | `WMATA_API_KEY` | developer.wmata.com |
 | Portland TriMet | `TRIMET_APP_ID` | developer.trimet.org |
@@ -303,7 +302,7 @@ Six agencies need free API keys; without any key `scan-all` skips the city with 
 
 Same key for similar endpoints: a preset's VP and TU feeds share the preset's own key. Across providers, sharing is group-scoped only: presets marked `key_group: socrata` fall back to `SOCRATA_API_KEY` (one Socrata/Tyler Tech token works across all of their portals). Agency variables and `--api-key` still win when set. No current preset is Socrata-backed.
 
-The Worker scan passes these through from Worker secrets of the same names; a market whose key secret is unset is skipped. The other seven markets scan with no key (Seattle's OneBusAway endpoints don't enforce their documented key).
+The Worker scan passes these through from Worker secrets of the same names; a market whose key secret is unset is skipped. The other eight markets scan with no key (Seattle's OneBusAway endpoints don't enforce their documented key, and MTA's api-endpoint feeds no longer require one).
 
 Scan any custom transit agency anywhere in the world:
 ```bash

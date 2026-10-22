@@ -128,10 +128,7 @@ AGENCY_PRESETS = {
         "country": "USA",
         "vp_url": "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs",
         "tu_url": "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs",
-        "requires_key": True,
-        "key_env_var": "MTA_API_KEY",
-        "key_header": "x-api-key",
-        "key_url": "https://api.mta.info/",
+        "requires_key": False,
         "description": "New York City Subway and regional bus network.",
     },
     "sf": {
