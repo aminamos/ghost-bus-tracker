@@ -268,7 +268,7 @@ function jsonResponse(data, status = 200) {
   });
 }
 
-function renderHtml(activeKey, allCities, cityIsLive = (activeKey === "twin-cities")) {
+export function renderHtml(activeKey, allCities, cityIsLive = (activeKey === "twin-cities")) {
   const cityData = allCities[activeKey] || allCities["twin-cities"];
   const latest = cityData.latest;
   const history = cityData.history || [];
@@ -882,7 +882,7 @@ function renderHtml(activeKey, allCities, cityIsLive = (activeKey === "twin-citi
 
   <script>
     // Embedded client data for instant, zero-latency market switching.
-    // "<" is escaped so a feed value containing </script> cannot break context.
+    // "<" is escaped so feed values cannot break out of the script block.
     const CITIES_DATA = ${JSON.stringify(allCities).replace(/</g, "\\u003c")};
     const CITY_ALIASES = ${JSON.stringify(CITY_ALIASES).replace(/</g, "\\u003c")};
     const GLOBAL_CATALOG = ${JSON.stringify(GLOBAL_TRANSIT_CATALOG).replace(/</g, "\\u003c")};
@@ -1164,7 +1164,7 @@ function renderHtml(activeKey, allCities, cityIsLive = (activeKey === "twin-citi
           <td>\${escHtml(r.on_time_pct)}%</td>
           <td>\${s}\${(Math.abs(r.avg_delay_sec) / 60.0).toFixed(1)}m</td>
         </tr>
-      }).join('');
+      \`}).join('');
 
       // 9. Update Ghost Trips Diagnostics Log
       const ghostBody = document.getElementById('ghostTripsBody');
@@ -1196,7 +1196,7 @@ function renderHtml(activeKey, allCities, cityIsLive = (activeKey === "twin-citi
       document.getElementById('footerAgencyLink').href = data.website || "https://www.metrotransit.org";
       document.getElementById('footerAgencyLink').textContent = \`\${latest.transit_system} Official Site\`;
       document.getElementById('footerScanTime').textContent = latest.scan_time;
-      document.getElementById('footerText').innerHTML = \`Tracking <strong>\${escHtml(latest.transit_system)}</strong> • Serving <strong>\${escHtml(latest.city)}</strong> (\${escHtml(latest.region)}) • Powered by Cloudflare Workers &amp; Git-Scraping • <a href="https://github.com/aminamos/ghost-bus-tracker" target="_blank" rel="noopener">GitHub Repository</a> • <a href="\${escHtml(data.website || 'https://www.metrotransit.org')}" target="_blank" rel="noopener">\${escHtml(latest.transit_system)} Official Site</a>\`;
+      document.getElementById('footerText').innerHTML = \`Tracking <strong>\${escHtml(latest.transit_system)}</strong> • Serving <strong>\${escHtml(latest.city)}</strong> (\${escHtml(latest.region)}) • Powered by Cloudflare Workers &amp; Git-Scraping • <a href="https://github.com/aminamos/ghost-bus-tracker" target="_blank" rel="noopener">GitHub Repository</a> • <a href="\${escHtml(data.website || 'https://www.metrotransit.org')}" target="_blank" rel="noopener" id="footerAgencyLink">\${escHtml(latest.transit_system)} Official Site</a>\`;
 
       // Clear search box filter
       const searchBox = document.getElementById('routeSearch');
@@ -1275,7 +1275,7 @@ function renderHtml(activeKey, allCities, cityIsLive = (activeKey === "twin-citi
           <td>\${ms}</td>
           <td>\${badge}</td>
         </tr>
-      \`).join('');
+      \`}).join('');
       if (countEl) countEl.textContent = \`Showing \${ids.length} of \${overviewMarketIds().length} markets\`;
     }
 
