@@ -1,18 +1,5 @@
 [
   {
-    "scan_time": "2026-10-11T09:30:38.475000+00:00",
-    "ghost_bus_rate_pct": 1.56,
-    "overall_on_time_pct": 0.0,
-    "total_scheduled_trips": 384,
-    "total_tracked_vehicles": 103,
-    "total_ghost_trips": 6,
-    "mean_delay_sec": 0.0,
-    "agency": "Metropolitan Atlanta Rapid Transit Authority",
-    "city": "Atlanta, GA",
-    "transit_system": "MARTA",
-    "source": "live"
-  },
-  {
     "scan_time": "2026-10-11T09:30:52.827000+00:00",
     "ghost_bus_rate_pct": 1.56,
     "overall_on_time_pct": 0.0,
@@ -6493,6 +6480,19 @@
     "total_scheduled_trips": 412,
     "total_tracked_vehicles": 178,
     "total_ghost_trips": 35,
+    "mean_delay_sec": 0.0,
+    "agency": "Metropolitan Atlanta Rapid Transit Authority",
+    "city": "Atlanta, GA",
+    "transit_system": "MARTA",
+    "source": "live"
+  },
+  {
+    "scan_time": "2026-10-22T18:30:37.860000+00:00",
+    "ghost_bus_rate_pct": 8.08,
+    "overall_on_time_pct": 0.0,
+    "total_scheduled_trips": 421,
+    "total_tracked_vehicles": 176,
+    "total_ghost_trips": 34,
     "mean_delay_sec": 0.0,
     "agency": "Metropolitan Atlanta Rapid Transit Authority",
     "city": "Atlanta, GA",

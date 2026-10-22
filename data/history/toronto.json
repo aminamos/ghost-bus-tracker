@@ -1,18 +1,5 @@
 [
   {
-    "scan_time": "2026-10-12T08:00:01.664000+00:00",
-    "ghost_bus_rate_pct": 6.35,
-    "overall_on_time_pct": 0.0,
-    "total_scheduled_trips": 252,
-    "total_tracked_vehicles": 555,
-    "total_ghost_trips": 16,
-    "mean_delay_sec": 0.0,
-    "agency": "Toronto Transit Commission",
-    "city": "Toronto, ON",
-    "transit_system": "TTC",
-    "source": "live"
-  },
-  {
     "scan_time": "2026-10-12T08:30:01.538000+00:00",
     "ghost_bus_rate_pct": 4.97,
     "overall_on_time_pct": 0.0,
@@ -6493,6 +6480,19 @@
     "total_scheduled_trips": 1939,
     "total_tracked_vehicles": 1609,
     "total_ghost_trips": 137,
+    "mean_delay_sec": 0.0,
+    "agency": "Toronto Transit Commission",
+    "city": "Toronto, ON",
+    "transit_system": "TTC",
+    "source": "live"
+  },
+  {
+    "scan_time": "2026-10-22T18:30:37.174000+00:00",
+    "ghost_bus_rate_pct": 6.45,
+    "overall_on_time_pct": 0.0,
+    "total_scheduled_trips": 2079,
+    "total_tracked_vehicles": 1725,
+    "total_ghost_trips": 134,
     "mean_delay_sec": 0.0,
     "agency": "Toronto Transit Commission",
     "city": "Toronto, ON",
