@@ -1041,6 +1041,7 @@ export const TORONTO_HISTORY = [
 export function normalizeCityKey(key) {
   if (!key) return "twin-cities";
   const clean = String(key).toLowerCase().trim().replace(/\s+/g, "-").replace(/_/g, "-");
+  if (CITY_PRESETS.some((p) => p.id === clean)) return clean;
   return CITY_ALIASES[clean] || "twin-cities";
 }
 
@@ -1050,6 +1051,7 @@ export function normalizeCityKey(key) {
 export function lookupCityKey(key) {
   if (!key) return "twin-cities";
   const clean = String(key).toLowerCase().trim().replace(/\s+/g, "-").replace(/_/g, "-");
+  if (CITY_PRESETS.some((p) => p.id === clean)) return clean;
   return CITY_ALIASES[clean] || null;
 }
 
