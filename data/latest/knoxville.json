@@ -1,94 +1,32 @@
 {
-  "scan_time": "2026-10-22T19:18:05.558000+00:00",
-  "feed_timestamp": 1792696684,
+  "scan_time": "2026-10-23T07:01:27.006000+00:00",
+  "feed_timestamp": 1792738886,
   "agency": "Knoxville Area Transit",
   "city": "Knoxville, TN",
-  "transit_system": "Knoxville",
+  "transit_system": "KAT",
   "region": "Knoxville Metropolitan Area, Tennessee",
   "state": "Tennessee",
   "country": "USA",
   "source": "live",
-  "total_scheduled_trips": 113,
-  "total_tracked_vehicles": 40,
+  "total_scheduled_trips": 0,
+  "total_tracked_vehicles": 0,
   "total_ghost_trips": 0,
   "ghost_bus_rate_pct": 0.0,
-  "vehicle_tracking_rate_pct": 100.0,
-  "overall_on_time_pct": 48.67,
+  "vehicle_tracking_rate_pct": 0.0,
+  "overall_on_time_pct": 0.0,
   "delay_distribution": {
-    "early": 45,
-    "on_time": 55,
-    "minor_delay": 5,
-    "severe_delay": 8,
+    "early": 0,
+    "on_time": 0,
+    "minor_delay": 0,
+    "severe_delay": 0,
     "ghost": 0,
     "canceled": 0
   },
-  "mean_delay_sec": 150.5,
+  "mean_delay_sec": 0.0,
   "median_delay_sec": 0.0,
-  "worst_routes_by_ghost": [
-    {
-      "route_id": "UNKNOWN",
-      "route_name": "Route UNKNOWN",
-      "total_trips": 113,
-      "tracked_vehicles": 27,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 55,
-      "delayed_trips": 13,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 48.67,
-      "avg_delay_sec": 150.5,
-      "max_delay_sec": 3840
-    }
-  ],
-  "most_delayed_routes": [
-    {
-      "route_id": "UNKNOWN",
-      "route_name": "Route UNKNOWN",
-      "total_trips": 113,
-      "tracked_vehicles": 27,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 55,
-      "delayed_trips": 13,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 48.67,
-      "avg_delay_sec": 150.5,
-      "max_delay_sec": 3840
-    }
-  ],
-  "route_metrics": [
-    {
-      "route_id": "UNKNOWN",
-      "route_name": "Route UNKNOWN",
-      "total_trips": 113,
-      "tracked_vehicles": 27,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 55,
-      "delayed_trips": 13,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 48.67,
-      "avg_delay_sec": 150.5,
-      "max_delay_sec": 3840
-    }
-  ],
+  "worst_routes_by_ghost": [],
+  "most_delayed_routes": [],
+  "route_metrics": [],
   "sample_ghost_trips": [],
-  "headway_metrics": [
-    {
-      "route_id": "UNKNOWN",
-      "direction_id": 1,
-      "scheduled_headway_min": 3.0,
-      "observed_headway_min": 3.0,
-      "excess_wait_time_min": 26.2,
-      "headway_regularity_score": 0.0
-    },
-    {
-      "route_id": "UNKNOWN",
-      "direction_id": 0,
-      "scheduled_headway_min": 15.0,
-      "observed_headway_min": 15.0,
-      "excess_wait_time_min": 4.88,
-      "headway_regularity_score": 19.3
-    }
-  ]
+  "headway_metrics": []
 }

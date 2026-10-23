@@ -1,7 +1,7 @@
 # 🚌 Automated Public Transit Reliability & Ghost Bus Tracker
 
 > Real-time monitoring and git-scraping reliability index for **Guelph Transit** in **Guelph, ON** (City of Guelph, Ontario).
-> **Transit System:** Guelph | **Location:** Guelph, ON | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-10-22T19:17:50.040000+00:00` | **Source:** live GTFS-RT feed
+> **Transit System:** Guelph Transit | **Location:** Guelph, ON | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-10-23T07:01:24.718000+00:00` | **Source:** live GTFS-RT feed
 
 ---
 
@@ -9,11 +9,11 @@
 
 | Metric | Value | Status / Description |
 | :--- | :--- | :--- |
-| **Ghost Bus Rate** | **`50.51%`** | Scheduled runs with missing transponders or unannounced cuts |
+| **Ghost Bus Rate** | **`76.03%`** | Scheduled runs with missing transponders or unannounced cuts |
 | **On-Time Adherence** | **`0.0%`** | Departures within standard window (-1m to +5m) |
-| **Scheduled Active Trips** | `392` | Total runs operating in current transit schedule window |
-| **Tracked Fleet Vehicles** | `40` | GPS transponders broadcasting valid coordinates |
-| **Confirmed Ghost Trips** | `198` | Disappeared or unassigned scheduled runs |
+| **Scheduled Active Trips** | `584` | Total runs operating in current transit schedule window |
+| **Tracked Fleet Vehicles** | `2` | GPS transponders broadcasting valid coordinates |
+| **Confirmed Ghost Trips** | `444` | Disappeared or unassigned scheduled runs |
 | **Mean Delay** | `+0.0s` (`+0.0 min`) | Average delay across all active tracked runs |
 | **Median Delay** | `+0.0s` (`+0.0 min`) | Median schedule deviation |
 
@@ -27,8 +27,8 @@
 | ⏩ **Early Departure** | More than 1 min ahead of schedule | 0 | 0.0% |
 | 🟡 **Minor Delay** | +5m to +15m late | 0 | 0.0% |
 | 🔴 **Severe Delay** | Over 15m late | 0 | 0.0% |
-| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 198 | 50.5% |
-| ❌ **Agency Canceled** | Explicitly reported CANCELED | 124 | 31.6% |
+| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 444 | 76.0% |
+| ❌ **Agency Canceled** | Explicitly reported CANCELED | 138 | 23.6% |
 
 ---
 
@@ -36,16 +36,16 @@
 
 | Route | Total Scheduled | Tracked | Ghost Trips | Ghost Rate (%) | On-Time (%) | Avg Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Route 3014** | 37 | 0 | 37 | **`100.0%`** | `0.0%` | `+0.0s` |
-| **Route 3005** | 20 | 1 | 19 | **`95.0%`** | `0.0%` | `+0.0s` |
-| **Route 2997** | 20 | 1 | 19 | **`95.0%`** | `0.0%` | `+0.0s` |
-| **Route 2992** | 23 | 1 | 21 | **`91.3%`** | `0.0%` | `+0.0s` |
-| **Route 2991** | 20 | 1 | 18 | **`90.0%`** | `0.0%` | `+0.0s` |
-| **Route 3002** | 22 | 2 | 19 | **`86.36%`** | `0.0%` | `+0.0s` |
-| **Route 3003** | 21 | 2 | 18 | **`85.71%`** | `0.0%` | `+0.0s` |
-| **Route 3013** | 25 | 2 | 21 | **`84.0%`** | `0.0%` | `+0.0s` |
-| **Route 3001** | 27 | 1 | 14 | **`51.85%`** | `0.0%` | `+0.0s` |
-| **Route 2998** | 26 | 1 | 12 | **`46.15%`** | `0.0%` | `+0.0s` |
+| **Route 3014** | 76 | 0 | 76 | **`100.0%`** | `0.0%` | `+0.0s` |
+| **Route 2992** | 49 | 0 | 49 | **`100.0%`** | `0.0%` | `+0.0s` |
+| **Route 3013** | 49 | 0 | 49 | **`100.0%`** | `0.0%` | `+0.0s` |
+| **Route 3003** | 42 | 0 | 42 | **`100.0%`** | `0.0%` | `+0.0s` |
+| **Route 2997** | 39 | 0 | 39 | **`100.0%`** | `0.0%` | `+0.0s` |
+| **Route 3001** | 38 | 0 | 38 | **`100.0%`** | `0.0%` | `+0.0s` |
+| **Route 2991** | 38 | 0 | 38 | **`100.0%`** | `0.0%` | `+0.0s` |
+| **Route 3005** | 38 | 0 | 38 | **`100.0%`** | `0.0%` | `+0.0s` |
+| **Route 3002** | 38 | 0 | 38 | **`100.0%`** | `0.0%` | `+0.0s` |
+| **Route 2998** | 37 | 0 | 37 | **`100.0%`** | `0.0%` | `+0.0s` |
 
 ---
 
@@ -71,21 +71,36 @@
 
 | Trip ID | Route | Scheduled Departure | Status | Diagnosis / Reason |
 | :--- | :---: | :---: | :--- | :--- |
-| `481509` | Route 3002 | `24:30:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `480259` | Route 2997 | `24:07:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `481507` | Route 3002 | `23:30:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `480257` | Route 2997 | `23:07:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `481505` | Route 3002 | `22:30:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `480255` | Route 2997 | `22:07:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `481290` | Route 3001 | `24:11:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `481287` | Route 3001 | `22:41:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `480480` | Route 2998 | `23:12:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `484108` | Route 3014 | `15:24:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `484068` | Route 3014 | `15:45:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `484109` | Route 3014 | `15:54:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `484067` | Route 3014 | `16:15:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `484110` | Route 3014 | `16:24:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `484066` | Route 3014 | `16:45:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `484099` | Route 3014 | `10:54:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `484078` | Route 3014 | `10:45:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `484100` | Route 3014 | `11:24:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `484077` | Route 3014 | `11:15:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `484101` | Route 3014 | `11:54:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `484076` | Route 3014 | `11:45:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `478903` | Route 2992 | `20:15:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `478902` | Route 2992 | `19:45:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `478901` | Route 2992 | `19:15:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `478911` | Route 2992 | `24:15:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `478892` | Route 2992 | `15:55:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `478905` | Route 2992 | `21:15:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `478900` | Route 2992 | `18:45:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `478898` | Route 2992 | `17:55:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `478896` | Route 2992 | `17:15:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+
+---
+
+## 📈 Recent Reliability Trend (Git-Scraping History)
+
+| Timestamp | Ghost Rate (%) | On-Time (%) | Scheduled Runs | Tracked Fleet | Mean Delay |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| `2026-10-23 07:01:24` | `76.03%` | `0.0%` | 584 | 2 | `+0.0s` |
+| `2026-10-23 06:30:23` | `75.0%` | `0.0%` | 592 | 5 | `+0.0s` |
+| `2026-10-23 06:00:20` | `74.37%` | `0.0%` | 597 | 5 | `+0.0s` |
+| `2026-10-23 05:30:21` | `74.25%` | `0.0%` | 598 | 4 | `+0.0s` |
+| `2026-10-23 05:15:27` | `74.37%` | `0.0%` | 597 | 2 | `+0.0s` |
+| `2026-10-23 05:00:37` | `74.5%` | `0.0%` | 596 | 1 | `+0.0s` |
+| `2026-10-23 04:30:36` | `69.57%` | `0.0%` | 631 | 28 | `+0.0s` |
+| `2026-10-23 04:00:39` | `17.14%` | `0.0%` | 70 | 30 | `+0.0s` |
 
 ---
 
@@ -97,4 +112,4 @@
 - **Excess Wait Time (EWT)**: Transit standard metric measuring variance in vehicle headway caused by vehicle bunching.
 - **Git-Scraping**: Every run fetches upstream GTFS-RT binary protobuf feeds, computes reliability metrics, commits versioned JSON snapshots, and renders this dashboard automatically.
 
-*Generated by Ghost Bus Tracker v0.1.0 at `2026-10-22T19:17:50.040000+00:00`.*
+*Generated by Ghost Bus Tracker v0.1.0 at `2026-10-23T07:01:24.718000+00:00`.*
