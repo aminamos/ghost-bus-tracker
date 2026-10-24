@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-10-23T07:01:26.591000+00:00",
-  "feed_timestamp": 1792738857,
+  "scan_time": "2026-10-24T06:30:22.349000+00:00",
+  "feed_timestamp": 1792823389,
   "agency": "Metro Transit (Bi-State Development)",
   "city": "St. Louis, MO",
   "transit_system": "Metro Transit",
@@ -8,25 +8,83 @@
   "state": "Missouri",
   "country": "USA",
   "source": "live",
-  "total_scheduled_trips": 0,
-  "total_tracked_vehicles": 0,
+  "total_scheduled_trips": 16,
+  "total_tracked_vehicles": 2,
   "total_ghost_trips": 0,
   "ghost_bus_rate_pct": 0.0,
-  "vehicle_tracking_rate_pct": 0.0,
+  "vehicle_tracking_rate_pct": 12.5,
   "overall_on_time_pct": 0.0,
   "delay_distribution": {
-    "early": 0,
+    "early": 1,
     "on_time": 0,
     "minor_delay": 0,
     "severe_delay": 0,
     "ghost": 0,
-    "canceled": 0
+    "canceled": 14
   },
-  "mean_delay_sec": 0.0,
-  "median_delay_sec": 0.0,
-  "worst_routes_by_ghost": [],
+  "mean_delay_sec": -120.0,
+  "median_delay_sec": -120.0,
+  "worst_routes_by_ghost": [
+    {
+      "route_id": "UNKNOWN",
+      "route_name": "Route UNKNOWN",
+      "total_trips": 14,
+      "tracked_vehicles": 0,
+      "ghost_trips": 0,
+      "canceled_trips": 14,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    }
+  ],
   "most_delayed_routes": [],
-  "route_metrics": [],
+  "route_metrics": [
+    {
+      "route_id": "19782",
+      "route_name": "Route 19782",
+      "total_trips": 1,
+      "tracked_vehicles": 1,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": -120.0,
+      "max_delay_sec": -120
+    },
+    {
+      "route_id": "19792",
+      "route_name": "Route 19792",
+      "total_trips": 1,
+      "tracked_vehicles": 1,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
+      "route_id": "UNKNOWN",
+      "route_name": "Route UNKNOWN",
+      "total_trips": 14,
+      "tracked_vehicles": 0,
+      "ghost_trips": 0,
+      "canceled_trips": 14,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    }
+  ],
   "sample_ghost_trips": [],
   "headway_metrics": []
 }

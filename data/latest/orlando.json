@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-10-23T07:01:22.927000+00:00",
-  "feed_timestamp": 1792738864,
+  "scan_time": "2026-10-24T06:30:19.603000+00:00",
+  "feed_timestamp": 1792823400,
   "agency": "Central Florida Regional Transportation Authority",
   "city": "Orlando, FL",
   "transit_system": "LYNX",
@@ -8,8 +8,8 @@
   "state": "Florida",
   "country": "USA",
   "source": "live",
-  "total_scheduled_trips": 1,
-  "total_tracked_vehicles": 1,
+  "total_scheduled_trips": 2,
+  "total_tracked_vehicles": 2,
   "total_ghost_trips": 0,
   "ghost_bus_rate_pct": 0.0,
   "vehicle_tracking_rate_pct": 100.0,
@@ -18,43 +18,58 @@
     "early": 0,
     "on_time": 0,
     "minor_delay": 1,
-    "severe_delay": 0,
+    "severe_delay": 1,
     "ghost": 0,
     "canceled": 0
   },
-  "mean_delay_sec": 424.0,
-  "median_delay_sec": 424.0,
-  "worst_routes_by_ghost": [],
+  "mean_delay_sec": 1528.5,
+  "median_delay_sec": 1528.5,
+  "worst_routes_by_ghost": [
+    {
+      "route_id": "17567",
+      "route_name": "Route 17567",
+      "total_trips": 2,
+      "tracked_vehicles": 2,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 2,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 1528.5,
+      "max_delay_sec": 2290
+    }
+  ],
   "most_delayed_routes": [
     {
       "route_id": "17567",
       "route_name": "Route 17567",
-      "total_trips": 1,
-      "tracked_vehicles": 1,
+      "total_trips": 2,
+      "tracked_vehicles": 2,
       "ghost_trips": 0,
       "canceled_trips": 0,
       "on_time_trips": 0,
-      "delayed_trips": 1,
+      "delayed_trips": 2,
       "ghost_rate_pct": 0.0,
       "on_time_pct": 0.0,
-      "avg_delay_sec": 424.0,
-      "max_delay_sec": 424
+      "avg_delay_sec": 1528.5,
+      "max_delay_sec": 2290
     }
   ],
   "route_metrics": [
     {
       "route_id": "17567",
       "route_name": "Route 17567",
-      "total_trips": 1,
-      "tracked_vehicles": 1,
+      "total_trips": 2,
+      "tracked_vehicles": 2,
       "ghost_trips": 0,
       "canceled_trips": 0,
       "on_time_trips": 0,
-      "delayed_trips": 1,
+      "delayed_trips": 2,
       "ghost_rate_pct": 0.0,
       "on_time_pct": 0.0,
-      "avg_delay_sec": 424.0,
-      "max_delay_sec": 424
+      "avg_delay_sec": 1528.5,
+      "max_delay_sec": 2290
     }
   ],
   "sample_ghost_trips": [],
