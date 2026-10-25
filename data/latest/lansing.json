@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-10-24T06:30:19.853000+00:00",
-  "feed_timestamp": 1792823432,
+  "scan_time": "2026-10-25T06:15:45.913000+00:00",
+  "feed_timestamp": 1792908952,
   "agency": "Capital Area Transportation Authority",
   "city": "Lansing, MI",
   "transit_system": "CATA",
@@ -13,33 +13,48 @@
   "total_ghost_trips": 0,
   "ghost_bus_rate_pct": 0.0,
   "vehicle_tracking_rate_pct": 100.0,
-  "overall_on_time_pct": 0.0,
+  "overall_on_time_pct": 100.0,
   "delay_distribution": {
-    "early": 1,
-    "on_time": 0,
+    "early": 0,
+    "on_time": 1,
     "minor_delay": 0,
     "severe_delay": 0,
     "ghost": 0,
     "canceled": 0
   },
-  "mean_delay_sec": -127.0,
-  "median_delay_sec": -127.0,
+  "mean_delay_sec": 29.0,
+  "median_delay_sec": 29.0,
   "worst_routes_by_ghost": [],
-  "most_delayed_routes": [],
-  "route_metrics": [
+  "most_delayed_routes": [
     {
-      "route_id": "12616",
-      "route_name": "Route 12616",
+      "route_id": "12619",
+      "route_name": "Route 12619",
       "total_trips": 1,
       "tracked_vehicles": 1,
       "ghost_trips": 0,
       "canceled_trips": 0,
-      "on_time_trips": 0,
+      "on_time_trips": 1,
       "delayed_trips": 0,
       "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": -127.0,
-      "max_delay_sec": -127
+      "on_time_pct": 100.0,
+      "avg_delay_sec": 29.0,
+      "max_delay_sec": 29
+    }
+  ],
+  "route_metrics": [
+    {
+      "route_id": "12619",
+      "route_name": "Route 12619",
+      "total_trips": 1,
+      "tracked_vehicles": 1,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 1,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 100.0,
+      "avg_delay_sec": 29.0,
+      "max_delay_sec": 29
     }
   ],
   "sample_ghost_trips": [],

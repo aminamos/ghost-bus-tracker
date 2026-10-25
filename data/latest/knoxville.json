@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-10-24T06:30:22.474000+00:00",
-  "feed_timestamp": 1792823422,
+  "scan_time": "2026-10-25T06:15:49.431000+00:00",
+  "feed_timestamp": 1792908947,
   "agency": "Knoxville Area Transit",
   "city": "Knoxville, TN",
   "transit_system": "KAT",
@@ -9,7 +9,7 @@
   "country": "USA",
   "source": "live",
   "total_scheduled_trips": 0,
-  "total_tracked_vehicles": 2,
+  "total_tracked_vehicles": 4,
   "total_ghost_trips": 0,
   "ghost_bus_rate_pct": 0.0,
   "vehicle_tracking_rate_pct": 0.0,

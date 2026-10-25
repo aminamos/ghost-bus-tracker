@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-10-24T06:30:22.448000+00:00",
-  "feed_timestamp": 1792823416,
+  "scan_time": "2026-10-25T06:15:49.153000+00:00",
+  "feed_timestamp": 1792908928,
   "agency": "London Transit Commission",
   "city": "London, ON",
   "transit_system": "LTC",
@@ -8,11 +8,11 @@
   "state": "Ontario",
   "country": "Canada",
   "source": "live",
-  "total_scheduled_trips": 0,
-  "total_tracked_vehicles": 0,
+  "total_scheduled_trips": 1,
+  "total_tracked_vehicles": 1,
   "total_ghost_trips": 0,
   "ghost_bus_rate_pct": 0.0,
-  "vehicle_tracking_rate_pct": 0.0,
+  "vehicle_tracking_rate_pct": 100.0,
   "overall_on_time_pct": 0.0,
   "delay_distribution": {
     "early": 0,
@@ -26,7 +26,22 @@
   "median_delay_sec": 0.0,
   "worst_routes_by_ghost": [],
   "most_delayed_routes": [],
-  "route_metrics": [],
+  "route_metrics": [
+    {
+      "route_id": "04",
+      "route_name": "Route 04",
+      "total_trips": 1,
+      "tracked_vehicles": 1,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    }
+  ],
   "sample_ghost_trips": [],
   "headway_metrics": []
 }
