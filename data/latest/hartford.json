@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-10-25T06:15:48.027000+00:00",
-  "feed_timestamp": 1792908942,
+  "scan_time": "2026-10-26T07:00:22.680000+00:00",
+  "feed_timestamp": 1792998019,
   "agency": "Connecticut Transit",
   "city": "Hartford, CT",
   "transit_system": "CTtransit",
@@ -8,10 +8,10 @@
   "state": "Connecticut",
   "country": "USA",
   "source": "live",
-  "total_scheduled_trips": 0,
+  "total_scheduled_trips": 54,
   "total_tracked_vehicles": 0,
-  "total_ghost_trips": 0,
-  "ghost_bus_rate_pct": 0.0,
+  "total_ghost_trips": 54,
+  "ghost_bus_rate_pct": 100.0,
   "vehicle_tracking_rate_pct": 0.0,
   "overall_on_time_pct": 0.0,
   "delay_distribution": {
@@ -19,14 +19,193 @@
     "on_time": 0,
     "minor_delay": 0,
     "severe_delay": 0,
-    "ghost": 0,
+    "ghost": 54,
     "canceled": 0
   },
   "mean_delay_sec": 0.0,
   "median_delay_sec": 0.0,
-  "worst_routes_by_ghost": [],
+  "worst_routes_by_ghost": [
+    {
+      "route_id": "16221",
+      "route_name": "Route 16221",
+      "total_trips": 33,
+      "tracked_vehicles": 0,
+      "ghost_trips": 33,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 100.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
+      "route_id": "16479",
+      "route_name": "Route 16479",
+      "total_trips": 21,
+      "tracked_vehicles": 0,
+      "ghost_trips": 21,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 100.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    }
+  ],
   "most_delayed_routes": [],
-  "route_metrics": [],
-  "sample_ghost_trips": [],
+  "route_metrics": [
+    {
+      "route_id": "16221",
+      "route_name": "Route 16221",
+      "total_trips": 33,
+      "tracked_vehicles": 0,
+      "ghost_trips": 33,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 100.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
+      "route_id": "16479",
+      "route_name": "Route 16479",
+      "total_trips": 21,
+      "tracked_vehicles": 0,
+      "ghost_trips": 21,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 100.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    }
+  ],
+  "sample_ghost_trips": [
+    {
+      "trip_id": "1924176",
+      "route_id": "16221",
+      "start_time": "21:12:00",
+      "start_date": "20261026",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    },
+    {
+      "trip_id": "1924146",
+      "route_id": "16221",
+      "start_time": "08:31:00",
+      "start_date": "20261026",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    },
+    {
+      "trip_id": "1924164",
+      "route_id": "16221",
+      "start_time": "08:19:00",
+      "start_date": "20261026",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    },
+    {
+      "trip_id": "1924152",
+      "route_id": "16221",
+      "start_time": "10:46:00",
+      "start_date": "20261026",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    },
+    {
+      "trip_id": "1924147",
+      "route_id": "16221",
+      "start_time": "13:16:00",
+      "start_date": "20261026",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    },
+    {
+      "trip_id": "1924154",
+      "route_id": "16221",
+      "start_time": "15:35:00",
+      "start_date": "20261026",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    },
+    {
+      "trip_id": "1924165",
+      "route_id": "16221",
+      "start_time": "07:44:00",
+      "start_date": "20261026",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    },
+    {
+      "trip_id": "1924160",
+      "route_id": "16221",
+      "start_time": "10:16:00",
+      "start_date": "20261026",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    },
+    {
+      "trip_id": "1924148",
+      "route_id": "16221",
+      "start_time": "12:46:00",
+      "start_date": "20261026",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    },
+    {
+      "trip_id": "1924155",
+      "route_id": "16221",
+      "start_time": "15:06:00",
+      "start_date": "20261026",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    },
+    {
+      "trip_id": "1924171",
+      "route_id": "16221",
+      "start_time": "17:47:00",
+      "start_date": "20261026",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    },
+    {
+      "trip_id": "1924177",
+      "route_id": "16221",
+      "start_time": "20:08:00",
+      "start_date": "20261026",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    },
+    {
+      "trip_id": "1924172",
+      "route_id": "16221",
+      "start_time": "22:12:00",
+      "start_date": "20261026",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    },
+    {
+      "trip_id": "1924180",
+      "route_id": "16221",
+      "start_time": "00:12:00",
+      "start_date": "20261027",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    },
+    {
+      "trip_id": "1924162",
+      "route_id": "16221",
+      "start_time": "09:16:00",
+      "start_date": "20261026",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    }
+  ],
   "headway_metrics": []
 }

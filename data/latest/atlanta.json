@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-10-25T06:30:33.719000+00:00",
-  "feed_timestamp": 1792909816,
+  "scan_time": "2026-10-26T07:00:22.582000+00:00",
+  "feed_timestamp": 1792998000,
   "agency": "Metropolitan Atlanta Rapid Transit Authority",
   "city": "Atlanta, GA",
   "transit_system": "MARTA",
@@ -8,120 +8,25 @@
   "state": "Georgia",
   "country": "USA",
   "source": "live",
-  "total_scheduled_trips": 6,
-  "total_tracked_vehicles": 4,
-  "total_ghost_trips": 1,
-  "ghost_bus_rate_pct": 16.67,
-  "vehicle_tracking_rate_pct": 83.33,
+  "total_scheduled_trips": 0,
+  "total_tracked_vehicles": 0,
+  "total_ghost_trips": 0,
+  "ghost_bus_rate_pct": 0.0,
+  "vehicle_tracking_rate_pct": 0.0,
   "overall_on_time_pct": 0.0,
   "delay_distribution": {
     "early": 0,
     "on_time": 0,
     "minor_delay": 0,
     "severe_delay": 0,
-    "ghost": 1,
+    "ghost": 0,
     "canceled": 0
   },
   "mean_delay_sec": 0.0,
   "median_delay_sec": 0.0,
-  "worst_routes_by_ghost": [
-    {
-      "route_id": "140",
-      "route_name": "Route 140",
-      "total_trips": 2,
-      "tracked_vehicles": 1,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
-      "route_id": "84",
-      "route_name": "Route 84",
-      "total_trips": 2,
-      "tracked_vehicles": 1,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    }
-  ],
+  "worst_routes_by_ghost": [],
   "most_delayed_routes": [],
-  "route_metrics": [
-    {
-      "route_id": "22",
-      "route_name": "Route 22",
-      "total_trips": 1,
-      "tracked_vehicles": 1,
-      "ghost_trips": 1,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 100.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
-      "route_id": "140",
-      "route_name": "Route 140",
-      "total_trips": 2,
-      "tracked_vehicles": 1,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
-      "route_id": "71",
-      "route_name": "Route 71",
-      "total_trips": 1,
-      "tracked_vehicles": 1,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
-      "route_id": "84",
-      "route_name": "Route 84",
-      "total_trips": 2,
-      "tracked_vehicles": 1,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    }
-  ],
-  "sample_ghost_trips": [
-    {
-      "trip_id": "11703367",
-      "route_id": "22",
-      "start_time": "14:14:00",
-      "start_date": "20261024",
-      "status": "SCHEDULED",
-      "reason": "Assigned vehicle 2307 is broadcasting off-schedule with no vehicle covering 11703367"
-    }
-  ],
+  "route_metrics": [],
+  "sample_ghost_trips": [],
   "headway_metrics": []
 }

@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-10-25T06:15:46.869000+00:00",
-  "feed_timestamp": 1792908941,
+  "scan_time": "2026-10-26T07:00:21.422000+00:00",
+  "feed_timestamp": 1792998016,
   "agency": "Kingston Transit",
   "city": "Kingston, ON",
   "transit_system": "Kingston Transit",
@@ -8,79 +8,115 @@
   "state": "Ontario",
   "country": "Canada",
   "source": "live",
-  "total_scheduled_trips": 3,
-  "total_tracked_vehicles": 42,
-  "total_ghost_trips": 0,
-  "ghost_bus_rate_pct": 0.0,
-  "vehicle_tracking_rate_pct": 100.0,
-  "overall_on_time_pct": 66.67,
+  "total_scheduled_trips": 4,
+  "total_tracked_vehicles": 29,
+  "total_ghost_trips": 4,
+  "ghost_bus_rate_pct": 100.0,
+  "vehicle_tracking_rate_pct": 0.0,
+  "overall_on_time_pct": 0.0,
   "delay_distribution": {
     "early": 0,
-    "on_time": 2,
-    "minor_delay": 1,
+    "on_time": 0,
+    "minor_delay": 0,
     "severe_delay": 0,
-    "ghost": 0,
+    "ghost": 4,
     "canceled": 0
   },
-  "mean_delay_sec": 198.3,
-  "median_delay_sec": 160.0,
-  "worst_routes_by_ghost": [
-    {
-      "route_id": "N1",
-      "route_name": "Route N1",
-      "total_trips": 3,
-      "tracked_vehicles": 3,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 2,
-      "delayed_trips": 1,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 66.67,
-      "avg_delay_sec": 198.3,
-      "max_delay_sec": 407
-    }
-  ],
-  "most_delayed_routes": [
-    {
-      "route_id": "N1",
-      "route_name": "Route N1",
-      "total_trips": 3,
-      "tracked_vehicles": 3,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 2,
-      "delayed_trips": 1,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 66.67,
-      "avg_delay_sec": 198.3,
-      "max_delay_sec": 407
-    }
-  ],
+  "mean_delay_sec": 0.0,
+  "median_delay_sec": 0.0,
+  "worst_routes_by_ghost": [],
+  "most_delayed_routes": [],
   "route_metrics": [
     {
-      "route_id": "N1",
-      "route_name": "Route N1",
-      "total_trips": 3,
-      "tracked_vehicles": 3,
-      "ghost_trips": 0,
+      "route_id": "7",
+      "route_name": "Route 7",
+      "total_trips": 1,
+      "tracked_vehicles": 0,
+      "ghost_trips": 1,
       "canceled_trips": 0,
-      "on_time_trips": 2,
-      "delayed_trips": 1,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 66.67,
-      "avg_delay_sec": 198.3,
-      "max_delay_sec": 407
-    }
-  ],
-  "sample_ghost_trips": [],
-  "headway_metrics": [
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 100.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
     {
       "route_id": "N1",
-      "direction_id": null,
-      "scheduled_headway_min": 15.0,
-      "observed_headway_min": 15.0,
-      "excess_wait_time_min": 0.23,
-      "headway_regularity_score": 82.5
+      "route_name": "Route N1",
+      "total_trips": 1,
+      "tracked_vehicles": 0,
+      "ghost_trips": 1,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 100.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
+      "route_id": "32",
+      "route_name": "Route 32",
+      "total_trips": 1,
+      "tracked_vehicles": 0,
+      "ghost_trips": 1,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 100.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
+      "route_id": "2",
+      "route_name": "Route 2",
+      "total_trips": 1,
+      "tracked_vehicles": 0,
+      "ghost_trips": 1,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 100.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
     }
-  ]
+  ],
+  "sample_ghost_trips": [
+    {
+      "trip_id": "2292532:663554:667140",
+      "route_id": "7",
+      "start_time": "05:00:00",
+      "start_date": "20261026",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    },
+    {
+      "trip_id": "2291723:668578:669034",
+      "route_id": "N1",
+      "start_time": "04:28:00",
+      "start_date": "20261026",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    },
+    {
+      "trip_id": "2292540:661861:680876",
+      "route_id": "32",
+      "start_time": "04:29:00",
+      "start_date": "20261026",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    },
+    {
+      "trip_id": "2292542:664213:680876",
+      "route_id": "2",
+      "start_time": "04:42:00",
+      "start_date": "20261026",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    }
+  ],
+  "headway_metrics": []
 }

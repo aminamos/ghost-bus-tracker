@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-10-25T06:15:46.106000+00:00",
-  "feed_timestamp": 1792908936,
+  "scan_time": "2026-10-26T07:00:19.983000+00:00",
+  "feed_timestamp": 1792998006,
   "agency": "Capital District Transportation Authority",
   "city": "Albany, NY",
   "transit_system": "CDTA",
@@ -8,11 +8,11 @@
   "state": "New York",
   "country": "USA",
   "source": "live",
-  "total_scheduled_trips": 3,
-  "total_tracked_vehicles": 1,
+  "total_scheduled_trips": 0,
+  "total_tracked_vehicles": 0,
   "total_ghost_trips": 0,
   "ghost_bus_rate_pct": 0.0,
-  "vehicle_tracking_rate_pct": 100.0,
+  "vehicle_tracking_rate_pct": 0.0,
   "overall_on_time_pct": 0.0,
   "delay_distribution": {
     "early": 0,
@@ -24,39 +24,9 @@
   },
   "mean_delay_sec": 0.0,
   "median_delay_sec": 0.0,
-  "worst_routes_by_ghost": [
-    {
-      "route_id": "452",
-      "route_name": "Route 452",
-      "total_trips": 3,
-      "tracked_vehicles": 1,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    }
-  ],
+  "worst_routes_by_ghost": [],
   "most_delayed_routes": [],
-  "route_metrics": [
-    {
-      "route_id": "452",
-      "route_name": "Route 452",
-      "total_trips": 3,
-      "tracked_vehicles": 1,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    }
-  ],
+  "route_metrics": [],
   "sample_ghost_trips": [],
   "headway_metrics": []
 }

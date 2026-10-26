@@ -1,7 +1,7 @@
 # 🚌 Automated Public Transit Reliability & Ghost Bus Tracker
 
 > Real-time monitoring and git-scraping reliability index for **Champaign-Urbana Mass Transit District** in **Champaign–Urbana, IL** (Champaign County, Illinois).
-> **Transit System:** MTD | **Location:** Champaign–Urbana, IL | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-10-25T06:15:46.106000+00:00` | **Source:** live GTFS-RT feed
+> **Transit System:** MTD | **Location:** Champaign–Urbana, IL | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-10-26T07:00:19.916000+00:00` | **Source:** live GTFS-RT feed
 
 ---
 
@@ -9,10 +9,10 @@
 
 | Metric | Value | Status / Description |
 | :--- | :--- | :--- |
-| **Ghost Bus Rate** | **`15.22%`** | Scheduled runs with missing transponders or unannounced cuts |
+| **Ghost Bus Rate** | **`21.21%`** | Scheduled runs with missing transponders or unannounced cuts |
 | **On-Time Adherence** | **`0.0%`** | Departures within standard window (-1m to +5m) |
-| **Scheduled Active Trips** | `46` | Total runs operating in current transit schedule window |
-| **Tracked Fleet Vehicles** | `15` | GPS transponders broadcasting valid coordinates |
+| **Scheduled Active Trips** | `33` | Total runs operating in current transit schedule window |
+| **Tracked Fleet Vehicles** | `14` | GPS transponders broadcasting valid coordinates |
 | **Confirmed Ghost Trips** | `7` | Disappeared or unassigned scheduled runs |
 | **Mean Delay** | `+0.0s` (`+0.0 min`) | Average delay across all active tracked runs |
 | **Median Delay** | `+0.0s` (`+0.0 min`) | Median schedule deviation |
@@ -27,7 +27,7 @@
 | ⏩ **Early Departure** | More than 1 min ahead of schedule | 0 | 0.0% |
 | 🟡 **Minor Delay** | +5m to +15m late | 0 | 0.0% |
 | 🔴 **Severe Delay** | Over 15m late | 0 | 0.0% |
-| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 7 | 15.2% |
+| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 7 | 21.2% |
 | ❌ **Agency Canceled** | Explicitly reported CANCELED | 0 | 0.0% |
 
 ---
@@ -36,11 +36,11 @@
 
 | Route | Total Scheduled | Tracked | Ghost Trips | Ghost Rate (%) | On-Time (%) | Avg Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Route GREEN LATE NIGHT SATURDAY** | 7 | 2 | 7 | **`100.0%`** | `0.0%` | `+0.0s` |
-| **Route ILLINI EVENING SATURDAY** | 18 | 7 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
-| **Route SILVER EVENING SATURDAY** | 8 | 2 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
-| **Route TEAL LATE NIGHT SATURDAY** | 7 | 2 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
-| **Route YELLOW LATE NIGHT SATURDAY** | 6 | 2 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| **Route SILVER EVENING SUNDAY** | 6 | 2 | 3 | **`50.0%`** | `0.0%` | `+0.0s` |
+| **Route YELLOW LATE NIGHT SUNDAY** | 4 | 2 | 2 | **`50.0%`** | `0.0%` | `+0.0s` |
+| **Route ILLINI EVENING SUNDAY** | 14 | 7 | 2 | **`14.29%`** | `0.0%` | `+0.0s` |
+| **Route GREEN LATE NIGHT SUNDAY** | 4 | 1 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| **Route TEAL LATE NIGHT SUNDAY** | 5 | 2 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
 
 ---
 
@@ -66,13 +66,13 @@
 
 | Trip ID | Route | Scheduled Departure | Status | Diagnosis / Reason |
 | :--- | :---: | :---: | :--- | :--- |
-| `[@124.0.92344750@][1484579800344]/33__GN3_UISA` | Route GREEN LATE NIGHT SATURDAY | `02:03:00` | `SCHEDULED` | Assigned vehicle 1720 is broadcasting off-schedule with no vehicle covering [@124.0.92344750@][1484579800344]/33__GN3_UISA |
-| `[@124.0.92344750@][1484579800344]/38__GN3_UISA` | Route GREEN LATE NIGHT SATURDAY | `01:23:00` | `SCHEDULED` | Assigned vehicle 1720 is broadcasting off-schedule with no vehicle covering [@124.0.92344750@][1484579800344]/38__GN3_UISA |
-| `[@124.0.92344750@][1484579800344]/83__GN2_UISA` | Route GREEN LATE NIGHT SATURDAY | `02:00:00` | `SCHEDULED` | Assigned vehicle 1603 is broadcasting off-schedule with no vehicle covering [@124.0.92344750@][1484579800344]/83__GN2_UISA |
-| `[@124.0.92344750@][1484579800344]/65__GN2_UISA` | Route GREEN LATE NIGHT SATURDAY | `01:20:00` | `SCHEDULED` | Assigned vehicle 1603 is broadcasting off-schedule with no vehicle covering [@124.0.92344750@][1484579800344]/65__GN2_UISA |
-| `[@124.0.92344750@][1484579800344]/76__GN3_UISA` | Route GREEN LATE NIGHT SATURDAY | `01:40:00` | `SCHEDULED` | Assigned vehicle 1720 is broadcasting off-schedule with no vehicle covering [@124.0.92344750@][1484579800344]/76__GN3_UISA |
-| `[@124.0.92344750@][1484579800344]/2__GN2_UISA` | Route GREEN LATE NIGHT SATURDAY | `01:43:00` | `SCHEDULED` | Assigned vehicle 1603 is broadcasting off-schedule with no vehicle covering [@124.0.92344750@][1484579800344]/2__GN2_UISA |
-| `[@124.0.92344750@][1484579800344]/57__GN3_UISA` | Route GREEN LATE NIGHT SATURDAY | `02:15:00` | `SCHEDULED` | Assigned vehicle 1720 is broadcasting off-schedule with no vehicle covering [@124.0.92344750@][1484579800344]/57__GN3_UISA |
+| `[@124.0.92263401@][1484328944432]/234__I5_UISU` | Route ILLINI EVENING SUNDAY | `02:00:00` | `SCHEDULED` | Assigned vehicle 2103 is broadcasting off-schedule with no vehicle covering [@124.0.92263401@][1484328944432]/234__I5_UISU |
+| `[@124.0.92286725@][1484347296458]/164__SV1_UISU_LATE` | Route SILVER EVENING SUNDAY | `02:05:00` | `SCHEDULED` | Assigned vehicle 1605 is broadcasting off-schedule with no vehicle covering [@124.0.92286725@][1484347296458]/164__SV1_UISU_LATE |
+| `[@124.0.92330667@][1484578259855]/27__Y5_UISU_LATE` | Route YELLOW LATE NIGHT SUNDAY | `02:05:00` | `SCHEDULED` | Assigned vehicle 1714 is broadcasting off-schedule with no vehicle covering [@124.0.92330667@][1484578259855]/27__Y5_UISU_LATE |
+| `[@124.0.92286725@][1484347296458]/107__SV1_UISU_LATE` | Route SILVER EVENING SUNDAY | `02:26:00` | `SCHEDULED` | Assigned vehicle 1605 is broadcasting off-schedule with no vehicle covering [@124.0.92286725@][1484347296458]/107__SV1_UISU_LATE |
+| `[@124.0.92330667@][1484578259855]/53__Y5_UISU_LATE` | Route YELLOW LATE NIGHT SUNDAY | `02:42:00` | `SCHEDULED` | Assigned vehicle 1714 is broadcasting off-schedule with no vehicle covering [@124.0.92330667@][1484578259855]/53__Y5_UISU_LATE |
+| `[@124.0.92263401@][1484328944432]/150__I5_UISU` | Route ILLINI EVENING SUNDAY | `02:35:00` | `SCHEDULED` | Assigned vehicle 2103 is broadcasting off-schedule with no vehicle covering [@124.0.92263401@][1484328944432]/150__I5_UISU |
+| `[@124.0.92286725@][1484347296458]/170__SV1_UISU_LATE` | Route SILVER EVENING SUNDAY | `02:45:00` | `SCHEDULED` | Assigned vehicle 1605 is broadcasting off-schedule with no vehicle covering [@124.0.92286725@][1484347296458]/170__SV1_UISU_LATE |
 
 ---
 
@@ -80,14 +80,14 @@
 
 | Timestamp | Ghost Rate (%) | On-Time (%) | Scheduled Runs | Tracked Fleet | Mean Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| `2026-10-25 06:15:46` | `15.22%` | `0.0%` | 46 | 15 | `+0.0s` |
-| `2026-10-25 06:00:57` | `23.91%` | `0.0%` | 46 | 15 | `+0.0s` |
-| `2026-10-25 05:30:20` | `22.92%` | `0.0%` | 48 | 15 | `+0.0s` |
-| `2026-10-25 05:00:20` | `21.74%` | `0.0%` | 46 | 16 | `+0.0s` |
-| `2026-10-25 04:33:53` | `7.02%` | `0.0%` | 57 | 22 | `+0.0s` |
-| `2026-10-25 03:30:18` | `16.42%` | `0.0%` | 67 | 29 | `+0.0s` |
-| `2026-10-25 03:00:19` | `13.04%` | `0.0%` | 69 | 30 | `+0.0s` |
-| `2026-10-25 02:30:18` | `12.68%` | `0.0%` | 71 | 29 | `+0.0s` |
+| `2026-10-26 07:00:19` | `21.21%` | `0.0%` | 33 | 14 | `+0.0s` |
+| `2026-10-26 06:30:38` | `9.52%` | `0.0%` | 42 | 14 | `+0.0s` |
+| `2026-10-26 05:30:20` | `4.55%` | `0.0%` | 44 | 14 | `+0.0s` |
+| `2026-10-26 05:00:23` | `21.43%` | `0.0%` | 42 | 14 | `+0.0s` |
+| `2026-10-26 04:30:31` | `13.64%` | `0.0%` | 44 | 14 | `+0.0s` |
+| `2026-10-26 04:00:19` | `13.64%` | `0.0%` | 44 | 15 | `+0.0s` |
+| `2026-10-26 03:30:35` | `13.95%` | `0.0%` | 43 | 14 | `+0.0s` |
+| `2026-10-26 01:00:26` | `40.48%` | `0.0%` | 42 | 14 | `+0.0s` |
 
 ---
 
@@ -99,4 +99,4 @@
 - **Excess Wait Time (EWT)**: Transit standard metric measuring variance in vehicle headway caused by vehicle bunching.
 - **Git-Scraping**: Every run fetches upstream GTFS-RT binary protobuf feeds, computes reliability metrics, commits versioned JSON snapshots, and renders this dashboard automatically.
 
-*Generated by Ghost Bus Tracker v0.1.0 at `2026-10-25T06:15:46.106000+00:00`.*
+*Generated by Ghost Bus Tracker v0.1.0 at `2026-10-26T07:00:19.916000+00:00`.*

@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-10-25T07:00:19.869000+00:00",
-  "feed_timestamp": 1792911618,
+  "scan_time": "2026-10-26T07:00:18.196000+00:00",
+  "feed_timestamp": 1792998017,
   "agency": "Massachusetts Bay Transportation Authority",
   "city": "Boston, MA",
   "transit_system": "MBTA",
@@ -8,18 +8,18 @@
   "state": "Massachusetts",
   "country": "USA",
   "source": "live",
-  "total_scheduled_trips": 83,
-  "total_tracked_vehicles": 7,
-  "total_ghost_trips": 77,
-  "ghost_bus_rate_pct": 92.77,
-  "vehicle_tracking_rate_pct": 7.23,
+  "total_scheduled_trips": 97,
+  "total_tracked_vehicles": 29,
+  "total_ghost_trips": 82,
+  "ghost_bus_rate_pct": 84.54,
+  "vehicle_tracking_rate_pct": 15.46,
   "overall_on_time_pct": 0.0,
   "delay_distribution": {
     "early": 0,
     "on_time": 0,
     "minor_delay": 0,
     "severe_delay": 0,
-    "ghost": 77,
+    "ghost": 82,
     "canceled": 0
   },
   "mean_delay_sec": 0.0,
@@ -28,9 +28,9 @@
     {
       "route_id": "220",
       "route_name": "Route 220",
-      "total_trips": 74,
+      "total_trips": 79,
       "tracked_vehicles": 0,
-      "ghost_trips": 74,
+      "ghost_trips": 79,
       "canceled_trips": 0,
       "on_time_trips": 0,
       "delayed_trips": 0,
@@ -56,6 +56,48 @@
     {
       "route_id": "Green-E",
       "route_name": "Route Green-E",
+      "total_trips": 6,
+      "tracked_vehicles": 3,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
+      "route_id": "Red",
+      "route_name": "Route Red",
+      "total_trips": 2,
+      "tracked_vehicles": 3,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
+      "route_id": "Green-D",
+      "route_name": "Route Green-D",
+      "total_trips": 2,
+      "tracked_vehicles": 2,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
+      "route_id": "Mattapan",
+      "route_name": "Route Mattapan",
       "total_trips": 2,
       "tracked_vehicles": 1,
       "ghost_trips": 0,
@@ -87,9 +129,23 @@
     {
       "route_id": "220",
       "route_name": "Route 220",
-      "total_trips": 74,
+      "total_trips": 79,
       "tracked_vehicles": 0,
-      "ghost_trips": 74,
+      "ghost_trips": 79,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 100.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
+      "route_id": "171",
+      "route_name": "Route 171",
+      "total_trips": 1,
+      "tracked_vehicles": 0,
+      "ghost_trips": 1,
       "canceled_trips": 0,
       "on_time_trips": 0,
       "delayed_trips": 0,
@@ -101,8 +157,22 @@
     {
       "route_id": "Green-E",
       "route_name": "Route Green-E",
+      "total_trips": 6,
+      "tracked_vehicles": 3,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
+      "route_id": "Red",
+      "route_name": "Route Red",
       "total_trips": 2,
-      "tracked_vehicles": 1,
+      "tracked_vehicles": 3,
       "ghost_trips": 0,
       "canceled_trips": 0,
       "on_time_trips": 0,
@@ -115,6 +185,34 @@
     {
       "route_id": "Green-D",
       "route_name": "Route Green-D",
+      "total_trips": 2,
+      "tracked_vehicles": 2,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
+      "route_id": "Mattapan",
+      "route_name": "Route Mattapan",
+      "total_trips": 2,
+      "tracked_vehicles": 1,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
+      "route_id": "111",
+      "route_name": "Route 111",
       "total_trips": 1,
       "tracked_vehicles": 1,
       "ghost_trips": 0,
@@ -141,20 +239,6 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "Green-B",
-      "route_name": "Route Green-B",
-      "total_trips": 1,
-      "tracked_vehicles": 4,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
       "route_id": "15",
       "route_name": "Route 15",
       "total_trips": 2,
@@ -167,140 +251,126 @@
       "on_time_pct": 0.0,
       "avg_delay_sec": 0.0,
       "max_delay_sec": 0
-    },
-    {
-      "route_id": "171",
-      "route_name": "Route 171",
-      "total_trips": 1,
-      "tracked_vehicles": 0,
-      "ghost_trips": 1,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 100.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
     }
   ],
   "sample_ghost_trips": [
     {
-      "trip_id": "78851624",
+      "trip_id": "78854536",
+      "route_id": "220",
+      "start_time": "07:42:00",
+      "start_date": "20261026",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    },
+    {
+      "trip_id": "78854470",
+      "route_id": "220",
+      "start_time": "18:22:00",
+      "start_date": "20261026",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    },
+    {
+      "trip_id": "78854606",
+      "route_id": "220",
+      "start_time": "25:07:00",
+      "start_date": "20261026",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    },
+    {
+      "trip_id": "78854460",
+      "route_id": "220",
+      "start_time": "13:20:00",
+      "start_date": "20261026",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    },
+    {
+      "trip_id": "78854468",
+      "route_id": "220",
+      "start_time": "17:22:00",
+      "start_date": "20261026",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    },
+    {
+      "trip_id": "78854550",
+      "route_id": "220",
+      "start_time": "11:15:00",
+      "start_date": "20261026",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    },
+    {
+      "trip_id": "78854570",
+      "route_id": "220",
+      "start_time": "16:15:00",
+      "start_date": "20261026",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    },
+    {
+      "trip_id": "78854590",
       "route_id": "220",
       "start_time": "21:15:00",
-      "start_date": "20261025",
+      "start_date": "20261026",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
     {
-      "trip_id": "78851525",
-      "route_id": "220",
-      "start_time": "23:49:00",
-      "start_date": "20261025",
+      "trip_id": "78181027",
+      "route_id": "171",
+      "start_time": "03:50:00",
+      "start_date": "20261026",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
     {
-      "trip_id": "78851505",
+      "trip_id": "78854464",
       "route_id": "220",
-      "start_time": "13:51:00",
-      "start_date": "20261025",
+      "start_time": "15:18:00",
+      "start_date": "20261026",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
     {
-      "trip_id": "78851510",
+      "trip_id": "78854576",
       "route_id": "220",
-      "start_time": "16:21:00",
-      "start_date": "20261025",
+      "start_time": "17:41:00",
+      "start_date": "20261026",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
     {
-      "trip_id": "78851526",
+      "trip_id": "78854596",
       "route_id": "220",
-      "start_time": "24:19:00",
-      "start_date": "20261025",
+      "start_time": "22:45:00",
+      "start_date": "20261026",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
     {
-      "trip_id": "78851598",
+      "trip_id": "78854542",
       "route_id": "220",
-      "start_time": "14:45:00",
-      "start_date": "20261025",
+      "start_time": "09:15:00",
+      "start_date": "20261026",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
     {
-      "trip_id": "78851568",
+      "trip_id": "78854530",
       "route_id": "220",
-      "start_time": "07:15:00",
-      "start_date": "20261025",
+      "start_time": "06:15:00",
+      "start_date": "20261026",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
     {
-      "trip_id": "78851509",
+      "trip_id": "78854450",
       "route_id": "220",
-      "start_time": "15:51:00",
-      "start_date": "20261025",
-      "status": "SCHEDULED",
-      "reason": "No vehicle assigned and no active GPS broadcast"
-    },
-    {
-      "trip_id": "78851498",
-      "route_id": "220",
-      "start_time": "10:21:00",
-      "start_date": "20261025",
-      "status": "SCHEDULED",
-      "reason": "No vehicle assigned and no active GPS broadcast"
-    },
-    {
-      "trip_id": "78851636",
-      "route_id": "220",
-      "start_time": "24:16:00",
-      "start_date": "20261025",
-      "status": "SCHEDULED",
-      "reason": "No vehicle assigned and no active GPS broadcast"
-    },
-    {
-      "trip_id": "78851616",
-      "route_id": "220",
-      "start_time": "19:15:00",
-      "start_date": "20261025",
-      "status": "SCHEDULED",
-      "reason": "No vehicle assigned and no active GPS broadcast"
-    },
-    {
-      "trip_id": "78851513",
-      "route_id": "220",
-      "start_time": "17:51:00",
-      "start_date": "20261025",
-      "status": "SCHEDULED",
-      "reason": "No vehicle assigned and no active GPS broadcast"
-    },
-    {
-      "trip_id": "78851519",
-      "route_id": "220",
-      "start_time": "20:46:00",
-      "start_date": "20261025",
-      "status": "SCHEDULED",
-      "reason": "No vehicle assigned and no active GPS broadcast"
-    },
-    {
-      "trip_id": "78851523",
-      "route_id": "220",
-      "start_time": "22:46:00",
-      "start_date": "20261025",
-      "status": "SCHEDULED",
-      "reason": "No vehicle assigned and no active GPS broadcast"
-    },
-    {
-      "trip_id": "78851582",
-      "route_id": "220",
-      "start_time": "10:45:00",
-      "start_date": "20261025",
+      "start_time": "08:21:00",
+      "start_date": "20261026",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     }
