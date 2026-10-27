@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-10-26T07:00:22.981000+00:00",
-  "feed_timestamp": 1792998020,
+  "scan_time": "2026-10-27T07:00:34.428000+00:00",
+  "feed_timestamp": 1793084423,
   "agency": "WeGo Public Transit",
   "city": "Nashville, TN",
   "transit_system": "WeGo",
@@ -8,11 +8,11 @@
   "state": "Tennessee",
   "country": "USA",
   "source": "live",
-  "total_scheduled_trips": 2,
-  "total_tracked_vehicles": 19,
+  "total_scheduled_trips": 0,
+  "total_tracked_vehicles": 29,
   "total_ghost_trips": 0,
   "ghost_bus_rate_pct": 0.0,
-  "vehicle_tracking_rate_pct": 100.0,
+  "vehicle_tracking_rate_pct": 0.0,
   "overall_on_time_pct": 0.0,
   "delay_distribution": {
     "early": 0,
@@ -26,36 +26,7 @@
   "median_delay_sec": 0.0,
   "worst_routes_by_ghost": [],
   "most_delayed_routes": [],
-  "route_metrics": [
-    {
-      "route_id": "23",
-      "route_name": "Route 23",
-      "total_trips": 1,
-      "tracked_vehicles": 1,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
-      "route_id": "52",
-      "route_name": "Route 52",
-      "total_trips": 1,
-      "tracked_vehicles": 1,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    }
-  ],
+  "route_metrics": [],
   "sample_ghost_trips": [],
   "headway_metrics": []
 }

@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-10-26T07:00:19.208000+00:00",
-  "feed_timestamp": 1792997975,
+  "scan_time": "2026-10-27T07:00:20.722000+00:00",
+  "feed_timestamp": 1793084402,
   "agency": "Pittsburgh Regional Transit",
   "city": "Pittsburgh, PA",
   "transit_system": "PRT",
@@ -8,11 +8,11 @@
   "state": "Pennsylvania",
   "country": "USA",
   "source": "live",
-  "total_scheduled_trips": 0,
-  "total_tracked_vehicles": 89,
+  "total_scheduled_trips": 1,
+  "total_tracked_vehicles": 101,
   "total_ghost_trips": 0,
   "ghost_bus_rate_pct": 0.0,
-  "vehicle_tracking_rate_pct": 0.0,
+  "vehicle_tracking_rate_pct": 100.0,
   "overall_on_time_pct": 0.0,
   "delay_distribution": {
     "early": 0,
@@ -26,7 +26,22 @@
   "median_delay_sec": 0.0,
   "worst_routes_by_ghost": [],
   "most_delayed_routes": [],
-  "route_metrics": [],
+  "route_metrics": [
+    {
+      "route_id": "28X",
+      "route_name": "Route 28X",
+      "total_trips": 1,
+      "tracked_vehicles": 1,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    }
+  ],
   "sample_ghost_trips": [],
   "headway_metrics": []
 }

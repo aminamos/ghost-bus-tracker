@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-10-26T07:00:19.983000+00:00",
-  "feed_timestamp": 1792998006,
+  "scan_time": "2026-10-27T07:00:20.837000+00:00",
+  "feed_timestamp": 1793084406,
   "agency": "Capital District Transportation Authority",
   "city": "Albany, NY",
   "transit_system": "CDTA",
@@ -9,7 +9,7 @@
   "country": "USA",
   "source": "live",
   "total_scheduled_trips": 0,
-  "total_tracked_vehicles": 0,
+  "total_tracked_vehicles": 2,
   "total_ghost_trips": 0,
   "ghost_bus_rate_pct": 0.0,
   "vehicle_tracking_rate_pct": 0.0,
