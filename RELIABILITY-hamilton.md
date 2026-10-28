@@ -1,7 +1,7 @@
 # 🚌 Automated Public Transit Reliability & Ghost Bus Tracker
 
 > Real-time monitoring and git-scraping reliability index for **Hamilton Street Railway** in **Hamilton, ON** (City of Hamilton, Ontario).
-> **Transit System:** HSR | **Location:** Hamilton, ON | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-10-27T07:00:34.472000+00:00` | **Source:** live GTFS-RT feed
+> **Transit System:** HSR | **Location:** Hamilton, ON | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-10-28T07:00:18.690000+00:00` | **Source:** live GTFS-RT feed
 
 ---
 
@@ -64,21 +64,21 @@
 
 | Trip ID | Route | Scheduled Departure | Status | Diagnosis / Reason |
 | :--- | :---: | :---: | :--- | :--- |
-| `2200268` | Route 5795 | `15:00:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `2200275` | Route 5795 | `16:45:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `2200271` | Route 5795 | `15:45:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `2200278` | Route 5795 | `17:30:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `2200261` | Route 5795 | `12:45:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `2200266` | Route 5795 | `14:25:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `2200273` | Route 5795 | `16:15:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `2200280` | Route 5795 | `18:00:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `2200246` | Route 5795 | `08:10:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `2200294` | Route 5795 | `25:20:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `2200242` | Route 5795 | `07:10:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `2200249` | Route 5795 | `08:55:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `2200244` | Route 5795 | `07:40:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `2200251` | Route 5795 | `09:25:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `2200256` | Route 5795 | `11:05:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `2190384` | Route 5783 | `14:08:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `2190412` | Route 5783 | `17:34:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `2190432` | Route 5783 | `20:32:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `2190447` | Route 5783 | `23:28:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `2190334` | Route 5783 | `06:48:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `2190361` | Route 5783 | `10:19:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `2190382` | Route 5783 | `13:45:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `2190410` | Route 5783 | `17:14:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `2190433` | Route 5783 | `20:39:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `2190448` | Route 5783 | `23:42:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `2190322` | Route 5783 | `05:17:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `2190344` | Route 5783 | `08:10:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `2190365` | Route 5783 | `11:06:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `2190420` | Route 5783 | `18:44:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `2190328` | Route 5783 | `06:13:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
 
 ---
 
@@ -86,14 +86,14 @@
 
 | Timestamp | Ghost Rate (%) | On-Time (%) | Scheduled Runs | Tracked Fleet | Mean Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| `2026-10-27 07:00:34` | `100.0%` | `0.0%` | 244 | 2 | `+0.0s` |
-| `2026-10-27 06:30:34` | `98.79%` | `0.0%` | 247 | 3 | `+0.0s` |
-| `2026-10-27 05:30:34` | `83.28%` | `100.0%` | 293 | 48 | `+8.0s` |
-| `2026-10-27 05:00:22` | `73.99%` | `100.0%` | 323 | 78 | `+17.8s` |
-| `2026-10-27 04:30:20` | `70.67%` | `95.24%` | 341 | 89 | `+61.6s` |
-| `2026-10-27 04:00:57` | `11.54%` | `100.0%` | 104 | 91 | `+60.3s` |
-| `2026-10-27 03:30:23` | `14.81%` | `100.0%` | 108 | 91 | `+135.7s` |
-| `2026-10-27 03:00:36` | `15.65%` | `100.0%` | 115 | 94 | `+63.5s` |
+| `2026-10-28 07:00:18` | `100.0%` | `0.0%` | 244 | 2 | `+0.0s` |
+| `2026-10-28 06:30:21` | `99.19%` | `0.0%` | 246 | 2 | `+0.0s` |
+| `2026-10-28 06:00:21` | `96.05%` | `100.0%` | 253 | 12 | `+42.0s` |
+| `2026-10-28 05:30:27` | `82.19%` | `100.0%` | 292 | 49 | `+13.2s` |
+| `2026-10-28 05:00:26` | `74.45%` | `92.86%` | 321 | 77 | `+21.4s` |
+| `2026-10-28 03:30:18` | `13.79%` | `100.0%` | 116 | 95 | `+63.1s` |
+| `2026-10-28 03:00:21` | `19.17%` | `100.0%` | 120 | 93 | `+52.0s` |
+| `2026-10-28 02:30:18` | `23.66%` | `86.67%` | 131 | 98 | `+96.8s` |
 
 ---
 
@@ -105,4 +105,4 @@
 - **Excess Wait Time (EWT)**: Transit standard metric measuring variance in vehicle headway caused by vehicle bunching.
 - **Git-Scraping**: Every run fetches upstream GTFS-RT binary protobuf feeds, computes reliability metrics, commits versioned JSON snapshots, and renders this dashboard automatically.
 
-*Generated by Ghost Bus Tracker v0.1.0 at `2026-10-27T07:00:34.472000+00:00`.*
+*Generated by Ghost Bus Tracker v0.1.0 at `2026-10-28T07:00:18.690000+00:00`.*

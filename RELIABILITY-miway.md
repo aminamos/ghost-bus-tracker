@@ -1,7 +1,7 @@
 # 🚌 Automated Public Transit Reliability & Ghost Bus Tracker
 
 > Real-time monitoring and git-scraping reliability index for **MiWay** in **Mississauga, ON** (City of Mississauga, Ontario).
-> **Transit System:** MiWay | **Location:** Mississauga, ON | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-10-27T07:00:34.514000+00:00` | **Source:** live GTFS-RT feed
+> **Transit System:** MiWay | **Location:** Mississauga, ON | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-10-28T07:00:19.161000+00:00` | **Source:** live GTFS-RT feed
 
 ---
 
@@ -40,11 +40,11 @@
 | **Route 17** | 72 | 2 | 70 | **`97.22%`** | `0.0%` | `+0.0s` |
 | **Route 7** | 55 | 3 | 52 | **`94.55%`** | `0.0%` | `+0.0s` |
 | **Route 2** | 2 | 2 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
-| **Route 26** | 2 | 2 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
-| **Route 11** | 2 | 2 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
-| **Route 1** | 3 | 3 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
-| **Route 3** | 3 | 3 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
 | **Route 35** | 2 | 2 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| **Route 26** | 2 | 2 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| **Route 1** | 4 | 4 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| **Route 3** | 3 | 3 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| **Route 11** | 2 | 2 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
 
 ---
 
@@ -70,21 +70,21 @@
 
 | Trip ID | Route | Scheduled Departure | Status | Diagnosis / Reason |
 | :--- | :---: | :---: | :--- | :--- |
-| `30740086` | Route 7 | `25:25:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `30740082` | Route 7 | `22:58:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `30740077` | Route 7 | `20:29:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `30740085` | Route 7 | `24:45:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `30740081` | Route 7 | `22:23:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `30740076` | Route 7 | `19:45:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `30740084` | Route 7 | `24:10:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `30740080` | Route 7 | `21:48:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `30740075` | Route 7 | `19:23:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `30740078` | Route 7 | `20:51:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
 | `30740072` | Route 7 | `18:10:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `30740066` | Route 7 | `15:10:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `30740082` | Route 7 | `22:58:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `30740086` | Route 7 | `25:25:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `30740076` | Route 7 | `19:45:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `30740081` | Route 7 | `22:23:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `30740085` | Route 7 | `24:45:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `30740077` | Route 7 | `20:29:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `30740052` | Route 7 | `05:36:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `30740075` | Route 7 | `19:23:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `30740080` | Route 7 | `21:48:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `30740084` | Route 7 | `24:10:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
 | `30740061` | Route 7 | `12:25:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `30740069` | Route 7 | `16:28:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `30740063` | Route 7 | `13:30:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `30740066` | Route 7 | `15:10:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `30740083` | Route 7 | `23:34:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `30740210` | Route 7 | `09:58:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
 
 ---
 
@@ -92,14 +92,14 @@
 
 | Timestamp | Ghost Rate (%) | On-Time (%) | Scheduled Runs | Tracked Fleet | Mean Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| `2026-10-27 07:00:34` | `88.61%` | `0.0%` | 202 | 23 | `+0.0s` |
-| `2026-10-27 06:30:34` | `83.8%` | `0.0%` | 216 | 34 | `+0.0s` |
-| `2026-10-27 05:30:34` | `68.94%` | `83.33%` | 264 | 79 | `-10.3s` |
-| `2026-10-27 05:00:23` | `65.47%` | `81.82%` | 278 | 90 | `+2.9s` |
-| `2026-10-27 04:30:20` | `5.71%` | `33.33%` | 105 | 98 | `-12.3s` |
-| `2026-10-27 04:00:57` | `6.35%` | `71.43%` | 126 | 116 | `-67.6s` |
-| `2026-10-27 03:30:23` | `8.51%` | `25.0%` | 141 | 129 | `+6.2s` |
-| `2026-10-27 03:00:37` | `9.21%` | `75.0%` | 152 | 139 | `+31.8s` |
+| `2026-10-28 07:00:19` | `88.61%` | `0.0%` | 202 | 23 | `+0.0s` |
+| `2026-10-28 06:30:21` | `83.8%` | `0.0%` | 216 | 34 | `+0.0s` |
+| `2026-10-28 06:00:21` | `75.95%` | `75.0%` | 237 | 53 | `+26.5s` |
+| `2026-10-28 05:30:27` | `68.56%` | `83.33%` | 264 | 79 | `+8.3s` |
+| `2026-10-28 05:00:30` | `64.52%` | `85.71%` | 279 | 91 | `+22.4s` |
+| `2026-10-28 04:30:32` | `4.76%` | `71.43%` | 105 | 98 | `+5.9s` |
+| `2026-10-28 04:00:32` | `6.35%` | `71.43%` | 126 | 116 | `+40.9s` |
+| `2026-10-28 03:30:18` | `7.97%` | `60.0%` | 138 | 126 | `-22.0s` |
 
 ---
 
@@ -111,4 +111,4 @@
 - **Excess Wait Time (EWT)**: Transit standard metric measuring variance in vehicle headway caused by vehicle bunching.
 - **Git-Scraping**: Every run fetches upstream GTFS-RT binary protobuf feeds, computes reliability metrics, commits versioned JSON snapshots, and renders this dashboard automatically.
 
-*Generated by Ghost Bus Tracker v0.1.0 at `2026-10-27T07:00:34.514000+00:00`.*
+*Generated by Ghost Bus Tracker v0.1.0 at `2026-10-28T07:00:19.161000+00:00`.*

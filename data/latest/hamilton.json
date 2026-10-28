@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-10-27T07:00:34.472000+00:00",
-  "feed_timestamp": 1793084376,
+  "scan_time": "2026-10-28T07:00:18.690000+00:00",
+  "feed_timestamp": 1793170785,
   "agency": "Hamilton Street Railway",
   "city": "Hamilton, ON",
   "transit_system": "HSR",
@@ -71,20 +71,6 @@
   "most_delayed_routes": [],
   "route_metrics": [
     {
-      "route_id": "5795",
-      "route_name": "Route 5795",
-      "total_trips": 60,
-      "tracked_vehicles": 0,
-      "ghost_trips": 60,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 100.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
       "route_id": "5783",
       "route_name": "Route 5783",
       "total_trips": 76,
@@ -111,126 +97,140 @@
       "on_time_pct": 0.0,
       "avg_delay_sec": 0.0,
       "max_delay_sec": 0
+    },
+    {
+      "route_id": "5795",
+      "route_name": "Route 5795",
+      "total_trips": 60,
+      "tracked_vehicles": 0,
+      "ghost_trips": 60,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 100.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
     }
   ],
   "sample_ghost_trips": [
     {
-      "trip_id": "2200268",
-      "route_id": "5795",
-      "start_time": "15:00:00",
-      "start_date": "20261027",
+      "trip_id": "2190384",
+      "route_id": "5783",
+      "start_time": "14:08:00",
+      "start_date": "20261028",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
     {
-      "trip_id": "2200275",
-      "route_id": "5795",
-      "start_time": "16:45:00",
-      "start_date": "20261027",
+      "trip_id": "2190412",
+      "route_id": "5783",
+      "start_time": "17:34:00",
+      "start_date": "20261028",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
     {
-      "trip_id": "2200271",
-      "route_id": "5795",
-      "start_time": "15:45:00",
-      "start_date": "20261027",
+      "trip_id": "2190432",
+      "route_id": "5783",
+      "start_time": "20:32:00",
+      "start_date": "20261028",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
     {
-      "trip_id": "2200278",
-      "route_id": "5795",
-      "start_time": "17:30:00",
-      "start_date": "20261027",
+      "trip_id": "2190447",
+      "route_id": "5783",
+      "start_time": "23:28:00",
+      "start_date": "20261028",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
     {
-      "trip_id": "2200261",
-      "route_id": "5795",
-      "start_time": "12:45:00",
-      "start_date": "20261027",
+      "trip_id": "2190334",
+      "route_id": "5783",
+      "start_time": "06:48:00",
+      "start_date": "20261028",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
     {
-      "trip_id": "2200266",
-      "route_id": "5795",
-      "start_time": "14:25:00",
-      "start_date": "20261027",
+      "trip_id": "2190361",
+      "route_id": "5783",
+      "start_time": "10:19:00",
+      "start_date": "20261028",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
     {
-      "trip_id": "2200273",
-      "route_id": "5795",
-      "start_time": "16:15:00",
-      "start_date": "20261027",
+      "trip_id": "2190382",
+      "route_id": "5783",
+      "start_time": "13:45:00",
+      "start_date": "20261028",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
     {
-      "trip_id": "2200280",
-      "route_id": "5795",
-      "start_time": "18:00:00",
-      "start_date": "20261027",
+      "trip_id": "2190410",
+      "route_id": "5783",
+      "start_time": "17:14:00",
+      "start_date": "20261028",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
     {
-      "trip_id": "2200246",
-      "route_id": "5795",
+      "trip_id": "2190433",
+      "route_id": "5783",
+      "start_time": "20:39:00",
+      "start_date": "20261028",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    },
+    {
+      "trip_id": "2190448",
+      "route_id": "5783",
+      "start_time": "23:42:00",
+      "start_date": "20261028",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    },
+    {
+      "trip_id": "2190322",
+      "route_id": "5783",
+      "start_time": "05:17:00",
+      "start_date": "20261028",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    },
+    {
+      "trip_id": "2190344",
+      "route_id": "5783",
       "start_time": "08:10:00",
-      "start_date": "20261027",
+      "start_date": "20261028",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
     {
-      "trip_id": "2200294",
-      "route_id": "5795",
-      "start_time": "25:20:00",
-      "start_date": "20261027",
+      "trip_id": "2190365",
+      "route_id": "5783",
+      "start_time": "11:06:00",
+      "start_date": "20261028",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
     {
-      "trip_id": "2200242",
-      "route_id": "5795",
-      "start_time": "07:10:00",
-      "start_date": "20261027",
+      "trip_id": "2190420",
+      "route_id": "5783",
+      "start_time": "18:44:00",
+      "start_date": "20261028",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
     {
-      "trip_id": "2200249",
-      "route_id": "5795",
-      "start_time": "08:55:00",
-      "start_date": "20261027",
-      "status": "SCHEDULED",
-      "reason": "No vehicle assigned and no active GPS broadcast"
-    },
-    {
-      "trip_id": "2200244",
-      "route_id": "5795",
-      "start_time": "07:40:00",
-      "start_date": "20261027",
-      "status": "SCHEDULED",
-      "reason": "No vehicle assigned and no active GPS broadcast"
-    },
-    {
-      "trip_id": "2200251",
-      "route_id": "5795",
-      "start_time": "09:25:00",
-      "start_date": "20261027",
-      "status": "SCHEDULED",
-      "reason": "No vehicle assigned and no active GPS broadcast"
-    },
-    {
-      "trip_id": "2200256",
-      "route_id": "5795",
-      "start_time": "11:05:00",
-      "start_date": "20261027",
+      "trip_id": "2190328",
+      "route_id": "5783",
+      "start_time": "06:13:00",
+      "start_date": "20261028",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     }

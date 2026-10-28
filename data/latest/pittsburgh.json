@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-10-27T07:00:20.722000+00:00",
-  "feed_timestamp": 1793084402,
+  "scan_time": "2026-10-28T07:00:18.084000+00:00",
+  "feed_timestamp": 1793170809,
   "agency": "Pittsburgh Regional Transit",
   "city": "Pittsburgh, PA",
   "transit_system": "PRT",
@@ -9,7 +9,7 @@
   "country": "USA",
   "source": "live",
   "total_scheduled_trips": 1,
-  "total_tracked_vehicles": 101,
+  "total_tracked_vehicles": 105,
   "total_ghost_trips": 0,
   "ghost_bus_rate_pct": 0.0,
   "vehicle_tracking_rate_pct": 100.0,

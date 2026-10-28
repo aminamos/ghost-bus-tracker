@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-10-27T07:00:24.914000+00:00",
-  "feed_timestamp": 1793084407,
+  "scan_time": "2026-10-28T07:00:18.464000+00:00",
+  "feed_timestamp": 1793170803,
   "agency": "Transit Authority of River City",
   "city": "Louisville, KY",
   "transit_system": "TARC",
@@ -356,7 +356,7 @@
       "trip_id": "t142-b16B49-slF-vC",
       "route_id": "93",
       "start_time": "N/A",
-      "start_date": "20261027",
+      "start_date": "20261028",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -364,7 +364,7 @@
       "trip_id": "t146-b16B49-slF-vC",
       "route_id": "93",
       "start_time": "N/A",
-      "start_date": "20261027",
+      "start_date": "20261028",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -372,7 +372,7 @@
       "trip_id": "t166-b3E9-slF-vC",
       "route_id": "1",
       "start_time": "N/A",
-      "start_date": "20261027",
+      "start_date": "20261028",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -380,7 +380,7 @@
       "trip_id": "t1A1-b16B49-slF-vC",
       "route_id": "93",
       "start_time": "N/A",
-      "start_date": "20261027",
+      "start_date": "20261028",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -388,7 +388,7 @@
       "trip_id": "t1AC-b3EA-slF-vC",
       "route_id": "1",
       "start_time": "N/A",
-      "start_date": "20261027",
+      "start_date": "20261028",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -396,7 +396,7 @@
       "trip_id": "t1AD-b182B9-slF-vC",
       "route_id": "99",
       "start_time": "N/A",
-      "start_date": "20261027",
+      "start_date": "20261028",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -404,7 +404,7 @@
       "trip_id": "t1B0-b3F7-slF-vC",
       "route_id": "1",
       "start_time": "N/A",
-      "start_date": "20261027",
+      "start_date": "20261028",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -412,7 +412,7 @@
       "trip_id": "t1B1-b182B9-slF-vC",
       "route_id": "99",
       "start_time": "N/A",
-      "start_date": "20261027",
+      "start_date": "20261028",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -420,7 +420,7 @@
       "trip_id": "t1B1-bBB9-slF-vC",
       "route_id": "3",
       "start_time": "N/A",
-      "start_date": "20261027",
+      "start_date": "20261028",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -428,7 +428,7 @@
       "trip_id": "t1B3-bBBA-slF-vC",
       "route_id": "3",
       "start_time": "N/A",
-      "start_date": "20261027",
+      "start_date": "20261028",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -436,7 +436,7 @@
       "trip_id": "t1B5-b1389-slF-vC",
       "route_id": "5",
       "start_time": "N/A",
-      "start_date": "20261027",
+      "start_date": "20261028",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -444,7 +444,7 @@
       "trip_id": "t1B5-b1F41-slF-vC",
       "route_id": "8",
       "start_time": "N/A",
-      "start_date": "20261027",
+      "start_date": "20261028",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -452,7 +452,7 @@
       "trip_id": "t1B5-b3F8-slF-vC",
       "route_id": "1",
       "start_time": "N/A",
-      "start_date": "20261027",
+      "start_date": "20261028",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -460,7 +460,7 @@
       "trip_id": "t1B9-b16B49-slF-vC",
       "route_id": "93",
       "start_time": "N/A",
-      "start_date": "20261027",
+      "start_date": "20261028",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -468,7 +468,7 @@
       "trip_id": "t1B9-b2711-slF-vC",
       "route_id": "10",
       "start_time": "N/A",
-      "start_date": "20261027",
+      "start_date": "20261028",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     }
