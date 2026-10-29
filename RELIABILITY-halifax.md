@@ -1,7 +1,7 @@
 # 🚌 Automated Public Transit Reliability & Ghost Bus Tracker
 
 > Real-time monitoring and git-scraping reliability index for **Halifax Transit** in **Halifax, NS** (Halifax Regional Municipality, Nova Scotia).
-> **Transit System:** Halifax Transit | **Location:** Halifax, NS | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-10-28T07:00:18.694000+00:00` | **Source:** live GTFS-RT feed
+> **Transit System:** Halifax Transit | **Location:** Halifax, NS | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-10-29T07:00:21.585000+00:00` | **Source:** live GTFS-RT feed
 
 ---
 
@@ -71,21 +71,21 @@
 
 | Trip ID | Route | Scheduled Departure | Status | Diagnosis / Reason |
 | :--- | :---: | :---: | :--- | :--- |
-| `4650507` | Route 182 | `07:34:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `4651875` | Route 24 | `09:00:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `4651911` | Route 24 | `09:45:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `4651878` | Route 24 | `10:30:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `4651914` | Route 24 | `11:15:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `4651881` | Route 24 | `12:00:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `4651917` | Route 24 | `12:46:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `4651884` | Route 24 | `13:30:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `4651920` | Route 24 | `14:16:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `4660576` | Route 87 | `10:10:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `4651342` | Route 21 | `15:00:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `4651314` | Route 21 | `15:36:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `4658286` | Route 72 | `08:32:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `4661717` | Route 9B | `11:00:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `4659516` | Route 8 | `08:28:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `4651349` | Route 21 | `18:34:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `4651321` | Route 21 | `19:05:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `4659512` | Route 8 | `06:27:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `4660573` | Route 87 | `08:40:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `4660580` | Route 87 | `12:10:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `4659533` | Route 8 | `14:28:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `4655377` | Route 51B | `14:59:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `4659745` | Route 82 | `19:45:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `4659532` | Route 8 | `14:08:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `4659739` | Route 82 | `16:10:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `4653773` | Route 320 | `14:20:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `4653800` | Route 320 | `15:15:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `4653776` | Route 320 | `16:15:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `4653803` | Route 320 | `17:15:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `4653764` | Route 320 | `06:50:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
 
 ---
 
@@ -93,14 +93,14 @@
 
 | Timestamp | Ghost Rate (%) | On-Time (%) | Scheduled Runs | Tracked Fleet | Mean Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| `2026-10-28 07:00:18` | `100.0%` | `0.0%` | 682 | 0 | `+0.0s` |
-| `2026-10-28 06:30:21` | `100.0%` | `0.0%` | 682 | 0 | `+0.0s` |
-| `2026-10-28 06:00:21` | `100.0%` | `0.0%` | 682 | 0 | `+0.0s` |
-| `2026-10-28 05:30:26` | `100.0%` | `0.0%` | 682 | 0 | `+0.0s` |
-| `2026-10-28 05:00:25` | `0.0%` | `100.0%` | 2 | 1 | `+98.0s` |
-| `2026-10-28 04:30:28` | `20.0%` | `100.0%` | 5 | 3 | `-4.5s` |
-| `2026-10-28 04:00:29` | `12.9%` | `63.64%` | 31 | 24 | `-51.4s` |
-| `2026-10-28 03:30:18` | `10.77%` | `66.67%` | 65 | 43 | `-28.6s` |
+| `2026-10-29 07:00:21` | `100.0%` | `0.0%` | 682 | 0 | `+0.0s` |
+| `2026-10-29 06:30:23` | `100.0%` | `0.0%` | 682 | 0 | `+0.0s` |
+| `2026-10-29 06:00:23` | `100.0%` | `0.0%` | 682 | 0 | `+0.0s` |
+| `2026-10-29 05:30:18` | `100.0%` | `0.0%` | 682 | 0 | `+0.0s` |
+| `2026-10-29 05:00:19` | `50.0%` | `0.0%` | 2 | 1 | `-171.0s` |
+| `2026-10-29 04:30:20` | `16.67%` | `60.0%` | 6 | 4 | `-51.6s` |
+| `2026-10-29 04:00:20` | `12.5%` | `59.09%` | 32 | 22 | `-40.0s` |
+| `2026-10-29 03:30:18` | `12.86%` | `75.86%` | 70 | 45 | `-5.7s` |
 
 ---
 
@@ -112,4 +112,4 @@
 - **Excess Wait Time (EWT)**: Transit standard metric measuring variance in vehicle headway caused by vehicle bunching.
 - **Git-Scraping**: Every run fetches upstream GTFS-RT binary protobuf feeds, computes reliability metrics, commits versioned JSON snapshots, and renders this dashboard automatically.
 
-*Generated by Ghost Bus Tracker v0.1.0 at `2026-10-28T07:00:18.694000+00:00`.*
+*Generated by Ghost Bus Tracker v0.1.0 at `2026-10-29T07:00:21.585000+00:00`.*

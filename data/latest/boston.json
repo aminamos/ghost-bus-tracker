@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-10-28T07:00:18.066000+00:00",
-  "feed_timestamp": 1793170816,
+  "scan_time": "2026-10-29T07:00:18.140000+00:00",
+  "feed_timestamp": 1793257216,
   "agency": "Massachusetts Bay Transportation Authority",
   "city": "Boston, MA",
   "transit_system": "MBTA",
@@ -8,11 +8,11 @@
   "state": "Massachusetts",
   "country": "USA",
   "source": "live",
-  "total_scheduled_trips": 264,
-  "total_tracked_vehicles": 10,
+  "total_scheduled_trips": 265,
+  "total_tracked_vehicles": 11,
   "total_ghost_trips": 258,
-  "ghost_bus_rate_pct": 97.73,
-  "vehicle_tracking_rate_pct": 2.27,
+  "ghost_bus_rate_pct": 97.36,
+  "vehicle_tracking_rate_pct": 2.64,
   "overall_on_time_pct": 0.0,
   "delay_distribution": {
     "early": 0,
@@ -267,6 +267,20 @@
       "max_delay_sec": 0
     },
     {
+      "route_id": "Green-B",
+      "route_name": "Route Green-B",
+      "total_trips": 1,
+      "tracked_vehicles": 1,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
       "route_id": "28",
       "route_name": "Route 28",
       "total_trips": 2,
@@ -300,7 +314,7 @@
       "trip_id": "78267299",
       "route_id": "96",
       "start_time": "11:44:00",
-      "start_date": "20261028",
+      "start_date": "20261029",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -308,7 +322,7 @@
       "trip_id": "78260688",
       "route_id": "101",
       "start_time": "10:12:00",
-      "start_date": "20261028",
+      "start_date": "20261029",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -316,7 +330,7 @@
       "trip_id": "78267077",
       "route_id": "101",
       "start_time": "06:20:00",
-      "start_date": "20261028",
+      "start_date": "20261029",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -324,7 +338,7 @@
       "trip_id": "78854536",
       "route_id": "220",
       "start_time": "07:42:00",
-      "start_date": "20261028",
+      "start_date": "20261029",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -332,7 +346,7 @@
       "trip_id": "78854470",
       "route_id": "220",
       "start_time": "18:22:00",
-      "start_date": "20261028",
+      "start_date": "20261029",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -340,7 +354,7 @@
       "trip_id": "78260696",
       "route_id": "101",
       "start_time": "11:11:00",
-      "start_date": "20261028",
+      "start_date": "20261029",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -348,7 +362,7 @@
       "trip_id": "78267323",
       "route_id": "96",
       "start_time": "05:02:00",
-      "start_date": "20261028",
+      "start_date": "20261029",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -356,7 +370,7 @@
       "trip_id": "78854606",
       "route_id": "220",
       "start_time": "25:07:00",
-      "start_date": "20261028",
+      "start_date": "20261029",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -364,7 +378,7 @@
       "trip_id": "78260639",
       "route_id": "101",
       "start_time": "05:44:00",
-      "start_date": "20261028",
+      "start_date": "20261029",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -372,7 +386,7 @@
       "trip_id": "78260664",
       "route_id": "101",
       "start_time": "07:56:00",
-      "start_date": "20261028",
+      "start_date": "20261029",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -380,7 +394,7 @@
       "trip_id": "78260947",
       "route_id": "94",
       "start_time": "18:02:00",
-      "start_date": "20261028",
+      "start_date": "20261029",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -388,7 +402,7 @@
       "trip_id": "78854460",
       "route_id": "220",
       "start_time": "13:20:00",
-      "start_date": "20261028",
+      "start_date": "20261029",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -396,7 +410,7 @@
       "trip_id": "78854468",
       "route_id": "220",
       "start_time": "17:22:00",
-      "start_date": "20261028",
+      "start_date": "20261029",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -404,7 +418,7 @@
       "trip_id": "78260938",
       "route_id": "94",
       "start_time": "12:39:00",
-      "start_date": "20261028",
+      "start_date": "20261029",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -412,7 +426,7 @@
       "trip_id": "78259904",
       "route_id": "95",
       "start_time": "09:59:00",
-      "start_date": "20261028",
+      "start_date": "20261029",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     }

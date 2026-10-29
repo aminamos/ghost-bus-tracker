@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-10-28T07:00:18.765000+00:00",
-  "feed_timestamp": 1793170818,
+  "scan_time": "2026-10-29T07:00:19.091000+00:00",
+  "feed_timestamp": 1793257217,
   "agency": "WeGo Public Transit",
   "city": "Nashville, TN",
   "transit_system": "WeGo",
@@ -9,7 +9,7 @@
   "country": "USA",
   "source": "live",
   "total_scheduled_trips": 1,
-  "total_tracked_vehicles": 30,
+  "total_tracked_vehicles": 34,
   "total_ghost_trips": 0,
   "ghost_bus_rate_pct": 0.0,
   "vehicle_tracking_rate_pct": 100.0,

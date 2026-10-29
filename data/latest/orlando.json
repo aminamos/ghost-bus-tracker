@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-10-28T07:00:18.084000+00:00",
-  "feed_timestamp": 1793170798,
+  "scan_time": "2026-10-29T07:00:18.369000+00:00",
+  "feed_timestamp": 1793257199,
   "agency": "Central Florida Regional Transportation Authority",
   "city": "Orlando, FL",
   "transit_system": "LYNX",
@@ -8,55 +8,72 @@
   "state": "Florida",
   "country": "USA",
   "source": "live",
-  "total_scheduled_trips": 1,
-  "total_tracked_vehicles": 1,
-  "total_ghost_trips": 0,
-  "ghost_bus_rate_pct": 0.0,
-  "vehicle_tracking_rate_pct": 100.0,
+  "total_scheduled_trips": 2,
+  "total_tracked_vehicles": 0,
+  "total_ghost_trips": 2,
+  "ghost_bus_rate_pct": 100.0,
+  "vehicle_tracking_rate_pct": 0.0,
   "overall_on_time_pct": 0.0,
   "delay_distribution": {
     "early": 0,
     "on_time": 0,
     "minor_delay": 0,
-    "severe_delay": 1,
-    "ghost": 0,
+    "severe_delay": 0,
+    "ghost": 2,
     "canceled": 0
   },
-  "mean_delay_sec": 1174.0,
-  "median_delay_sec": 1174.0,
-  "worst_routes_by_ghost": [],
-  "most_delayed_routes": [
+  "mean_delay_sec": 0.0,
+  "median_delay_sec": 0.0,
+  "worst_routes_by_ghost": [
     {
       "route_id": "17567",
       "route_name": "Route 17567",
-      "total_trips": 1,
-      "tracked_vehicles": 1,
-      "ghost_trips": 0,
+      "total_trips": 2,
+      "tracked_vehicles": 0,
+      "ghost_trips": 2,
       "canceled_trips": 0,
       "on_time_trips": 0,
-      "delayed_trips": 1,
-      "ghost_rate_pct": 0.0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 100.0,
       "on_time_pct": 0.0,
-      "avg_delay_sec": 1174.0,
-      "max_delay_sec": 1174
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
     }
   ],
+  "most_delayed_routes": [],
   "route_metrics": [
     {
       "route_id": "17567",
       "route_name": "Route 17567",
-      "total_trips": 1,
-      "tracked_vehicles": 1,
-      "ghost_trips": 0,
+      "total_trips": 2,
+      "tracked_vehicles": 0,
+      "ghost_trips": 2,
       "canceled_trips": 0,
       "on_time_trips": 0,
-      "delayed_trips": 1,
-      "ghost_rate_pct": 0.0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 100.0,
       "on_time_pct": 0.0,
-      "avg_delay_sec": 1174.0,
-      "max_delay_sec": 1174
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
     }
   ],
-  "sample_ghost_trips": [],
+  "sample_ghost_trips": [
+    {
+      "trip_id": "2199015",
+      "route_id": "17567",
+      "start_time": "N/A",
+      "start_date": "N/A",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    },
+    {
+      "trip_id": "2198918",
+      "route_id": "17567",
+      "start_time": "N/A",
+      "start_date": "N/A",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    }
+  ],
   "headway_metrics": []
 }

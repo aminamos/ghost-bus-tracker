@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-10-28T07:00:18.074000+00:00",
-  "feed_timestamp": 1793170807,
+  "scan_time": "2026-10-29T07:00:18.338000+00:00",
+  "feed_timestamp": 1793257209,
   "agency": "Metro Transit (Twin Cities)",
   "city": "Minneapolis–Saint Paul, MN",
   "transit_system": "Metro Transit",
@@ -8,22 +8,22 @@
   "state": "Minnesota",
   "country": "USA",
   "source": "live",
-  "total_scheduled_trips": 4,
-  "total_tracked_vehicles": 4,
+  "total_scheduled_trips": 6,
+  "total_tracked_vehicles": 6,
   "total_ghost_trips": 0,
   "ghost_bus_rate_pct": 0.0,
   "vehicle_tracking_rate_pct": 100.0,
   "overall_on_time_pct": 50.0,
   "delay_distribution": {
-    "early": 2,
-    "on_time": 2,
-    "minor_delay": 0,
+    "early": 0,
+    "on_time": 3,
+    "minor_delay": 3,
     "severe_delay": 0,
     "ghost": 0,
     "canceled": 0
   },
-  "mean_delay_sec": -8.2,
-  "median_delay_sec": -53.0,
+  "mean_delay_sec": 297.3,
+  "median_delay_sec": 236.0,
   "worst_routes_by_ghost": [
     {
       "route_id": "3",
@@ -32,12 +32,12 @@
       "tracked_vehicles": 2,
       "ghost_trips": 0,
       "canceled_trips": 0,
-      "on_time_trips": 0,
+      "on_time_trips": 2,
       "delayed_trips": 0,
       "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": -86.0,
-      "max_delay_sec": -71
+      "on_time_pct": 100.0,
+      "avg_delay_sec": 124.5,
+      "max_delay_sec": 156
     }
   ],
   "most_delayed_routes": [
@@ -48,12 +48,54 @@
       "tracked_vehicles": 1,
       "ghost_trips": 0,
       "canceled_trips": 0,
-      "on_time_trips": 1,
+      "on_time_trips": 0,
+      "delayed_trips": 1,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 824.0,
+      "max_delay_sec": 824
+    },
+    {
+      "route_id": "22",
+      "route_name": "Route 22",
+      "total_trips": 1,
+      "tracked_vehicles": 1,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 1,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 430.0,
+      "max_delay_sec": 430
+    },
+    {
+      "route_id": "36",
+      "route_name": "Route 36",
+      "total_trips": 1,
+      "tracked_vehicles": 1,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 1,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 316.0,
+      "max_delay_sec": 316
+    },
+    {
+      "route_id": "3",
+      "route_name": "Route 3",
+      "total_trips": 2,
+      "tracked_vehicles": 2,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 2,
       "delayed_trips": 0,
       "ghost_rate_pct": 0.0,
       "on_time_pct": 100.0,
-      "avg_delay_sec": 174.0,
-      "max_delay_sec": 174
+      "avg_delay_sec": 124.5,
+      "max_delay_sec": 156
     }
   ],
   "route_metrics": [
@@ -72,18 +114,46 @@
       "max_delay_sec": -35
     },
     {
+      "route_id": "22",
+      "route_name": "Route 22",
+      "total_trips": 1,
+      "tracked_vehicles": 1,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 1,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 430.0,
+      "max_delay_sec": 430
+    },
+    {
       "route_id": "3",
       "route_name": "Route 3",
       "total_trips": 2,
       "tracked_vehicles": 2,
       "ghost_trips": 0,
       "canceled_trips": 0,
-      "on_time_trips": 0,
+      "on_time_trips": 2,
       "delayed_trips": 0,
       "ghost_rate_pct": 0.0,
+      "on_time_pct": 100.0,
+      "avg_delay_sec": 124.5,
+      "max_delay_sec": 156
+    },
+    {
+      "route_id": "36",
+      "route_name": "Route 36",
+      "total_trips": 1,
+      "tracked_vehicles": 1,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 1,
+      "ghost_rate_pct": 0.0,
       "on_time_pct": 0.0,
-      "avg_delay_sec": -86.0,
-      "max_delay_sec": -71
+      "avg_delay_sec": 316.0,
+      "max_delay_sec": 316
     },
     {
       "route_id": "922",
@@ -92,12 +162,12 @@
       "tracked_vehicles": 1,
       "ghost_trips": 0,
       "canceled_trips": 0,
-      "on_time_trips": 1,
-      "delayed_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 1,
       "ghost_rate_pct": 0.0,
-      "on_time_pct": 100.0,
-      "avg_delay_sec": 174.0,
-      "max_delay_sec": 174
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 824.0,
+      "max_delay_sec": 824
     }
   ],
   "sample_ghost_trips": [],

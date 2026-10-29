@@ -1,7 +1,7 @@
 # 🚌 Automated Public Transit Reliability & Ghost Bus Tracker
 
 > Real-time monitoring and git-scraping reliability index for **Durham Region Transit** in **Durham, ON** (Regional Municipality of Durham, Ontario).
-> **Transit System:** DRT | **Location:** Durham, ON | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-10-28T07:00:18.765000+00:00` | **Source:** live GTFS-RT feed
+> **Transit System:** DRT | **Location:** Durham, ON | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-10-29T07:00:19.091000+00:00` | **Source:** live GTFS-RT feed
 
 ---
 
@@ -9,11 +9,11 @@
 
 | Metric | Value | Status / Description |
 | :--- | :--- | :--- |
-| **Ghost Bus Rate** | **`20.0%`** | Scheduled runs with missing transponders or unannounced cuts |
+| **Ghost Bus Rate** | **`100.0%`** | Scheduled runs with missing transponders or unannounced cuts |
 | **On-Time Adherence** | **`0.0%`** | Departures within standard window (-1m to +5m) |
-| **Scheduled Active Trips** | `15` | Total runs operating in current transit schedule window |
-| **Tracked Fleet Vehicles** | `7` | GPS transponders broadcasting valid coordinates |
-| **Confirmed Ghost Trips** | `3` | Disappeared or unassigned scheduled runs |
+| **Scheduled Active Trips** | `14` | Total runs operating in current transit schedule window |
+| **Tracked Fleet Vehicles** | `0` | GPS transponders broadcasting valid coordinates |
+| **Confirmed Ghost Trips** | `14` | Disappeared or unassigned scheduled runs |
 | **Mean Delay** | `+0.0s` (`+0.0 min`) | Average delay across all active tracked runs |
 | **Median Delay** | `+0.0s` (`+0.0 min`) | Median schedule deviation |
 
@@ -27,7 +27,7 @@
 | ⏩ **Early Departure** | More than 1 min ahead of schedule | 0 | 0.0% |
 | 🟡 **Minor Delay** | +5m to +15m late | 0 | 0.0% |
 | 🔴 **Severe Delay** | Over 15m late | 0 | 0.0% |
-| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 3 | 20.0% |
+| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 14 | 100.0% |
 | ❌ **Agency Canceled** | Explicitly reported CANCELED | 0 | 0.0% |
 
 ---
@@ -36,8 +36,8 @@
 
 | Route | Total Scheduled | Tracked | Ghost Trips | Ghost Rate (%) | On-Time (%) | Avg Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Route N2** | 6 | 2 | 3 | **`50.0%`** | `0.0%` | `+0.0s` |
-| **Route N1** | 9 | 5 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| **Route N1** | 9 | 0 | 9 | **`100.0%`** | `0.0%` | `+0.0s` |
+| **Route N2** | 5 | 0 | 5 | **`100.0%`** | `0.0%` | `+0.0s` |
 
 ---
 
@@ -63,9 +63,20 @@
 
 | Trip ID | Route | Scheduled Departure | Status | Diagnosis / Reason |
 | :--- | :---: | :---: | :--- | :--- |
-| `565__491003_Timetable_-_2026-10` | Route N2 | `N/A` | `SCHEDULED` | Assigned vehicle 6141 is broadcasting off-schedule with no vehicle covering 565__491003_Timetable_-_2026-10 |
-| `408__491003_Timetable_-_2026-10` | Route N2 | `N/A` | `SCHEDULED` | Assigned vehicle 6141 is broadcasting off-schedule with no vehicle covering 408__491003_Timetable_-_2026-10 |
-| `402__491003_Timetable_-_2026-10` | Route N2 | `N/A` | `SCHEDULED` | Assigned vehicle 6141 is broadcasting off-schedule with no vehicle covering 402__491003_Timetable_-_2026-10 |
+| `390__291001_Timetable_-_2026-10` | Route N1 | `N/A` | `SCHEDULED` | Assigned vehicle 6125 is missing from active GPS transponder fleet |
+| `394__491004_Timetable_-_2026-10` | Route N1 | `N/A` | `SCHEDULED` | Assigned vehicle 8610 is missing from active GPS transponder fleet |
+| `565__491003_Timetable_-_2026-10` | Route N2 | `N/A` | `SCHEDULED` | Assigned vehicle 8601 is missing from active GPS transponder fleet |
+| `381__491002_Timetable_-_2026-10` | Route N1 | `N/A` | `SCHEDULED` | Assigned vehicle 6149 is missing from active GPS transponder fleet |
+| `395__291002_Timetable_-_2026-10` | Route N1 | `N/A` | `SCHEDULED` | Assigned vehicle 8523 is missing from active GPS transponder fleet |
+| `408__491003_Timetable_-_2026-10` | Route N2 | `N/A` | `SCHEDULED` | Assigned vehicle 8601 is missing from active GPS transponder fleet |
+| `387__491005_Timetable_-_2026-10` | Route N1 | `N/A` | `SCHEDULED` | Assigned vehicle 6139 is missing from active GPS transponder fleet |
+| `377__491005_Timetable_-_2026-10` | Route N1 | `N/A` | `SCHEDULED` | Assigned vehicle 6139 is missing from active GPS transponder fleet |
+| `378__291002_Timetable_-_2026-10` | Route N1 | `N/A` | `SCHEDULED` | Assigned vehicle 8523 is missing from active GPS transponder fleet |
+| `380__491002_Timetable_-_2026-10` | Route N1 | `N/A` | `SCHEDULED` | Assigned vehicle 6149 is missing from active GPS transponder fleet |
+| `564__491001_Timetable_-_2026-10` | Route N2 | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `406__491001_Timetable_-_2026-10` | Route N2 | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `402__491003_Timetable_-_2026-10` | Route N2 | `N/A` | `SCHEDULED` | Assigned vehicle 8601 is missing from active GPS transponder fleet |
+| `393__491004_Timetable_-_2026-10` | Route N1 | `N/A` | `SCHEDULED` | Assigned vehicle 8610 is missing from active GPS transponder fleet |
 
 ---
 
@@ -73,14 +84,14 @@
 
 | Timestamp | Ghost Rate (%) | On-Time (%) | Scheduled Runs | Tracked Fleet | Mean Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| `2026-10-28 07:00:18` | `20.0%` | `0.0%` | 15 | 7 | `+0.0s` |
-| `2026-10-28 06:30:21` | `42.86%` | `0.0%` | 14 | 8 | `+0.0s` |
-| `2026-10-28 06:00:21` | `43.75%` | `0.0%` | 16 | 8 | `+0.0s` |
-| `2026-10-28 05:30:26` | `18.75%` | `0.0%` | 16 | 10 | `+0.0s` |
-| `2026-10-28 05:00:25` | `13.04%` | `0.0%` | 23 | 17 | `+0.0s` |
-| `2026-10-28 03:30:18` | `2.53%` | `0.0%` | 79 | 41 | `+0.0s` |
-| `2026-10-28 03:00:21` | `4.49%` | `0.0%` | 89 | 49 | `+0.0s` |
-| `2026-10-28 02:30:18` | `7.55%` | `0.0%` | 106 | 58 | `+0.0s` |
+| `2026-10-29 07:00:19` | `100.0%` | `0.0%` | 14 | 0 | `+0.0s` |
+| `2026-10-29 06:30:23` | `28.57%` | `0.0%` | 14 | 8 | `+0.0s` |
+| `2026-10-29 06:00:23` | `0.0%` | `0.0%` | 16 | 8 | `+0.0s` |
+| `2026-10-29 05:30:18` | `46.67%` | `0.0%` | 15 | 9 | `+0.0s` |
+| `2026-10-29 05:00:20` | `13.64%` | `0.0%` | 22 | 16 | `+0.0s` |
+| `2026-10-29 04:30:20` | `12.82%` | `0.0%` | 39 | 31 | `+0.0s` |
+| `2026-10-29 04:00:20` | `13.21%` | `0.0%` | 53 | 36 | `+0.0s` |
+| `2026-10-29 03:30:18` | `3.9%` | `0.0%` | 77 | 43 | `+0.0s` |
 
 ---
 
@@ -92,4 +103,4 @@
 - **Excess Wait Time (EWT)**: Transit standard metric measuring variance in vehicle headway caused by vehicle bunching.
 - **Git-Scraping**: Every run fetches upstream GTFS-RT binary protobuf feeds, computes reliability metrics, commits versioned JSON snapshots, and renders this dashboard automatically.
 
-*Generated by Ghost Bus Tracker v0.1.0 at `2026-10-28T07:00:18.765000+00:00`.*
+*Generated by Ghost Bus Tracker v0.1.0 at `2026-10-29T07:00:19.091000+00:00`.*

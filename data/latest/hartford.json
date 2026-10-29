@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-10-28T07:00:18.704000+00:00",
-  "feed_timestamp": 1793170816,
+  "scan_time": "2026-10-29T07:00:19.091000+00:00",
+  "feed_timestamp": 1793257218,
   "agency": "Connecticut Transit",
   "city": "Hartford, CT",
   "transit_system": "CTtransit",
@@ -90,7 +90,7 @@
       "trip_id": "1924176",
       "route_id": "16221",
       "start_time": "21:12:00",
-      "start_date": "20261028",
+      "start_date": "20261029",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -98,7 +98,7 @@
       "trip_id": "1924146",
       "route_id": "16221",
       "start_time": "08:31:00",
-      "start_date": "20261028",
+      "start_date": "20261029",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -106,7 +106,7 @@
       "trip_id": "1924164",
       "route_id": "16221",
       "start_time": "08:19:00",
-      "start_date": "20261028",
+      "start_date": "20261029",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -114,7 +114,7 @@
       "trip_id": "1924152",
       "route_id": "16221",
       "start_time": "10:46:00",
-      "start_date": "20261028",
+      "start_date": "20261029",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -122,7 +122,7 @@
       "trip_id": "1924147",
       "route_id": "16221",
       "start_time": "13:16:00",
-      "start_date": "20261028",
+      "start_date": "20261029",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -130,7 +130,7 @@
       "trip_id": "1924154",
       "route_id": "16221",
       "start_time": "15:35:00",
-      "start_date": "20261028",
+      "start_date": "20261029",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -138,7 +138,7 @@
       "trip_id": "1924165",
       "route_id": "16221",
       "start_time": "07:44:00",
-      "start_date": "20261028",
+      "start_date": "20261029",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -146,7 +146,7 @@
       "trip_id": "1924160",
       "route_id": "16221",
       "start_time": "10:16:00",
-      "start_date": "20261028",
+      "start_date": "20261029",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -154,7 +154,7 @@
       "trip_id": "1924148",
       "route_id": "16221",
       "start_time": "12:46:00",
-      "start_date": "20261028",
+      "start_date": "20261029",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -162,7 +162,7 @@
       "trip_id": "1924155",
       "route_id": "16221",
       "start_time": "15:06:00",
-      "start_date": "20261028",
+      "start_date": "20261029",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -170,7 +170,7 @@
       "trip_id": "1924171",
       "route_id": "16221",
       "start_time": "17:47:00",
-      "start_date": "20261028",
+      "start_date": "20261029",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -178,7 +178,7 @@
       "trip_id": "1924177",
       "route_id": "16221",
       "start_time": "20:08:00",
-      "start_date": "20261028",
+      "start_date": "20261029",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -186,7 +186,7 @@
       "trip_id": "1924172",
       "route_id": "16221",
       "start_time": "22:12:00",
-      "start_date": "20261028",
+      "start_date": "20261029",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -194,7 +194,7 @@
       "trip_id": "1924180",
       "route_id": "16221",
       "start_time": "00:12:00",
-      "start_date": "20261029",
+      "start_date": "20261030",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -202,7 +202,7 @@
       "trip_id": "1924162",
       "route_id": "16221",
       "start_time": "09:16:00",
-      "start_date": "20261028",
+      "start_date": "20261029",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     }
