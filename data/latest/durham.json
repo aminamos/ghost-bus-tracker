@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-10-29T07:00:19.091000+00:00",
-  "feed_timestamp": 1793257188,
+  "scan_time": "2026-10-30T07:00:25.401000+00:00",
+  "feed_timestamp": 1793343618,
   "agency": "Durham Region Transit",
   "city": "Durham, ON",
   "transit_system": "DRT",
@@ -8,10 +8,10 @@
   "state": "Ontario",
   "country": "Canada",
   "source": "live",
-  "total_scheduled_trips": 14,
+  "total_scheduled_trips": 0,
   "total_tracked_vehicles": 0,
-  "total_ghost_trips": 14,
-  "ghost_bus_rate_pct": 100.0,
+  "total_ghost_trips": 0,
+  "ghost_bus_rate_pct": 0.0,
   "vehicle_tracking_rate_pct": 0.0,
   "overall_on_time_pct": 0.0,
   "delay_distribution": {
@@ -19,185 +19,14 @@
     "on_time": 0,
     "minor_delay": 0,
     "severe_delay": 0,
-    "ghost": 14,
+    "ghost": 0,
     "canceled": 0
   },
   "mean_delay_sec": 0.0,
   "median_delay_sec": 0.0,
-  "worst_routes_by_ghost": [
-    {
-      "route_id": "N1",
-      "route_name": "Route N1",
-      "total_trips": 9,
-      "tracked_vehicles": 0,
-      "ghost_trips": 9,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 100.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
-      "route_id": "N2",
-      "route_name": "Route N2",
-      "total_trips": 5,
-      "tracked_vehicles": 0,
-      "ghost_trips": 5,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 100.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    }
-  ],
+  "worst_routes_by_ghost": [],
   "most_delayed_routes": [],
-  "route_metrics": [
-    {
-      "route_id": "N1",
-      "route_name": "Route N1",
-      "total_trips": 9,
-      "tracked_vehicles": 0,
-      "ghost_trips": 9,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 100.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
-      "route_id": "N2",
-      "route_name": "Route N2",
-      "total_trips": 5,
-      "tracked_vehicles": 0,
-      "ghost_trips": 5,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 100.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    }
-  ],
-  "sample_ghost_trips": [
-    {
-      "trip_id": "390__291001_Timetable_-_2026-10",
-      "route_id": "N1",
-      "start_time": "N/A",
-      "start_date": "20261029",
-      "status": "SCHEDULED",
-      "reason": "Assigned vehicle 6125 is missing from active GPS transponder fleet"
-    },
-    {
-      "trip_id": "394__491004_Timetable_-_2026-10",
-      "route_id": "N1",
-      "start_time": "N/A",
-      "start_date": "20261029",
-      "status": "SCHEDULED",
-      "reason": "Assigned vehicle 8610 is missing from active GPS transponder fleet"
-    },
-    {
-      "trip_id": "565__491003_Timetable_-_2026-10",
-      "route_id": "N2",
-      "start_time": "N/A",
-      "start_date": "20261029",
-      "status": "SCHEDULED",
-      "reason": "Assigned vehicle 8601 is missing from active GPS transponder fleet"
-    },
-    {
-      "trip_id": "381__491002_Timetable_-_2026-10",
-      "route_id": "N1",
-      "start_time": "N/A",
-      "start_date": "20261029",
-      "status": "SCHEDULED",
-      "reason": "Assigned vehicle 6149 is missing from active GPS transponder fleet"
-    },
-    {
-      "trip_id": "395__291002_Timetable_-_2026-10",
-      "route_id": "N1",
-      "start_time": "N/A",
-      "start_date": "20261029",
-      "status": "SCHEDULED",
-      "reason": "Assigned vehicle 8523 is missing from active GPS transponder fleet"
-    },
-    {
-      "trip_id": "408__491003_Timetable_-_2026-10",
-      "route_id": "N2",
-      "start_time": "N/A",
-      "start_date": "20261029",
-      "status": "SCHEDULED",
-      "reason": "Assigned vehicle 8601 is missing from active GPS transponder fleet"
-    },
-    {
-      "trip_id": "387__491005_Timetable_-_2026-10",
-      "route_id": "N1",
-      "start_time": "N/A",
-      "start_date": "20261029",
-      "status": "SCHEDULED",
-      "reason": "Assigned vehicle 6139 is missing from active GPS transponder fleet"
-    },
-    {
-      "trip_id": "377__491005_Timetable_-_2026-10",
-      "route_id": "N1",
-      "start_time": "N/A",
-      "start_date": "20261029",
-      "status": "SCHEDULED",
-      "reason": "Assigned vehicle 6139 is missing from active GPS transponder fleet"
-    },
-    {
-      "trip_id": "378__291002_Timetable_-_2026-10",
-      "route_id": "N1",
-      "start_time": "N/A",
-      "start_date": "20261029",
-      "status": "SCHEDULED",
-      "reason": "Assigned vehicle 8523 is missing from active GPS transponder fleet"
-    },
-    {
-      "trip_id": "380__491002_Timetable_-_2026-10",
-      "route_id": "N1",
-      "start_time": "N/A",
-      "start_date": "20261029",
-      "status": "SCHEDULED",
-      "reason": "Assigned vehicle 6149 is missing from active GPS transponder fleet"
-    },
-    {
-      "trip_id": "564__491001_Timetable_-_2026-10",
-      "route_id": "N2",
-      "start_time": "N/A",
-      "start_date": "20261029",
-      "status": "SCHEDULED",
-      "reason": "No vehicle assigned and no active GPS broadcast"
-    },
-    {
-      "trip_id": "406__491001_Timetable_-_2026-10",
-      "route_id": "N2",
-      "start_time": "N/A",
-      "start_date": "20261029",
-      "status": "SCHEDULED",
-      "reason": "No vehicle assigned and no active GPS broadcast"
-    },
-    {
-      "trip_id": "402__491003_Timetable_-_2026-10",
-      "route_id": "N2",
-      "start_time": "N/A",
-      "start_date": "20261029",
-      "status": "SCHEDULED",
-      "reason": "Assigned vehicle 8601 is missing from active GPS transponder fleet"
-    },
-    {
-      "trip_id": "393__491004_Timetable_-_2026-10",
-      "route_id": "N1",
-      "start_time": "N/A",
-      "start_date": "20261029",
-      "status": "SCHEDULED",
-      "reason": "Assigned vehicle 8610 is missing from active GPS transponder fleet"
-    }
-  ],
+  "route_metrics": [],
+  "sample_ghost_trips": [],
   "headway_metrics": []
 }

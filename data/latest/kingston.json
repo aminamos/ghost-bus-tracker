@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-10-29T07:00:19.166000+00:00",
-  "feed_timestamp": 1793257218,
+  "scan_time": "2026-10-30T07:00:22.793000+00:00",
+  "feed_timestamp": 1793343622,
   "agency": "Kingston Transit",
   "city": "Kingston, ON",
   "transit_system": "Kingston Transit",
@@ -9,7 +9,7 @@
   "country": "Canada",
   "source": "live",
   "total_scheduled_trips": 4,
-  "total_tracked_vehicles": 26,
+  "total_tracked_vehicles": 31,
   "total_ghost_trips": 4,
   "ghost_bus_rate_pct": 100.0,
   "vehicle_tracking_rate_pct": 0.0,
@@ -28,20 +28,6 @@
   "most_delayed_routes": [],
   "route_metrics": [
     {
-      "route_id": "7",
-      "route_name": "Route 7",
-      "total_trips": 1,
-      "tracked_vehicles": 0,
-      "ghost_trips": 1,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 100.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
       "route_id": "N1",
       "route_name": "Route N1",
       "total_trips": 1,
@@ -56,8 +42,8 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "32",
-      "route_name": "Route 32",
+      "route_id": "7",
+      "route_name": "Route 7",
       "total_trips": 1,
       "tracked_vehicles": 0,
       "ghost_trips": 1,
@@ -82,30 +68,36 @@
       "on_time_pct": 0.0,
       "avg_delay_sec": 0.0,
       "max_delay_sec": 0
+    },
+    {
+      "route_id": "32",
+      "route_name": "Route 32",
+      "total_trips": 1,
+      "tracked_vehicles": 0,
+      "ghost_trips": 1,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 100.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
     }
   ],
   "sample_ghost_trips": [
     {
-      "trip_id": "2292532:663554:667140",
-      "route_id": "7",
-      "start_time": "05:00:00",
-      "start_date": "20261029",
-      "status": "SCHEDULED",
-      "reason": "No vehicle assigned and no active GPS broadcast"
-    },
-    {
       "trip_id": "2291723:668578:669034",
       "route_id": "N1",
       "start_time": "04:28:00",
-      "start_date": "20261029",
+      "start_date": "20261030",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
     {
-      "trip_id": "2292540:661861:686010",
-      "route_id": "32",
-      "start_time": "04:29:00",
-      "start_date": "20261029",
+      "trip_id": "2292532:663554:667140",
+      "route_id": "7",
+      "start_time": "05:00:00",
+      "start_date": "20261030",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -113,7 +105,15 @@
       "trip_id": "2292542:664213:686010",
       "route_id": "2",
       "start_time": "04:42:00",
-      "start_date": "20261029",
+      "start_date": "20261030",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    },
+    {
+      "trip_id": "2292540:661861:686010",
+      "route_id": "32",
+      "start_time": "04:29:00",
+      "start_date": "20261030",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     }

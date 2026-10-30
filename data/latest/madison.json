@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-10-29T07:00:21.789000+00:00",
-  "feed_timestamp": 1793257202,
+  "scan_time": "2026-10-30T07:00:25.717000+00:00",
+  "feed_timestamp": 1793343582,
   "agency": "Metro Transit (City of Madison)",
   "city": "Madison, WI",
   "transit_system": "Metro Transit",
@@ -9,7 +9,7 @@
   "country": "USA",
   "source": "live",
   "total_scheduled_trips": 3,
-  "total_tracked_vehicles": 3,
+  "total_tracked_vehicles": 2,
   "total_ghost_trips": 1,
   "ghost_bus_rate_pct": 33.33,
   "vehicle_tracking_rate_pct": 66.67,
@@ -72,7 +72,7 @@
   ],
   "sample_ghost_trips": [
     {
-      "trip_id": "4741020",
+      "trip_id": "4741060",
       "route_id": "61",
       "start_time": "N/A",
       "start_date": "N/A",
