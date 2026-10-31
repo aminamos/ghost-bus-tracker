@@ -1,7 +1,7 @@
 # 🚌 Automated Public Transit Reliability & Ghost Bus Tracker
 
 > Real-time monitoring and git-scraping reliability index for **Connecticut Transit** in **Hartford, CT** (Hartford Metropolitan Area, Connecticut).
-> **Transit System:** CTtransit | **Location:** Hartford, CT | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-10-30T07:00:25.203000+00:00` | **Source:** live GTFS-RT feed
+> **Transit System:** CTtransit | **Location:** Hartford, CT | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-10-31T07:00:32.557000+00:00` | **Source:** live GTFS-RT feed
 
 ---
 
@@ -11,9 +11,9 @@
 | :--- | :--- | :--- |
 | **Ghost Bus Rate** | **`100.0%`** | Scheduled runs with missing transponders or unannounced cuts |
 | **On-Time Adherence** | **`0.0%`** | Departures within standard window (-1m to +5m) |
-| **Scheduled Active Trips** | `62` | Total runs operating in current transit schedule window |
+| **Scheduled Active Trips** | `45` | Total runs operating in current transit schedule window |
 | **Tracked Fleet Vehicles** | `0` | GPS transponders broadcasting valid coordinates |
-| **Confirmed Ghost Trips** | `62` | Disappeared or unassigned scheduled runs |
+| **Confirmed Ghost Trips** | `45` | Disappeared or unassigned scheduled runs |
 | **Mean Delay** | `+0.0s` (`+0.0 min`) | Average delay across all active tracked runs |
 | **Median Delay** | `+0.0s` (`+0.0 min`) | Median schedule deviation |
 
@@ -27,7 +27,7 @@
 | ⏩ **Early Departure** | More than 1 min ahead of schedule | 0 | 0.0% |
 | 🟡 **Minor Delay** | +5m to +15m late | 0 | 0.0% |
 | 🔴 **Severe Delay** | Over 15m late | 0 | 0.0% |
-| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 62 | 100.0% |
+| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 45 | 100.0% |
 | ❌ **Agency Canceled** | Explicitly reported CANCELED | 0 | 0.0% |
 
 ---
@@ -36,8 +36,8 @@
 
 | Route | Total Scheduled | Tracked | Ghost Trips | Ghost Rate (%) | On-Time (%) | Avg Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Route 16221** | 33 | 0 | 33 | **`100.0%`** | `0.0%` | `+0.0s` |
-| **Route 16479** | 29 | 0 | 29 | **`100.0%`** | `0.0%` | `+0.0s` |
+| **Route 16221** | 24 | 0 | 24 | **`100.0%`** | `0.0%` | `+0.0s` |
+| **Route 16479** | 21 | 0 | 21 | **`100.0%`** | `0.0%` | `+0.0s` |
 
 ---
 
@@ -63,21 +63,21 @@
 
 | Trip ID | Route | Scheduled Departure | Status | Diagnosis / Reason |
 | :--- | :---: | :---: | :--- | :--- |
-| `1924176` | Route 16221 | `21:12:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `1924146` | Route 16221 | `08:31:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `1924164` | Route 16221 | `08:19:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `1924152` | Route 16221 | `10:46:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `1924147` | Route 16221 | `13:16:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `1924154` | Route 16221 | `15:35:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `1924165` | Route 16221 | `07:44:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `1924160` | Route 16221 | `10:16:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `1924148` | Route 16221 | `12:46:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `1924155` | Route 16221 | `15:06:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `1924171` | Route 16221 | `17:47:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `1924177` | Route 16221 | `20:08:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `1924172` | Route 16221 | `22:12:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `1924180` | Route 16221 | `00:12:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `1924162` | Route 16221 | `09:16:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `1924093` | Route 16221 | `08:38:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `1924092` | Route 16221 | `09:13:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `1924089` | Route 16221 | `11:13:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `1924086` | Route 16221 | `13:13:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `1924083` | Route 16221 | `15:13:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `1924076` | Route 16221 | `17:10:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `1924095` | Route 16221 | `19:12:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `1924097` | Route 16221 | `21:12:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `1924099` | Route 16221 | `23:12:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `1924090` | Route 16221 | `10:33:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `1924087` | Route 16221 | `12:33:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `1924084` | Route 16221 | `14:33:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `1924081` | Route 16221 | `16:33:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `1924101` | Route 16221 | `18:12:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `1924096` | Route 16221 | `20:12:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
 
 ---
 
@@ -85,14 +85,14 @@
 
 | Timestamp | Ghost Rate (%) | On-Time (%) | Scheduled Runs | Tracked Fleet | Mean Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| `2026-10-30 07:00:25` | `100.0%` | `0.0%` | 62 | 0 | `+0.0s` |
-| `2026-10-30 06:30:27` | `100.0%` | `0.0%` | 62 | 0 | `+0.0s` |
-| `2026-10-30 06:00:24` | `0.0%` | `0.0%` | 0 | 0 | `+0.0s` |
-| `2026-10-30 05:30:25` | `0.0%` | `0.0%` | 10 | 10 | `+0.0s` |
-| `2026-10-30 05:00:20` | `2.63%` | `0.0%` | 38 | 37 | `+0.0s` |
-| `2026-10-30 04:30:18` | `1.59%` | `0.0%` | 63 | 62 | `+0.0s` |
-| `2026-10-30 04:00:21` | `2.15%` | `0.0%` | 93 | 91 | `+0.0s` |
-| `2026-10-30 03:30:18` | `1.77%` | `100.0%` | 113 | 111 | `+0.0s` |
+| `2026-10-31 07:00:32` | `100.0%` | `0.0%` | 45 | 0 | `+0.0s` |
+| `2026-10-31 06:30:19` | `100.0%` | `0.0%` | 45 | 0 | `+0.0s` |
+| `2026-10-31 06:00:19` | `0.0%` | `0.0%` | 2 | 2 | `+0.0s` |
+| `2026-10-31 05:30:20` | `0.0%` | `0.0%` | 13 | 13 | `+0.0s` |
+| `2026-10-31 05:00:33` | `2.44%` | `0.0%` | 41 | 40 | `+0.0s` |
+| `2026-10-31 04:30:22` | `1.47%` | `0.0%` | 68 | 67 | `+0.0s` |
+| `2026-10-31 04:00:18` | `2.08%` | `0.0%` | 96 | 94 | `+0.0s` |
+| `2026-10-31 03:30:17` | `1.8%` | `100.0%` | 111 | 109 | `+0.0s` |
 
 ---
 
@@ -104,4 +104,4 @@
 - **Excess Wait Time (EWT)**: Transit standard metric measuring variance in vehicle headway caused by vehicle bunching.
 - **Git-Scraping**: Every run fetches upstream GTFS-RT binary protobuf feeds, computes reliability metrics, commits versioned JSON snapshots, and renders this dashboard automatically.
 
-*Generated by Ghost Bus Tracker v0.1.0 at `2026-10-30T07:00:25.203000+00:00`.*
+*Generated by Ghost Bus Tracker v0.1.0 at `2026-10-31T07:00:32.557000+00:00`.*

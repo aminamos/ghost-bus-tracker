@@ -1,7 +1,7 @@
 # 🚌 Automated Public Transit Reliability & Ghost Bus Tracker
 
 > Real-time monitoring and git-scraping reliability index for **York Region Transit** in **York Region, ON** (Regional Municipality of York, Ontario).
-> **Transit System:** YRT | **Location:** York Region, ON | **Status:** 🟢 **HEALTHY** | **Last Scan:** `2026-10-30T07:00:26.354000+00:00` | **Source:** live GTFS-RT feed
+> **Transit System:** YRT | **Location:** York Region, ON | **Status:** 🟢 **HEALTHY** | **Last Scan:** `2026-10-31T06:30:19.119000+00:00` | **Source:** live GTFS-RT feed
 
 ---
 
@@ -10,12 +10,12 @@
 | Metric | Value | Status / Description |
 | :--- | :--- | :--- |
 | **Ghost Bus Rate** | **`0.0%`** | Scheduled runs with missing transponders or unannounced cuts |
-| **On-Time Adherence** | **`100.0%`** | Departures within standard window (-1m to +5m) |
-| **Scheduled Active Trips** | `8` | Total runs operating in current transit schedule window |
-| **Tracked Fleet Vehicles** | `8` | GPS transponders broadcasting valid coordinates |
+| **On-Time Adherence** | **`94.12%`** | Departures within standard window (-1m to +5m) |
+| **Scheduled Active Trips** | `17` | Total runs operating in current transit schedule window |
+| **Tracked Fleet Vehicles** | `15` | GPS transponders broadcasting valid coordinates |
 | **Confirmed Ghost Trips** | `0` | Disappeared or unassigned scheduled runs |
-| **Mean Delay** | `+77.1s` (`+1.3 min`) | Average delay across all active tracked runs |
-| **Median Delay** | `+70.5s` (`+1.2 min`) | Median schedule deviation |
+| **Mean Delay** | `+81.2s` (`+1.4 min`) | Average delay across all active tracked runs |
+| **Median Delay** | `+23.0s` (`+0.4 min`) | Median schedule deviation |
 
 ---
 
@@ -23,9 +23,9 @@
 
 | Category | Threshold / Definition | Trip Count | Percentage |
 | :--- | :--- | :--- | :--- |
-| 🟢 **On-Time** | Within -60s to +300s | 8 | 100.0% |
+| 🟢 **On-Time** | Within -60s to +300s | 16 | 94.1% |
 | ⏩ **Early Departure** | More than 1 min ahead of schedule | 0 | 0.0% |
-| 🟡 **Minor Delay** | +5m to +15m late | 0 | 0.0% |
+| 🟡 **Minor Delay** | +5m to +15m late | 1 | 5.9% |
 | 🔴 **Severe Delay** | Over 15m late | 0 | 0.0% |
 | 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 0 | 0.0% |
 | ❌ **Agency Canceled** | Explicitly reported CANCELED | 0 | 0.0% |
@@ -36,9 +36,10 @@
 
 | Route | Total Scheduled | Tracked | Ghost Trips | Ghost Rate (%) | On-Time (%) | Avg Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Route 77** | 2 | 2 | 0 | **`0.0%`** | `100.0%` | `+1.2 min` |
-| **Route 20** | 3 | 3 | 0 | **`0.0%`** | `100.0%` | `+0.8 min` |
-| **Route 107** | 2 | 1 | 0 | **`0.0%`** | `100.0%` | `+1.9 min` |
+| **Route 107** | 5 | 2 | 0 | **`0.0%`** | `100.0%` | `+0.8 min` |
+| **Route 20** | 5 | 4 | 0 | **`0.0%`** | `80.0%` | `+2.0 min` |
+| **Route 9899** | 3 | 3 | 0 | **`0.0%`** | `100.0%` | `+0.1 min` |
+| **Route 77** | 4 | 4 | 0 | **`0.0%`** | `100.0%` | `+2.0 min` |
 
 ---
 
@@ -46,10 +47,10 @@
 
 | Route | Avg Delay | Max Delay | Tracked Runs | On-Time Adherence |
 | :--- | :---: | :---: | :---: | :---: |
-| **Route 107** | `+1.9 min (+116.0s)` | `+3.2 min (+191s)` | 1 | `100.0%` |
-| **Route 9899** | `+1.6 min (+98.0s)` | `+1.6 min (+98s)` | 2 | `100.0%` |
-| **Route 77** | `+1.2 min (+75.0s)` | `+2.6 min (+154s)` | 2 | `100.0%` |
-| **Route 20** | `+0.8 min (+45.7s)` | `+1.9 min (+114s)` | 3 | `100.0%` |
+| **Route 20** | `+2.0 min (+123.0s)` | `+5.9 min (+354s)` | 4 | `80.0%` |
+| **Route 77** | `+2.0 min (+122.0s)` | `+3.7 min (+224s)` | 4 | `100.0%` |
+| **Route 107** | `+0.8 min (+51.0s)` | `+2.1 min (+129s)` | 2 | `100.0%` |
+| **Route 9899** | `+0.1 min (+7.3s)` | `+0.8 min (+47s)` | 3 | `100.0%` |
 
 ---
 
@@ -59,9 +60,10 @@
 
 | Route | Nominal Headway | Observed Headway | Excess Wait Time (EWT) | Regularity Score |
 | :--- | :---: | :---: | :---: | :---: |
-| **Route 77** | ~8.0m | ~8.0m | **`+0.0 min`** | `83.5 / 100` |
-| **Route 20** | ~11.0m | ~11.0m | **`+0.0 min`** | `91.7 / 100` |
-| **Route 107** | ~28.0m | ~28.0m | **`+0.0 min`** | `95.5 / 100` |
+| **Route 20** | ~11.0m | ~11.0m | **`+0.0 min`** | `78.5 / 100` |
+| **Route 77** | ~10.0m | ~10.0m | **`+0.0 min`** | `86.2 / 100` |
+| **Route 107** | ~16.0m | ~16.0m | **`+0.0 min`** | `93.5 / 100` |
+| **Route 9899** | ~22.5m | ~22.5m | **`+0.0 min`** | `97.8 / 100` |
 
 ---
 
@@ -77,14 +79,14 @@
 
 | Timestamp | Ghost Rate (%) | On-Time (%) | Scheduled Runs | Tracked Fleet | Mean Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| `2026-10-30 07:00:26` | `0.0%` | `100.0%` | 8 | 8 | `+77.1s` |
-| `2026-10-30 06:30:28` | `0.0%` | `88.24%` | 17 | 14 | `+83.8s` |
-| `2026-10-30 06:00:26` | `12.0%` | `81.82%` | 25 | 15 | `+65.5s` |
-| `2026-10-30 05:30:26` | `0.0%` | `85.71%` | 35 | 20 | `+42.4s` |
-| `2026-10-30 05:00:20` | `1.89%` | `78.85%` | 53 | 34 | `+47.8s` |
-| `2026-10-30 04:30:18` | `4.88%` | `87.18%` | 82 | 54 | `+64.7s` |
-| `2026-10-30 04:00:21` | `6.03%` | `82.57%` | 116 | 71 | `+52.4s` |
-| `2026-10-30 03:30:18` | `7.43%` | `89.78%` | 148 | 83 | `+67.0s` |
+| `2026-10-31 06:30:19` | `0.0%` | `94.12%` | 17 | 15 | `+81.2s` |
+| `2026-10-31 06:00:20` | `4.17%` | `100.0%` | 24 | 16 | `+48.7s` |
+| `2026-10-31 05:30:21` | `0.0%` | `97.06%` | 34 | 22 | `+41.9s` |
+| `2026-10-31 04:30:23` | `7.59%` | `78.08%` | 79 | 56 | `+121.2s` |
+| `2026-10-31 04:00:18` | `8.7%` | `82.86%` | 115 | 73 | `+89.6s` |
+| `2026-10-31 03:30:18` | `11.49%` | `86.26%` | 148 | 84 | `+72.7s` |
+| `2026-10-31 03:00:18` | `6.82%` | `85.98%` | 176 | 95 | `+72.9s` |
+| `2026-10-31 02:30:19` | `8.42%` | `84.32%` | 202 | 107 | `+95.8s` |
 
 ---
 
@@ -96,4 +98,4 @@
 - **Excess Wait Time (EWT)**: Transit standard metric measuring variance in vehicle headway caused by vehicle bunching.
 - **Git-Scraping**: Every run fetches upstream GTFS-RT binary protobuf feeds, computes reliability metrics, commits versioned JSON snapshots, and renders this dashboard automatically.
 
-*Generated by Ghost Bus Tracker v0.1.0 at `2026-10-30T07:00:26.354000+00:00`.*
+*Generated by Ghost Bus Tracker v0.1.0 at `2026-10-31T06:30:19.119000+00:00`.*

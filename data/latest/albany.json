@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-10-30T04:30:18.083000+00:00",
-  "feed_timestamp": 1793334613,
+  "scan_time": "2026-10-31T06:30:18.664000+00:00",
+  "feed_timestamp": 1793428214,
   "agency": "Capital District Transportation Authority",
   "city": "Albany, NY",
   "transit_system": "CDTA",
@@ -8,79 +8,23 @@
   "state": "New York",
   "country": "USA",
   "source": "live",
-  "total_scheduled_trips": 25,
-  "total_tracked_vehicles": 15,
-  "total_ghost_trips": 4,
-  "ghost_bus_rate_pct": 16.0,
-  "vehicle_tracking_rate_pct": 84.0,
+  "total_scheduled_trips": 4,
+  "total_tracked_vehicles": 4,
+  "total_ghost_trips": 0,
+  "ghost_bus_rate_pct": 0.0,
+  "vehicle_tracking_rate_pct": 100.0,
   "overall_on_time_pct": 0.0,
   "delay_distribution": {
     "early": 0,
     "on_time": 0,
     "minor_delay": 0,
     "severe_delay": 0,
-    "ghost": 4,
+    "ghost": 0,
     "canceled": 0
   },
   "mean_delay_sec": 0.0,
   "median_delay_sec": 0.0,
   "worst_routes_by_ghost": [
-    {
-      "route_id": "1",
-      "route_name": "Route 1",
-      "total_trips": 6,
-      "tracked_vehicles": 2,
-      "ghost_trips": 2,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 33.33,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
-      "route_id": "905",
-      "route_name": "Route 905",
-      "total_trips": 5,
-      "tracked_vehicles": 3,
-      "ghost_trips": 1,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 20.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
-      "route_id": "922",
-      "route_name": "Route 922",
-      "total_trips": 2,
-      "tracked_vehicles": 2,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
-      "route_id": "910",
-      "route_name": "Route 910",
-      "total_trips": 6,
-      "tracked_vehicles": 3,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
     {
       "route_id": "452",
       "route_name": "Route 452",
@@ -99,62 +43,6 @@
   "most_delayed_routes": [],
   "route_metrics": [
     {
-      "route_id": "905",
-      "route_name": "Route 905",
-      "total_trips": 5,
-      "tracked_vehicles": 3,
-      "ghost_trips": 1,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 20.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
-      "route_id": "12",
-      "route_name": "Route 12",
-      "total_trips": 1,
-      "tracked_vehicles": 2,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
-      "route_id": "922",
-      "route_name": "Route 922",
-      "total_trips": 2,
-      "tracked_vehicles": 2,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
-      "route_id": "910",
-      "route_name": "Route 910",
-      "total_trips": 6,
-      "tracked_vehicles": 3,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
       "route_id": "452",
       "route_name": "Route 452",
       "total_trips": 3,
@@ -169,24 +57,10 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "1",
-      "route_name": "Route 1",
-      "total_trips": 6,
-      "tracked_vehicles": 2,
-      "ghost_trips": 2,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 33.33,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
-      "route_id": "450",
-      "route_name": "Route 450",
+      "route_id": "910",
+      "route_name": "Route 910",
       "total_trips": 1,
-      "tracked_vehicles": 1,
+      "tracked_vehicles": 2,
       "ghost_trips": 0,
       "canceled_trips": 0,
       "on_time_trips": 0,
@@ -195,55 +69,8 @@
       "on_time_pct": 0.0,
       "avg_delay_sec": 0.0,
       "max_delay_sec": 0
-    },
-    {
-      "route_id": "18",
-      "route_name": "Route 18",
-      "total_trips": 1,
-      "tracked_vehicles": 0,
-      "ghost_trips": 1,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 100.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
     }
   ],
-  "sample_ghost_trips": [
-    {
-      "trip_id": "13984556-OCT26-SchRMB-Weekday-10",
-      "route_id": "905",
-      "start_time": "00:46:00",
-      "start_date": "20261030",
-      "status": "SCHEDULED",
-      "reason": "Assigned vehicle 5532 is missing from active GPS transponder fleet"
-    },
-    {
-      "trip_id": "13998392-OCT26-AlbRMB-Weekday-10",
-      "route_id": "1",
-      "start_time": "00:06:00",
-      "start_date": "20261030",
-      "status": "SCHEDULED",
-      "reason": "Assigned vehicle 4246 is missing from active GPS transponder fleet"
-    },
-    {
-      "trip_id": "13998358-OCT26-AlbRMB-Weekday-10",
-      "route_id": "1",
-      "start_time": "00:40:00",
-      "start_date": "20261030",
-      "status": "SCHEDULED",
-      "reason": "Assigned vehicle 4246 is missing from active GPS transponder fleet"
-    },
-    {
-      "trip_id": "13998707-OCT26-AlbRMB-Weekday-10",
-      "route_id": "18",
-      "start_time": "23:56:00",
-      "start_date": "20261029",
-      "status": "SCHEDULED",
-      "reason": "Assigned vehicle 4128 is missing from active GPS transponder fleet"
-    }
-  ],
+  "sample_ghost_trips": [],
   "headway_metrics": []
 }
