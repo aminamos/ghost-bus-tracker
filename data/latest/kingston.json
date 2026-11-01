@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-10-31T07:00:22.706000+00:00",
-  "feed_timestamp": 1793430016,
+  "scan_time": "2026-11-01T07:00:18.502000+00:00",
+  "feed_timestamp": 1793516414,
   "agency": "Kingston Transit",
   "city": "Kingston, ON",
   "transit_system": "Kingston Transit",
@@ -9,7 +9,7 @@
   "country": "Canada",
   "source": "live",
   "total_scheduled_trips": 0,
-  "total_tracked_vehicles": 30,
+  "total_tracked_vehicles": 29,
   "total_ghost_trips": 0,
   "ghost_bus_rate_pct": 0.0,
   "vehicle_tracking_rate_pct": 0.0,
