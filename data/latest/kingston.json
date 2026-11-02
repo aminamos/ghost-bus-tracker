@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-11-01T07:00:18.502000+00:00",
-  "feed_timestamp": 1793516414,
+  "scan_time": "2026-11-02T07:00:18.305000+00:00",
+  "feed_timestamp": 1793602812,
   "agency": "Kingston Transit",
   "city": "Kingston, ON",
   "transit_system": "Kingston Transit",
@@ -8,25 +8,105 @@
   "state": "Ontario",
   "country": "Canada",
   "source": "live",
-  "total_scheduled_trips": 0,
-  "total_tracked_vehicles": 29,
-  "total_ghost_trips": 0,
-  "ghost_bus_rate_pct": 0.0,
-  "vehicle_tracking_rate_pct": 0.0,
-  "overall_on_time_pct": 0.0,
+  "total_scheduled_trips": 8,
+  "total_tracked_vehicles": 43,
+  "total_ghost_trips": 5,
+  "ghost_bus_rate_pct": 62.5,
+  "vehicle_tracking_rate_pct": 37.5,
+  "overall_on_time_pct": 100.0,
   "delay_distribution": {
     "early": 0,
-    "on_time": 0,
+    "on_time": 3,
     "minor_delay": 0,
     "severe_delay": 0,
-    "ghost": 0,
+    "ghost": 5,
     "canceled": 0
   },
   "mean_delay_sec": 0.0,
   "median_delay_sec": 0.0,
-  "worst_routes_by_ghost": [],
+  "worst_routes_by_ghost": [
+    {
+      "route_id": "N1",
+      "route_name": "Route N1",
+      "total_trips": 8,
+      "tracked_vehicles": 3,
+      "ghost_trips": 5,
+      "canceled_trips": 0,
+      "on_time_trips": 3,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 62.5,
+      "on_time_pct": 100.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    }
+  ],
   "most_delayed_routes": [],
-  "route_metrics": [],
-  "sample_ghost_trips": [],
-  "headway_metrics": []
+  "route_metrics": [
+    {
+      "route_id": "N1",
+      "route_name": "Route N1",
+      "total_trips": 8,
+      "tracked_vehicles": 3,
+      "ghost_trips": 5,
+      "canceled_trips": 0,
+      "on_time_trips": 3,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 62.5,
+      "on_time_pct": 100.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    }
+  ],
+  "sample_ghost_trips": [
+    {
+      "trip_id": "2347220:668781:669022",
+      "route_id": "N1",
+      "start_time": "26:10:00",
+      "start_date": "20261101",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    },
+    {
+      "trip_id": "2347220:668781:669022#490101365",
+      "route_id": "N1",
+      "start_time": "26:10:00",
+      "start_date": "20261101",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    },
+    {
+      "trip_id": "2347220:668781:669022#490101365",
+      "route_id": "N1",
+      "start_time": "26:10:00",
+      "start_date": "20261101",
+      "status": "ADDED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    },
+    {
+      "trip_id": "2347229:667456:669022#490101365",
+      "route_id": "N1",
+      "start_time": "25:23:00",
+      "start_date": "20261101",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    },
+    {
+      "trip_id": "2347229:667456:669022#490101365",
+      "route_id": "N1",
+      "start_time": "25:23:00",
+      "start_date": "20261101",
+      "status": "ADDED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    }
+  ],
+  "headway_metrics": [
+    {
+      "route_id": "N1",
+      "direction_id": null,
+      "scheduled_headway_min": 17.0,
+      "observed_headway_min": 17.0,
+      "excess_wait_time_min": 0.0,
+      "headway_regularity_score": 100.0
+    }
+  ]
 }

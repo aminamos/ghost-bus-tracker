@@ -1,7 +1,7 @@
 # 🚌 Automated Public Transit Reliability & Ghost Bus Tracker
 
 > Real-time monitoring and git-scraping reliability index for **WeGo Public Transit** in **Nashville, TN** (Nashville Metropolitan Area, Tennessee).
-> **Transit System:** WeGo | **Location:** Nashville, TN | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-11-01T07:00:18.636000+00:00` | **Source:** live GTFS-RT feed
+> **Transit System:** WeGo | **Location:** Nashville, TN | **Status:** 🟢 **HEALTHY** | **Last Scan:** `2026-11-02T07:00:18.454000+00:00` | **Source:** live GTFS-RT feed
 
 ---
 
@@ -9,11 +9,11 @@
 
 | Metric | Value | Status / Description |
 | :--- | :--- | :--- |
-| **Ghost Bus Rate** | **`30.0%`** | Scheduled runs with missing transponders or unannounced cuts |
+| **Ghost Bus Rate** | **`0.0%`** | Scheduled runs with missing transponders or unannounced cuts |
 | **On-Time Adherence** | **`0.0%`** | Departures within standard window (-1m to +5m) |
-| **Scheduled Active Trips** | `10` | Total runs operating in current transit schedule window |
-| **Tracked Fleet Vehicles** | `32` | GPS transponders broadcasting valid coordinates |
-| **Confirmed Ghost Trips** | `3` | Disappeared or unassigned scheduled runs |
+| **Scheduled Active Trips** | `28` | Total runs operating in current transit schedule window |
+| **Tracked Fleet Vehicles** | `37` | GPS transponders broadcasting valid coordinates |
+| **Confirmed Ghost Trips** | `0` | Disappeared or unassigned scheduled runs |
 | **Mean Delay** | `+0.0s` (`+0.0 min`) | Average delay across all active tracked runs |
 | **Median Delay** | `+0.0s` (`+0.0 min`) | Median schedule deviation |
 
@@ -27,7 +27,7 @@
 | ⏩ **Early Departure** | More than 1 min ahead of schedule | 0 | 0.0% |
 | 🟡 **Minor Delay** | +5m to +15m late | 0 | 0.0% |
 | 🔴 **Severe Delay** | Over 15m late | 0 | 0.0% |
-| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 3 | 30.0% |
+| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 0 | 0.0% |
 | ❌ **Agency Canceled** | Explicitly reported CANCELED | 0 | 0.0% |
 
 ---
@@ -36,9 +36,15 @@
 
 | Route | Total Scheduled | Tracked | Ghost Trips | Ghost Rate (%) | On-Time (%) | Avg Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Route 52** | 2 | 2 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
-| **Route 50** | 2 | 1 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
-| **Route 56** | 2 | 1 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| **Route 7** | 3 | 2 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| **Route 50** | 4 | 3 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| **Route 52** | 4 | 3 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| **Route 55** | 3 | 2 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| **Route 3** | 3 | 2 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| **Route 23** | 4 | 3 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| **Route 4** | 2 | 1 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| **Route 22** | 2 | 1 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| **Route 56** | 3 | 2 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
 
 ---
 
@@ -64,9 +70,7 @@
 
 | Trip ID | Route | Scheduled Departure | Status | Diagnosis / Reason |
 | :--- | :---: | :---: | :--- | :--- |
-| `389083` | Route 23 | `24:45:00` | `SCHEDULED` | Assigned vehicle 2878 is broadcasting off-schedule with no vehicle covering 389083 |
-| `389933` | Route 3 | `25:15:00` | `SCHEDULED` | Assigned vehicle 2965 is missing from active GPS transponder fleet |
-| `392376` | Route 55 | `25:15:00` | `SCHEDULED` | Assigned vehicle 3025 is missing from active GPS transponder fleet |
+| *Zero ghost trips detected! All scheduled runs have verified GPS transponders.* | - | - | - | - |
 
 ---
 
@@ -74,14 +78,14 @@
 
 | Timestamp | Ghost Rate (%) | On-Time (%) | Scheduled Runs | Tracked Fleet | Mean Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| `2026-11-01 07:00:18` | `30.0%` | `0.0%` | 10 | 32 | `+0.0s` |
-| `2026-11-01 06:30:19` | `27.27%` | `0.0%` | 11 | 32 | `+0.0s` |
-| `2026-11-01 05:30:19` | `0.0%` | `0.0%` | 42 | 41 | `+0.0s` |
-| `2026-11-01 05:00:20` | `0.0%` | `0.0%` | 55 | 49 | `+0.0s` |
-| `2026-11-01 04:30:19` | `1.52%` | `0.0%` | 66 | 63 | `+0.0s` |
-| `2026-11-01 04:00:18` | `1.22%` | `66.67%` | 82 | 73 | `-21.0s` |
-| `2026-11-01 03:30:18` | `0.0%` | `93.33%` | 97 | 82 | `+99.5s` |
-| `2026-11-01 03:00:27` | `0.0%` | `77.78%` | 109 | 79 | `+170.6s` |
+| `2026-11-02 07:00:18` | `0.0%` | `0.0%` | 28 | 37 | `+0.0s` |
+| `2026-11-02 06:30:18` | `0.0%` | `0.0%` | 40 | 47 | `+0.0s` |
+| `2026-11-02 06:00:23` | `0.0%` | `0.0%` | 52 | 62 | `+0.0s` |
+| `2026-11-02 05:30:22` | `1.47%` | `0.0%` | 68 | 74 | `+0.0s` |
+| `2026-11-02 05:00:19` | `0.0%` | `0.0%` | 83 | 79 | `+4340.5s` |
+| `2026-11-02 04:00:18` | `0.94%` | `0.0%` | 106 | 88 | `+3636.7s` |
+| `2026-11-02 03:30:26` | `0.0%` | `0.0%` | 113 | 84 | `+3649.7s` |
+| `2026-11-02 03:00:19` | `0.83%` | `0.0%` | 121 | 94 | `+3698.1s` |
 
 ---
 
@@ -93,4 +97,4 @@
 - **Excess Wait Time (EWT)**: Transit standard metric measuring variance in vehicle headway caused by vehicle bunching.
 - **Git-Scraping**: Every run fetches upstream GTFS-RT binary protobuf feeds, computes reliability metrics, commits versioned JSON snapshots, and renders this dashboard automatically.
 
-*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-01T07:00:18.636000+00:00`.*
+*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-02T07:00:18.454000+00:00`.*

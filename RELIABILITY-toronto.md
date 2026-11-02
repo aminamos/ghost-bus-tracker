@@ -1,7 +1,7 @@
 # 🚌 Automated Public Transit Reliability & Ghost Bus Tracker
 
 > Real-time monitoring and git-scraping reliability index for **Toronto Transit Commission** in **Toronto, ON** (Greater Toronto Area, Ontario).
-> **Transit System:** TTC | **Location:** Toronto, ON | **Status:** 🟡 **ELEVATED GHOSTS** | **Last Scan:** `2026-11-01T07:00:17.936000+00:00` | **Source:** live GTFS-RT feed
+> **Transit System:** TTC | **Location:** Toronto, ON | **Status:** 🟡 **ELEVATED GHOSTS** | **Last Scan:** `2026-11-02T07:00:18.031000+00:00` | **Source:** live GTFS-RT feed
 
 ---
 
@@ -9,11 +9,11 @@
 
 | Metric | Value | Status / Description |
 | :--- | :--- | :--- |
-| **Ghost Bus Rate** | **`8.14%`** | Scheduled runs with missing transponders or unannounced cuts |
+| **Ghost Bus Rate** | **`7.82%`** | Scheduled runs with missing transponders or unannounced cuts |
 | **On-Time Adherence** | **`0.0%`** | Departures within standard window (-1m to +5m) |
-| **Scheduled Active Trips** | `221` | Total runs operating in current transit schedule window |
-| **Tracked Fleet Vehicles** | `742` | GPS transponders broadcasting valid coordinates |
-| **Confirmed Ghost Trips** | `18` | Disappeared or unassigned scheduled runs |
+| **Scheduled Active Trips** | `524` | Total runs operating in current transit schedule window |
+| **Tracked Fleet Vehicles** | `897` | GPS transponders broadcasting valid coordinates |
+| **Confirmed Ghost Trips** | `41` | Disappeared or unassigned scheduled runs |
 | **Mean Delay** | `+0.0s` (`+0.0 min`) | Average delay across all active tracked runs |
 | **Median Delay** | `+0.0s` (`+0.0 min`) | Median schedule deviation |
 
@@ -27,7 +27,7 @@
 | ⏩ **Early Departure** | More than 1 min ahead of schedule | 0 | 0.0% |
 | 🟡 **Minor Delay** | +5m to +15m late | 0 | 0.0% |
 | 🔴 **Severe Delay** | Over 15m late | 0 | 0.0% |
-| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 18 | 8.1% |
+| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 41 | 7.8% |
 | ❌ **Agency Canceled** | Explicitly reported CANCELED | 0 | 0.0% |
 
 ---
@@ -36,16 +36,16 @@
 
 | Route | Total Scheduled | Tracked | Ghost Trips | Ghost Rate (%) | On-Time (%) | Avg Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Route 312** | 3 | 3 | 3 | **`100.0%`** | `0.0%` | `+0.0s` |
-| **Route 315** | 4 | 2 | 2 | **`50.0%`** | `0.0%` | `+0.0s` |
-| **Route 322** | 2 | 2 | 1 | **`50.0%`** | `0.0%` | `+0.0s` |
-| **Route 337** | 2 | 1 | 1 | **`50.0%`** | `0.0%` | `+0.0s` |
-| **Route 343** | 2 | 2 | 1 | **`50.0%`** | `0.0%` | `+0.0s` |
-| **Route 353** | 6 | 4 | 2 | **`33.33%`** | `0.0%` | `+0.0s` |
-| **Route 341** | 3 | 3 | 1 | **`33.33%`** | `0.0%` | `+0.0s` |
-| **Route 396** | 3 | 5 | 1 | **`33.33%`** | `0.0%` | `+0.0s` |
-| **Route 316** | 4 | 2 | 1 | **`25.0%`** | `0.0%` | `+0.0s` |
-| **Route 339** | 4 | 3 | 1 | **`25.0%`** | `0.0%` | `+0.0s` |
+| **Route 365** | 2 | 0 | 2 | **`100.0%`** | `0.0%` | `+0.0s` |
+| **Route 106** | 3 | 2 | 2 | **`66.67%`** | `0.0%` | `+0.0s` |
+| **Route 339** | 2 | 1 | 1 | **`50.0%`** | `0.0%` | `+0.0s` |
+| **Route 70** | 2 | 2 | 1 | **`50.0%`** | `0.0%` | `+0.0s` |
+| **Route 65** | 2 | 3 | 1 | **`50.0%`** | `0.0%` | `+0.0s` |
+| **Route 396** | 3 | 2 | 1 | **`33.33%`** | `0.0%` | `+0.0s` |
+| **Route 168** | 3 | 2 | 1 | **`33.33%`** | `0.0%` | `+0.0s` |
+| **Route 51** | 3 | 2 | 1 | **`33.33%`** | `0.0%` | `+0.0s` |
+| **Route 373** | 3 | 3 | 1 | **`33.33%`** | `0.0%` | `+0.0s` |
+| **Route 12** | 3 | 3 | 1 | **`33.33%`** | `0.0%` | `+0.0s` |
 
 ---
 
@@ -71,21 +71,21 @@
 
 | Trip ID | Route | Scheduled Departure | Status | Diagnosis / Reason |
 | :--- | :---: | :---: | :--- | :--- |
-| `19685070` | Route 316 | `N/A` | `SCHEDULED` | Assigned vehicle 3327 is broadcasting off-schedule with no vehicle covering 19685070 |
-| `112073070` | Route 353 | `N/A` | `SCHEDULED` | Assigned vehicle 7083 is broadcasting off-schedule with no vehicle covering 112073070 |
-| `47284070` | Route 329 | `N/A` | `SCHEDULED` | Assigned vehicle 9445 is broadcasting off-schedule with no vehicle covering 47284070 |
-| `89968070` | Route 320 | `N/A` | `SCHEDULED` | Assigned vehicle 7071 is broadcasting off-schedule with no vehicle covering 89968070 |
-| `124224070` | Route 341 | `N/A` | `SCHEDULED` | Assigned vehicle 7233 is broadcasting off-schedule with no vehicle covering 124224070 |
-| `86263070` | Route 312 | `N/A` | `SCHEDULED` | Assigned vehicle 4483 is broadcasting off-schedule with no vehicle covering 86263070 |
-| `79286070` | Route 312 | `N/A` | `SCHEDULED` | Assigned vehicle 4459 is broadcasting off-schedule with no vehicle covering 79286070 |
-| `25497070` | Route 337 | `N/A` | `SCHEDULED` | Assigned vehicle 8143 is broadcasting off-schedule with no vehicle covering 25497070 |
-| `17773070` | Route 353 | `N/A` | `SCHEDULED` | Assigned vehicle 3174 is broadcasting off-schedule with no vehicle covering 17773070 |
-| `94361070` | Route 343 | `N/A` | `SCHEDULED` | Assigned vehicle 9201 is broadcasting off-schedule with no vehicle covering 94361070 |
-| `109089070` | Route 396 | `N/A` | `SCHEDULED` | Assigned vehicle 3629 is broadcasting off-schedule with no vehicle covering 109089070 |
-| `29691070` | Route 322 | `N/A` | `SCHEDULED` | Assigned vehicle 8510 is broadcasting off-schedule with no vehicle covering 29691070 |
-| `10697070` | Route 334 | `N/A` | `SCHEDULED` | Assigned vehicle 8792 is broadcasting off-schedule with no vehicle covering 10697070 |
-| `104826070` | Route 315 | `N/A` | `SCHEDULED` | Assigned vehicle 8336 is broadcasting off-schedule with no vehicle covering 104826070 |
-| `58638070` | Route 339 | `N/A` | `SCHEDULED` | Assigned vehicle 3132 is broadcasting off-schedule with no vehicle covering 58638070 |
+| `43959010` | Route 106 | `N/A` | `SCHEDULED` | Assigned vehicle 7128 is broadcasting off-schedule with no vehicle covering 43959010 |
+| `58294010` | Route 339 | `N/A` | `SCHEDULED` | Assigned vehicle 9227 is broadcasting off-schedule with no vehicle covering 58294010 |
+| `84460010` | Route 504 | `N/A` | `SCHEDULED` | Assigned vehicle 3277 is broadcasting off-schedule with no vehicle covering 84460010 |
+| `33228010` | Route 396 | `N/A` | `SCHEDULED` | Assigned vehicle 3646 is broadcasting off-schedule with no vehicle covering 33228010 |
+| `58717010` | Route 354 | `N/A` | `SCHEDULED` | Assigned vehicle 9231 is broadcasting off-schedule with no vehicle covering 58717010 |
+| `72521010` | Route 305 | `N/A` | `SCHEDULED` | Assigned vehicle 4646 is broadcasting off-schedule with no vehicle covering 72521010 |
+| `36551010` | Route 343 | `N/A` | `SCHEDULED` | Assigned vehicle 3229 is broadcasting off-schedule with no vehicle covering 36551010 |
+| `68223010` | Route 168 | `N/A` | `SCHEDULED` | Assigned vehicle 7299 is broadcasting off-schedule with no vehicle covering 68223010 |
+| `79716010` | Route 53 | `N/A` | `SCHEDULED` | Assigned vehicle 3108 is broadcasting off-schedule with no vehicle covering 79716010 |
+| `17141010` | Route 504 | `N/A` | `SCHEDULED` | Assigned vehicle 8457 is broadcasting off-schedule with no vehicle covering 17141010 |
+| `86593010` | Route 386 | `N/A` | `SCHEDULED` | Assigned vehicle 3491 is broadcasting off-schedule with no vehicle covering 86593010 |
+| `92267010` | Route 35 | `N/A` | `SCHEDULED` | Assigned vehicle 7218 is broadcasting off-schedule with no vehicle covering 92267010 |
+| `77342010` | Route 25 | `N/A` | `SCHEDULED` | Assigned vehicle 8795 is broadcasting off-schedule with no vehicle covering 77342010 |
+| `91725010` | Route 352 | `N/A` | `SCHEDULED` | Assigned vehicle 8800 is broadcasting off-schedule with no vehicle covering 91725010 |
+| `11075010` | Route 165 | `N/A` | `SCHEDULED` | Assigned vehicle 3198 is broadcasting off-schedule with no vehicle covering 11075010 |
 
 ---
 
@@ -93,14 +93,14 @@
 
 | Timestamp | Ghost Rate (%) | On-Time (%) | Scheduled Runs | Tracked Fleet | Mean Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| `2026-11-01 07:00:17` | `8.14%` | `0.0%` | 221 | 742 | `+0.0s` |
-| `2026-11-01 06:30:18` | `4.08%` | `0.0%` | 343 | 820 | `+0.0s` |
-| `2026-11-01 06:00:18` | `7.6%` | `0.0%` | 526 | 943 | `+0.0s` |
-| `2026-11-01 05:30:18` | `6.19%` | `0.0%` | 727 | 1062 | `+0.0s` |
-| `2026-11-01 05:00:18` | `8.99%` | `0.0%` | 945 | 1064 | `+0.0s` |
-| `2026-11-01 04:30:18` | `7.01%` | `0.0%` | 1084 | 1043 | `+0.0s` |
-| `2026-11-01 04:00:17` | `8.12%` | `0.0%` | 1120 | 1036 | `+0.0s` |
-| `2026-11-01 03:30:17` | `4.9%` | `0.0%` | 1143 | 1072 | `+0.0s` |
+| `2026-11-02 07:00:18` | `7.82%` | `0.0%` | 524 | 897 | `+0.0s` |
+| `2026-11-02 06:30:17` | `8.43%` | `0.0%` | 688 | 963 | `+0.0s` |
+| `2026-11-02 06:00:20` | `8.58%` | `0.0%` | 921 | 997 | `+0.0s` |
+| `2026-11-02 05:30:19` | `9.0%` | `0.0%` | 1045 | 993 | `+0.0s` |
+| `2026-11-02 05:00:18` | `9.25%` | `0.0%` | 1059 | 968 | `+0.0s` |
+| `2026-11-02 04:30:18` | `8.2%` | `0.0%` | 1073 | 992 | `+0.0s` |
+| `2026-11-02 04:00:18` | `8.14%` | `0.0%` | 1094 | 1057 | `+0.0s` |
+| `2026-11-02 03:30:19` | `7.17%` | `0.0%` | 1158 | 1138 | `+0.0s` |
 
 ---
 
@@ -112,4 +112,4 @@
 - **Excess Wait Time (EWT)**: Transit standard metric measuring variance in vehicle headway caused by vehicle bunching.
 - **Git-Scraping**: Every run fetches upstream GTFS-RT binary protobuf feeds, computes reliability metrics, commits versioned JSON snapshots, and renders this dashboard automatically.
 
-*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-01T07:00:17.936000+00:00`.*
+*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-02T07:00:18.031000+00:00`.*
