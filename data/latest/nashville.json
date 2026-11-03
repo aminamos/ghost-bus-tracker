@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-11-02T07:00:18.454000+00:00",
-  "feed_timestamp": 1793602818,
+  "scan_time": "2026-11-03T07:00:18.758000+00:00",
+  "feed_timestamp": 1793689218,
   "agency": "WeGo Public Transit",
   "city": "Nashville, TN",
   "transit_system": "WeGo",
@@ -8,8 +8,8 @@
   "state": "Tennessee",
   "country": "USA",
   "source": "live",
-  "total_scheduled_trips": 28,
-  "total_tracked_vehicles": 37,
+  "total_scheduled_trips": 30,
+  "total_tracked_vehicles": 40,
   "total_ghost_trips": 0,
   "ghost_bus_rate_pct": 0.0,
   "vehicle_tracking_rate_pct": 100.0,
@@ -26,20 +26,6 @@
   "median_delay_sec": 0.0,
   "worst_routes_by_ghost": [
     {
-      "route_id": "7",
-      "route_name": "Route 7",
-      "total_trips": 3,
-      "tracked_vehicles": 2,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
       "route_id": "50",
       "route_name": "Route 50",
       "total_trips": 4,
@@ -54,22 +40,8 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "52",
-      "route_name": "Route 52",
-      "total_trips": 4,
-      "tracked_vehicles": 3,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
-      "route_id": "55",
-      "route_name": "Route 55",
+      "route_id": "22",
+      "route_name": "Route 22",
       "total_trips": 3,
       "tracked_vehicles": 2,
       "ghost_trips": 0,
@@ -82,8 +54,22 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "3",
-      "route_name": "Route 3",
+      "route_id": "56",
+      "route_name": "Route 56",
+      "total_trips": 3,
+      "tracked_vehicles": 2,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
+      "route_id": "7",
+      "route_name": "Route 7",
       "total_trips": 3,
       "tracked_vehicles": 2,
       "ghost_trips": 0,
@@ -124,10 +110,10 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "22",
-      "route_name": "Route 22",
-      "total_trips": 2,
-      "tracked_vehicles": 1,
+      "route_id": "52",
+      "route_name": "Route 52",
+      "total_trips": 4,
+      "tracked_vehicles": 3,
       "ghost_trips": 0,
       "canceled_trips": 0,
       "on_time_trips": 0,
@@ -138,8 +124,22 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "56",
-      "route_name": "Route 56",
+      "route_id": "3",
+      "route_name": "Route 3",
+      "total_trips": 3,
+      "tracked_vehicles": 2,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
+      "route_id": "55",
+      "route_name": "Route 55",
       "total_trips": 3,
       "tracked_vehicles": 2,
       "ghost_trips": 0,
@@ -155,10 +155,10 @@
   "most_delayed_routes": [],
   "route_metrics": [
     {
-      "route_id": "7",
-      "route_name": "Route 7",
-      "total_trips": 3,
-      "tracked_vehicles": 2,
+      "route_id": "6",
+      "route_name": "Route 6",
+      "total_trips": 1,
+      "tracked_vehicles": 1,
       "ghost_trips": 0,
       "canceled_trips": 0,
       "on_time_trips": 0,
@@ -183,22 +183,8 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "52",
-      "route_name": "Route 52",
-      "total_trips": 4,
-      "tracked_vehicles": 3,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
-      "route_id": "55",
-      "route_name": "Route 55",
+      "route_id": "22",
+      "route_name": "Route 22",
       "total_trips": 3,
       "tracked_vehicles": 2,
       "ghost_trips": 0,
@@ -211,8 +197,22 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "3",
-      "route_name": "Route 3",
+      "route_id": "56",
+      "route_name": "Route 56",
+      "total_trips": 3,
+      "tracked_vehicles": 2,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
+      "route_id": "7",
+      "route_name": "Route 7",
       "total_trips": 3,
       "tracked_vehicles": 2,
       "ghost_trips": 0,
@@ -253,10 +253,10 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "22",
-      "route_name": "Route 22",
-      "total_trips": 2,
-      "tracked_vehicles": 1,
+      "route_id": "52",
+      "route_name": "Route 52",
+      "total_trips": 4,
+      "tracked_vehicles": 3,
       "ghost_trips": 0,
       "canceled_trips": 0,
       "on_time_trips": 0,
@@ -267,8 +267,22 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "56",
-      "route_name": "Route 56",
+      "route_id": "3",
+      "route_name": "Route 3",
+      "total_trips": 3,
+      "tracked_vehicles": 2,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
+      "route_id": "55",
+      "route_name": "Route 55",
       "total_trips": 3,
       "tracked_vehicles": 2,
       "ghost_trips": 0,

@@ -1,7 +1,7 @@
 # 🚌 Automated Public Transit Reliability & Ghost Bus Tracker
 
 > Real-time monitoring and git-scraping reliability index for **Guelph Transit** in **Guelph, ON** (City of Guelph, Ontario).
-> **Transit System:** Guelph Transit | **Location:** Guelph, ON | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-11-02T07:00:18.224000+00:00` | **Source:** live GTFS-RT feed
+> **Transit System:** Guelph Transit | **Location:** Guelph, ON | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-11-03T07:00:18.560000+00:00` | **Source:** live GTFS-RT feed
 
 ---
 
@@ -36,8 +36,8 @@
 
 | Route | Total Scheduled | Tracked | Ghost Trips | Ghost Rate (%) | On-Time (%) | Avg Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Route 3013** | 49 | 0 | 49 | **`100.0%`** | `0.0%` | `+0.0s` |
 | **Route 2992** | 49 | 0 | 49 | **`100.0%`** | `0.0%` | `+0.0s` |
+| **Route 3013** | 49 | 0 | 49 | **`100.0%`** | `0.0%` | `+0.0s` |
 | **Route 3003** | 42 | 0 | 42 | **`100.0%`** | `0.0%` | `+0.0s` |
 | **Route 2997** | 39 | 0 | 39 | **`100.0%`** | `0.0%` | `+0.0s` |
 | **Route 3002** | 38 | 0 | 38 | **`100.0%`** | `0.0%` | `+0.0s` |
@@ -70,21 +70,21 @@
 
 | Trip ID | Route | Scheduled Departure | Status | Diagnosis / Reason |
 | :--- | :---: | :---: | :--- | :--- |
-| `483790` | Route 3013 | `09:55:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `483792` | Route 3013 | `09:15:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `483794` | Route 3013 | `08:35:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `483796` | Route 3013 | `07:55:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `483798` | Route 3013 | `07:15:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `483799` | Route 3013 | `06:45:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `483800` | Route 3013 | `06:15:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `483801` | Route 3013 | `05:45:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `481770` | Route 3003 | `05:40:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `481729` | Route 3003 | `14:40:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
 | `480260` | Route 2997 | `24:37:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
 | `481508` | Route 3002 | `24:00:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
 | `480258` | Route 2997 | `23:37:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
 | `481506` | Route 3002 | `23:00:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
 | `480256` | Route 2997 | `22:37:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `481504` | Route 3002 | `22:00:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `480254` | Route 2997 | `21:37:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `481502` | Route 3002 | `21:00:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `480252` | Route 2997 | `20:37:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `481500` | Route 3002 | `20:00:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `480250` | Route 2997 | `19:37:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `481498` | Route 3002 | `19:00:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `480248` | Route 2997 | `18:37:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `481496` | Route 3002 | `18:00:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `480246` | Route 2997 | `17:37:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
 
 ---
 
@@ -92,14 +92,14 @@
 
 | Timestamp | Ghost Rate (%) | On-Time (%) | Scheduled Runs | Tracked Fleet | Mean Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| `2026-11-02 07:00:18` | `67.05%` | `0.0%` | 437 | 0 | `+0.0s` |
-| `2026-11-02 06:30:18` | `66.59%` | `0.0%` | 440 | 0 | `+0.0s` |
-| `2026-11-02 06:00:21` | `65.7%` | `0.0%` | 446 | 2 | `+0.0s` |
-| `2026-11-02 05:30:20` | `65.11%` | `0.0%` | 450 | 2 | `+0.0s` |
-| `2026-11-02 05:00:18` | `0.0%` | `0.0%` | 5 | 2 | `+0.0s` |
-| `2026-11-02 04:30:18` | `0.0%` | `0.0%` | 8 | 2 | `+0.0s` |
-| `2026-11-02 04:00:18` | `0.0%` | `0.0%` | 11 | 2 | `+0.0s` |
-| `2026-11-02 03:30:20` | `0.0%` | `0.0%` | 17 | 5 | `+0.0s` |
+| `2026-11-03 07:00:18` | `67.05%` | `0.0%` | 437 | 0 | `+0.0s` |
+| `2026-11-03 06:30:21` | `66.59%` | `0.0%` | 440 | 0 | `+0.0s` |
+| `2026-11-03 06:00:18` | `65.84%` | `0.0%` | 445 | 1 | `+0.0s` |
+| `2026-11-03 05:30:18` | `60.58%` | `0.0%` | 482 | 31 | `+0.0s` |
+| `2026-11-03 05:00:21` | `11.59%` | `0.0%` | 69 | 32 | `+0.0s` |
+| `2026-11-03 04:30:19` | `18.07%` | `0.0%` | 83 | 32 | `+0.0s` |
+| `2026-11-03 04:00:18` | `23.66%` | `0.0%` | 93 | 32 | `+0.0s` |
+| `2026-11-03 03:30:19` | `28.71%` | `0.0%` | 101 | 32 | `+0.0s` |
 
 ---
 
@@ -111,4 +111,4 @@
 - **Excess Wait Time (EWT)**: Transit standard metric measuring variance in vehicle headway caused by vehicle bunching.
 - **Git-Scraping**: Every run fetches upstream GTFS-RT binary protobuf feeds, computes reliability metrics, commits versioned JSON snapshots, and renders this dashboard automatically.
 
-*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-02T07:00:18.224000+00:00`.*
+*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-03T07:00:18.560000+00:00`.*

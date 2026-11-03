@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-11-02T07:00:18.454000+00:00",
-  "feed_timestamp": 1793602801,
+  "scan_time": "2026-11-03T07:00:18.737000+00:00",
+  "feed_timestamp": 1793689190,
   "agency": "Metro Transit (City of Madison)",
   "city": "Madison, WI",
   "transit_system": "Metro Transit",
@@ -8,26 +8,26 @@
   "state": "Wisconsin",
   "country": "USA",
   "source": "live",
-  "total_scheduled_trips": 9,
-  "total_tracked_vehicles": 3,
-  "total_ghost_trips": 3,
-  "ghost_bus_rate_pct": 33.33,
-  "vehicle_tracking_rate_pct": 66.67,
+  "total_scheduled_trips": 8,
+  "total_tracked_vehicles": 4,
+  "total_ghost_trips": 2,
+  "ghost_bus_rate_pct": 25.0,
+  "vehicle_tracking_rate_pct": 75.0,
   "overall_on_time_pct": 0.0,
   "delay_distribution": {
     "early": 0,
     "on_time": 0,
     "minor_delay": 0,
     "severe_delay": 0,
-    "ghost": 3,
+    "ghost": 2,
     "canceled": 0
   },
   "mean_delay_sec": 0.0,
   "median_delay_sec": 0.0,
   "worst_routes_by_ghost": [
     {
-      "route_id": "81",
-      "route_name": "Route 81",
+      "route_id": "82",
+      "route_name": "Route 82",
       "total_trips": 3,
       "tracked_vehicles": 1,
       "ghost_trips": 1,
@@ -40,8 +40,8 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "82",
-      "route_name": "Route 82",
+      "route_id": "81",
+      "route_name": "Route 81",
       "total_trips": 3,
       "tracked_vehicles": 1,
       "ghost_trips": 1,
@@ -71,29 +71,15 @@
   "most_delayed_routes": [],
   "route_metrics": [
     {
-      "route_id": "61",
-      "route_name": "Route 61",
-      "total_trips": 1,
-      "tracked_vehicles": 0,
-      "ghost_trips": 1,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 100.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
-      "route_id": "81",
-      "route_name": "Route 81",
-      "total_trips": 3,
+      "route_id": "80",
+      "route_name": "Route 80",
+      "total_trips": 2,
       "tracked_vehicles": 1,
-      "ghost_trips": 1,
+      "ghost_trips": 0,
       "canceled_trips": 0,
       "on_time_trips": 0,
       "delayed_trips": 0,
-      "ghost_rate_pct": 33.33,
+      "ghost_rate_pct": 0.0,
       "on_time_pct": 0.0,
       "avg_delay_sec": 0.0,
       "max_delay_sec": 0
@@ -113,15 +99,15 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "80",
-      "route_name": "Route 80",
-      "total_trips": 2,
+      "route_id": "81",
+      "route_name": "Route 81",
+      "total_trips": 3,
       "tracked_vehicles": 1,
-      "ghost_trips": 0,
+      "ghost_trips": 1,
       "canceled_trips": 0,
       "on_time_trips": 0,
       "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
+      "ghost_rate_pct": 33.33,
       "on_time_pct": 0.0,
       "avg_delay_sec": 0.0,
       "max_delay_sec": 0
@@ -129,24 +115,16 @@
   ],
   "sample_ghost_trips": [
     {
-      "trip_id": "4741020",
-      "route_id": "61",
-      "start_time": "N/A",
-      "start_date": "N/A",
-      "status": "SCHEDULED",
-      "reason": "No vehicle assigned and no active GPS broadcast"
-    },
-    {
-      "trip_id": "5053010",
-      "route_id": "81",
-      "start_time": "N/A",
-      "start_date": "N/A",
-      "status": "SCHEDULED",
-      "reason": "No vehicle assigned and no active GPS broadcast"
-    },
-    {
-      "trip_id": "1747010",
+      "trip_id": "3419020",
       "route_id": "82",
+      "start_time": "N/A",
+      "start_date": "N/A",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    },
+    {
+      "trip_id": "5104020",
+      "route_id": "81",
       "start_time": "N/A",
       "start_date": "N/A",
       "status": "SCHEDULED",
