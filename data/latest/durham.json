@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-11-03T07:00:18.737000+00:00",
-  "feed_timestamp": 1793689214,
+  "scan_time": "2026-11-04T07:00:20.914000+00:00",
+  "feed_timestamp": 1793775614,
   "agency": "Durham Region Transit",
   "city": "Durham, ON",
   "transit_system": "DRT",
@@ -8,11 +8,11 @@
   "state": "Ontario",
   "country": "Canada",
   "source": "live",
-  "total_scheduled_trips": 16,
+  "total_scheduled_trips": 12,
   "total_tracked_vehicles": 8,
   "total_ghost_trips": 3,
-  "ghost_bus_rate_pct": 18.75,
-  "vehicle_tracking_rate_pct": 81.25,
+  "ghost_bus_rate_pct": 25.0,
+  "vehicle_tracking_rate_pct": 75.0,
   "overall_on_time_pct": 0.0,
   "delay_distribution": {
     "early": 0,
@@ -28,13 +28,13 @@
     {
       "route_id": "N2",
       "route_name": "Route N2",
-      "total_trips": 7,
+      "total_trips": 3,
       "tracked_vehicles": 2,
       "ghost_trips": 3,
       "canceled_trips": 0,
       "on_time_trips": 0,
       "delayed_trips": 0,
-      "ghost_rate_pct": 42.86,
+      "ghost_rate_pct": 100.0,
       "on_time_pct": 0.0,
       "avg_delay_sec": 0.0,
       "max_delay_sec": 0
@@ -73,13 +73,13 @@
     {
       "route_id": "N2",
       "route_name": "Route N2",
-      "total_trips": 7,
+      "total_trips": 3,
       "tracked_vehicles": 2,
       "ghost_trips": 3,
       "canceled_trips": 0,
       "on_time_trips": 0,
       "delayed_trips": 0,
-      "ghost_rate_pct": 42.86,
+      "ghost_rate_pct": 100.0,
       "on_time_pct": 0.0,
       "avg_delay_sec": 0.0,
       "max_delay_sec": 0
@@ -90,25 +90,25 @@
       "trip_id": "5159__491001_Timetable_-_2026-10",
       "route_id": "N2",
       "start_time": "N/A",
-      "start_date": "20261103",
+      "start_date": "20261104",
       "status": "SCHEDULED",
-      "reason": "Assigned vehicle 6139 is broadcasting off-schedule with no vehicle covering 5159__491001_Timetable_-_2026-10"
+      "reason": "Assigned vehicle 6150 is broadcasting off-schedule with no vehicle covering 5159__491001_Timetable_-_2026-10"
     },
     {
       "trip_id": "417__491001_Timetable_-_2026-10",
       "route_id": "N2",
       "start_time": "N/A",
-      "start_date": "20261103",
+      "start_date": "20261104",
       "status": "SCHEDULED",
-      "reason": "Assigned vehicle 6139 is broadcasting off-schedule with no vehicle covering 417__491001_Timetable_-_2026-10"
+      "reason": "Assigned vehicle 6150 is broadcasting off-schedule with no vehicle covering 417__491001_Timetable_-_2026-10"
     },
     {
       "trip_id": "406__491001_Timetable_-_2026-10",
       "route_id": "N2",
       "start_time": "N/A",
-      "start_date": "20261103",
+      "start_date": "20261104",
       "status": "SCHEDULED",
-      "reason": "Assigned vehicle 6139 is broadcasting off-schedule with no vehicle covering 406__491001_Timetable_-_2026-10"
+      "reason": "Assigned vehicle 6150 is broadcasting off-schedule with no vehicle covering 406__491001_Timetable_-_2026-10"
     }
   ],
   "headway_metrics": []
