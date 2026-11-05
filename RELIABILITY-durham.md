@@ -1,7 +1,7 @@
 # 🚌 Automated Public Transit Reliability & Ghost Bus Tracker
 
 > Real-time monitoring and git-scraping reliability index for **Durham Region Transit** in **Durham, ON** (Regional Municipality of Durham, Ontario).
-> **Transit System:** DRT | **Location:** Durham, ON | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-11-04T07:00:20.914000+00:00` | **Source:** live GTFS-RT feed
+> **Transit System:** DRT | **Location:** Durham, ON | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-11-05T07:00:18.196000+00:00` | **Source:** live GTFS-RT feed
 
 ---
 
@@ -9,11 +9,11 @@
 
 | Metric | Value | Status / Description |
 | :--- | :--- | :--- |
-| **Ghost Bus Rate** | **`25.0%`** | Scheduled runs with missing transponders or unannounced cuts |
+| **Ghost Bus Rate** | **`43.75%`** | Scheduled runs with missing transponders or unannounced cuts |
 | **On-Time Adherence** | **`0.0%`** | Departures within standard window (-1m to +5m) |
-| **Scheduled Active Trips** | `12` | Total runs operating in current transit schedule window |
-| **Tracked Fleet Vehicles** | `8` | GPS transponders broadcasting valid coordinates |
-| **Confirmed Ghost Trips** | `3` | Disappeared or unassigned scheduled runs |
+| **Scheduled Active Trips** | `16` | Total runs operating in current transit schedule window |
+| **Tracked Fleet Vehicles** | `9` | GPS transponders broadcasting valid coordinates |
+| **Confirmed Ghost Trips** | `7` | Disappeared or unassigned scheduled runs |
 | **Mean Delay** | `+0.0s` (`+0.0 min`) | Average delay across all active tracked runs |
 | **Median Delay** | `+0.0s` (`+0.0 min`) | Median schedule deviation |
 
@@ -27,7 +27,7 @@
 | ⏩ **Early Departure** | More than 1 min ahead of schedule | 0 | 0.0% |
 | 🟡 **Minor Delay** | +5m to +15m late | 0 | 0.0% |
 | 🔴 **Severe Delay** | Over 15m late | 0 | 0.0% |
-| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 3 | 25.0% |
+| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 7 | 43.8% |
 | ❌ **Agency Canceled** | Explicitly reported CANCELED | 0 | 0.0% |
 
 ---
@@ -36,7 +36,7 @@
 
 | Route | Total Scheduled | Tracked | Ghost Trips | Ghost Rate (%) | On-Time (%) | Avg Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Route N2** | 3 | 2 | 3 | **`100.0%`** | `0.0%` | `+0.0s` |
+| **Route N2** | 7 | 2 | 7 | **`100.0%`** | `0.0%` | `+0.0s` |
 | **Route N1** | 9 | 5 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
 
 ---
@@ -63,9 +63,13 @@
 
 | Trip ID | Route | Scheduled Departure | Status | Diagnosis / Reason |
 | :--- | :---: | :---: | :--- | :--- |
-| `5159__491001_Timetable_-_2026-10` | Route N2 | `N/A` | `SCHEDULED` | Assigned vehicle 6150 is broadcasting off-schedule with no vehicle covering 5159__491001_Timetable_-_2026-10 |
-| `417__491001_Timetable_-_2026-10` | Route N2 | `N/A` | `SCHEDULED` | Assigned vehicle 6150 is broadcasting off-schedule with no vehicle covering 417__491001_Timetable_-_2026-10 |
-| `406__491001_Timetable_-_2026-10` | Route N2 | `N/A` | `SCHEDULED` | Assigned vehicle 6150 is broadcasting off-schedule with no vehicle covering 406__491001_Timetable_-_2026-10 |
+| `400__491003_Timetable_-_2026-10` | Route N2 | `N/A` | `SCHEDULED` | Assigned vehicle 6145 is broadcasting off-schedule with no vehicle covering 400__491003_Timetable_-_2026-10 |
+| `5159__491001_Timetable_-_2026-10` | Route N2 | `N/A` | `SCHEDULED` | Assigned vehicle 8580 is broadcasting off-schedule with no vehicle covering 5159__491001_Timetable_-_2026-10 |
+| `417__491001_Timetable_-_2026-10` | Route N2 | `N/A` | `SCHEDULED` | Assigned vehicle 8580 is broadcasting off-schedule with no vehicle covering 417__491001_Timetable_-_2026-10 |
+| `406__491001_Timetable_-_2026-10` | Route N2 | `N/A` | `SCHEDULED` | Assigned vehicle 8580 is broadcasting off-schedule with no vehicle covering 406__491001_Timetable_-_2026-10 |
+| `5160__491003_Timetable_-_2026-10` | Route N2 | `N/A` | `SCHEDULED` | Assigned vehicle 6145 is broadcasting off-schedule with no vehicle covering 5160__491003_Timetable_-_2026-10 |
+| `420__491003_Timetable_-_2026-10` | Route N2 | `N/A` | `SCHEDULED` | Assigned vehicle 6145 is broadcasting off-schedule with no vehicle covering 420__491003_Timetable_-_2026-10 |
+| `402__491003_Timetable_-_2026-10` | Route N2 | `N/A` | `SCHEDULED` | Assigned vehicle 6145 is broadcasting off-schedule with no vehicle covering 402__491003_Timetable_-_2026-10 |
 
 ---
 
@@ -73,14 +77,14 @@
 
 | Timestamp | Ghost Rate (%) | On-Time (%) | Scheduled Runs | Tracked Fleet | Mean Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| `2026-11-04 07:00:20` | `25.0%` | `0.0%` | 12 | 8 | `+0.0s` |
-| `2026-11-04 06:30:33` | `33.33%` | `0.0%` | 12 | 9 | `+0.0s` |
-| `2026-11-04 06:00:18` | `0.0%` | `0.0%` | 19 | 16 | `+0.0s` |
-| `2026-11-04 05:30:18` | `14.71%` | `0.0%` | 34 | 34 | `+0.0s` |
-| `2026-11-04 05:00:17` | `8.0%` | `0.0%` | 50 | 38 | `+0.0s` |
-| `2026-11-04 04:30:17` | `5.19%` | `0.0%` | 77 | 41 | `+0.0s` |
-| `2026-11-04 04:00:24` | `16.67%` | `0.0%` | 96 | 48 | `+0.0s` |
-| `2026-11-04 03:30:21` | `12.04%` | `0.0%` | 108 | 58 | `+0.0s` |
+| `2026-11-05 07:00:18` | `43.75%` | `0.0%` | 16 | 9 | `+0.0s` |
+| `2026-11-05 06:30:18` | `43.75%` | `0.0%` | 16 | 10 | `+0.0s` |
+| `2026-11-05 06:00:18` | `13.04%` | `0.0%` | 23 | 18 | `+0.0s` |
+| `2026-11-05 05:30:19` | `12.82%` | `0.0%` | 39 | 33 | `+0.0s` |
+| `2026-11-05 05:00:18` | `12.96%` | `0.0%` | 54 | 37 | `+0.0s` |
+| `2026-11-05 04:30:18` | `6.33%` | `0.0%` | 79 | 42 | `+0.0s` |
+| `2026-11-05 04:00:20` | `3.23%` | `0.0%` | 93 | 48 | `+0.0s` |
+| `2026-11-05 03:30:19` | `13.76%` | `100.0%` | 109 | 60 | `+49.0s` |
 
 ---
 
@@ -92,4 +96,4 @@
 - **Excess Wait Time (EWT)**: Transit standard metric measuring variance in vehicle headway caused by vehicle bunching.
 - **Git-Scraping**: Every run fetches upstream GTFS-RT binary protobuf feeds, computes reliability metrics, commits versioned JSON snapshots, and renders this dashboard automatically.
 
-*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-04T07:00:20.914000+00:00`.*
+*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-05T07:00:18.196000+00:00`.*
