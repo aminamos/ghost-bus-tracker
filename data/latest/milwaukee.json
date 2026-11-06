@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-11-05T07:00:18.229000+00:00",
-  "feed_timestamp": 1793861997,
+  "scan_time": "2026-11-06T07:00:18.253000+00:00",
+  "feed_timestamp": 1793948400,
   "agency": "Milwaukee County Transit System",
   "city": "Milwaukee, WI",
   "transit_system": "MCTS",
@@ -8,54 +8,26 @@
   "state": "Wisconsin",
   "country": "USA",
   "source": "live",
-  "total_scheduled_trips": 34,
-  "total_tracked_vehicles": 42,
-  "total_ghost_trips": 4,
-  "ghost_bus_rate_pct": 11.76,
-  "vehicle_tracking_rate_pct": 88.24,
+  "total_scheduled_trips": 35,
+  "total_tracked_vehicles": 43,
+  "total_ghost_trips": 3,
+  "ghost_bus_rate_pct": 8.57,
+  "vehicle_tracking_rate_pct": 91.43,
   "overall_on_time_pct": 0.0,
   "delay_distribution": {
     "early": 0,
     "on_time": 0,
     "minor_delay": 0,
     "severe_delay": 0,
-    "ghost": 4,
+    "ghost": 3,
     "canceled": 0
   },
   "mean_delay_sec": 0.0,
   "median_delay_sec": 0.0,
   "worst_routes_by_ghost": [
     {
-      "route_id": "RED",
-      "route_name": "Route RED",
-      "total_trips": 2,
-      "tracked_vehicles": 1,
-      "ghost_trips": 1,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 50.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
       "route_id": "66",
       "route_name": "Route 66",
-      "total_trips": 3,
-      "tracked_vehicles": 3,
-      "ghost_trips": 1,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 33.33,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
-      "route_id": "21",
-      "route_name": "Route 21",
       "total_trips": 3,
       "tracked_vehicles": 3,
       "ghost_trips": 1,
@@ -72,6 +44,20 @@
       "route_name": "Route CN1",
       "total_trips": 4,
       "tracked_vehicles": 3,
+      "ghost_trips": 1,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 25.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
+      "route_id": "21",
+      "route_name": "Route 21",
+      "total_trips": 4,
+      "tracked_vehicles": 4,
       "ghost_trips": 1,
       "canceled_trips": 0,
       "on_time_trips": 0,
@@ -110,6 +96,20 @@
       "max_delay_sec": 0
     },
     {
+      "route_id": "15",
+      "route_name": "Route 15",
+      "total_trips": 2,
+      "tracked_vehicles": 2,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
       "route_id": "BLU",
       "route_name": "Route BLU",
       "total_trips": 4,
@@ -124,8 +124,8 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "15",
-      "route_name": "Route 15",
+      "route_id": "RED",
+      "route_name": "Route RED",
       "total_trips": 2,
       "tracked_vehicles": 2,
       "ghost_trips": 0,
@@ -197,6 +197,20 @@
       "max_delay_sec": 0
     },
     {
+      "route_id": "21",
+      "route_name": "Route 21",
+      "total_trips": 4,
+      "tracked_vehicles": 4,
+      "ghost_trips": 1,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 25.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
       "route_id": "19",
       "route_name": "Route 19",
       "total_trips": 3,
@@ -225,20 +239,6 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "BLU",
-      "route_name": "Route BLU",
-      "total_trips": 4,
-      "tracked_vehicles": 3,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
       "route_id": "15",
       "route_name": "Route 15",
       "total_trips": 2,
@@ -253,24 +253,10 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "RED",
-      "route_name": "Route RED",
-      "total_trips": 2,
-      "tracked_vehicles": 1,
-      "ghost_trips": 1,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 50.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
-      "route_id": "92",
-      "route_name": "Route 92",
-      "total_trips": 1,
-      "tracked_vehicles": 1,
+      "route_id": "BLU",
+      "route_name": "Route BLU",
+      "total_trips": 4,
+      "tracked_vehicles": 3,
       "ghost_trips": 0,
       "canceled_trips": 0,
       "on_time_trips": 0,
@@ -281,8 +267,22 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "80",
-      "route_name": "Route 80",
+      "route_id": "RED",
+      "route_name": "Route RED",
+      "total_trips": 2,
+      "tracked_vehicles": 2,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
+      "route_id": "92",
+      "route_name": "Route 92",
       "total_trips": 1,
       "tracked_vehicles": 1,
       "ghost_trips": 0,
@@ -309,15 +309,15 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "21",
-      "route_name": "Route 21",
-      "total_trips": 3,
-      "tracked_vehicles": 3,
-      "ghost_trips": 1,
+      "route_id": "80",
+      "route_name": "Route 80",
+      "total_trips": 1,
+      "tracked_vehicles": 1,
+      "ghost_trips": 0,
       "canceled_trips": 0,
       "on_time_trips": 0,
       "delayed_trips": 0,
-      "ghost_rate_pct": 33.33,
+      "ghost_rate_pct": 0.0,
       "on_time_pct": 0.0,
       "avg_delay_sec": 0.0,
       "max_delay_sec": 0
@@ -344,15 +344,7 @@
       "start_time": "N/A",
       "start_date": "N/A",
       "status": "SCHEDULED",
-      "reason": "Assigned vehicle 5710 is broadcasting off-schedule with no vehicle covering 37803457"
-    },
-    {
-      "trip_id": "37803340",
-      "route_id": "RED",
-      "start_time": "N/A",
-      "start_date": "N/A",
-      "status": "SCHEDULED",
-      "reason": "Assigned vehicle 5509 is missing from active GPS transponder fleet"
+      "reason": "Assigned vehicle 6407 is broadcasting off-schedule with no vehicle covering 37803457"
     },
     {
       "trip_id": "37804690",
@@ -368,7 +360,7 @@
       "start_time": "N/A",
       "start_date": "N/A",
       "status": "SCHEDULED",
-      "reason": "Assigned vehicle 5516 is broadcasting off-schedule with no vehicle covering 37843613"
+      "reason": "Assigned vehicle 5809 is broadcasting off-schedule with no vehicle covering 37843613"
     }
   ],
   "headway_metrics": []

@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-11-05T07:00:17.743000+00:00",
-  "feed_timestamp": 1793861998,
+  "scan_time": "2026-11-06T07:00:17.915000+00:00",
+  "feed_timestamp": 1793948410,
   "agency": "Pittsburgh Regional Transit",
   "city": "Pittsburgh, PA",
   "transit_system": "PRT",
@@ -9,7 +9,7 @@
   "country": "USA",
   "source": "live",
   "total_scheduled_trips": 6,
-  "total_tracked_vehicles": 152,
+  "total_tracked_vehicles": 120,
   "total_ghost_trips": 0,
   "ghost_bus_rate_pct": 0.0,
   "vehicle_tracking_rate_pct": 100.0,
@@ -56,8 +56,8 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "54",
-      "route_name": "Route 54",
+      "route_id": "71D",
+      "route_name": "Route 71D",
       "total_trips": 1,
       "tracked_vehicles": 1,
       "ghost_trips": 0,
@@ -70,8 +70,8 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "71B",
-      "route_name": "Route 71B",
+      "route_id": "54",
+      "route_name": "Route 54",
       "total_trips": 1,
       "tracked_vehicles": 1,
       "ghost_trips": 0,

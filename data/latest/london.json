@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-11-05T07:00:18.223000+00:00",
-  "feed_timestamp": 1793861999,
+  "scan_time": "2026-11-06T07:00:18.265000+00:00",
+  "feed_timestamp": 1793948389,
   "agency": "London Transit Commission",
   "city": "London, ON",
   "transit_system": "LTC",
@@ -8,22 +8,22 @@
   "state": "Ontario",
   "country": "Canada",
   "source": "live",
-  "total_scheduled_trips": 2,
-  "total_tracked_vehicles": 1,
+  "total_scheduled_trips": 3,
+  "total_tracked_vehicles": 3,
   "total_ghost_trips": 1,
-  "ghost_bus_rate_pct": 50.0,
-  "vehicle_tracking_rate_pct": 50.0,
-  "overall_on_time_pct": 100.0,
+  "ghost_bus_rate_pct": 33.33,
+  "vehicle_tracking_rate_pct": 66.67,
+  "overall_on_time_pct": 50.0,
   "delay_distribution": {
-    "early": 0,
+    "early": 1,
     "on_time": 1,
     "minor_delay": 0,
     "severe_delay": 0,
     "ghost": 1,
     "canceled": 0
   },
-  "mean_delay_sec": 45.0,
-  "median_delay_sec": 45.0,
+  "mean_delay_sec": -41.5,
+  "median_delay_sec": -41.5,
   "worst_routes_by_ghost": [
     {
       "route_id": "10",
@@ -36,8 +36,8 @@
       "delayed_trips": 0,
       "ghost_rate_pct": 50.0,
       "on_time_pct": 100.0,
-      "avg_delay_sec": 45.0,
-      "max_delay_sec": 45
+      "avg_delay_sec": 92.0,
+      "max_delay_sec": 92
     }
   ],
   "most_delayed_routes": [
@@ -52,8 +52,8 @@
       "delayed_trips": 0,
       "ghost_rate_pct": 50.0,
       "on_time_pct": 100.0,
-      "avg_delay_sec": 45.0,
-      "max_delay_sec": 45
+      "avg_delay_sec": 92.0,
+      "max_delay_sec": 92
     }
   ],
   "route_metrics": [
@@ -68,8 +68,22 @@
       "delayed_trips": 0,
       "ghost_rate_pct": 50.0,
       "on_time_pct": 100.0,
-      "avg_delay_sec": 45.0,
-      "max_delay_sec": 45
+      "avg_delay_sec": 92.0,
+      "max_delay_sec": 92
+    },
+    {
+      "route_id": "04",
+      "route_name": "Route 04",
+      "total_trips": 1,
+      "tracked_vehicles": 1,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": -175.0,
+      "max_delay_sec": -175
     }
   ],
   "sample_ghost_trips": [
@@ -77,9 +91,9 @@
       "trip_id": "2387972",
       "route_id": "10",
       "start_time": "24:39:00",
-      "start_date": "20261104",
+      "start_date": "20261105",
       "status": "SCHEDULED",
-      "reason": "Assigned vehicle 3510 is missing from active GPS transponder fleet"
+      "reason": "Assigned vehicle 3344 is missing from active GPS transponder fleet"
     }
   ],
   "headway_metrics": []
