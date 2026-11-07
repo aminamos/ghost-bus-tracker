@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-11-06T07:00:17.911000+00:00",
-  "feed_timestamp": 1793948433,
+  "scan_time": "2026-11-07T07:00:18.387000+00:00",
+  "feed_timestamp": 1794034756,
   "agency": "Capital Area Transportation Authority",
   "city": "Lansing, MI",
   "transit_system": "CATA",
@@ -9,7 +9,7 @@
   "country": "USA",
   "source": "live",
   "total_scheduled_trips": 1,
-  "total_tracked_vehicles": 2,
+  "total_tracked_vehicles": 1,
   "total_ghost_trips": 1,
   "ghost_bus_rate_pct": 100.0,
   "vehicle_tracking_rate_pct": 0.0,
@@ -44,12 +44,12 @@
   ],
   "sample_ghost_trips": [
     {
-      "trip_id": "4340754",
+      "trip_id": "4340941",
       "route_id": "12615",
       "start_time": "N/A",
-      "start_date": "20261106",
+      "start_date": "20261107",
       "status": "SCHEDULED",
-      "reason": "Assigned vehicle 8020 is broadcasting off-schedule with no vehicle covering 4340754"
+      "reason": "Assigned vehicle 8021 is broadcasting off-schedule with no vehicle covering 4340941"
     }
   ],
   "headway_metrics": []

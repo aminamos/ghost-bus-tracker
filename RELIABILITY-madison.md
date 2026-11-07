@@ -1,7 +1,7 @@
 # 🚌 Automated Public Transit Reliability & Ghost Bus Tracker
 
 > Real-time monitoring and git-scraping reliability index for **Metro Transit (City of Madison)** in **Madison, WI** (Madison Metropolitan Area, Wisconsin).
-> **Transit System:** Metro Transit | **Location:** Madison, WI | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-11-06T07:00:18.253000+00:00` | **Source:** live GTFS-RT feed
+> **Transit System:** Metro Transit | **Location:** Madison, WI | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-11-07T07:00:19.666000+00:00` | **Source:** live GTFS-RT feed
 
 ---
 
@@ -9,11 +9,11 @@
 
 | Metric | Value | Status / Description |
 | :--- | :--- | :--- |
-| **Ghost Bus Rate** | **`25.0%`** | Scheduled runs with missing transponders or unannounced cuts |
+| **Ghost Bus Rate** | **`45.45%`** | Scheduled runs with missing transponders or unannounced cuts |
 | **On-Time Adherence** | **`0.0%`** | Departures within standard window (-1m to +5m) |
-| **Scheduled Active Trips** | `8` | Total runs operating in current transit schedule window |
-| **Tracked Fleet Vehicles** | `3` | GPS transponders broadcasting valid coordinates |
-| **Confirmed Ghost Trips** | `2` | Disappeared or unassigned scheduled runs |
+| **Scheduled Active Trips** | `11` | Total runs operating in current transit schedule window |
+| **Tracked Fleet Vehicles** | `4` | GPS transponders broadcasting valid coordinates |
+| **Confirmed Ghost Trips** | `5` | Disappeared or unassigned scheduled runs |
 | **Mean Delay** | `+0.0s` (`+0.0 min`) | Average delay across all active tracked runs |
 | **Median Delay** | `+0.0s` (`+0.0 min`) | Median schedule deviation |
 
@@ -27,7 +27,7 @@
 | ⏩ **Early Departure** | More than 1 min ahead of schedule | 0 | 0.0% |
 | 🟡 **Minor Delay** | +5m to +15m late | 0 | 0.0% |
 | 🔴 **Severe Delay** | Over 15m late | 0 | 0.0% |
-| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 2 | 25.0% |
+| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 5 | 45.5% |
 | ❌ **Agency Canceled** | Explicitly reported CANCELED | 0 | 0.0% |
 
 ---
@@ -36,9 +36,9 @@
 
 | Route | Total Scheduled | Tracked | Ghost Trips | Ghost Rate (%) | On-Time (%) | Avg Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Route 82** | 3 | 1 | 1 | **`33.33%`** | `0.0%` | `+0.0s` |
-| **Route 81** | 3 | 1 | 1 | **`33.33%`** | `0.0%` | `+0.0s` |
-| **Route 80** | 2 | 1 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| **Route 81** | 4 | 1 | 2 | **`50.0%`** | `0.0%` | `+0.0s` |
+| **Route 82** | 4 | 1 | 2 | **`50.0%`** | `0.0%` | `+0.0s` |
+| **Route 80** | 3 | 1 | 1 | **`33.33%`** | `0.0%` | `+0.0s` |
 
 ---
 
@@ -64,8 +64,11 @@
 
 | Trip ID | Route | Scheduled Departure | Status | Diagnosis / Reason |
 | :--- | :---: | :---: | :--- | :--- |
-| `3419020` | Route 82 | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `5104020` | Route 81 | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `3425090` | Route 81 | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `802090` | Route 82 | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `536090` | Route 82 | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `4142090` | Route 80 | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `3386090` | Route 81 | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
 
 ---
 
@@ -73,14 +76,14 @@
 
 | Timestamp | Ghost Rate (%) | On-Time (%) | Scheduled Runs | Tracked Fleet | Mean Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| `2026-11-06 07:00:18` | `25.0%` | `0.0%` | 8 | 3 | `+0.0s` |
-| `2026-11-06 06:30:19` | `45.45%` | `0.0%` | 11 | 15 | `+0.0s` |
-| `2026-11-06 06:00:18` | `23.08%` | `60.0%` | 26 | 30 | `-21.9s` |
-| `2026-11-06 05:30:20` | `23.4%` | `75.0%` | 47 | 39 | `+14.0s` |
-| `2026-11-06 05:00:22` | `32.86%` | `78.72%` | 70 | 39 | `+28.2s` |
-| `2026-11-06 04:30:20` | `51.72%` | `73.81%` | 87 | 41 | `+82.1s` |
-| `2026-11-06 04:00:24` | `51.52%` | `79.17%` | 99 | 42 | `+80.6s` |
-| `2026-11-06 03:30:21` | `51.49%` | `100.0%` | 101 | 43 | `+89.0s` |
+| `2026-11-07 07:00:19` | `45.45%` | `0.0%` | 11 | 4 | `+0.0s` |
+| `2026-11-07 06:30:19` | `41.67%` | `0.0%` | 12 | 15 | `+0.0s` |
+| `2026-11-07 06:00:20` | `93.88%` | `0.0%` | 294 | 31 | `+0.0s` |
+| `2026-11-07 05:30:23` | `21.28%` | `72.97%` | 47 | 39 | `+32.9s` |
+| `2026-11-07 05:00:19` | `36.23%` | `0.0%` | 69 | 39 | `+0.0s` |
+| `2026-11-07 04:30:18` | `49.43%` | `0.0%` | 87 | 41 | `+0.0s` |
+| `2026-11-07 04:00:23` | `50.51%` | `0.0%` | 99 | 42 | `+0.0s` |
+| `2026-11-07 03:30:21` | `49.02%` | `0.0%` | 102 | 43 | `+0.0s` |
 
 ---
 
@@ -92,4 +95,4 @@
 - **Excess Wait Time (EWT)**: Transit standard metric measuring variance in vehicle headway caused by vehicle bunching.
 - **Git-Scraping**: Every run fetches upstream GTFS-RT binary protobuf feeds, computes reliability metrics, commits versioned JSON snapshots, and renders this dashboard automatically.
 
-*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-06T07:00:18.253000+00:00`.*
+*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-07T07:00:19.666000+00:00`.*
