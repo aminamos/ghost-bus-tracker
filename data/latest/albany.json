@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-11-07T07:00:18.549000+00:00",
-  "feed_timestamp": 1794034815,
+  "scan_time": "2026-11-08T07:00:17.831000+00:00",
+  "feed_timestamp": 1794121215,
   "agency": "Capital District Transportation Authority",
   "city": "Albany, NY",
   "transit_system": "CDTA",
@@ -8,8 +8,8 @@
   "state": "New York",
   "country": "USA",
   "source": "live",
-  "total_scheduled_trips": 6,
-  "total_tracked_vehicles": 6,
+  "total_scheduled_trips": 3,
+  "total_tracked_vehicles": 1,
   "total_ghost_trips": 0,
   "ghost_bus_rate_pct": 0.0,
   "vehicle_tracking_rate_pct": 100.0,
@@ -25,20 +25,6 @@
   "mean_delay_sec": 0.0,
   "median_delay_sec": 0.0,
   "worst_routes_by_ghost": [
-    {
-      "route_id": "910",
-      "route_name": "Route 910",
-      "total_trips": 2,
-      "tracked_vehicles": 2,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
     {
       "route_id": "452",
       "route_name": "Route 452",
@@ -57,37 +43,9 @@
   "most_delayed_routes": [],
   "route_metrics": [
     {
-      "route_id": "910",
-      "route_name": "Route 910",
-      "total_trips": 2,
-      "tracked_vehicles": 2,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
       "route_id": "452",
       "route_name": "Route 452",
       "total_trips": 3,
-      "tracked_vehicles": 1,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
-      "route_id": "905",
-      "route_name": "Route 905",
-      "total_trips": 1,
       "tracked_vehicles": 1,
       "ghost_trips": 0,
       "canceled_trips": 0,
