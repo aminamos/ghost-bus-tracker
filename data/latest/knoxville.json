@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-11-08T07:00:18.255000+00:00",
-  "feed_timestamp": 1794121218,
+  "scan_time": "2026-11-09T07:00:19.930000+00:00",
+  "feed_timestamp": 1794207619,
   "agency": "Knoxville Area Transit",
   "city": "Knoxville, TN",
   "transit_system": "KAT",
@@ -8,10 +8,10 @@
   "state": "Tennessee",
   "country": "USA",
   "source": "live",
-  "total_scheduled_trips": 0,
+  "total_scheduled_trips": 39,
   "total_tracked_vehicles": 5,
-  "total_ghost_trips": 0,
-  "ghost_bus_rate_pct": 0.0,
+  "total_ghost_trips": 39,
+  "ghost_bus_rate_pct": 100.0,
   "vehicle_tracking_rate_pct": 0.0,
   "overall_on_time_pct": 0.0,
   "delay_distribution": {
@@ -19,14 +19,165 @@
     "on_time": 0,
     "minor_delay": 0,
     "severe_delay": 0,
-    "ghost": 0,
+    "ghost": 39,
     "canceled": 0
   },
   "mean_delay_sec": 0.0,
   "median_delay_sec": 0.0,
-  "worst_routes_by_ghost": [],
+  "worst_routes_by_ghost": [
+    {
+      "route_id": "UNKNOWN",
+      "route_name": "Route UNKNOWN",
+      "total_trips": 39,
+      "tracked_vehicles": 0,
+      "ghost_trips": 39,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 100.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    }
+  ],
   "most_delayed_routes": [],
-  "route_metrics": [],
-  "sample_ghost_trips": [],
+  "route_metrics": [
+    {
+      "route_id": "UNKNOWN",
+      "route_name": "Route UNKNOWN",
+      "total_trips": 39,
+      "tracked_vehicles": 0,
+      "ghost_trips": 39,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 100.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    }
+  ],
+  "sample_ghost_trips": [
+    {
+      "trip_id": "17052",
+      "route_id": "UNKNOWN",
+      "start_time": "08:45:00",
+      "start_date": "20261109",
+      "status": "SCHEDULED",
+      "reason": "Assigned vehicle 7536 is missing from active GPS transponder fleet"
+    },
+    {
+      "trip_id": "17053",
+      "route_id": "UNKNOWN",
+      "start_time": "09:15:00",
+      "start_date": "20261109",
+      "status": "SCHEDULED",
+      "reason": "Assigned vehicle 7536 is missing from active GPS transponder fleet"
+    },
+    {
+      "trip_id": "17056",
+      "route_id": "UNKNOWN",
+      "start_time": "10:45:00",
+      "start_date": "20261109",
+      "status": "SCHEDULED",
+      "reason": "Assigned vehicle 7536 is missing from active GPS transponder fleet"
+    },
+    {
+      "trip_id": "17057",
+      "route_id": "UNKNOWN",
+      "start_time": "11:15:00",
+      "start_date": "20261109",
+      "status": "SCHEDULED",
+      "reason": "Assigned vehicle 7536 is missing from active GPS transponder fleet"
+    },
+    {
+      "trip_id": "17060",
+      "route_id": "UNKNOWN",
+      "start_time": "12:45:00",
+      "start_date": "20261109",
+      "status": "SCHEDULED",
+      "reason": "Assigned vehicle 7536 is missing from active GPS transponder fleet"
+    },
+    {
+      "trip_id": "17061",
+      "route_id": "UNKNOWN",
+      "start_time": "13:15:00",
+      "start_date": "20261109",
+      "status": "SCHEDULED",
+      "reason": "Assigned vehicle 7536 is missing from active GPS transponder fleet"
+    },
+    {
+      "trip_id": "23027",
+      "route_id": "UNKNOWN",
+      "start_time": "07:45:00",
+      "start_date": "20261109",
+      "status": "SCHEDULED",
+      "reason": "Assigned vehicle 7536 is missing from active GPS transponder fleet"
+    },
+    {
+      "trip_id": "23028",
+      "route_id": "UNKNOWN",
+      "start_time": "08:25:00",
+      "start_date": "20261109",
+      "status": "SCHEDULED",
+      "reason": "Assigned vehicle 7536 is missing from active GPS transponder fleet"
+    },
+    {
+      "trip_id": "23031",
+      "route_id": "UNKNOWN",
+      "start_time": "09:45:00",
+      "start_date": "20261109",
+      "status": "SCHEDULED",
+      "reason": "Assigned vehicle 7536 is missing from active GPS transponder fleet"
+    },
+    {
+      "trip_id": "23032",
+      "route_id": "UNKNOWN",
+      "start_time": "10:25:00",
+      "start_date": "20261109",
+      "status": "SCHEDULED",
+      "reason": "Assigned vehicle 7536 is missing from active GPS transponder fleet"
+    },
+    {
+      "trip_id": "23035",
+      "route_id": "UNKNOWN",
+      "start_time": "11:45:00",
+      "start_date": "20261109",
+      "status": "SCHEDULED",
+      "reason": "Assigned vehicle 7536 is missing from active GPS transponder fleet"
+    },
+    {
+      "trip_id": "23036",
+      "route_id": "UNKNOWN",
+      "start_time": "12:25:00",
+      "start_date": "20261109",
+      "status": "SCHEDULED",
+      "reason": "Assigned vehicle 7536 is missing from active GPS transponder fleet"
+    },
+    {
+      "trip_id": "23039",
+      "route_id": "UNKNOWN",
+      "start_time": "13:45:00",
+      "start_date": "20261109",
+      "status": "SCHEDULED",
+      "reason": "Assigned vehicle 7536 is missing from active GPS transponder fleet"
+    },
+    {
+      "trip_id": "31001",
+      "route_id": "UNKNOWN",
+      "start_time": "06:12:00",
+      "start_date": "20261109",
+      "status": "SCHEDULED",
+      "reason": "Assigned vehicle 7536 is missing from active GPS transponder fleet"
+    },
+    {
+      "trip_id": "31015",
+      "route_id": "UNKNOWN",
+      "start_time": "07:45:00",
+      "start_date": "20261109",
+      "status": "SCHEDULED",
+      "reason": "Assigned vehicle 7536 is missing from active GPS transponder fleet"
+    }
+  ],
   "headway_metrics": []
 }

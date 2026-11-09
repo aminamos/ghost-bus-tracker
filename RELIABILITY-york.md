@@ -1,7 +1,7 @@
 # 🚌 Automated Public Transit Reliability & Ghost Bus Tracker
 
 > Real-time monitoring and git-scraping reliability index for **York Region Transit** in **York Region, ON** (Regional Municipality of York, Ontario).
-> **Transit System:** YRT | **Location:** York Region, ON | **Status:** 🟡 **ELEVATED GHOSTS** | **Last Scan:** `2026-11-08T07:00:18.233000+00:00` | **Source:** live GTFS-RT feed
+> **Transit System:** YRT | **Location:** York Region, ON | **Status:** 🟢 **HEALTHY** | **Last Scan:** `2026-11-09T07:00:19.796000+00:00` | **Source:** live GTFS-RT feed
 
 ---
 
@@ -9,13 +9,13 @@
 
 | Metric | Value | Status / Description |
 | :--- | :--- | :--- |
-| **Ghost Bus Rate** | **`5.0%`** | Scheduled runs with missing transponders or unannounced cuts |
-| **On-Time Adherence** | **`94.74%`** | Departures within standard window (-1m to +5m) |
+| **Ghost Bus Rate** | **`0.0%`** | Scheduled runs with missing transponders or unannounced cuts |
+| **On-Time Adherence** | **`90.0%`** | Departures within standard window (-1m to +5m) |
 | **Scheduled Active Trips** | `20` | Total runs operating in current transit schedule window |
-| **Tracked Fleet Vehicles** | `14` | GPS transponders broadcasting valid coordinates |
-| **Confirmed Ghost Trips** | `1` | Disappeared or unassigned scheduled runs |
-| **Mean Delay** | `+81.7s` (`+1.4 min`) | Average delay across all active tracked runs |
-| **Median Delay** | `+36.0s` (`+0.6 min`) | Median schedule deviation |
+| **Tracked Fleet Vehicles** | `13` | GPS transponders broadcasting valid coordinates |
+| **Confirmed Ghost Trips** | `0` | Disappeared or unassigned scheduled runs |
+| **Mean Delay** | `+87.4s` (`+1.5 min`) | Average delay across all active tracked runs |
+| **Median Delay** | `+13.0s` (`+0.2 min`) | Median schedule deviation |
 
 ---
 
@@ -24,10 +24,10 @@
 | Category | Threshold / Definition | Trip Count | Percentage |
 | :--- | :--- | :--- | :--- |
 | 🟢 **On-Time** | Within -60s to +300s | 18 | 90.0% |
-| ⏩ **Early Departure** | More than 1 min ahead of schedule | 0 | 0.0% |
+| ⏩ **Early Departure** | More than 1 min ahead of schedule | 1 | 5.0% |
 | 🟡 **Minor Delay** | +5m to +15m late | 1 | 5.0% |
 | 🔴 **Severe Delay** | Over 15m late | 0 | 0.0% |
-| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 1 | 5.0% |
+| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 0 | 0.0% |
 | ❌ **Agency Canceled** | Explicitly reported CANCELED | 0 | 0.0% |
 
 ---
@@ -36,11 +36,10 @@
 
 | Route | Total Scheduled | Tracked | Ghost Trips | Ghost Rate (%) | On-Time (%) | Avg Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Route 20** | 4 | 3 | 1 | **`25.0%`** | `100.0%` | `+1.1 min` |
-| **Route 107** | 4 | 2 | 0 | **`0.0%`** | `100.0%` | `+1.2 min` |
-| **Route 9899** | 4 | 3 | 0 | **`0.0%`** | `100.0%` | `+2.1 min` |
-| **Route 1** | 2 | 2 | 0 | **`0.0%`** | `100.0%` | `+1.3 min` |
-| **Route 77** | 6 | 4 | 0 | **`0.0%`** | `83.33%` | `+1.2 min` |
+| **Route 9899** | 5 | 3 | 0 | **`0.0%`** | `100.0%` | `+1.3 min` |
+| **Route 77** | 5 | 3 | 0 | **`0.0%`** | `100.0%` | `+1.3 min` |
+| **Route 107** | 4 | 2 | 0 | **`0.0%`** | `100.0%` | `+1.1 min` |
+| **Route 20** | 5 | 4 | 0 | **`0.0%`** | `80.0%` | `+2.8 min` |
 
 ---
 
@@ -48,11 +47,10 @@
 
 | Route | Avg Delay | Max Delay | Tracked Runs | On-Time Adherence |
 | :--- | :---: | :---: | :---: | :---: |
-| **Route 9899** | `+2.1 min (+124.5s)` | `+5.0 min (+299s)` | 3 | `100.0%` |
-| **Route 1** | `+1.3 min (+75.5s)` | `+1.6 min (+96s)` | 2 | `100.0%` |
-| **Route 77** | `+1.2 min (+71.5s)` | `+6.4 min (+386s)` | 4 | `83.33%` |
-| **Route 107** | `+1.2 min (+70.5s)` | `+3.6 min (+218s)` | 2 | `100.0%` |
-| **Route 20** | `+1.1 min (+64.3s)` | `+2.6 min (+157s)` | 3 | `100.0%` |
+| **Route 20** | `+2.8 min (+165.4s)` | `+11.0 min (+658s)` | 4 | `80.0%` |
+| **Route 9899** | `+1.3 min (+78.6s)` | `+3.7 min (+220s)` | 3 | `100.0%` |
+| **Route 77** | `+1.3 min (+78.6s)` | `+4.2 min (+255s)` | 3 | `100.0%` |
+| **Route 107** | `+1.1 min (+63.0s)` | `+3.3 min (+200s)` | 2 | `100.0%` |
 
 ---
 
@@ -62,11 +60,10 @@
 
 | Route | Nominal Headway | Observed Headway | Excess Wait Time (EWT) | Regularity Score |
 | :--- | :---: | :---: | :---: | :---: |
-| **Route 77** | ~12.0m | ~12.0m | **`+0.0 min`** | `79.8 / 100` |
-| **Route 107** | ~11.0m | ~11.0m | **`+0.0 min`** | `86.9 / 100` |
-| **Route 9899** | ~26.0m | ~26.0m | **`+0.0 min`** | `92.7 / 100` |
-| **Route 20** | ~19.0m | ~19.0m | **`+0.0 min`** | `94.1 / 100` |
-| **Route 1** | ~13.0m | ~13.0m | **`+0.0 min`** | `97.4 / 100` |
+| **Route 20** | ~23.0m | ~23.0m | **`+0.0 min`** | `81.5 / 100` |
+| **Route 107** | ~10.0m | ~10.0m | **`+0.0 min`** | `86.7 / 100` |
+| **Route 77** | ~20.0m | ~20.0m | **`+0.0 min`** | `91.4 / 100` |
+| **Route 9899** | ~23.0m | ~23.0m | **`+0.0 min`** | `93.7 / 100` |
 
 ---
 
@@ -74,7 +71,7 @@
 
 | Trip ID | Route | Scheduled Departure | Status | Diagnosis / Reason |
 | :--- | :---: | :---: | :--- | :--- |
-| `2027121` | Route 20 | `02:10:00` | `SCHEDULED` | Assigned vehicle C2615 is broadcasting off-schedule with no vehicle covering 2027121 |
+| *Zero ghost trips detected! All scheduled runs have verified GPS transponders.* | - | - | - | - |
 
 ---
 
@@ -82,14 +79,14 @@
 
 | Timestamp | Ghost Rate (%) | On-Time (%) | Scheduled Runs | Tracked Fleet | Mean Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| `2026-11-08 07:00:18` | `5.0%` | `94.74%` | 20 | 14 | `+81.7s` |
-| `2026-11-08 06:30:20` | `3.45%` | `85.71%` | 29 | 18 | `+15.2s` |
-| `2026-11-08 06:00:18` | `7.14%` | `87.18%` | 42 | 28 | `+43.5s` |
-| `2026-11-08 05:30:20` | `3.33%` | `84.48%` | 60 | 39 | `+52.4s` |
-| `2026-11-08 05:00:18` | `6.33%` | `90.54%` | 79 | 54 | `+39.0s` |
-| `2026-11-08 04:30:26` | `6.42%` | `89.22%` | 109 | 60 | `+74.4s` |
-| `2026-11-08 04:00:19` | `6.87%` | `91.8%` | 131 | 76 | `+56.4s` |
-| `2026-11-08 03:30:18` | `5.16%` | `88.44%` | 155 | 89 | `+59.9s` |
+| `2026-11-09 07:00:19` | `0.0%` | `90.0%` | 20 | 13 | `+87.4s` |
+| `2026-11-09 06:30:22` | `12.0%` | `90.91%` | 25 | 15 | `+40.8s` |
+| `2026-11-09 06:00:18` | `0.0%` | `80.0%` | 35 | 22 | `+5.5s` |
+| `2026-11-09 05:30:18` | `8.16%` | `86.67%` | 49 | 34 | `+84.7s` |
+| `2026-11-09 05:00:18` | `9.84%` | `90.91%` | 61 | 37 | `+51.5s` |
+| `2026-11-09 04:30:19` | `10.53%` | `86.76%` | 76 | 41 | `+43.3s` |
+| `2026-11-09 04:00:19` | `4.82%` | `91.14%` | 83 | 45 | `+106.3s` |
+| `2026-11-09 03:30:18` | `5.56%` | `91.76%` | 90 | 50 | `+55.9s` |
 
 ---
 
@@ -101,4 +98,4 @@
 - **Excess Wait Time (EWT)**: Transit standard metric measuring variance in vehicle headway caused by vehicle bunching.
 - **Git-Scraping**: Every run fetches upstream GTFS-RT binary protobuf feeds, computes reliability metrics, commits versioned JSON snapshots, and renders this dashboard automatically.
 
-*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-08T07:00:18.233000+00:00`.*
+*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-09T07:00:19.796000+00:00`.*

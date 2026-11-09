@@ -1,7 +1,7 @@
 # 🚌 Automated Public Transit Reliability & Ghost Bus Tracker
 
 > Real-time monitoring and git-scraping reliability index for **Knoxville Area Transit** in **Knoxville, TN** (Knoxville Metropolitan Area, Tennessee).
-> **Transit System:** KAT | **Location:** Knoxville, TN | **Status:** 🟢 **HEALTHY** | **Last Scan:** `2026-11-08T07:00:18.255000+00:00` | **Source:** live GTFS-RT feed
+> **Transit System:** KAT | **Location:** Knoxville, TN | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-11-09T07:00:19.930000+00:00` | **Source:** live GTFS-RT feed
 
 ---
 
@@ -9,11 +9,11 @@
 
 | Metric | Value | Status / Description |
 | :--- | :--- | :--- |
-| **Ghost Bus Rate** | **`0.0%`** | Scheduled runs with missing transponders or unannounced cuts |
+| **Ghost Bus Rate** | **`100.0%`** | Scheduled runs with missing transponders or unannounced cuts |
 | **On-Time Adherence** | **`0.0%`** | Departures within standard window (-1m to +5m) |
-| **Scheduled Active Trips** | `0` | Total runs operating in current transit schedule window |
+| **Scheduled Active Trips** | `39` | Total runs operating in current transit schedule window |
 | **Tracked Fleet Vehicles** | `5` | GPS transponders broadcasting valid coordinates |
-| **Confirmed Ghost Trips** | `0` | Disappeared or unassigned scheduled runs |
+| **Confirmed Ghost Trips** | `39` | Disappeared or unassigned scheduled runs |
 | **Mean Delay** | `+0.0s` (`+0.0 min`) | Average delay across all active tracked runs |
 | **Median Delay** | `+0.0s` (`+0.0 min`) | Median schedule deviation |
 
@@ -23,12 +23,12 @@
 
 | Category | Threshold / Definition | Trip Count | Percentage |
 | :--- | :--- | :--- | :--- |
-| 🟢 **On-Time** | Within -60s to +300s | 0 | 0% |
-| ⏩ **Early Departure** | More than 1 min ahead of schedule | 0 | 0% |
-| 🟡 **Minor Delay** | +5m to +15m late | 0 | 0% |
-| 🔴 **Severe Delay** | Over 15m late | 0 | 0% |
-| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 0 | 0% |
-| ❌ **Agency Canceled** | Explicitly reported CANCELED | 0 | 0% |
+| 🟢 **On-Time** | Within -60s to +300s | 0 | 0.0% |
+| ⏩ **Early Departure** | More than 1 min ahead of schedule | 0 | 0.0% |
+| 🟡 **Minor Delay** | +5m to +15m late | 0 | 0.0% |
+| 🔴 **Severe Delay** | Over 15m late | 0 | 0.0% |
+| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 39 | 100.0% |
+| ❌ **Agency Canceled** | Explicitly reported CANCELED | 0 | 0.0% |
 
 ---
 
@@ -36,7 +36,7 @@
 
 | Route | Total Scheduled | Tracked | Ghost Trips | Ghost Rate (%) | On-Time (%) | Avg Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| *No multi-trip routes recorded in current window* | - | - | - | - | - | - |
+| **Route UNKNOWN** | 39 | 0 | 39 | **`100.0%`** | `0.0%` | `+0.0s` |
 
 ---
 
@@ -62,7 +62,21 @@
 
 | Trip ID | Route | Scheduled Departure | Status | Diagnosis / Reason |
 | :--- | :---: | :---: | :--- | :--- |
-| *Zero ghost trips detected! All scheduled runs have verified GPS transponders.* | - | - | - | - |
+| `17052` | Route UNKNOWN | `08:45:00` | `SCHEDULED` | Assigned vehicle 7536 is missing from active GPS transponder fleet |
+| `17053` | Route UNKNOWN | `09:15:00` | `SCHEDULED` | Assigned vehicle 7536 is missing from active GPS transponder fleet |
+| `17056` | Route UNKNOWN | `10:45:00` | `SCHEDULED` | Assigned vehicle 7536 is missing from active GPS transponder fleet |
+| `17057` | Route UNKNOWN | `11:15:00` | `SCHEDULED` | Assigned vehicle 7536 is missing from active GPS transponder fleet |
+| `17060` | Route UNKNOWN | `12:45:00` | `SCHEDULED` | Assigned vehicle 7536 is missing from active GPS transponder fleet |
+| `17061` | Route UNKNOWN | `13:15:00` | `SCHEDULED` | Assigned vehicle 7536 is missing from active GPS transponder fleet |
+| `23027` | Route UNKNOWN | `07:45:00` | `SCHEDULED` | Assigned vehicle 7536 is missing from active GPS transponder fleet |
+| `23028` | Route UNKNOWN | `08:25:00` | `SCHEDULED` | Assigned vehicle 7536 is missing from active GPS transponder fleet |
+| `23031` | Route UNKNOWN | `09:45:00` | `SCHEDULED` | Assigned vehicle 7536 is missing from active GPS transponder fleet |
+| `23032` | Route UNKNOWN | `10:25:00` | `SCHEDULED` | Assigned vehicle 7536 is missing from active GPS transponder fleet |
+| `23035` | Route UNKNOWN | `11:45:00` | `SCHEDULED` | Assigned vehicle 7536 is missing from active GPS transponder fleet |
+| `23036` | Route UNKNOWN | `12:25:00` | `SCHEDULED` | Assigned vehicle 7536 is missing from active GPS transponder fleet |
+| `23039` | Route UNKNOWN | `13:45:00` | `SCHEDULED` | Assigned vehicle 7536 is missing from active GPS transponder fleet |
+| `31001` | Route UNKNOWN | `06:12:00` | `SCHEDULED` | Assigned vehicle 7536 is missing from active GPS transponder fleet |
+| `31015` | Route UNKNOWN | `07:45:00` | `SCHEDULED` | Assigned vehicle 7536 is missing from active GPS transponder fleet |
 
 ---
 
@@ -70,14 +84,14 @@
 
 | Timestamp | Ghost Rate (%) | On-Time (%) | Scheduled Runs | Tracked Fleet | Mean Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| `2026-11-08 07:00:18` | `0.0%` | `0.0%` | 0 | 5 | `+0.0s` |
-| `2026-11-08 06:30:20` | `0.0%` | `0.0%` | 0 | 5 | `+0.0s` |
-| `2026-11-08 06:00:19` | `0.0%` | `0.0%` | 0 | 5 | `+0.0s` |
-| `2026-11-08 05:30:20` | `0.0%` | `0.0%` | 0 | 6 | `+0.0s` |
-| `2026-11-08 05:00:18` | `0.0%` | `0.0%` | 2 | 7 | `+0.0s` |
-| `2026-11-08 04:30:26` | `0.0%` | `0.0%` | 6 | 15 | `+0.0s` |
-| `2026-11-08 04:00:20` | `0.0%` | `33.33%` | 23 | 23 | `+560.7s` |
-| `2026-11-08 03:30:18` | `0.0%` | `44.44%` | 32 | 29 | `+154.8s` |
+| `2026-11-09 07:00:19` | `100.0%` | `0.0%` | 39 | 5 | `+0.0s` |
+| `2026-11-09 06:30:22` | `0.0%` | `0.0%` | 0 | 5 | `+0.0s` |
+| `2026-11-09 06:00:19` | `0.0%` | `0.0%` | 0 | 5 | `+0.0s` |
+| `2026-11-09 05:30:18` | `0.0%` | `0.0%` | 0 | 5 | `+0.0s` |
+| `2026-11-09 05:00:18` | `0.0%` | `0.0%` | 0 | 5 | `+0.0s` |
+| `2026-11-09 04:30:19` | `0.0%` | `0.0%` | 0 | 5 | `+0.0s` |
+| `2026-11-09 04:00:19` | `0.0%` | `0.0%` | 0 | 5 | `+0.0s` |
+| `2026-11-09 03:30:22` | `0.0%` | `0.0%` | 0 | 5 | `+0.0s` |
 
 ---
 
@@ -89,4 +103,4 @@
 - **Excess Wait Time (EWT)**: Transit standard metric measuring variance in vehicle headway caused by vehicle bunching.
 - **Git-Scraping**: Every run fetches upstream GTFS-RT binary protobuf feeds, computes reliability metrics, commits versioned JSON snapshots, and renders this dashboard automatically.
 
-*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-08T07:00:18.255000+00:00`.*
+*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-09T07:00:19.930000+00:00`.*

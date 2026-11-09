@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-11-08T07:00:17.800000+00:00",
-  "feed_timestamp": 1794121212,
+  "scan_time": "2026-11-09T07:00:18.632000+00:00",
+  "feed_timestamp": 1794207582,
   "agency": "Champaign-Urbana Mass Transit District",
   "city": "Champaign–Urbana, IL",
   "transit_system": "MTD",
@@ -8,11 +8,11 @@
   "state": "Illinois",
   "country": "USA",
   "source": "live",
-  "total_scheduled_trips": 46,
-  "total_tracked_vehicles": 15,
+  "total_scheduled_trips": 41,
+  "total_tracked_vehicles": 14,
   "total_ghost_trips": 2,
-  "ghost_bus_rate_pct": 4.35,
-  "vehicle_tracking_rate_pct": 95.65,
+  "ghost_bus_rate_pct": 4.88,
+  "vehicle_tracking_rate_pct": 95.12,
   "overall_on_time_pct": 0.0,
   "delay_distribution": {
     "early": 0,
@@ -26,36 +26,22 @@
   "median_delay_sec": 0.0,
   "worst_routes_by_ghost": [
     {
-      "route_id": "ILLINI EVENING SATURDAY",
-      "route_name": "Route ILLINI EVENING SATURDAY",
-      "total_trips": 18,
+      "route_id": "ILLINI EVENING SUNDAY",
+      "route_name": "Route ILLINI EVENING SUNDAY",
+      "total_trips": 17,
       "tracked_vehicles": 7,
       "ghost_trips": 2,
       "canceled_trips": 0,
       "on_time_trips": 0,
       "delayed_trips": 0,
-      "ghost_rate_pct": 11.11,
+      "ghost_rate_pct": 11.76,
       "on_time_pct": 0.0,
       "avg_delay_sec": 0.0,
       "max_delay_sec": 0
     },
     {
-      "route_id": "SILVER EVENING SATURDAY",
-      "route_name": "Route SILVER EVENING SATURDAY",
-      "total_trips": 7,
-      "tracked_vehicles": 2,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
-      "route_id": "TEAL LATE NIGHT SATURDAY",
-      "route_name": "Route TEAL LATE NIGHT SATURDAY",
+      "route_id": "SILVER EVENING SUNDAY",
+      "route_name": "Route SILVER EVENING SUNDAY",
       "total_trips": 8,
       "tracked_vehicles": 2,
       "ghost_trips": 0,
@@ -68,9 +54,9 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "GREEN LATE NIGHT SATURDAY",
-      "route_name": "Route GREEN LATE NIGHT SATURDAY",
-      "total_trips": 7,
+      "route_id": "TEAL LATE NIGHT SUNDAY",
+      "route_name": "Route TEAL LATE NIGHT SUNDAY",
+      "total_trips": 8,
       "tracked_vehicles": 2,
       "ghost_trips": 0,
       "canceled_trips": 0,
@@ -82,9 +68,23 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "YELLOW LATE NIGHT SATURDAY",
-      "route_name": "Route YELLOW LATE NIGHT SATURDAY",
-      "total_trips": 6,
+      "route_id": "GREEN LATE NIGHT SUNDAY",
+      "route_name": "Route GREEN LATE NIGHT SUNDAY",
+      "total_trips": 4,
+      "tracked_vehicles": 1,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
+      "route_id": "YELLOW LATE NIGHT SUNDAY",
+      "route_name": "Route YELLOW LATE NIGHT SUNDAY",
+      "total_trips": 4,
       "tracked_vehicles": 2,
       "ghost_trips": 0,
       "canceled_trips": 0,
@@ -99,36 +99,8 @@
   "most_delayed_routes": [],
   "route_metrics": [
     {
-      "route_id": "SILVER EVENING SATURDAY",
-      "route_name": "Route SILVER EVENING SATURDAY",
-      "total_trips": 7,
-      "tracked_vehicles": 2,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
-      "route_id": "ILLINI EVENING SATURDAY",
-      "route_name": "Route ILLINI EVENING SATURDAY",
-      "total_trips": 18,
-      "tracked_vehicles": 7,
-      "ghost_trips": 2,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 11.11,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
-      "route_id": "TEAL LATE NIGHT SATURDAY",
-      "route_name": "Route TEAL LATE NIGHT SATURDAY",
+      "route_id": "SILVER EVENING SUNDAY",
+      "route_name": "Route SILVER EVENING SUNDAY",
       "total_trips": 8,
       "tracked_vehicles": 2,
       "ghost_trips": 0,
@@ -141,9 +113,23 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "GREEN LATE NIGHT SATURDAY",
-      "route_name": "Route GREEN LATE NIGHT SATURDAY",
-      "total_trips": 7,
+      "route_id": "ILLINI EVENING SUNDAY",
+      "route_name": "Route ILLINI EVENING SUNDAY",
+      "total_trips": 17,
+      "tracked_vehicles": 7,
+      "ghost_trips": 2,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 11.76,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
+      "route_id": "TEAL LATE NIGHT SUNDAY",
+      "route_name": "Route TEAL LATE NIGHT SUNDAY",
+      "total_trips": 8,
       "tracked_vehicles": 2,
       "ghost_trips": 0,
       "canceled_trips": 0,
@@ -155,9 +141,23 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "YELLOW LATE NIGHT SATURDAY",
-      "route_name": "Route YELLOW LATE NIGHT SATURDAY",
-      "total_trips": 6,
+      "route_id": "GREEN LATE NIGHT SUNDAY",
+      "route_name": "Route GREEN LATE NIGHT SUNDAY",
+      "total_trips": 4,
+      "tracked_vehicles": 1,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
+      "route_id": "YELLOW LATE NIGHT SUNDAY",
+      "route_name": "Route YELLOW LATE NIGHT SUNDAY",
+      "total_trips": 4,
       "tracked_vehicles": 2,
       "ghost_trips": 0,
       "canceled_trips": 0,
@@ -171,20 +171,20 @@
   ],
   "sample_ghost_trips": [
     {
-      "trip_id": "[@124.0.92260187@][1484328831455]/175__I7_UISA",
-      "route_id": "ILLINI EVENING SATURDAY",
+      "trip_id": "[@124.0.92263401@][1484328944432]/264__I7_UISU",
+      "route_id": "ILLINI EVENING SUNDAY",
       "start_time": "01:00:00",
-      "start_date": "20261108",
+      "start_date": "20261109",
       "status": "SCHEDULED",
-      "reason": "Assigned vehicle 2105 is broadcasting off-schedule with no vehicle covering [@124.0.92260187@][1484328831455]/175__I7_UISA"
+      "reason": "Assigned vehicle 2364 is broadcasting off-schedule with no vehicle covering [@124.0.92263401@][1484328944432]/264__I7_UISU"
     },
     {
-      "trip_id": "[@124.0.92260187@][1484328831455]/286__I7_UISA",
-      "route_id": "ILLINI EVENING SATURDAY",
+      "trip_id": "[@124.0.92263401@][1484328944432]/111__I7_UISU",
+      "route_id": "ILLINI EVENING SUNDAY",
       "start_time": "01:35:00",
-      "start_date": "20261108",
+      "start_date": "20261109",
       "status": "SCHEDULED",
-      "reason": "Assigned vehicle 2105 is broadcasting off-schedule with no vehicle covering [@124.0.92260187@][1484328831455]/286__I7_UISA"
+      "reason": "Assigned vehicle 2364 is broadcasting off-schedule with no vehicle covering [@124.0.92263401@][1484328944432]/111__I7_UISU"
     }
   ],
   "headway_metrics": []
