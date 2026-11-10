@@ -1,7 +1,7 @@
 # 🚌 Automated Public Transit Reliability & Ghost Bus Tracker
 
 > Real-time monitoring and git-scraping reliability index for **Guelph Transit** in **Guelph, ON** (City of Guelph, Ontario).
-> **Transit System:** Guelph Transit | **Location:** Guelph, ON | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-11-09T07:00:19.223000+00:00` | **Source:** live GTFS-RT feed
+> **Transit System:** Guelph Transit | **Location:** Guelph, ON | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-11-10T07:00:18.496000+00:00` | **Source:** live GTFS-RT feed
 
 ---
 
@@ -40,10 +40,10 @@
 | **Route 3013** | 49 | 0 | 49 | **`100.0%`** | `0.0%` | `+0.0s` |
 | **Route 3003** | 42 | 0 | 42 | **`100.0%`** | `0.0%` | `+0.0s` |
 | **Route 2997** | 39 | 0 | 39 | **`100.0%`** | `0.0%` | `+0.0s` |
+| **Route 2991** | 38 | 0 | 38 | **`100.0%`** | `0.0%` | `+0.0s` |
 | **Route 3014** | 38 | 0 | 38 | **`100.0%`** | `0.0%` | `+0.0s` |
 | **Route 3005** | 38 | 0 | 38 | **`100.0%`** | `0.0%` | `+0.0s` |
 | **Route 3002** | 38 | 0 | 38 | **`100.0%`** | `0.0%` | `+0.0s` |
-| **Route 2991** | 38 | 0 | 38 | **`100.0%`** | `0.0%` | `+0.0s` |
 | **Route 3022** | 133 | 0 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
 | **Route 3031** | 11 | 0 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
 
@@ -71,21 +71,21 @@
 
 | Trip ID | Route | Scheduled Departure | Status | Diagnosis / Reason |
 | :--- | :---: | :---: | :--- | :--- |
-| `478876` | Route 2992 | `10:55:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `478671` | Route 2991 | `20:42:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `478670` | Route 2991 | `20:12:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `478675` | Route 2991 | `22:42:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `478674` | Route 2991 | `22:12:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `478673` | Route 2991 | `21:42:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `478672` | Route 2991 | `21:12:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
 | `478878` | Route 2992 | `11:35:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `478880` | Route 2992 | `12:15:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `478882` | Route 2992 | `12:55:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `481743` | Route 3003 | `05:45:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `481741` | Route 3003 | `06:45:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `481739` | Route 3003 | `07:45:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `481737` | Route 3003 | `08:45:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `481747` | Route 3003 | `09:45:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `481749` | Route 3003 | `10:45:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `481751` | Route 3003 | `11:45:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `481753` | Route 3003 | `12:45:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `481755` | Route 3003 | `13:45:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `481757` | Route 3003 | `14:45:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `481759` | Route 3003 | `15:45:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `478876` | Route 2992 | `10:55:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `478883` | Route 2992 | `13:15:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `478881` | Route 2992 | `12:35:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `478879` | Route 2992 | `11:55:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `478877` | Route 2992 | `11:15:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `478875` | Route 2992 | `10:35:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `478873` | Route 2992 | `09:55:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `478871` | Route 2992 | `09:15:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
 
 ---
 
@@ -93,14 +93,14 @@
 
 | Timestamp | Ghost Rate (%) | On-Time (%) | Scheduled Runs | Tracked Fleet | Mean Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| `2026-11-09 07:00:19` | `69.68%` | `0.0%` | 475 | 0 | `+0.0s` |
-| `2026-11-09 06:30:20` | `69.25%` | `0.0%` | 478 | 0 | `+0.0s` |
-| `2026-11-09 06:00:18` | `68.39%` | `0.0%` | 484 | 2 | `+0.0s` |
-| `2026-11-09 05:30:18` | `67.83%` | `0.0%` | 488 | 2 | `+0.0s` |
-| `2026-11-09 05:00:18` | `0.0%` | `0.0%` | 5 | 2 | `+0.0s` |
-| `2026-11-09 04:30:18` | `0.0%` | `0.0%` | 8 | 2 | `+0.0s` |
-| `2026-11-09 04:00:18` | `0.0%` | `0.0%` | 11 | 2 | `+0.0s` |
-| `2026-11-09 03:30:17` | `0.0%` | `0.0%` | 16 | 5 | `+0.0s` |
+| `2026-11-10 07:00:18` | `69.68%` | `0.0%` | 475 | 0 | `+0.0s` |
+| `2026-11-10 06:30:18` | `69.25%` | `0.0%` | 478 | 0 | `+0.0s` |
+| `2026-11-10 06:00:17` | `68.39%` | `0.0%` | 484 | 2 | `+0.0s` |
+| `2026-11-10 05:30:19` | `63.46%` | `0.0%` | 520 | 30 | `+0.0s` |
+| `2026-11-10 05:00:18` | `13.04%` | `0.0%` | 69 | 32 | `+0.0s` |
+| `2026-11-10 04:30:18` | `20.24%` | `0.0%` | 84 | 32 | `+0.0s` |
+| `2026-11-10 04:00:18` | `26.32%` | `0.0%` | 95 | 32 | `+0.0s` |
+| `2026-11-10 03:30:18` | `31.73%` | `0.0%` | 104 | 32 | `+0.0s` |
 
 ---
 
@@ -112,4 +112,4 @@
 - **Excess Wait Time (EWT)**: Transit standard metric measuring variance in vehicle headway caused by vehicle bunching.
 - **Git-Scraping**: Every run fetches upstream GTFS-RT binary protobuf feeds, computes reliability metrics, commits versioned JSON snapshots, and renders this dashboard automatically.
 
-*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-09T07:00:19.223000+00:00`.*
+*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-10T07:00:18.496000+00:00`.*

@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-11-09T07:00:18.371000+00:00",
-  "feed_timestamp": 1794207633,
+  "scan_time": "2026-11-10T07:00:17.907000+00:00",
+  "feed_timestamp": 1794293953,
   "agency": "Capital Area Transportation Authority",
   "city": "Lansing, MI",
   "transit_system": "CATA",
@@ -8,10 +8,10 @@
   "state": "Michigan",
   "country": "USA",
   "source": "live",
-  "total_scheduled_trips": 0,
-  "total_tracked_vehicles": 0,
-  "total_ghost_trips": 0,
-  "ghost_bus_rate_pct": 0.0,
+  "total_scheduled_trips": 1,
+  "total_tracked_vehicles": 2,
+  "total_ghost_trips": 1,
+  "ghost_bus_rate_pct": 100.0,
   "vehicle_tracking_rate_pct": 0.0,
   "overall_on_time_pct": 0.0,
   "delay_distribution": {
@@ -19,14 +19,38 @@
     "on_time": 0,
     "minor_delay": 0,
     "severe_delay": 0,
-    "ghost": 0,
+    "ghost": 1,
     "canceled": 0
   },
   "mean_delay_sec": 0.0,
   "median_delay_sec": 0.0,
   "worst_routes_by_ghost": [],
   "most_delayed_routes": [],
-  "route_metrics": [],
-  "sample_ghost_trips": [],
+  "route_metrics": [
+    {
+      "route_id": "12615",
+      "route_name": "Route 12615",
+      "total_trips": 1,
+      "tracked_vehicles": 1,
+      "ghost_trips": 1,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 100.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    }
+  ],
+  "sample_ghost_trips": [
+    {
+      "trip_id": "4340191",
+      "route_id": "12615",
+      "start_time": "N/A",
+      "start_date": "20261110",
+      "status": "SCHEDULED",
+      "reason": "Assigned vehicle 2741 is broadcasting off-schedule with no vehicle covering 4340191"
+    }
+  ],
   "headway_metrics": []
 }

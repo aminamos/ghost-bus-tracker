@@ -1,7 +1,7 @@
 # 🚌 Automated Public Transit Reliability & Ghost Bus Tracker
 
 > Real-time monitoring and git-scraping reliability index for **Milwaukee County Transit System** in **Milwaukee, WI** (Milwaukee Metropolitan Area, Wisconsin).
-> **Transit System:** MCTS | **Location:** Milwaukee, WI | **Status:** 🟡 **ELEVATED GHOSTS** | **Last Scan:** `2026-11-09T06:00:18.862000+00:00` | **Source:** live GTFS-RT feed
+> **Transit System:** MCTS | **Location:** Milwaukee, WI | **Status:** 🟡 **ELEVATED GHOSTS** | **Last Scan:** `2026-11-10T07:00:18.635000+00:00` | **Source:** live GTFS-RT feed
 
 ---
 
@@ -9,10 +9,10 @@
 
 | Metric | Value | Status / Description |
 | :--- | :--- | :--- |
-| **Ghost Bus Rate** | **`6.12%`** | Scheduled runs with missing transponders or unannounced cuts |
+| **Ghost Bus Rate** | **`8.82%`** | Scheduled runs with missing transponders or unannounced cuts |
 | **On-Time Adherence** | **`0.0%`** | Departures within standard window (-1m to +5m) |
-| **Scheduled Active Trips** | `49` | Total runs operating in current transit schedule window |
-| **Tracked Fleet Vehicles** | `60` | GPS transponders broadcasting valid coordinates |
+| **Scheduled Active Trips** | `34` | Total runs operating in current transit schedule window |
+| **Tracked Fleet Vehicles** | `45` | GPS transponders broadcasting valid coordinates |
 | **Confirmed Ghost Trips** | `3` | Disappeared or unassigned scheduled runs |
 | **Mean Delay** | `+0.0s` (`+0.0 min`) | Average delay across all active tracked runs |
 | **Median Delay** | `+0.0s` (`+0.0 min`) | Median schedule deviation |
@@ -27,8 +27,8 @@
 | ⏩ **Early Departure** | More than 1 min ahead of schedule | 0 | 0.0% |
 | 🟡 **Minor Delay** | +5m to +15m late | 0 | 0.0% |
 | 🔴 **Severe Delay** | Over 15m late | 0 | 0.0% |
-| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 3 | 6.1% |
-| ❌ **Agency Canceled** | Explicitly reported CANCELED | 0 | 0.0% |
+| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 3 | 8.8% |
+| ❌ **Agency Canceled** | Explicitly reported CANCELED | 1 | 2.9% |
 
 ---
 
@@ -36,16 +36,14 @@
 
 | Route | Total Scheduled | Tracked | Ghost Trips | Ghost Rate (%) | On-Time (%) | Avg Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Route 66** | 2 | 2 | 1 | **`50.0%`** | `0.0%` | `+0.0s` |
-| **Route 35** | 3 | 3 | 1 | **`33.33%`** | `0.0%` | `+0.0s` |
-| **Route CN1** | 3 | 3 | 1 | **`33.33%`** | `0.0%` | `+0.0s` |
-| **Route 30** | 4 | 4 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
-| **Route 19** | 4 | 3 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
-| **Route 15** | 6 | 4 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
-| **Route RED** | 6 | 4 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
-| **Route BLU** | 5 | 3 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
-| **Route 80** | 4 | 3 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
-| **Route 76** | 2 | 2 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| **Route 66** | 3 | 3 | 1 | **`33.33%`** | `0.0%` | `+0.0s` |
+| **Route CN1** | 4 | 3 | 1 | **`25.0%`** | `0.0%` | `+0.0s` |
+| **Route 21** | 4 | 4 | 1 | **`25.0%`** | `0.0%` | `+0.0s` |
+| **Route BLU** | 4 | 2 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| **Route 30** | 7 | 5 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| **Route 19** | 3 | 4 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| **Route 15** | 2 | 2 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| **Route RED** | 2 | 2 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
 
 ---
 
@@ -71,9 +69,9 @@
 
 | Trip ID | Route | Scheduled Departure | Status | Diagnosis / Reason |
 | :--- | :---: | :---: | :--- | :--- |
-| `37799502` | Route 35 | `N/A` | `SCHEDULED` | Assigned vehicle 6407 is broadcasting off-schedule with no vehicle covering 37799502 |
-| `37799395` | Route 66 | `N/A` | `SCHEDULED` | Assigned vehicle 5922 is broadcasting off-schedule with no vehicle covering 37799395 |
-| `37800535` | Route CN1 | `N/A` | `SCHEDULED` | Assigned vehicle 6257 is broadcasting off-schedule with no vehicle covering 37800535 |
+| `37803457` | Route 66 | `N/A` | `SCHEDULED` | Assigned vehicle 6202 is broadcasting off-schedule with no vehicle covering 37803457 |
+| `37804690` | Route CN1 | `N/A` | `SCHEDULED` | Assigned vehicle 1003 is broadcasting off-schedule with no vehicle covering 37804690 |
+| `37843613` | Route 21 | `N/A` | `SCHEDULED` | Assigned vehicle 5919 is broadcasting off-schedule with no vehicle covering 37843613 |
 
 ---
 
@@ -81,14 +79,14 @@
 
 | Timestamp | Ghost Rate (%) | On-Time (%) | Scheduled Runs | Tracked Fleet | Mean Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| `2026-11-09 06:00:18` | `6.12%` | `0.0%` | 49 | 60 | `+0.0s` |
-| `2026-11-09 05:30:18` | `8.97%` | `0.0%` | 78 | 76 | `+0.0s` |
-| `2026-11-09 05:00:18` | `10.75%` | `0.0%` | 93 | 85 | `+0.0s` |
-| `2026-11-09 04:00:19` | `10.58%` | `0.0%` | 104 | 89 | `+0.0s` |
-| `2026-11-09 03:30:18` | `14.42%` | `0.0%` | 104 | 95 | `+0.0s` |
-| `2026-11-09 02:00:18` | `10.17%` | `0.0%` | 118 | 100 | `+0.0s` |
-| `2026-11-09 01:30:18` | `11.57%` | `0.0%` | 121 | 105 | `+0.0s` |
-| `2026-11-09 01:00:21` | `10.37%` | `0.0%` | 135 | 112 | `+0.0s` |
+| `2026-11-10 07:00:18` | `8.82%` | `0.0%` | 34 | 45 | `+0.0s` |
+| `2026-11-10 06:30:19` | `12.07%` | `0.0%` | 58 | 70 | `+0.0s` |
+| `2026-11-10 06:00:18` | `5.75%` | `0.0%` | 87 | 87 | `+0.0s` |
+| `2026-11-10 04:00:19` | `9.57%` | `0.0%` | 115 | 111 | `+0.0s` |
+| `2026-11-10 03:30:18` | `9.52%` | `0.0%` | 126 | 119 | `+0.0s` |
+| `2026-11-10 02:30:20` | `8.45%` | `0.0%` | 142 | 137 | `+0.0s` |
+| `2026-11-10 01:30:20` | `12.99%` | `0.0%` | 154 | 147 | `+0.0s` |
+| `2026-11-09 21:30:22` | `11.67%` | `0.0%` | 240 | 206 | `+0.0s` |
 
 ---
 
@@ -100,4 +98,4 @@
 - **Excess Wait Time (EWT)**: Transit standard metric measuring variance in vehicle headway caused by vehicle bunching.
 - **Git-Scraping**: Every run fetches upstream GTFS-RT binary protobuf feeds, computes reliability metrics, commits versioned JSON snapshots, and renders this dashboard automatically.
 
-*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-09T06:00:18.862000+00:00`.*
+*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-10T07:00:18.635000+00:00`.*

@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-11-09T07:00:19.461000+00:00",
-  "feed_timestamp": 1794207586,
+  "scan_time": "2026-11-10T07:00:18.613000+00:00",
+  "feed_timestamp": 1794294012,
   "agency": "Des Moines Area Regional Transit Authority",
   "city": "Des Moines, IA",
   "transit_system": "DART",
@@ -9,7 +9,7 @@
   "country": "USA",
   "source": "live",
   "total_scheduled_trips": 0,
-  "total_tracked_vehicles": 21,
+  "total_tracked_vehicles": 0,
   "total_ghost_trips": 0,
   "ghost_bus_rate_pct": 0.0,
   "vehicle_tracking_rate_pct": 0.0,

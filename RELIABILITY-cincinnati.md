@@ -1,7 +1,7 @@
 # 🚌 Automated Public Transit Reliability & Ghost Bus Tracker
 
 > Real-time monitoring and git-scraping reliability index for **Southwest Ohio Regional Transit Authority** in **Cincinnati, OH** (Cincinnati Metropolitan Area, Ohio).
-> **Transit System:** Metro | **Location:** Cincinnati, OH | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-11-09T07:00:19.374000+00:00` | **Source:** live GTFS-RT feed
+> **Transit System:** Metro | **Location:** Cincinnati, OH | **Status:** 🟡 **ELEVATED GHOSTS** | **Last Scan:** `2026-11-10T07:00:21.282000+00:00` | **Source:** live GTFS-RT feed
 
 ---
 
@@ -9,11 +9,11 @@
 
 | Metric | Value | Status / Description |
 | :--- | :--- | :--- |
-| **Ghost Bus Rate** | **`20.0%`** | Scheduled runs with missing transponders or unannounced cuts |
+| **Ghost Bus Rate** | **`6.06%`** | Scheduled runs with missing transponders or unannounced cuts |
 | **On-Time Adherence** | **`0.0%`** | Departures within standard window (-1m to +5m) |
-| **Scheduled Active Trips** | `30` | Total runs operating in current transit schedule window |
-| **Tracked Fleet Vehicles** | `18` | GPS transponders broadcasting valid coordinates |
-| **Confirmed Ghost Trips** | `6` | Disappeared or unassigned scheduled runs |
+| **Scheduled Active Trips** | `33` | Total runs operating in current transit schedule window |
+| **Tracked Fleet Vehicles** | `20` | GPS transponders broadcasting valid coordinates |
+| **Confirmed Ghost Trips** | `2` | Disappeared or unassigned scheduled runs |
 | **Mean Delay** | `+0.0s` (`+0.0 min`) | Average delay across all active tracked runs |
 | **Median Delay** | `+0.0s` (`+0.0 min`) | Median schedule deviation |
 
@@ -27,7 +27,7 @@
 | ⏩ **Early Departure** | More than 1 min ahead of schedule | 0 | 0.0% |
 | 🟡 **Minor Delay** | +5m to +15m late | 0 | 0.0% |
 | 🔴 **Severe Delay** | Over 15m late | 0 | 0.0% |
-| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 6 | 20.0% |
+| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 2 | 6.1% |
 | ❌ **Agency Canceled** | Explicitly reported CANCELED | 0 | 0.0% |
 
 ---
@@ -36,13 +36,13 @@
 
 | Route | Total Scheduled | Tracked | Ghost Trips | Ghost Rate (%) | On-Time (%) | Avg Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Route 33** | 3 | 2 | 1 | **`33.33%`** | `0.0%` | `+0.0s` |
-| **Route 19** | 3 | 2 | 1 | **`33.33%`** | `0.0%` | `+0.0s` |
 | **Route 51** | 3 | 2 | 1 | **`33.33%`** | `0.0%` | `+0.0s` |
-| **Route 17** | 5 | 3 | 1 | **`20.0%`** | `0.0%` | `+0.0s` |
-| **Route 78** | 5 | 3 | 1 | **`20.0%`** | `0.0%` | `+0.0s` |
-| **Route 43** | 5 | 3 | 1 | **`20.0%`** | `0.0%` | `+0.0s` |
+| **Route 33** | 3 | 2 | 1 | **`33.33%`** | `0.0%` | `+0.0s` |
+| **Route 17** | 6 | 3 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| **Route 19** | 4 | 2 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| **Route 43** | 5 | 3 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
 | **Route 4** | 6 | 3 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| **Route 78** | 5 | 4 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
 
 ---
 
@@ -68,12 +68,8 @@
 
 | Trip ID | Route | Scheduled Departure | Status | Diagnosis / Reason |
 | :--- | :---: | :---: | :--- | :--- |
-| `2041822` | Route 19 | `N/A` | `SCHEDULED` | Assigned vehicle 2371 is broadcasting off-schedule with no vehicle covering 2041822 |
-| `2041711` | Route 33 | `N/A` | `SCHEDULED` | Assigned vehicle 2372 is broadcasting off-schedule with no vehicle covering 2041711 |
-| `2025311` | Route 51 | `N/A` | `SCHEDULED` | Assigned vehicle 2397 is broadcasting off-schedule with no vehicle covering 2025311 |
-| `2042592` | Route 17 | `N/A` | `SCHEDULED` | Assigned vehicle 2478 is broadcasting off-schedule with no vehicle covering 2042592 |
-| `2024937` | Route 78 | `N/A` | `SCHEDULED` | Assigned vehicle 2511 is broadcasting off-schedule with no vehicle covering 2024937 |
-| `2025131` | Route 43 | `N/A` | `SCHEDULED` | Assigned vehicle 2515 is broadcasting off-schedule with no vehicle covering 2025131 |
+| `2027045` | Route 33 | `N/A` | `SCHEDULED` | Assigned vehicle 2402 is broadcasting off-schedule with no vehicle covering 2027045 |
+| `2030347` | Route 51 | `N/A` | `SCHEDULED` | Assigned vehicle 2543 is broadcasting off-schedule with no vehicle covering 2030347 |
 
 ---
 
@@ -81,14 +77,14 @@
 
 | Timestamp | Ghost Rate (%) | On-Time (%) | Scheduled Runs | Tracked Fleet | Mean Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| `2026-11-09 07:00:19` | `20.0%` | `0.0%` | 30 | 18 | `+0.0s` |
-| `2026-11-09 06:30:21` | `8.57%` | `0.0%` | 35 | 20 | `+0.0s` |
-| `2026-11-09 06:00:18` | `9.76%` | `0.0%` | 41 | 26 | `+0.0s` |
-| `2026-11-09 05:30:18` | `1.67%` | `0.0%` | 60 | 39 | `+0.0s` |
-| `2026-11-09 05:00:18` | `9.46%` | `100.0%` | 74 | 46 | `+180.0s` |
-| `2026-11-09 04:30:19` | `8.51%` | `90.0%` | 94 | 58 | `+115.6s` |
-| `2026-11-09 04:00:19` | `13.13%` | `92.11%` | 99 | 61 | `+83.7s` |
-| `2026-11-09 03:30:18` | `9.48%` | `88.0%` | 116 | 66 | `+122.7s` |
+| `2026-11-10 07:00:21` | `6.06%` | `0.0%` | 33 | 20 | `+0.0s` |
+| `2026-11-10 06:30:18` | `4.55%` | `0.0%` | 44 | 27 | `+0.0s` |
+| `2026-11-10 06:00:18` | `15.38%` | `0.0%` | 52 | 36 | `+0.0s` |
+| `2026-11-10 05:30:20` | `14.29%` | `50.0%` | 70 | 48 | `+735.0s` |
+| `2026-11-10 05:00:19` | `9.2%` | `80.0%` | 87 | 55 | `+168.0s` |
+| `2026-11-10 04:30:20` | `13.0%` | `89.19%` | 100 | 64 | `+167.0s` |
+| `2026-11-10 04:00:19` | `10.48%` | `84.21%` | 124 | 78 | `+135.8s` |
+| `2026-11-10 03:30:25` | `12.95%` | `89.26%` | 139 | 88 | `+101.0s` |
 
 ---
 
@@ -100,4 +96,4 @@
 - **Excess Wait Time (EWT)**: Transit standard metric measuring variance in vehicle headway caused by vehicle bunching.
 - **Git-Scraping**: Every run fetches upstream GTFS-RT binary protobuf feeds, computes reliability metrics, commits versioned JSON snapshots, and renders this dashboard automatically.
 
-*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-09T07:00:19.374000+00:00`.*
+*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-10T07:00:21.282000+00:00`.*

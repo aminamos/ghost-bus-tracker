@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-11-09T07:00:19.724000+00:00",
-  "feed_timestamp": 1794207573,
+  "scan_time": "2026-11-10T07:00:18.691000+00:00",
+  "feed_timestamp": 1794294012,
   "agency": "Metro Transit (City of Madison)",
   "city": "Madison, WI",
   "transit_system": "Metro Transit",
@@ -85,20 +85,6 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "82",
-      "route_name": "Route 82",
-      "total_trips": 3,
-      "tracked_vehicles": 1,
-      "ghost_trips": 1,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 33.33,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
       "route_id": "80",
       "route_name": "Route 80",
       "total_trips": 2,
@@ -111,20 +97,34 @@
       "on_time_pct": 0.0,
       "avg_delay_sec": 0.0,
       "max_delay_sec": 0
+    },
+    {
+      "route_id": "82",
+      "route_name": "Route 82",
+      "total_trips": 3,
+      "tracked_vehicles": 1,
+      "ghost_trips": 1,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 33.33,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
     }
   ],
   "sample_ghost_trips": [
     {
-      "trip_id": "5053010",
-      "route_id": "81",
+      "trip_id": "3419080",
+      "route_id": "82",
       "start_time": "N/A",
       "start_date": "N/A",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
     {
-      "trip_id": "1747010",
-      "route_id": "82",
+      "trip_id": "5104080",
+      "route_id": "81",
       "start_time": "N/A",
       "start_date": "N/A",
       "status": "SCHEDULED",
