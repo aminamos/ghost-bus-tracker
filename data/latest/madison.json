@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-11-10T07:00:18.691000+00:00",
-  "feed_timestamp": 1794294012,
+  "scan_time": "2026-11-11T07:00:19.515000+00:00",
+  "feed_timestamp": 1794380331,
   "agency": "Metro Transit (City of Madison)",
   "city": "Madison, WI",
   "transit_system": "Metro Transit",
@@ -26,8 +26,8 @@
   "median_delay_sec": 0.0,
   "worst_routes_by_ghost": [
     {
-      "route_id": "81",
-      "route_name": "Route 81",
+      "route_id": "82",
+      "route_name": "Route 82",
       "total_trips": 3,
       "tracked_vehicles": 1,
       "ghost_trips": 1,
@@ -40,8 +40,8 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "82",
-      "route_name": "Route 82",
+      "route_id": "81",
+      "route_name": "Route 81",
       "total_trips": 3,
       "tracked_vehicles": 1,
       "ghost_trips": 1,
@@ -71,20 +71,6 @@
   "most_delayed_routes": [],
   "route_metrics": [
     {
-      "route_id": "81",
-      "route_name": "Route 81",
-      "total_trips": 3,
-      "tracked_vehicles": 1,
-      "ghost_trips": 1,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 33.33,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
       "route_id": "80",
       "route_name": "Route 80",
       "total_trips": 2,
@@ -111,11 +97,25 @@
       "on_time_pct": 0.0,
       "avg_delay_sec": 0.0,
       "max_delay_sec": 0
+    },
+    {
+      "route_id": "81",
+      "route_name": "Route 81",
+      "total_trips": 3,
+      "tracked_vehicles": 1,
+      "ghost_trips": 1,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 33.33,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
     }
   ],
   "sample_ghost_trips": [
     {
-      "trip_id": "3419080",
+      "trip_id": "3419020",
       "route_id": "82",
       "start_time": "N/A",
       "start_date": "N/A",
@@ -123,7 +123,7 @@
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
     {
-      "trip_id": "5104080",
+      "trip_id": "5104020",
       "route_id": "81",
       "start_time": "N/A",
       "start_date": "N/A",

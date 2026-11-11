@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-11-10T07:00:17.913000+00:00",
-  "feed_timestamp": 1794293999,
+  "scan_time": "2026-11-11T07:00:18.312000+00:00",
+  "feed_timestamp": 1794380398,
   "agency": "Central Florida Regional Transportation Authority",
   "city": "Orlando, FL",
   "transit_system": "LYNX",
@@ -8,22 +8,22 @@
   "state": "Florida",
   "country": "USA",
   "source": "live",
-  "total_scheduled_trips": 2,
-  "total_tracked_vehicles": 2,
+  "total_scheduled_trips": 4,
+  "total_tracked_vehicles": 3,
   "total_ghost_trips": 0,
   "ghost_bus_rate_pct": 0.0,
-  "vehicle_tracking_rate_pct": 100.0,
-  "overall_on_time_pct": 0.0,
+  "vehicle_tracking_rate_pct": 75.0,
+  "overall_on_time_pct": 33.33,
   "delay_distribution": {
     "early": 0,
-    "on_time": 0,
+    "on_time": 1,
     "minor_delay": 1,
     "severe_delay": 1,
     "ghost": 0,
-    "canceled": 0
+    "canceled": 1
   },
-  "mean_delay_sec": 717.5,
-  "median_delay_sec": 717.5,
+  "mean_delay_sec": 690.0,
+  "median_delay_sec": 542.0,
   "worst_routes_by_ghost": [
     {
       "route_id": "17567",
@@ -36,8 +36,8 @@
       "delayed_trips": 2,
       "ghost_rate_pct": 0.0,
       "on_time_pct": 0.0,
-      "avg_delay_sec": 717.5,
-      "max_delay_sec": 967
+      "avg_delay_sec": 892.0,
+      "max_delay_sec": 1242
     }
   ],
   "most_delayed_routes": [
@@ -52,11 +52,39 @@
       "delayed_trips": 2,
       "ghost_rate_pct": 0.0,
       "on_time_pct": 0.0,
-      "avg_delay_sec": 717.5,
-      "max_delay_sec": 967
+      "avg_delay_sec": 892.0,
+      "max_delay_sec": 1242
+    },
+    {
+      "route_id": "17577",
+      "route_name": "Route 17577",
+      "total_trips": 1,
+      "tracked_vehicles": 1,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 1,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 100.0,
+      "avg_delay_sec": 286.0,
+      "max_delay_sec": 286
     }
   ],
   "route_metrics": [
+    {
+      "route_id": "17611",
+      "route_name": "Route 17611",
+      "total_trips": 1,
+      "tracked_vehicles": 0,
+      "ghost_trips": 0,
+      "canceled_trips": 1,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
     {
       "route_id": "17567",
       "route_name": "Route 17567",
@@ -68,8 +96,22 @@
       "delayed_trips": 2,
       "ghost_rate_pct": 0.0,
       "on_time_pct": 0.0,
-      "avg_delay_sec": 717.5,
-      "max_delay_sec": 967
+      "avg_delay_sec": 892.0,
+      "max_delay_sec": 1242
+    },
+    {
+      "route_id": "17577",
+      "route_name": "Route 17577",
+      "total_trips": 1,
+      "tracked_vehicles": 1,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 1,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 100.0,
+      "avg_delay_sec": 286.0,
+      "max_delay_sec": 286
     }
   ],
   "sample_ghost_trips": [],

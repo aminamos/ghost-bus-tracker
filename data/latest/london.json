@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-11-10T07:00:18.638000+00:00",
-  "feed_timestamp": 1794294012,
+  "scan_time": "2026-11-11T07:00:19.006000+00:00",
+  "feed_timestamp": 1794380391,
   "agency": "London Transit Commission",
   "city": "London, ON",
   "transit_system": "LTC",
@@ -8,79 +8,55 @@
   "state": "Ontario",
   "country": "Canada",
   "source": "live",
-  "total_scheduled_trips": 3,
-  "total_tracked_vehicles": 4,
+  "total_scheduled_trips": 2,
+  "total_tracked_vehicles": 2,
   "total_ghost_trips": 0,
   "ghost_bus_rate_pct": 0.0,
   "vehicle_tracking_rate_pct": 100.0,
-  "overall_on_time_pct": 100.0,
+  "overall_on_time_pct": 50.0,
   "delay_distribution": {
-    "early": 0,
-    "on_time": 3,
+    "early": 1,
+    "on_time": 1,
     "minor_delay": 0,
     "severe_delay": 0,
     "ghost": 0,
     "canceled": 0
   },
-  "mean_delay_sec": 52.3,
-  "median_delay_sec": -1.0,
+  "mean_delay_sec": -15.0,
+  "median_delay_sec": -15.0,
   "worst_routes_by_ghost": [
     {
       "route_id": "10",
       "route_name": "Route 10",
-      "total_trips": 3,
-      "tracked_vehicles": 3,
+      "total_trips": 2,
+      "tracked_vehicles": 2,
       "ghost_trips": 0,
       "canceled_trips": 0,
-      "on_time_trips": 3,
+      "on_time_trips": 1,
       "delayed_trips": 0,
       "ghost_rate_pct": 0.0,
-      "on_time_pct": 100.0,
-      "avg_delay_sec": 52.3,
-      "max_delay_sec": 203
+      "on_time_pct": 50.0,
+      "avg_delay_sec": -15.0,
+      "max_delay_sec": 62
     }
   ],
-  "most_delayed_routes": [
-    {
-      "route_id": "10",
-      "route_name": "Route 10",
-      "total_trips": 3,
-      "tracked_vehicles": 3,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 3,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 100.0,
-      "avg_delay_sec": 52.3,
-      "max_delay_sec": 203
-    }
-  ],
+  "most_delayed_routes": [],
   "route_metrics": [
     {
       "route_id": "10",
       "route_name": "Route 10",
-      "total_trips": 3,
-      "tracked_vehicles": 3,
+      "total_trips": 2,
+      "tracked_vehicles": 2,
       "ghost_trips": 0,
       "canceled_trips": 0,
-      "on_time_trips": 3,
+      "on_time_trips": 1,
       "delayed_trips": 0,
       "ghost_rate_pct": 0.0,
-      "on_time_pct": 100.0,
-      "avg_delay_sec": 52.3,
-      "max_delay_sec": 203
+      "on_time_pct": 50.0,
+      "avg_delay_sec": -15.0,
+      "max_delay_sec": 62
     }
   ],
   "sample_ghost_trips": [],
-  "headway_metrics": [
-    {
-      "route_id": "10",
-      "direction_id": 11,
-      "scheduled_headway_min": 30.0,
-      "observed_headway_min": 30.0,
-      "excess_wait_time_min": 0.0,
-      "headway_regularity_score": 98.8
-    }
-  ]
+  "headway_metrics": []
 }

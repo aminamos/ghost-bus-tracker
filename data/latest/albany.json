@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-11-10T07:00:18.043000+00:00",
-  "feed_timestamp": 1794294015,
+  "scan_time": "2026-11-11T07:00:18.514000+00:00",
+  "feed_timestamp": 1794380415,
   "agency": "Capital District Transportation Authority",
   "city": "Albany, NY",
   "transit_system": "CDTA",
@@ -9,17 +9,17 @@
   "country": "USA",
   "source": "live",
   "total_scheduled_trips": 2,
-  "total_tracked_vehicles": 4,
-  "total_ghost_trips": 0,
-  "ghost_bus_rate_pct": 0.0,
-  "vehicle_tracking_rate_pct": 100.0,
+  "total_tracked_vehicles": 2,
+  "total_ghost_trips": 1,
+  "ghost_bus_rate_pct": 50.0,
+  "vehicle_tracking_rate_pct": 50.0,
   "overall_on_time_pct": 0.0,
   "delay_distribution": {
     "early": 0,
     "on_time": 0,
     "minor_delay": 0,
     "severe_delay": 0,
-    "ghost": 0,
+    "ghost": 1,
     "canceled": 0
   },
   "mean_delay_sec": 0.0,
@@ -31,12 +31,12 @@
       "route_id": "905",
       "route_name": "Route 905",
       "total_trips": 1,
-      "tracked_vehicles": 1,
-      "ghost_trips": 0,
+      "tracked_vehicles": 0,
+      "ghost_trips": 1,
       "canceled_trips": 0,
       "on_time_trips": 0,
       "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
+      "ghost_rate_pct": 100.0,
       "on_time_pct": 0.0,
       "avg_delay_sec": 0.0,
       "max_delay_sec": 0
@@ -56,6 +56,15 @@
       "max_delay_sec": 0
     }
   ],
-  "sample_ghost_trips": [],
+  "sample_ghost_trips": [
+    {
+      "trip_id": "13984467-OCT26-SchRMB-Weekday-10",
+      "route_id": "905",
+      "start_time": "01:16:00",
+      "start_date": "20261111",
+      "status": "SCHEDULED",
+      "reason": "Assigned vehicle 4133 is missing from active GPS transponder fleet"
+    }
+  ],
   "headway_metrics": []
 }

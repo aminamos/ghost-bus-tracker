@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-11-10T07:00:18.557000+00:00",
-  "feed_timestamp": 1794294014,
+  "scan_time": "2026-11-11T07:00:18.831000+00:00",
+  "feed_timestamp": 1794380416,
   "agency": "Connecticut Transit",
   "city": "Hartford, CT",
   "transit_system": "CTtransit",
@@ -28,8 +28,8 @@
   "most_delayed_routes": [],
   "route_metrics": [
     {
-      "route_id": "16214",
-      "route_name": "Route 16214",
+      "route_id": "16430",
+      "route_name": "Route 16430",
       "total_trips": 1,
       "tracked_vehicles": 1,
       "ghost_trips": 0,

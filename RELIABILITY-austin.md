@@ -1,7 +1,7 @@
 # 🚌 Automated Public Transit Reliability & Ghost Bus Tracker
 
 > Real-time monitoring and git-scraping reliability index for **Capital Metropolitan Transportation Authority** in **Austin, TX** (Austin–Round Rock Metropolitan Area, Texas).
-> **Transit System:** CapMetro | **Location:** Austin, TX | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-11-10T07:00:21.513000+00:00` | **Source:** live GTFS-RT feed
+> **Transit System:** CapMetro | **Location:** Austin, TX | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-11-11T07:00:19.152000+00:00` | **Source:** live GTFS-RT feed
 
 ---
 
@@ -9,11 +9,11 @@
 
 | Metric | Value | Status / Description |
 | :--- | :--- | :--- |
-| **Ghost Bus Rate** | **`96.86%`** | Scheduled runs with missing transponders or unannounced cuts |
+| **Ghost Bus Rate** | **`96.96%`** | Scheduled runs with missing transponders or unannounced cuts |
 | **On-Time Adherence** | **`0.0%`** | Departures within standard window (-1m to +5m) |
-| **Scheduled Active Trips** | `1592` | Total runs operating in current transit schedule window |
-| **Tracked Fleet Vehicles** | `234` | GPS transponders broadcasting valid coordinates |
-| **Confirmed Ghost Trips** | `1542` | Disappeared or unassigned scheduled runs |
+| **Scheduled Active Trips** | `1581` | Total runs operating in current transit schedule window |
+| **Tracked Fleet Vehicles** | `242` | GPS transponders broadcasting valid coordinates |
+| **Confirmed Ghost Trips** | `1533` | Disappeared or unassigned scheduled runs |
 | **Mean Delay** | `+0.0s` (`+0.0 min`) | Average delay across all active tracked runs |
 | **Median Delay** | `+0.0s` (`+0.0 min`) | Median schedule deviation |
 
@@ -27,8 +27,8 @@
 | ⏩ **Early Departure** | More than 1 min ahead of schedule | 0 | 0.0% |
 | 🟡 **Minor Delay** | +5m to +15m late | 0 | 0.0% |
 | 🔴 **Severe Delay** | Over 15m late | 0 | 0.0% |
-| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 1542 | 96.9% |
-| ❌ **Agency Canceled** | Explicitly reported CANCELED | 0 | 0.0% |
+| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 1533 | 97.0% |
+| ❌ **Agency Canceled** | Explicitly reported CANCELED | 1 | 0.1% |
 
 ---
 
@@ -36,11 +36,11 @@
 
 | Route | Total Scheduled | Tracked | Ghost Trips | Ghost Rate (%) | On-Time (%) | Avg Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Route 800** | 196 | 0 | 196 | **`100.0%`** | `0.0%` | `+0.0s` |
 | **Route 20** | 145 | 0 | 145 | **`100.0%`** | `0.0%` | `+0.0s` |
 | **Route 7** | 130 | 0 | 130 | **`100.0%`** | `0.0%` | `+0.0s` |
 | **Route 300** | 130 | 0 | 130 | **`100.0%`** | `0.0%` | `+0.0s` |
-| **Route 324** | 71 | 0 | 71 | **`100.0%`** | `0.0%` | `+0.0s` |
+| **Route 800** | 98 | 0 | 98 | **`100.0%`** | `0.0%` | `+0.0s` |
+| **Route 803** | 92 | 0 | 92 | **`100.0%`** | `0.0%` | `+0.0s` |
 | **Route 271** | 69 | 0 | 69 | **`100.0%`** | `0.0%` | `+0.0s` |
 | **Route 333** | 65 | 0 | 65 | **`100.0%`** | `0.0%` | `+0.0s` |
 | **Route 392** | 64 | 0 | 64 | **`100.0%`** | `0.0%` | `+0.0s` |
@@ -84,7 +84,7 @@
 | `2999482_3556` | Route 20 | `04:34:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
 | `3004045_12742` | Route 337 | `04:35:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
 | `3001189_7028` | Route 300 | `04:37:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `3003095_10359` | Route 324 | `04:40:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `3004336_13250` | Route 339 | `04:40:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
 | `3014879_20897` | Route 7 | `04:40:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
 
 ---
@@ -93,14 +93,14 @@
 
 | Timestamp | Ghost Rate (%) | On-Time (%) | Scheduled Runs | Tracked Fleet | Mean Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| `2026-11-10 07:00:21` | `96.86%` | `0.0%` | 1592 | 234 | `+0.0s` |
-| `2026-11-10 06:30:29` | `95.58%` | `0.0%` | 1605 | 245 | `+0.0s` |
-| `2026-11-10 06:00:18` | `93.33%` | `0.0%` | 1633 | 258 | `+0.0s` |
-| `2026-11-10 05:30:21` | `90.82%` | `0.0%` | 1656 | 261 | `+0.0s` |
-| `2026-11-10 05:00:19` | `87.14%` | `0.0%` | 1695 | 267 | `+0.0s` |
-| `2026-11-10 04:30:20` | `82.49%` | `0.0%` | 1753 | 278 | `+0.0s` |
-| `2026-11-10 04:00:26` | `78.69%` | `0.0%` | 1802 | 289 | `+0.0s` |
-| `2026-11-10 03:30:25` | `75.82%` | `0.0%` | 1840 | 293 | `+0.0s` |
+| `2026-11-11 07:00:19` | `96.96%` | `0.0%` | 1581 | 242 | `+0.0s` |
+| `2026-11-11 06:30:18` | `95.5%` | `0.0%` | 1600 | 249 | `+0.0s` |
+| `2026-11-11 06:00:26` | `93.41%` | `0.0%` | 1624 | 265 | `+0.0s` |
+| `2026-11-11 05:30:20` | `90.79%` | `0.0%` | 1651 | 278 | `+0.0s` |
+| `2026-11-11 05:00:23` | `86.52%` | `0.0%` | 1692 | 291 | `+0.0s` |
+| `2026-11-11 04:30:20` | `82.59%` | `0.0%` | 1746 | 304 | `+0.0s` |
+| `2026-11-11 04:00:19` | `78.61%` | `0.0%` | 1795 | 306 | `+0.0s` |
+| `2026-11-11 03:30:33` | `75.04%` | `0.0%` | 1847 | 309 | `+0.0s` |
 
 ---
 
@@ -112,4 +112,4 @@
 - **Excess Wait Time (EWT)**: Transit standard metric measuring variance in vehicle headway caused by vehicle bunching.
 - **Git-Scraping**: Every run fetches upstream GTFS-RT binary protobuf feeds, computes reliability metrics, commits versioned JSON snapshots, and renders this dashboard automatically.
 
-*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-10T07:00:21.513000+00:00`.*
+*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-11T07:00:19.152000+00:00`.*
