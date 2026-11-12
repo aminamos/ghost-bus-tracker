@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-11-11T07:00:18.484000+00:00",
-  "feed_timestamp": 1794380410,
+  "scan_time": "2026-11-12T07:00:18.559000+00:00",
+  "feed_timestamp": 1794466797,
   "agency": "Pittsburgh Regional Transit",
   "city": "Pittsburgh, PA",
   "transit_system": "PRT",
@@ -8,8 +8,8 @@
   "state": "Pennsylvania",
   "country": "USA",
   "source": "live",
-  "total_scheduled_trips": 7,
-  "total_tracked_vehicles": 131,
+  "total_scheduled_trips": 5,
+  "total_tracked_vehicles": 141,
   "total_ghost_trips": 0,
   "ghost_bus_rate_pct": 0.0,
   "vehicle_tracking_rate_pct": 100.0,
@@ -24,22 +24,7 @@
   },
   "mean_delay_sec": 0.0,
   "median_delay_sec": 0.0,
-  "worst_routes_by_ghost": [
-    {
-      "route_id": "61C",
-      "route_name": "Route 61C",
-      "total_trips": 2,
-      "tracked_vehicles": 2,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    }
-  ],
+  "worst_routes_by_ghost": [],
   "most_delayed_routes": [],
   "route_metrics": [
     {
@@ -71,20 +56,6 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "61C",
-      "route_name": "Route 61C",
-      "total_trips": 2,
-      "tracked_vehicles": 2,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
       "route_id": "71D",
       "route_name": "Route 71D",
       "total_trips": 1,
@@ -99,8 +70,8 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "71B",
-      "route_name": "Route 71B",
+      "route_id": "54",
+      "route_name": "Route 54",
       "total_trips": 1,
       "tracked_vehicles": 1,
       "ghost_trips": 0,
@@ -113,8 +84,8 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "71A",
-      "route_name": "Route 71A",
+      "route_id": "61C",
+      "route_name": "Route 61C",
       "total_trips": 1,
       "tracked_vehicles": 1,
       "ghost_trips": 0,

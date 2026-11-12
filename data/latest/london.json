@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-11-11T07:00:19.006000+00:00",
-  "feed_timestamp": 1794380391,
+  "scan_time": "2026-11-12T07:00:19.747000+00:00",
+  "feed_timestamp": 1794466808,
   "agency": "London Transit Commission",
   "city": "London, ON",
   "transit_system": "LTC",
@@ -22,8 +22,8 @@
     "ghost": 0,
     "canceled": 0
   },
-  "mean_delay_sec": -15.0,
-  "median_delay_sec": -15.0,
+  "mean_delay_sec": -44.5,
+  "median_delay_sec": -44.5,
   "worst_routes_by_ghost": [
     {
       "route_id": "10",
@@ -36,8 +36,8 @@
       "delayed_trips": 0,
       "ghost_rate_pct": 0.0,
       "on_time_pct": 50.0,
-      "avg_delay_sec": -15.0,
-      "max_delay_sec": 62
+      "avg_delay_sec": -44.5,
+      "max_delay_sec": 39
     }
   ],
   "most_delayed_routes": [],
@@ -53,8 +53,8 @@
       "delayed_trips": 0,
       "ghost_rate_pct": 0.0,
       "on_time_pct": 50.0,
-      "avg_delay_sec": -15.0,
-      "max_delay_sec": 62
+      "avg_delay_sec": -44.5,
+      "max_delay_sec": 39
     }
   ],
   "sample_ghost_trips": [],

@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-11-11T07:00:18.844000+00:00",
-  "feed_timestamp": 1794380414,
+  "scan_time": "2026-11-12T07:00:19.362000+00:00",
+  "feed_timestamp": 1794466814,
   "agency": "Metropolitan Transportation Authority",
   "city": "New York, NY",
   "transit_system": "MTA",
@@ -8,37 +8,23 @@
   "state": "New York",
   "country": "USA",
   "source": "live",
-  "total_scheduled_trips": 91,
-  "total_tracked_vehicles": 65,
-  "total_ghost_trips": 26,
-  "ghost_bus_rate_pct": 28.57,
-  "vehicle_tracking_rate_pct": 71.43,
+  "total_scheduled_trips": 98,
+  "total_tracked_vehicles": 73,
+  "total_ghost_trips": 25,
+  "ghost_bus_rate_pct": 25.51,
+  "vehicle_tracking_rate_pct": 74.49,
   "overall_on_time_pct": 0.0,
   "delay_distribution": {
     "early": 0,
     "on_time": 0,
     "minor_delay": 0,
-    "severe_delay": 0,
-    "ghost": 26,
+    "severe_delay": 1,
+    "ghost": 25,
     "canceled": 0
   },
-  "mean_delay_sec": 0.0,
-  "median_delay_sec": 0.0,
+  "mean_delay_sec": 15278.0,
+  "median_delay_sec": 15278.0,
   "worst_routes_by_ghost": [
-    {
-      "route_id": "5",
-      "route_name": "Route 5",
-      "total_trips": 4,
-      "tracked_vehicles": 0,
-      "ghost_trips": 4,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 100.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
     {
       "route_id": "GS",
       "route_name": "Route GS",
@@ -54,8 +40,22 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "3",
-      "route_name": "Route 3",
+      "route_id": "5",
+      "route_name": "Route 5",
+      "total_trips": 4,
+      "tracked_vehicles": 1,
+      "ghost_trips": 3,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 75.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
+      "route_id": "1",
+      "route_name": "Route 1",
       "total_trips": 10,
       "tracked_vehicles": 6,
       "ghost_trips": 4,
@@ -68,8 +68,8 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "1",
-      "route_name": "Route 1",
+      "route_id": "3",
+      "route_name": "Route 3",
       "total_trips": 11,
       "tracked_vehicles": 7,
       "ghost_trips": 4,
@@ -77,20 +77,6 @@
       "on_time_trips": 0,
       "delayed_trips": 0,
       "ghost_rate_pct": 36.36,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
-      "route_id": "4",
-      "route_name": "Route 4",
-      "total_trips": 8,
-      "tracked_vehicles": 6,
-      "ghost_trips": 2,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 25.0,
       "on_time_pct": 0.0,
       "avg_delay_sec": 0.0,
       "max_delay_sec": 0
@@ -110,15 +96,29 @@
       "max_delay_sec": 0
     },
     {
+      "route_id": "4",
+      "route_name": "Route 4",
+      "total_trips": 9,
+      "tracked_vehicles": 7,
+      "ghost_trips": 2,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 1,
+      "ghost_rate_pct": 22.22,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 15278.0,
+      "max_delay_sec": 15278
+    },
+    {
       "route_id": "2",
       "route_name": "Route 2",
-      "total_trips": 14,
-      "tracked_vehicles": 12,
+      "total_trips": 15,
+      "tracked_vehicles": 13,
       "ghost_trips": 2,
       "canceled_trips": 0,
       "on_time_trips": 0,
       "delayed_trips": 0,
-      "ghost_rate_pct": 14.29,
+      "ghost_rate_pct": 13.33,
       "on_time_pct": 0.0,
       "avg_delay_sec": 0.0,
       "max_delay_sec": 0
@@ -126,13 +126,13 @@
     {
       "route_id": "7",
       "route_name": "Route 7",
-      "total_trips": 26,
-      "tracked_vehicles": 24,
+      "total_trips": 29,
+      "tracked_vehicles": 27,
       "ghost_trips": 2,
       "canceled_trips": 0,
       "on_time_trips": 0,
       "delayed_trips": 0,
-      "ghost_rate_pct": 7.69,
+      "ghost_rate_pct": 6.9,
       "on_time_pct": 0.0,
       "avg_delay_sec": 0.0,
       "max_delay_sec": 0
@@ -140,8 +140,8 @@
     {
       "route_id": "7X",
       "route_name": "Route 7X",
-      "total_trips": 3,
-      "tracked_vehicles": 3,
+      "total_trips": 5,
+      "tracked_vehicles": 5,
       "ghost_trips": 0,
       "canceled_trips": 0,
       "on_time_trips": 0,
@@ -152,39 +152,26 @@
       "max_delay_sec": 0
     }
   ],
-  "most_delayed_routes": [],
+  "most_delayed_routes": [
+    {
+      "route_id": "4",
+      "route_name": "Route 4",
+      "total_trips": 9,
+      "tracked_vehicles": 7,
+      "ghost_trips": 2,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 1,
+      "ghost_rate_pct": 22.22,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 15278.0,
+      "max_delay_sec": 15278
+    }
+  ],
   "route_metrics": [
     {
       "route_id": "1",
       "route_name": "Route 1",
-      "total_trips": 11,
-      "tracked_vehicles": 7,
-      "ghost_trips": 4,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 36.36,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
-      "route_id": "2",
-      "route_name": "Route 2",
-      "total_trips": 14,
-      "tracked_vehicles": 12,
-      "ghost_trips": 2,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 14.29,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
-      "route_id": "3",
-      "route_name": "Route 3",
       "total_trips": 10,
       "tracked_vehicles": 6,
       "ghost_trips": 4,
@@ -197,29 +184,57 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "4",
-      "route_name": "Route 4",
-      "total_trips": 8,
-      "tracked_vehicles": 6,
+      "route_id": "2",
+      "route_name": "Route 2",
+      "total_trips": 15,
+      "tracked_vehicles": 13,
       "ghost_trips": 2,
       "canceled_trips": 0,
       "on_time_trips": 0,
       "delayed_trips": 0,
-      "ghost_rate_pct": 25.0,
+      "ghost_rate_pct": 13.33,
       "on_time_pct": 0.0,
       "avg_delay_sec": 0.0,
       "max_delay_sec": 0
     },
     {
-      "route_id": "5",
-      "route_name": "Route 5",
-      "total_trips": 4,
-      "tracked_vehicles": 0,
+      "route_id": "3",
+      "route_name": "Route 3",
+      "total_trips": 11,
+      "tracked_vehicles": 7,
       "ghost_trips": 4,
       "canceled_trips": 0,
       "on_time_trips": 0,
       "delayed_trips": 0,
-      "ghost_rate_pct": 100.0,
+      "ghost_rate_pct": 36.36,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
+      "route_id": "4",
+      "route_name": "Route 4",
+      "total_trips": 9,
+      "tracked_vehicles": 7,
+      "ghost_trips": 2,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 1,
+      "ghost_rate_pct": 22.22,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 15278.0,
+      "max_delay_sec": 15278
+    },
+    {
+      "route_id": "5",
+      "route_name": "Route 5",
+      "total_trips": 4,
+      "tracked_vehicles": 1,
+      "ghost_trips": 3,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 75.0,
       "on_time_pct": 0.0,
       "avg_delay_sec": 0.0,
       "max_delay_sec": 0
@@ -241,13 +256,13 @@
     {
       "route_id": "7",
       "route_name": "Route 7",
-      "total_trips": 26,
-      "tracked_vehicles": 24,
+      "total_trips": 29,
+      "tracked_vehicles": 27,
       "ghost_trips": 2,
       "canceled_trips": 0,
       "on_time_trips": 0,
       "delayed_trips": 0,
-      "ghost_rate_pct": 7.69,
+      "ghost_rate_pct": 6.9,
       "on_time_pct": 0.0,
       "avg_delay_sec": 0.0,
       "max_delay_sec": 0
@@ -255,8 +270,8 @@
     {
       "route_id": "7X",
       "route_name": "Route 7X",
-      "total_trips": 3,
-      "tracked_vehicles": 3,
+      "total_trips": 5,
+      "tracked_vehicles": 5,
       "ghost_trips": 0,
       "canceled_trips": 0,
       "on_time_trips": 0,
@@ -283,10 +298,10 @@
   ],
   "sample_ghost_trips": [
     {
-      "trip_id": "000650_1..S15R",
+      "trip_id": "001550_1..N15R",
       "route_id": "1",
       "start_time": "N/A",
-      "start_date": "20261111",
+      "start_date": "20261112",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -294,7 +309,7 @@
       "trip_id": "012550_1..S15R",
       "route_id": "1",
       "start_time": "N/A",
-      "start_date": "20261111",
+      "start_date": "20261112",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -302,7 +317,7 @@
       "trip_id": "013450_1..N15R",
       "route_id": "1",
       "start_time": "N/A",
-      "start_date": "20261111",
+      "start_date": "20261112",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -310,7 +325,7 @@
       "trip_id": "014550_1..S15R",
       "route_id": "1",
       "start_time": "N/A",
-      "start_date": "20261111",
+      "start_date": "20261112",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -318,7 +333,7 @@
       "trip_id": "157350_2..N04R",
       "route_id": "2",
       "start_time": "N/A",
-      "start_date": "20261111",
+      "start_date": "20261112",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -326,7 +341,7 @@
       "trip_id": "013900_2..S15R",
       "route_id": "2",
       "start_time": "N/A",
-      "start_date": "20261111",
+      "start_date": "20261112",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -334,7 +349,7 @@
       "trip_id": "012250_3..N01R",
       "route_id": "3",
       "start_time": "N/A",
-      "start_date": "20261111",
+      "start_date": "20261112",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -342,7 +357,7 @@
       "trip_id": "012450_3..S06R",
       "route_id": "3",
       "start_time": "N/A",
-      "start_date": "20261111",
+      "start_date": "20261112",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -350,7 +365,7 @@
       "trip_id": "014250_3..N01R",
       "route_id": "3",
       "start_time": "N/A",
-      "start_date": "20261111",
+      "start_date": "20261112",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -358,7 +373,7 @@
       "trip_id": "014450_3..S06R",
       "route_id": "3",
       "start_time": "N/A",
-      "start_date": "20261111",
+      "start_date": "20261112",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -366,7 +381,7 @@
       "trip_id": "013700_4..S01X068",
       "route_id": "4",
       "start_time": "N/A",
-      "start_date": "20261111",
+      "start_date": "20261112",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -374,7 +389,7 @@
       "trip_id": "013850_4..N13X156",
       "route_id": "4",
       "start_time": "N/A",
-      "start_date": "20261111",
+      "start_date": "20261112",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -382,15 +397,7 @@
       "trip_id": "012200_5..S32R",
       "route_id": "5",
       "start_time": "N/A",
-      "start_date": "20261111",
-      "status": "SCHEDULED",
-      "reason": "No vehicle assigned and no active GPS broadcast"
-    },
-    {
-      "trip_id": "012300_5..N32R",
-      "route_id": "5",
-      "start_time": "N/A",
-      "start_date": "20261111",
+      "start_date": "20261112",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     },
@@ -398,7 +405,15 @@
       "trip_id": "014200_5..S32R",
       "route_id": "5",
       "start_time": "N/A",
-      "start_date": "20261111",
+      "start_date": "20261112",
+      "status": "SCHEDULED",
+      "reason": "No vehicle assigned and no active GPS broadcast"
+    },
+    {
+      "trip_id": "014300_5..N32R",
+      "route_id": "5",
+      "start_time": "N/A",
+      "start_date": "20261112",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     }
