@@ -1,7 +1,7 @@
 # 🚌 Automated Public Transit Reliability & Ghost Bus Tracker
 
 > Real-time monitoring and git-scraping reliability index for **Southeastern Pennsylvania Transportation Authority** in **Philadelphia, PA** (Greater Philadelphia / Delaware Valley, Pennsylvania).
-> **Transit System:** SEPTA | **Location:** Philadelphia, PA | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-11-12T07:00:18.559000+00:00` | **Source:** live GTFS-RT feed
+> **Transit System:** SEPTA | **Location:** Philadelphia, PA | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-11-13T07:00:19.562000+00:00` | **Source:** live GTFS-RT feed
 
 ---
 
@@ -9,11 +9,11 @@
 
 | Metric | Value | Status / Description |
 | :--- | :--- | :--- |
-| **Ghost Bus Rate** | **`82.29%`** | Scheduled runs with missing transponders or unannounced cuts |
+| **Ghost Bus Rate** | **`83.02%`** | Scheduled runs with missing transponders or unannounced cuts |
 | **On-Time Adherence** | **`0.0%`** | Departures within standard window (-1m to +5m) |
-| **Scheduled Active Trips** | `1146` | Total runs operating in current transit schedule window |
-| **Tracked Fleet Vehicles** | `647` | GPS transponders broadcasting valid coordinates |
-| **Confirmed Ghost Trips** | `943` | Disappeared or unassigned scheduled runs |
+| **Scheduled Active Trips** | `1237` | Total runs operating in current transit schedule window |
+| **Tracked Fleet Vehicles** | `638` | GPS transponders broadcasting valid coordinates |
+| **Confirmed Ghost Trips** | `1027` | Disappeared or unassigned scheduled runs |
 | **Mean Delay** | `+0.0s` (`+0.0 min`) | Average delay across all active tracked runs |
 | **Median Delay** | `+0.0s` (`+0.0 min`) | Median schedule deviation |
 
@@ -27,8 +27,8 @@
 | ⏩ **Early Departure** | More than 1 min ahead of schedule | 0 | 0.0% |
 | 🟡 **Minor Delay** | +5m to +15m late | 0 | 0.0% |
 | 🔴 **Severe Delay** | Over 15m late | 0 | 0.0% |
-| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 943 | 82.3% |
-| ❌ **Agency Canceled** | Explicitly reported CANCELED | 37 | 3.2% |
+| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 1027 | 83.0% |
+| ❌ **Agency Canceled** | Explicitly reported CANCELED | 27 | 2.2% |
 
 ---
 
@@ -37,15 +37,15 @@
 | Route | Total Scheduled | Tracked | Ghost Trips | Ghost Rate (%) | On-Time (%) | Avg Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
 | **Route 45** | 82 | 0 | 82 | **`100.0%`** | `0.0%` | `+0.0s` |
+| **Route 65** | 77 | 0 | 77 | **`100.0%`** | `0.0%` | `+0.0s` |
+| **Route 48** | 75 | 0 | 75 | **`100.0%`** | `0.0%` | `+0.0s` |
+| **Route 38** | 72 | 0 | 72 | **`100.0%`** | `0.0%` | `+0.0s` |
+| **Route 16** | 52 | 0 | 52 | **`100.0%`** | `0.0%` | `+0.0s` |
 | **Route 8** | 48 | 0 | 48 | **`100.0%`** | `0.0%` | `+0.0s` |
-| **Route 24** | 32 | 0 | 32 | **`100.0%`** | `0.0%` | `+0.0s` |
+| **Route 4** | 37 | 0 | 37 | **`100.0%`** | `0.0%` | `+0.0s` |
 | **Route 114** | 22 | 0 | 22 | **`100.0%`** | `0.0%` | `+0.0s` |
 | **Route 107** | 20 | 0 | 20 | **`100.0%`** | `0.0%` | `+0.0s` |
 | **Route 73** | 15 | 0 | 15 | **`100.0%`** | `0.0%` | `+0.0s` |
-| **Route 77** | 7 | 0 | 7 | **`100.0%`** | `0.0%` | `+0.0s` |
-| **Route 65** | 78 | 1 | 77 | **`98.72%`** | `0.0%` | `+0.0s` |
-| **Route 48** | 76 | 1 | 75 | **`98.68%`** | `0.0%` | `+0.0s` |
-| **Route 41** | 58 | 1 | 57 | **`98.28%`** | `0.0%` | `+0.0s` |
 
 ---
 
@@ -71,6 +71,8 @@
 
 | Trip ID | Route | Scheduled Departure | Status | Diagnosis / Reason |
 | :--- | :---: | :---: | :--- | :--- |
+| `869357` | Route 16 | `25:36:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `993619` | Route 4 | `25:37:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
 | `966794` | Route 63 | `02:32:00` | `SCHEDULED` | Assigned vehicle block_7651_schedBasedVehicle is missing from active GPS transponder fleet |
 | `891352` | Route 68 | `02:35:00` | `SCHEDULED` | Assigned vehicle block_7851_schedBasedVehicle is missing from active GPS transponder fleet |
 | `957309` | Route 108 | `02:40:00` | `SCHEDULED` | Assigned vehicle block_4355_schedBasedVehicle is missing from active GPS transponder fleet |
@@ -78,14 +80,12 @@
 | `966892` | Route 63 | `03:18:00` | `SCHEDULED` | Assigned vehicle block_7651_schedBasedVehicle is missing from active GPS transponder fleet |
 | `891354` | Route 68 | `03:25:00` | `SCHEDULED` | Assigned vehicle block_7851_schedBasedVehicle is missing from active GPS transponder fleet |
 | `958677` | Route 68 | `03:45:00` | `SCHEDULED` | Assigned vehicle block_7852_schedBasedVehicle is missing from active GPS transponder fleet |
-| `958760` | Route 23 | `04:23:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
 | `907805` | Route K | `04:25:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
 | `882380` | Route 48 | `04:28:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `958769` | Route 23 | `04:40:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
 | `907804` | Route K | `04:45:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
 | `998660` | Route 4 | `04:50:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
 | `870890` | Route 2 | `04:52:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `958759` | Route 23 | `04:54:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `882381` | Route 48 | `04:59:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
 
 ---
 
@@ -93,14 +93,14 @@
 
 | Timestamp | Ghost Rate (%) | On-Time (%) | Scheduled Runs | Tracked Fleet | Mean Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| `2026-11-12 07:00:18` | `82.29%` | `0.0%` | 1146 | 647 | `+0.0s` |
-| `2026-11-12 06:30:18` | `80.53%` | `0.0%` | 1176 | 652 | `+0.0s` |
-| `2026-11-12 06:00:18` | `78.31%` | `0.0%` | 1240 | 678 | `+0.0s` |
-| `2026-11-12 05:30:17` | `76.61%` | `0.0%` | 1270 | 684 | `+0.0s` |
-| `2026-11-12 05:00:18` | `74.52%` | `0.0%` | 1303 | 702 | `+0.0s` |
-| `2026-11-12 04:30:18` | `70.54%` | `0.0%` | 1327 | 705 | `+0.0s` |
-| `2026-11-12 04:00:18` | `67.94%` | `0.0%` | 1363 | 754 | `+0.0s` |
-| `2026-11-12 03:30:18` | `65.72%` | `0.0%` | 1406 | 796 | `+0.0s` |
+| `2026-11-13 07:00:19` | `83.02%` | `0.0%` | 1237 | 638 | `+0.0s` |
+| `2026-11-13 06:30:18` | `81.02%` | `0.0%` | 1275 | 644 | `+0.0s` |
+| `2026-11-13 06:00:19` | `79.19%` | `0.0%` | 1331 | 670 | `+0.0s` |
+| `2026-11-13 05:30:18` | `78.67%` | `0.0%` | 1355 | 695 | `+0.0s` |
+| `2026-11-13 05:00:18` | `75.02%` | `0.0%` | 1389 | 691 | `+0.0s` |
+| `2026-11-13 04:30:18` | `71.78%` | `0.0%` | 1407 | 732 | `+0.0s` |
+| `2026-11-13 04:00:19` | `68.38%` | `0.0%` | 1458 | 776 | `+0.0s` |
+| `2026-11-13 03:30:18` | `67.05%` | `0.0%` | 1481 | 804 | `+0.0s` |
 
 ---
 
@@ -112,4 +112,4 @@
 - **Excess Wait Time (EWT)**: Transit standard metric measuring variance in vehicle headway caused by vehicle bunching.
 - **Git-Scraping**: Every run fetches upstream GTFS-RT binary protobuf feeds, computes reliability metrics, commits versioned JSON snapshots, and renders this dashboard automatically.
 
-*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-12T07:00:18.559000+00:00`.*
+*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-13T07:00:19.562000+00:00`.*

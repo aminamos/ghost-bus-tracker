@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-11-12T07:00:18.649000+00:00",
-  "feed_timestamp": 1794466815,
+  "scan_time": "2026-11-13T06:30:18.327000+00:00",
+  "feed_timestamp": 1794551408,
   "agency": "Capital District Transportation Authority",
   "city": "Albany, NY",
   "transit_system": "CDTA",
@@ -8,29 +8,86 @@
   "state": "New York",
   "country": "USA",
   "source": "live",
-  "total_scheduled_trips": 2,
-  "total_tracked_vehicles": 3,
-  "total_ghost_trips": 0,
-  "ghost_bus_rate_pct": 0.0,
-  "vehicle_tracking_rate_pct": 100.0,
+  "total_scheduled_trips": 9,
+  "total_tracked_vehicles": 12,
+  "total_ghost_trips": 1,
+  "ghost_bus_rate_pct": 11.11,
+  "vehicle_tracking_rate_pct": 88.89,
   "overall_on_time_pct": 0.0,
   "delay_distribution": {
     "early": 0,
     "on_time": 0,
     "minor_delay": 0,
     "severe_delay": 0,
-    "ghost": 0,
+    "ghost": 1,
     "canceled": 0
   },
   "mean_delay_sec": 0.0,
   "median_delay_sec": 0.0,
-  "worst_routes_by_ghost": [],
+  "worst_routes_by_ghost": [
+    {
+      "route_id": "910",
+      "route_name": "Route 910",
+      "total_trips": 3,
+      "tracked_vehicles": 3,
+      "ghost_trips": 1,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 33.33,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
+      "route_id": "905",
+      "route_name": "Route 905",
+      "total_trips": 2,
+      "tracked_vehicles": 2,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
+      "route_id": "452",
+      "route_name": "Route 452",
+      "total_trips": 3,
+      "tracked_vehicles": 1,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    }
+  ],
   "most_delayed_routes": [],
   "route_metrics": [
     {
       "route_id": "905",
       "route_name": "Route 905",
-      "total_trips": 1,
+      "total_trips": 2,
+      "tracked_vehicles": 2,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
+      "route_id": "452",
+      "route_name": "Route 452",
+      "total_trips": 3,
       "tracked_vehicles": 1,
       "ghost_trips": 0,
       "canceled_trips": 0,
@@ -44,8 +101,22 @@
     {
       "route_id": "910",
       "route_name": "Route 910",
+      "total_trips": 3,
+      "tracked_vehicles": 3,
+      "ghost_trips": 1,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 33.33,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
+      "route_id": "93",
+      "route_name": "Route 93",
       "total_trips": 1,
-      "tracked_vehicles": 1,
+      "tracked_vehicles": 2,
       "ghost_trips": 0,
       "canceled_trips": 0,
       "on_time_trips": 0,
@@ -56,6 +127,15 @@
       "max_delay_sec": 0
     }
   ],
-  "sample_ghost_trips": [],
+  "sample_ghost_trips": [
+    {
+      "trip_id": "13999260-OCT26-AlbRMB-Weekday-10",
+      "route_id": "910",
+      "start_time": "01:55:00",
+      "start_date": "20261113",
+      "status": "SCHEDULED",
+      "reason": "Assigned vehicle 3315 is broadcasting off-schedule with no vehicle covering 13999260-OCT26-AlbRMB-Weekday-10"
+    }
+  ],
   "headway_metrics": []
 }

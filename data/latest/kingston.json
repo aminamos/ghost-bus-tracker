@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-11-12T07:00:19.198000+00:00",
-  "feed_timestamp": 1794466815,
+  "scan_time": "2026-11-13T07:00:20.907000+00:00",
+  "feed_timestamp": 1794553215,
   "agency": "Kingston Transit",
   "city": "Kingston, ON",
   "transit_system": "Kingston Transit",
@@ -9,7 +9,7 @@
   "country": "Canada",
   "source": "live",
   "total_scheduled_trips": 4,
-  "total_tracked_vehicles": 43,
+  "total_tracked_vehicles": 35,
   "total_ghost_trips": 1,
   "ghost_bus_rate_pct": 25.0,
   "vehicle_tracking_rate_pct": 75.0,
@@ -22,8 +22,8 @@
     "ghost": 1,
     "canceled": 0
   },
-  "mean_delay_sec": 86.0,
-  "median_delay_sec": 74.0,
+  "mean_delay_sec": 100.0,
+  "median_delay_sec": 0.0,
   "worst_routes_by_ghost": [
     {
       "route_id": "N1",
@@ -36,8 +36,8 @@
       "delayed_trips": 0,
       "ghost_rate_pct": 25.0,
       "on_time_pct": 100.0,
-      "avg_delay_sec": 86.0,
-      "max_delay_sec": 126
+      "avg_delay_sec": 100.0,
+      "max_delay_sec": 300
     }
   ],
   "most_delayed_routes": [
@@ -52,8 +52,8 @@
       "delayed_trips": 0,
       "ghost_rate_pct": 25.0,
       "on_time_pct": 100.0,
-      "avg_delay_sec": 86.0,
-      "max_delay_sec": 126
+      "avg_delay_sec": 100.0,
+      "max_delay_sec": 300
     }
   ],
   "route_metrics": [
@@ -68,8 +68,8 @@
       "delayed_trips": 0,
       "ghost_rate_pct": 25.0,
       "on_time_pct": 100.0,
-      "avg_delay_sec": 86.0,
-      "max_delay_sec": 126
+      "avg_delay_sec": 100.0,
+      "max_delay_sec": 300
     }
   ],
   "sample_ghost_trips": [
@@ -77,7 +77,7 @@
       "trip_id": "2292157:668057:669015",
       "route_id": "N1",
       "start_time": "26:10:00",
-      "start_date": "20261111",
+      "start_date": "20261112",
       "status": "SCHEDULED",
       "reason": "No vehicle assigned and no active GPS broadcast"
     }
@@ -88,8 +88,8 @@
       "direction_id": null,
       "scheduled_headway_min": 17.0,
       "observed_headway_min": 17.0,
-      "excess_wait_time_min": 0.01,
-      "headway_regularity_score": 97.2
+      "excess_wait_time_min": 0.16,
+      "headway_regularity_score": 86.1
     }
   ]
 }

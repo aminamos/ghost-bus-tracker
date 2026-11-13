@@ -1,7 +1,7 @@
 # 🚌 Automated Public Transit Reliability & Ghost Bus Tracker
 
 > Real-time monitoring and git-scraping reliability index for **Metropolitan Atlanta Rapid Transit Authority** in **Atlanta, GA** (Metro Atlanta (Fulton, DeKalb, Clayton Counties), Georgia).
-> **Transit System:** MARTA | **Location:** Atlanta, GA | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-11-12T07:00:20.041000+00:00` | **Source:** live GTFS-RT feed
+> **Transit System:** MARTA | **Location:** Atlanta, GA | **Status:** 🟡 **ELEVATED GHOSTS** | **Last Scan:** `2026-11-13T06:30:18.728000+00:00` | **Source:** live GTFS-RT feed
 
 ---
 
@@ -9,13 +9,13 @@
 
 | Metric | Value | Status / Description |
 | :--- | :--- | :--- |
-| **Ghost Bus Rate** | **`20.0%`** | Scheduled runs with missing transponders or unannounced cuts |
+| **Ghost Bus Rate** | **`10.53%`** | Scheduled runs with missing transponders or unannounced cuts |
 | **On-Time Adherence** | **`0.0%`** | Departures within standard window (-1m to +5m) |
-| **Scheduled Active Trips** | `10` | Total runs operating in current transit schedule window |
-| **Tracked Fleet Vehicles** | `10` | GPS transponders broadcasting valid coordinates |
+| **Scheduled Active Trips** | `19` | Total runs operating in current transit schedule window |
+| **Tracked Fleet Vehicles** | `17` | GPS transponders broadcasting valid coordinates |
 | **Confirmed Ghost Trips** | `2` | Disappeared or unassigned scheduled runs |
-| **Mean Delay** | `+4884.0s` (`+81.4 min`) | Average delay across all active tracked runs |
-| **Median Delay** | `+4884.0s` (`+81.4 min`) | Median schedule deviation |
+| **Mean Delay** | `+0.0s` (`+0.0 min`) | Average delay across all active tracked runs |
+| **Median Delay** | `+0.0s` (`+0.0 min`) | Median schedule deviation |
 
 ---
 
@@ -25,9 +25,9 @@
 | :--- | :--- | :--- | :--- |
 | 🟢 **On-Time** | Within -60s to +300s | 0 | 0.0% |
 | ⏩ **Early Departure** | More than 1 min ahead of schedule | 0 | 0.0% |
-| 🟡 **Minor Delay** | +5m to +15m late | 1 | 10.0% |
-| 🔴 **Severe Delay** | Over 15m late | 1 | 10.0% |
-| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 2 | 20.0% |
+| 🟡 **Minor Delay** | +5m to +15m late | 0 | 0.0% |
+| 🔴 **Severe Delay** | Over 15m late | 0 | 0.0% |
+| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 2 | 10.5% |
 | ❌ **Agency Canceled** | Explicitly reported CANCELED | 0 | 0.0% |
 
 ---
@@ -36,7 +36,11 @@
 
 | Route | Total Scheduled | Tracked | Ghost Trips | Ghost Rate (%) | On-Time (%) | Avg Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Route 29135** | 2 | 1 | 0 | **`0.0%`** | `0.0%` | `+155.9 min` |
+| **Route 29164** | 2 | 2 | 1 | **`50.0%`** | `0.0%` | `+0.0s` |
+| **Route 29168** | 2 | 2 | 1 | **`50.0%`** | `0.0%` | `+0.0s` |
+| **Route 29173** | 2 | 1 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| **Route 29131** | 2 | 1 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| **Route 29161** | 2 | 2 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
 
 ---
 
@@ -44,8 +48,7 @@
 
 | Route | Avg Delay | Max Delay | Tracked Runs | On-Time Adherence |
 | :--- | :---: | :---: | :---: | :---: |
-| **Route 29135** | `+155.9 min (+9356.0s)` | `+155.9 min (+9356s)` | 1 | `0.0%` |
-| **Route 29136** | `+6.9 min (+412.0s)` | `+6.9 min (+412s)` | 1 | `0.0%` |
+| *All active tracked routes currently operating within nominal bounds* | - | - | - | - |
 
 ---
 
@@ -63,8 +66,8 @@
 
 | Trip ID | Route | Scheduled Departure | Status | Diagnosis / Reason |
 | :--- | :---: | :---: | :--- | :--- |
-| `11721730` | Route 29174 | `22:05:00` | `SCHEDULED` | Assigned vehicle 3556 is broadcasting off-schedule with no vehicle covering 11721730 |
-| `11728019` | Route 29185 | `01:00:00` | `SCHEDULED` | Assigned vehicle 3668 is broadcasting off-schedule with no vehicle covering 11728019 |
+| `11784682` | Route 29168 | `01:40:00` | `SCHEDULED` | Assigned vehicle 3552 is broadcasting off-schedule with no vehicle covering 11784682 |
+| `11715181` | Route 29164 | `01:35:00` | `SCHEDULED` | Assigned vehicle 3563 is broadcasting off-schedule with no vehicle covering 11715181 |
 
 ---
 
@@ -72,14 +75,14 @@
 
 | Timestamp | Ghost Rate (%) | On-Time (%) | Scheduled Runs | Tracked Fleet | Mean Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| `2026-11-12 07:00:20` | `20.0%` | `0.0%` | 10 | 10 | `+4884.0s` |
-| `2026-11-12 06:30:25` | `15.0%` | `0.0%` | 20 | 20 | `+4759.0s` |
-| `2026-11-12 06:00:18` | `9.52%` | `0.0%` | 63 | 54 | `+5803.0s` |
-| `2026-11-12 05:30:18` | `9.92%` | `0.0%` | 121 | 98 | `+5021.5s` |
-| `2026-11-12 05:00:19` | `21.08%` | `100.0%` | 185 | 135 | `+11.5s` |
-| `2026-11-12 04:30:19` | `12.79%` | `100.0%` | 258 | 145 | `+13.0s` |
-| `2026-11-12 04:00:19` | `9.38%` | `100.0%` | 288 | 146 | `+52.3s` |
-| `2026-11-12 03:30:19` | `15.11%` | `100.0%` | 278 | 140 | `-18.0s` |
+| `2026-11-13 06:30:18` | `10.53%` | `0.0%` | 19 | 17 | `+0.0s` |
+| `2026-11-13 05:30:18` | `9.48%` | `0.0%` | 116 | 92 | `+0.0s` |
+| `2026-11-13 05:00:21` | `18.5%` | `0.0%` | 173 | 122 | `-258.5s` |
+| `2026-11-13 04:30:18` | `16.89%` | `0.0%` | 219 | 133 | `+0.0s` |
+| `2026-11-13 04:00:20` | `11.64%` | `100.0%` | 275 | 146 | `-13.5s` |
+| `2026-11-13 03:30:19` | `13.17%` | `100.0%` | 281 | 144 | `-0.5s` |
+| `2026-11-13 03:00:21` | `13.19%` | `100.0%` | 288 | 144 | `+163.0s` |
+| `2026-11-13 02:30:18` | `14.43%` | `0.0%` | 305 | 154 | `+0.0s` |
 
 ---
 
@@ -91,4 +94,4 @@
 - **Excess Wait Time (EWT)**: Transit standard metric measuring variance in vehicle headway caused by vehicle bunching.
 - **Git-Scraping**: Every run fetches upstream GTFS-RT binary protobuf feeds, computes reliability metrics, commits versioned JSON snapshots, and renders this dashboard automatically.
 
-*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-12T07:00:20.041000+00:00`.*
+*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-13T06:30:18.728000+00:00`.*
