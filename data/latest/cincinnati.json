@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-11-13T07:00:22.273000+00:00",
-  "feed_timestamp": 1794553219,
+  "scan_time": "2026-11-14T07:00:19.156000+00:00",
+  "feed_timestamp": 1794639606,
   "agency": "Southwest Ohio Regional Transit Authority",
   "city": "Cincinnati, OH",
   "transit_system": "Metro",
@@ -8,11 +8,11 @@
   "state": "Ohio",
   "country": "USA",
   "source": "live",
-  "total_scheduled_trips": 34,
+  "total_scheduled_trips": 35,
   "total_tracked_vehicles": 19,
   "total_ghost_trips": 1,
-  "ghost_bus_rate_pct": 2.94,
-  "vehicle_tracking_rate_pct": 97.06,
+  "ghost_bus_rate_pct": 2.86,
+  "vehicle_tracking_rate_pct": 97.14,
   "overall_on_time_pct": 0.0,
   "delay_distribution": {
     "early": 0,
@@ -54,34 +54,6 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "19",
-      "route_name": "Route 19",
-      "total_trips": 4,
-      "tracked_vehicles": 2,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
-      "route_id": "43",
-      "route_name": "Route 43",
-      "total_trips": 5,
-      "tracked_vehicles": 3,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
       "route_id": "33",
       "route_name": "Route 33",
       "total_trips": 4,
@@ -96,10 +68,10 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "78",
-      "route_name": "Route 78",
-      "total_trips": 5,
-      "tracked_vehicles": 3,
+      "route_id": "19",
+      "route_name": "Route 19",
+      "total_trips": 4,
+      "tracked_vehicles": 2,
       "ghost_trips": 0,
       "canceled_trips": 0,
       "on_time_trips": 0,
@@ -122,29 +94,12 @@
       "on_time_pct": 0.0,
       "avg_delay_sec": 0.0,
       "max_delay_sec": 0
-    }
-  ],
-  "most_delayed_routes": [],
-  "route_metrics": [
-    {
-      "route_id": "17",
-      "route_name": "Route 17",
-      "total_trips": 6,
-      "tracked_vehicles": 3,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
     },
     {
-      "route_id": "19",
-      "route_name": "Route 19",
-      "total_trips": 4,
-      "tracked_vehicles": 2,
+      "route_id": "78",
+      "route_name": "Route 78",
+      "total_trips": 6,
+      "tracked_vehicles": 4,
       "ghost_trips": 0,
       "canceled_trips": 0,
       "on_time_trips": 0,
@@ -167,7 +122,10 @@
       "on_time_pct": 0.0,
       "avg_delay_sec": 0.0,
       "max_delay_sec": 0
-    },
+    }
+  ],
+  "most_delayed_routes": [],
+  "route_metrics": [
     {
       "route_id": "46",
       "route_name": "Route 46",
@@ -183,6 +141,20 @@
       "max_delay_sec": 0
     },
     {
+      "route_id": "17",
+      "route_name": "Route 17",
+      "total_trips": 6,
+      "tracked_vehicles": 3,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
       "route_id": "33",
       "route_name": "Route 33",
       "total_trips": 4,
@@ -197,10 +169,10 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "78",
-      "route_name": "Route 78",
-      "total_trips": 5,
-      "tracked_vehicles": 3,
+      "route_id": "19",
+      "route_name": "Route 19",
+      "total_trips": 4,
+      "tracked_vehicles": 2,
       "ghost_trips": 0,
       "canceled_trips": 0,
       "on_time_trips": 0,
@@ -214,6 +186,34 @@
       "route_id": "4",
       "route_name": "Route 4",
       "total_trips": 6,
+      "tracked_vehicles": 3,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
+      "route_id": "78",
+      "route_name": "Route 78",
+      "total_trips": 6,
+      "tracked_vehicles": 4,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
+      "route_id": "43",
+      "route_name": "Route 43",
+      "total_trips": 5,
       "tracked_vehicles": 3,
       "ghost_trips": 0,
       "canceled_trips": 0,
@@ -244,9 +244,9 @@
       "trip_id": "2030347",
       "route_id": "51",
       "start_time": "N/A",
-      "start_date": "20261113",
+      "start_date": "20261114",
       "status": "SCHEDULED",
-      "reason": "Assigned vehicle 2489 is broadcasting off-schedule with no vehicle covering 2030347"
+      "reason": "Assigned vehicle 2396 is broadcasting off-schedule with no vehicle covering 2030347"
     }
   ],
   "headway_metrics": []

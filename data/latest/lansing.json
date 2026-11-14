@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-11-13T07:00:19.099000+00:00",
-  "feed_timestamp": 1794553221,
+  "scan_time": "2026-11-14T07:00:18.267000+00:00",
+  "feed_timestamp": 1794639624,
   "agency": "Capital Area Transportation Authority",
   "city": "Lansing, MI",
   "transit_system": "CATA",
@@ -8,38 +8,68 @@
   "state": "Michigan",
   "country": "USA",
   "source": "live",
-  "total_scheduled_trips": 1,
+  "total_scheduled_trips": 2,
   "total_tracked_vehicles": 1,
   "total_ghost_trips": 0,
   "ghost_bus_rate_pct": 0.0,
   "vehicle_tracking_rate_pct": 100.0,
-  "overall_on_time_pct": 0.0,
+  "overall_on_time_pct": 100.0,
   "delay_distribution": {
-    "early": 1,
-    "on_time": 0,
+    "early": 0,
+    "on_time": 2,
     "minor_delay": 0,
     "severe_delay": 0,
     "ghost": 0,
     "canceled": 0
   },
-  "mean_delay_sec": -190.0,
-  "median_delay_sec": -190.0,
-  "worst_routes_by_ghost": [],
-  "most_delayed_routes": [],
-  "route_metrics": [
+  "mean_delay_sec": 7.0,
+  "median_delay_sec": 7.0,
+  "worst_routes_by_ghost": [
     {
-      "route_id": "12622",
-      "route_name": "Route 12622",
-      "total_trips": 1,
+      "route_id": "12615",
+      "route_name": "Route 12615",
+      "total_trips": 2,
       "tracked_vehicles": 1,
       "ghost_trips": 0,
       "canceled_trips": 0,
-      "on_time_trips": 0,
+      "on_time_trips": 2,
       "delayed_trips": 0,
       "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": -190.0,
-      "max_delay_sec": -190
+      "on_time_pct": 100.0,
+      "avg_delay_sec": 7.0,
+      "max_delay_sec": 12
+    }
+  ],
+  "most_delayed_routes": [
+    {
+      "route_id": "12615",
+      "route_name": "Route 12615",
+      "total_trips": 2,
+      "tracked_vehicles": 1,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 2,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 100.0,
+      "avg_delay_sec": 7.0,
+      "max_delay_sec": 12
+    }
+  ],
+  "route_metrics": [
+    {
+      "route_id": "12615",
+      "route_name": "Route 12615",
+      "total_trips": 2,
+      "tracked_vehicles": 1,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 2,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 100.0,
+      "avg_delay_sec": 7.0,
+      "max_delay_sec": 12
     }
   ],
   "sample_ghost_trips": [],

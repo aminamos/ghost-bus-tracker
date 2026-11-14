@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-11-13T06:30:18.923000+00:00",
-  "feed_timestamp": 1794551417,
+  "scan_time": "2026-11-14T07:00:19.198000+00:00",
+  "feed_timestamp": 1794639596,
   "agency": "London Transit Commission",
   "city": "London, ON",
   "transit_system": "LTC",
@@ -8,156 +8,57 @@
   "state": "Ontario",
   "country": "Canada",
   "source": "live",
-  "total_scheduled_trips": 10,
-  "total_tracked_vehicles": 9,
-  "total_ghost_trips": 0,
-  "ghost_bus_rate_pct": 0.0,
-  "vehicle_tracking_rate_pct": 100.0,
-  "overall_on_time_pct": 60.0,
+  "total_scheduled_trips": 3,
+  "total_tracked_vehicles": 2,
+  "total_ghost_trips": 1,
+  "ghost_bus_rate_pct": 33.33,
+  "vehicle_tracking_rate_pct": 66.67,
+  "overall_on_time_pct": 100.0,
   "delay_distribution": {
-    "early": 2,
-    "on_time": 6,
-    "minor_delay": 2,
+    "early": 0,
+    "on_time": 1,
+    "minor_delay": 0,
     "severe_delay": 0,
-    "ghost": 0,
+    "ghost": 1,
     "canceled": 0
   },
-  "mean_delay_sec": 45.1,
-  "median_delay_sec": -33.5,
+  "mean_delay_sec": -36.0,
+  "median_delay_sec": -36.0,
   "worst_routes_by_ghost": [
     {
       "route_id": "10",
       "route_name": "Route 10",
-      "total_trips": 4,
-      "tracked_vehicles": 3,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 3,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 75.0,
-      "avg_delay_sec": -16.8,
-      "max_delay_sec": 89
-    },
-    {
-      "route_id": "02",
-      "route_name": "Route 02",
       "total_trips": 2,
-      "tracked_vehicles": 2,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 1,
-      "delayed_trips": 1,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 50.0,
-      "avg_delay_sec": 156.0,
-      "max_delay_sec": 332
-    }
-  ],
-  "most_delayed_routes": [
-    {
-      "route_id": "20",
-      "route_name": "Route 20",
-      "total_trips": 1,
       "tracked_vehicles": 1,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 1,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 387.0,
-      "max_delay_sec": 387
-    },
-    {
-      "route_id": "02",
-      "route_name": "Route 02",
-      "total_trips": 2,
-      "tracked_vehicles": 2,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 1,
-      "delayed_trips": 1,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 50.0,
-      "avg_delay_sec": 156.0,
-      "max_delay_sec": 332
-    }
-  ],
-  "route_metrics": [
-    {
-      "route_id": "16",
-      "route_name": "Route 16",
-      "total_trips": 1,
-      "tracked_vehicles": 1,
-      "ghost_trips": 0,
+      "ghost_trips": 1,
       "canceled_trips": 0,
       "on_time_trips": 1,
       "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
+      "ghost_rate_pct": 50.0,
       "on_time_pct": 100.0,
-      "avg_delay_sec": -42.0,
-      "max_delay_sec": -42
-    },
+      "avg_delay_sec": -36.0,
+      "max_delay_sec": -36
+    }
+  ],
+  "most_delayed_routes": [],
+  "route_metrics": [
     {
       "route_id": "10",
       "route_name": "Route 10",
-      "total_trips": 4,
-      "tracked_vehicles": 3,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 3,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 75.0,
-      "avg_delay_sec": -16.8,
-      "max_delay_sec": 89
-    },
-    {
-      "route_id": "13",
-      "route_name": "Route 13",
-      "total_trips": 1,
-      "tracked_vehicles": 1,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 1,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 100.0,
-      "avg_delay_sec": -60.0,
-      "max_delay_sec": -60
-    },
-    {
-      "route_id": "02",
-      "route_name": "Route 02",
       "total_trips": 2,
-      "tracked_vehicles": 2,
-      "ghost_trips": 0,
+      "tracked_vehicles": 1,
+      "ghost_trips": 1,
       "canceled_trips": 0,
       "on_time_trips": 1,
-      "delayed_trips": 1,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 50.0,
-      "avg_delay_sec": 156.0,
-      "max_delay_sec": 332
+      "delayed_trips": 0,
+      "ghost_rate_pct": 50.0,
+      "on_time_pct": 100.0,
+      "avg_delay_sec": -36.0,
+      "max_delay_sec": -36
     },
     {
-      "route_id": "20",
-      "route_name": "Route 20",
-      "total_trips": 1,
-      "tracked_vehicles": 1,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 1,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 387.0,
-      "max_delay_sec": 387
-    },
-    {
-      "route_id": "17",
-      "route_name": "Route 17",
+      "route_id": "31",
+      "route_name": "Route 31",
       "total_trips": 1,
       "tracked_vehicles": 1,
       "ghost_trips": 0,
@@ -166,35 +67,19 @@
       "delayed_trips": 0,
       "ghost_rate_pct": 0.0,
       "on_time_pct": 0.0,
-      "avg_delay_sec": -79.0,
-      "max_delay_sec": -79
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
     }
   ],
-  "sample_ghost_trips": [],
-  "headway_metrics": [
+  "sample_ghost_trips": [
     {
-      "route_id": "02",
-      "direction_id": null,
-      "scheduled_headway_min": 9.0,
-      "observed_headway_min": 9.0,
-      "excess_wait_time_min": 0.48,
-      "headway_regularity_score": 67.4
-    },
-    {
+      "trip_id": "2387972",
       "route_id": "10",
-      "direction_id": 1,
-      "scheduled_headway_min": 35.0,
-      "observed_headway_min": 35.0,
-      "excess_wait_time_min": 0.03,
-      "headway_regularity_score": 95.9
-    },
-    {
-      "route_id": "10",
-      "direction_id": 11,
-      "scheduled_headway_min": 61.0,
-      "observed_headway_min": 61.0,
-      "excess_wait_time_min": 0.0,
-      "headway_regularity_score": 99.7
+      "start_time": "24:39:00",
+      "start_date": "20261113",
+      "status": "SCHEDULED",
+      "reason": "Assigned vehicle 3685 is missing from active GPS transponder fleet"
     }
-  ]
+  ],
+  "headway_metrics": []
 }
