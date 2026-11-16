@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-11-15T07:00:19.164000+00:00",
-  "feed_timestamp": 1794726002,
+  "scan_time": "2026-11-16T07:00:21.445000+00:00",
+  "feed_timestamp": 1794812394,
   "agency": "Metro Transit (Bi-State Development)",
   "city": "St. Louis, MO",
   "transit_system": "Metro Transit",
@@ -8,37 +8,23 @@
   "state": "Missouri",
   "country": "USA",
   "source": "live",
-  "total_scheduled_trips": 40,
-  "total_tracked_vehicles": 19,
+  "total_scheduled_trips": 33,
+  "total_tracked_vehicles": 15,
   "total_ghost_trips": 0,
   "ghost_bus_rate_pct": 0.0,
-  "vehicle_tracking_rate_pct": 47.5,
-  "overall_on_time_pct": 61.54,
+  "vehicle_tracking_rate_pct": 45.45,
+  "overall_on_time_pct": 66.67,
   "delay_distribution": {
-    "early": 3,
-    "on_time": 8,
-    "minor_delay": 2,
+    "early": 2,
+    "on_time": 6,
+    "minor_delay": 1,
     "severe_delay": 0,
     "ghost": 0,
-    "canceled": 21
+    "canceled": 18
   },
-  "mean_delay_sec": 133.8,
+  "mean_delay_sec": 86.7,
   "median_delay_sec": 120.0,
   "worst_routes_by_ghost": [
-    {
-      "route_id": "19780",
-      "route_name": "Route 19780",
-      "total_trips": 2,
-      "tracked_vehicles": 2,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 1,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 420.0,
-      "max_delay_sec": 420
-    },
     {
       "route_id": "19768",
       "route_name": "Route 19768",
@@ -47,11 +33,11 @@
       "ghost_trips": 0,
       "canceled_trips": 0,
       "on_time_trips": 0,
-      "delayed_trips": 0,
+      "delayed_trips": 1,
       "ghost_rate_pct": 0.0,
       "on_time_pct": 0.0,
-      "avg_delay_sec": -120.0,
-      "max_delay_sec": -120
+      "avg_delay_sec": 120.0,
+      "max_delay_sec": 360
     },
     {
       "route_id": "19778",
@@ -61,47 +47,19 @@
       "ghost_trips": 0,
       "canceled_trips": 0,
       "on_time_trips": 1,
-      "delayed_trips": 1,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 50.0,
-      "avg_delay_sec": 420.0,
-      "max_delay_sec": 600
-    },
-    {
-      "route_id": "19792",
-      "route_name": "Route 19792",
-      "total_trips": 2,
-      "tracked_vehicles": 2,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 1,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 50.0,
-      "avg_delay_sec": -30.0,
-      "max_delay_sec": 60
-    },
-    {
-      "route_id": "19797",
-      "route_name": "Route 19797",
-      "total_trips": 2,
-      "tracked_vehicles": 2,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 1,
       "delayed_trips": 0,
       "ghost_rate_pct": 0.0,
       "on_time_pct": 100.0,
-      "avg_delay_sec": -60.0,
-      "max_delay_sec": -60
+      "avg_delay_sec": 180.0,
+      "max_delay_sec": 180
     },
     {
       "route_id": "UNKNOWN",
       "route_name": "Route UNKNOWN",
-      "total_trips": 21,
+      "total_trips": 18,
       "tracked_vehicles": 0,
       "ghost_trips": 0,
-      "canceled_trips": 21,
+      "canceled_trips": 18,
       "on_time_trips": 0,
       "delayed_trips": 0,
       "ghost_rate_pct": 0.0,
@@ -112,20 +70,6 @@
   ],
   "most_delayed_routes": [
     {
-      "route_id": "19780",
-      "route_name": "Route 19780",
-      "total_trips": 2,
-      "tracked_vehicles": 2,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 1,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 420.0,
-      "max_delay_sec": 420
-    },
-    {
       "route_id": "19778",
       "route_name": "Route 19778",
       "total_trips": 2,
@@ -133,11 +77,25 @@
       "ghost_trips": 0,
       "canceled_trips": 0,
       "on_time_trips": 1,
-      "delayed_trips": 1,
+      "delayed_trips": 0,
       "ghost_rate_pct": 0.0,
-      "on_time_pct": 50.0,
-      "avg_delay_sec": 420.0,
-      "max_delay_sec": 600
+      "on_time_pct": 100.0,
+      "avg_delay_sec": 180.0,
+      "max_delay_sec": 180
+    },
+    {
+      "route_id": "19792",
+      "route_name": "Route 19792",
+      "total_trips": 1,
+      "tracked_vehicles": 1,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 1,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 100.0,
+      "avg_delay_sec": 180.0,
+      "max_delay_sec": 180
     },
     {
       "route_id": "19749",
@@ -150,22 +108,22 @@
       "delayed_trips": 0,
       "ghost_rate_pct": 0.0,
       "on_time_pct": 100.0,
-      "avg_delay_sec": 300.0,
-      "max_delay_sec": 300
-    },
-    {
-      "route_id": "19787",
-      "route_name": "Route 19787",
-      "total_trips": 1,
-      "tracked_vehicles": 1,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 1,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 100.0,
       "avg_delay_sec": 180.0,
       "max_delay_sec": 180
+    },
+    {
+      "route_id": "19768",
+      "route_name": "Route 19768",
+      "total_trips": 2,
+      "tracked_vehicles": 2,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 1,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 120.0,
+      "max_delay_sec": 360
     },
     {
       "route_id": "19781",
@@ -178,26 +136,12 @@
       "delayed_trips": 0,
       "ghost_rate_pct": 0.0,
       "on_time_pct": 100.0,
-      "avg_delay_sec": 180.0,
-      "max_delay_sec": 180
-    },
-    {
-      "route_id": "19775",
-      "route_name": "Route 19775",
-      "total_trips": 1,
-      "tracked_vehicles": 1,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 1,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 100.0,
       "avg_delay_sec": 120.0,
       "max_delay_sec": 120
     },
     {
-      "route_id": "19777",
-      "route_name": "Route 19777",
+      "route_id": "19757",
+      "route_name": "Route 19757",
       "total_trips": 1,
       "tracked_vehicles": 1,
       "ghost_trips": 0,
@@ -212,18 +156,32 @@
   ],
   "route_metrics": [
     {
-      "route_id": "19780",
-      "route_name": "Route 19780",
-      "total_trips": 2,
-      "tracked_vehicles": 2,
+      "route_id": "19757",
+      "route_name": "Route 19757",
+      "total_trips": 1,
+      "tracked_vehicles": 1,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 1,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 100.0,
+      "avg_delay_sec": 60.0,
+      "max_delay_sec": 60
+    },
+    {
+      "route_id": "19763",
+      "route_name": "Route 19763",
+      "total_trips": 1,
+      "tracked_vehicles": 1,
       "ghost_trips": 0,
       "canceled_trips": 0,
       "on_time_trips": 0,
-      "delayed_trips": 1,
+      "delayed_trips": 0,
       "ghost_rate_pct": 0.0,
       "on_time_pct": 0.0,
-      "avg_delay_sec": 420.0,
-      "max_delay_sec": 420
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
     },
     {
       "route_id": "19768",
@@ -233,17 +191,31 @@
       "ghost_trips": 0,
       "canceled_trips": 0,
       "on_time_trips": 0,
-      "delayed_trips": 0,
+      "delayed_trips": 1,
       "ghost_rate_pct": 0.0,
       "on_time_pct": 0.0,
-      "avg_delay_sec": -120.0,
-      "max_delay_sec": -120
+      "avg_delay_sec": 120.0,
+      "max_delay_sec": 360
     },
     {
-      "route_id": "19787",
-      "route_name": "Route 19787",
+      "route_id": "19780",
+      "route_name": "Route 19780",
       "total_trips": 1,
       "tracked_vehicles": 1,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 1,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 100.0,
+      "avg_delay_sec": -60.0,
+      "max_delay_sec": -60
+    },
+    {
+      "route_id": "19778",
+      "route_name": "Route 19778",
+      "total_trips": 2,
+      "tracked_vehicles": 2,
       "ghost_trips": 0,
       "canceled_trips": 0,
       "on_time_trips": 1,
@@ -268,22 +240,22 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "19778",
-      "route_name": "Route 19778",
-      "total_trips": 2,
-      "tracked_vehicles": 2,
+      "route_id": "19787",
+      "route_name": "Route 19787",
+      "total_trips": 1,
+      "tracked_vehicles": 1,
       "ghost_trips": 0,
       "canceled_trips": 0,
-      "on_time_trips": 1,
-      "delayed_trips": 1,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
       "ghost_rate_pct": 0.0,
-      "on_time_pct": 50.0,
-      "avg_delay_sec": 420.0,
-      "max_delay_sec": 600
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
     },
     {
-      "route_id": "19789",
-      "route_name": "Route 19789",
+      "route_id": "19782",
+      "route_name": "Route 19782",
       "total_trips": 1,
       "tracked_vehicles": 1,
       "ghost_trips": 0,
@@ -296,8 +268,8 @@
       "max_delay_sec": -120
     },
     {
-      "route_id": "19777",
-      "route_name": "Route 19777",
+      "route_id": "19792",
+      "route_name": "Route 19792",
       "total_trips": 1,
       "tracked_vehicles": 1,
       "ghost_trips": 0,
@@ -306,12 +278,12 @@
       "delayed_trips": 0,
       "ghost_rate_pct": 0.0,
       "on_time_pct": 100.0,
-      "avg_delay_sec": 60.0,
-      "max_delay_sec": 60
+      "avg_delay_sec": 180.0,
+      "max_delay_sec": 180
     },
     {
-      "route_id": "19782",
-      "route_name": "Route 19782",
+      "route_id": "19759",
+      "route_name": "Route 19759",
       "total_trips": 1,
       "tracked_vehicles": 1,
       "ghost_trips": 0,
@@ -338,22 +310,8 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "19792",
-      "route_name": "Route 19792",
-      "total_trips": 2,
-      "tracked_vehicles": 2,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 1,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 50.0,
-      "avg_delay_sec": -30.0,
-      "max_delay_sec": 60
-    },
-    {
-      "route_id": "19781",
-      "route_name": "Route 19781",
+      "route_id": "19749",
+      "route_name": "Route 19749",
       "total_trips": 1,
       "tracked_vehicles": 1,
       "ghost_trips": 0,
@@ -366,22 +324,8 @@
       "max_delay_sec": 180
     },
     {
-      "route_id": "19749",
-      "route_name": "Route 19749",
-      "total_trips": 1,
-      "tracked_vehicles": 1,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 1,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 100.0,
-      "avg_delay_sec": 300.0,
-      "max_delay_sec": 300
-    },
-    {
-      "route_id": "19775",
-      "route_name": "Route 19775",
+      "route_id": "19781",
+      "route_name": "Route 19781",
       "total_trips": 1,
       "tracked_vehicles": 1,
       "ghost_trips": 0,
@@ -394,26 +338,12 @@
       "max_delay_sec": 120
     },
     {
-      "route_id": "19797",
-      "route_name": "Route 19797",
-      "total_trips": 2,
-      "tracked_vehicles": 2,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 1,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 100.0,
-      "avg_delay_sec": -60.0,
-      "max_delay_sec": -60
-    },
-    {
       "route_id": "UNKNOWN",
       "route_name": "Route UNKNOWN",
-      "total_trips": 21,
+      "total_trips": 18,
       "tracked_vehicles": 0,
       "ghost_trips": 0,
-      "canceled_trips": 21,
+      "canceled_trips": 18,
       "on_time_trips": 0,
       "delayed_trips": 0,
       "ghost_rate_pct": 0.0,
@@ -423,22 +353,5 @@
     }
   ],
   "sample_ghost_trips": [],
-  "headway_metrics": [
-    {
-      "route_id": "19778",
-      "direction_id": null,
-      "scheduled_headway_min": 4.0,
-      "observed_headway_min": 4.0,
-      "excess_wait_time_min": 1.12,
-      "headway_regularity_score": 25.0
-    },
-    {
-      "route_id": "19792",
-      "direction_id": null,
-      "scheduled_headway_min": 30.0,
-      "observed_headway_min": 30.0,
-      "excess_wait_time_min": 0.04,
-      "headway_regularity_score": 95.0
-    }
-  ]
+  "headway_metrics": []
 }

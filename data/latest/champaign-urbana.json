@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-11-15T07:00:18.264000+00:00",
-  "feed_timestamp": 1794726012,
+  "scan_time": "2026-11-16T07:00:19.546000+00:00",
+  "feed_timestamp": 1794812382,
   "agency": "Champaign-Urbana Mass Transit District",
   "city": "Champaign–Urbana, IL",
   "transit_system": "MTD",
@@ -8,40 +8,26 @@
   "state": "Illinois",
   "country": "USA",
   "source": "live",
-  "total_scheduled_trips": 46,
-  "total_tracked_vehicles": 15,
-  "total_ghost_trips": 13,
-  "ghost_bus_rate_pct": 28.26,
-  "vehicle_tracking_rate_pct": 71.74,
+  "total_scheduled_trips": 41,
+  "total_tracked_vehicles": 14,
+  "total_ghost_trips": 6,
+  "ghost_bus_rate_pct": 14.63,
+  "vehicle_tracking_rate_pct": 85.37,
   "overall_on_time_pct": 0.0,
   "delay_distribution": {
     "early": 0,
     "on_time": 0,
     "minor_delay": 0,
     "severe_delay": 0,
-    "ghost": 13,
+    "ghost": 6,
     "canceled": 0
   },
   "mean_delay_sec": 0.0,
   "median_delay_sec": 0.0,
   "worst_routes_by_ghost": [
     {
-      "route_id": "GREEN LATE NIGHT SATURDAY",
-      "route_name": "Route GREEN LATE NIGHT SATURDAY",
-      "total_trips": 7,
-      "tracked_vehicles": 2,
-      "ghost_trips": 4,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 57.14,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
-      "route_id": "TEAL LATE NIGHT SATURDAY",
-      "route_name": "Route TEAL LATE NIGHT SATURDAY",
+      "route_id": "TEAL LATE NIGHT SUNDAY",
+      "route_name": "Route TEAL LATE NIGHT SUNDAY",
       "total_trips": 8,
       "tracked_vehicles": 2,
       "ghost_trips": 4,
@@ -54,37 +40,51 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "YELLOW LATE NIGHT SATURDAY",
-      "route_name": "Route YELLOW LATE NIGHT SATURDAY",
-      "total_trips": 6,
-      "tracked_vehicles": 2,
-      "ghost_trips": 3,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 50.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
-      "route_id": "ILLINI EVENING SATURDAY",
-      "route_name": "Route ILLINI EVENING SATURDAY",
-      "total_trips": 18,
+      "route_id": "ILLINI EVENING SUNDAY",
+      "route_name": "Route ILLINI EVENING SUNDAY",
+      "total_trips": 17,
       "tracked_vehicles": 7,
       "ghost_trips": 2,
       "canceled_trips": 0,
       "on_time_trips": 0,
       "delayed_trips": 0,
-      "ghost_rate_pct": 11.11,
+      "ghost_rate_pct": 11.76,
       "on_time_pct": 0.0,
       "avg_delay_sec": 0.0,
       "max_delay_sec": 0
     },
     {
-      "route_id": "SILVER EVENING SATURDAY",
-      "route_name": "Route SILVER EVENING SATURDAY",
-      "total_trips": 7,
+      "route_id": "GREEN LATE NIGHT SUNDAY",
+      "route_name": "Route GREEN LATE NIGHT SUNDAY",
+      "total_trips": 4,
+      "tracked_vehicles": 1,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
+      "route_id": "YELLOW LATE NIGHT SUNDAY",
+      "route_name": "Route YELLOW LATE NIGHT SUNDAY",
+      "total_trips": 4,
+      "tracked_vehicles": 2,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
+      "route_id": "SILVER EVENING SUNDAY",
+      "route_name": "Route SILVER EVENING SUNDAY",
+      "total_trips": 8,
       "tracked_vehicles": 2,
       "ghost_trips": 0,
       "canceled_trips": 0,
@@ -99,50 +99,22 @@
   "most_delayed_routes": [],
   "route_metrics": [
     {
-      "route_id": "YELLOW LATE NIGHT SATURDAY",
-      "route_name": "Route YELLOW LATE NIGHT SATURDAY",
-      "total_trips": 6,
-      "tracked_vehicles": 2,
-      "ghost_trips": 3,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 50.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
-      "route_id": "GREEN LATE NIGHT SATURDAY",
-      "route_name": "Route GREEN LATE NIGHT SATURDAY",
-      "total_trips": 7,
-      "tracked_vehicles": 2,
-      "ghost_trips": 4,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 57.14,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
-      "route_id": "ILLINI EVENING SATURDAY",
-      "route_name": "Route ILLINI EVENING SATURDAY",
-      "total_trips": 18,
+      "route_id": "ILLINI EVENING SUNDAY",
+      "route_name": "Route ILLINI EVENING SUNDAY",
+      "total_trips": 17,
       "tracked_vehicles": 7,
       "ghost_trips": 2,
       "canceled_trips": 0,
       "on_time_trips": 0,
       "delayed_trips": 0,
-      "ghost_rate_pct": 11.11,
+      "ghost_rate_pct": 11.76,
       "on_time_pct": 0.0,
       "avg_delay_sec": 0.0,
       "max_delay_sec": 0
     },
     {
-      "route_id": "TEAL LATE NIGHT SATURDAY",
-      "route_name": "Route TEAL LATE NIGHT SATURDAY",
+      "route_id": "TEAL LATE NIGHT SUNDAY",
+      "route_name": "Route TEAL LATE NIGHT SUNDAY",
       "total_trips": 8,
       "tracked_vehicles": 2,
       "ghost_trips": 4,
@@ -155,9 +127,37 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "SILVER EVENING SATURDAY",
-      "route_name": "Route SILVER EVENING SATURDAY",
-      "total_trips": 7,
+      "route_id": "GREEN LATE NIGHT SUNDAY",
+      "route_name": "Route GREEN LATE NIGHT SUNDAY",
+      "total_trips": 4,
+      "tracked_vehicles": 1,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
+      "route_id": "YELLOW LATE NIGHT SUNDAY",
+      "route_name": "Route YELLOW LATE NIGHT SUNDAY",
+      "total_trips": 4,
+      "tracked_vehicles": 2,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
+      "route_id": "SILVER EVENING SUNDAY",
+      "route_name": "Route SILVER EVENING SUNDAY",
+      "total_trips": 8,
       "tracked_vehicles": 2,
       "ghost_trips": 0,
       "canceled_trips": 0,
@@ -171,108 +171,52 @@
   ],
   "sample_ghost_trips": [
     {
-      "trip_id": "[@124.0.92344750@][1484579800344]/2__GN2_UISA",
-      "route_id": "GREEN LATE NIGHT SATURDAY",
-      "start_time": "01:43:00",
-      "start_date": "20261115",
+      "trip_id": "[@124.0.92276155@][1484344792164]/79__T1_UISU_LATE",
+      "route_id": "TEAL LATE NIGHT SUNDAY",
+      "start_time": "01:36:00",
+      "start_date": "20261116",
       "status": "SCHEDULED",
-      "reason": "Assigned vehicle 2149 is broadcasting off-schedule with no vehicle covering [@124.0.92344750@][1484579800344]/2__GN2_UISA"
+      "reason": "Assigned vehicle 1602 is broadcasting off-schedule with no vehicle covering [@124.0.92276155@][1484344792164]/79__T1_UISU_LATE"
     },
     {
-      "trip_id": "[@124.0.92275054@][1484344751044]/49__T2_UISA",
-      "route_id": "TEAL LATE NIGHT SATURDAY",
-      "start_time": "01:16:00",
-      "start_date": "20261115",
-      "status": "SCHEDULED",
-      "reason": "Assigned vehicle 2420 is broadcasting off-schedule with no vehicle covering [@124.0.92275054@][1484344751044]/49__T2_UISA"
-    },
-    {
-      "trip_id": "[@124.0.92275054@][1484344751044]/83__T2_UISA",
-      "route_id": "TEAL LATE NIGHT SATURDAY",
-      "start_time": "01:56:00",
-      "start_date": "20261115",
-      "status": "SCHEDULED",
-      "reason": "Assigned vehicle 2420 is broadcasting off-schedule with no vehicle covering [@124.0.92275054@][1484344751044]/83__T2_UISA"
-    },
-    {
-      "trip_id": "[@124.0.92275054@][1484344751044]/30__T2_UISA",
-      "route_id": "TEAL LATE NIGHT SATURDAY",
-      "start_time": "00:55:00",
-      "start_date": "20261115",
-      "status": "SCHEDULED",
-      "reason": "Assigned vehicle 2420 is broadcasting off-schedule with no vehicle covering [@124.0.92275054@][1484344751044]/30__T2_UISA"
-    },
-    {
-      "trip_id": "[@124.0.92344750@][1484579800344]/83__GN2_UISA",
-      "route_id": "GREEN LATE NIGHT SATURDAY",
-      "start_time": "02:00:00",
-      "start_date": "20261115",
-      "status": "SCHEDULED",
-      "reason": "Assigned vehicle 2149 is broadcasting off-schedule with no vehicle covering [@124.0.92344750@][1484579800344]/83__GN2_UISA"
-    },
-    {
-      "trip_id": "[@124.0.92260187@][1484328831455]/17__I3UISA",
-      "route_id": "ILLINI EVENING SATURDAY",
-      "start_time": "01:40:00",
-      "start_date": "20261115",
-      "status": "SCHEDULED",
-      "reason": "Assigned vehicle 2019 is broadcasting off-schedule with no vehicle covering [@124.0.92260187@][1484328831455]/17__I3UISA"
-    },
-    {
-      "trip_id": "[@124.0.92260187@][1484328831455]/308__I3UISA",
-      "route_id": "ILLINI EVENING SATURDAY",
-      "start_time": "01:05:00",
-      "start_date": "20261115",
-      "status": "SCHEDULED",
-      "reason": "Assigned vehicle 2019 is broadcasting off-schedule with no vehicle covering [@124.0.92260187@][1484328831455]/308__I3UISA"
-    },
-    {
-      "trip_id": "[@124.0.92327957@][1484578220911]/12__Y2_UI_SA",
-      "route_id": "YELLOW LATE NIGHT SATURDAY",
-      "start_time": "02:00:00",
-      "start_date": "20261115",
-      "status": "SCHEDULED",
-      "reason": "Assigned vehicle 1604 is broadcasting off-schedule with no vehicle covering [@124.0.92327957@][1484578220911]/12__Y2_UI_SA"
-    },
-    {
-      "trip_id": "[@124.0.92344750@][1484579800344]/42__GN2_UISA",
-      "route_id": "GREEN LATE NIGHT SATURDAY",
-      "start_time": "01:03:00",
-      "start_date": "20261115",
-      "status": "SCHEDULED",
-      "reason": "Assigned vehicle 2149 is broadcasting off-schedule with no vehicle covering [@124.0.92344750@][1484579800344]/42__GN2_UISA"
-    },
-    {
-      "trip_id": "[@124.0.92327957@][1484578220911]/20__Y2_UI_SA",
-      "route_id": "YELLOW LATE NIGHT SATURDAY",
+      "trip_id": "[@124.0.92263401@][1484328944432]/264__I7_UISU",
+      "route_id": "ILLINI EVENING SUNDAY",
       "start_time": "01:00:00",
-      "start_date": "20261115",
+      "start_date": "20261116",
       "status": "SCHEDULED",
-      "reason": "Assigned vehicle 1604 is broadcasting off-schedule with no vehicle covering [@124.0.92327957@][1484578220911]/20__Y2_UI_SA"
+      "reason": "Assigned vehicle 2018 is broadcasting off-schedule with no vehicle covering [@124.0.92263401@][1484328944432]/264__I7_UISU"
     },
     {
-      "trip_id": "[@124.0.92327957@][1484578220911]/63__Y2_UI_SA",
-      "route_id": "YELLOW LATE NIGHT SATURDAY",
-      "start_time": "01:31:00",
-      "start_date": "20261115",
+      "trip_id": "[@124.0.92276155@][1484344792164]/33__T1_UISU_LATE",
+      "route_id": "TEAL LATE NIGHT SUNDAY",
+      "start_time": "01:55:00",
+      "start_date": "20261116",
       "status": "SCHEDULED",
-      "reason": "Assigned vehicle 1604 is broadcasting off-schedule with no vehicle covering [@124.0.92327957@][1484578220911]/63__Y2_UI_SA"
+      "reason": "Assigned vehicle 1602 is broadcasting off-schedule with no vehicle covering [@124.0.92276155@][1484344792164]/33__T1_UISU_LATE"
     },
     {
-      "trip_id": "[@124.0.92344750@][1484579800344]/65__GN2_UISA",
-      "route_id": "GREEN LATE NIGHT SATURDAY",
-      "start_time": "01:20:00",
-      "start_date": "20261115",
+      "trip_id": "[@124.0.92276155@][1484344792164]/60__T1_UISU_LATE",
+      "route_id": "TEAL LATE NIGHT SUNDAY",
+      "start_time": "00:56:00",
+      "start_date": "20261116",
       "status": "SCHEDULED",
-      "reason": "Assigned vehicle 2149 is broadcasting off-schedule with no vehicle covering [@124.0.92344750@][1484579800344]/65__GN2_UISA"
+      "reason": "Assigned vehicle 1602 is broadcasting off-schedule with no vehicle covering [@124.0.92276155@][1484344792164]/60__T1_UISU_LATE"
     },
     {
-      "trip_id": "[@124.0.92275054@][1484344751044]/40__T2_UISA",
-      "route_id": "TEAL LATE NIGHT SATURDAY",
+      "trip_id": "[@124.0.92263401@][1484328944432]/111__I7_UISU",
+      "route_id": "ILLINI EVENING SUNDAY",
       "start_time": "01:35:00",
-      "start_date": "20261115",
+      "start_date": "20261116",
       "status": "SCHEDULED",
-      "reason": "Assigned vehicle 2420 is broadcasting off-schedule with no vehicle covering [@124.0.92275054@][1484344751044]/40__T2_UISA"
+      "reason": "Assigned vehicle 2018 is broadcasting off-schedule with no vehicle covering [@124.0.92263401@][1484328944432]/111__I7_UISU"
+    },
+    {
+      "trip_id": "[@124.0.92276155@][1484344792164]/34__T1_UISU_LATE",
+      "route_id": "TEAL LATE NIGHT SUNDAY",
+      "start_time": "01:15:00",
+      "start_date": "20261116",
+      "status": "SCHEDULED",
+      "reason": "Assigned vehicle 1602 is broadcasting off-schedule with no vehicle covering [@124.0.92276155@][1484344792164]/34__T1_UISU_LATE"
     }
   ],
   "headway_metrics": []
