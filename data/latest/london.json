@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-11-17T06:30:19.208000+00:00",
-  "feed_timestamp": 1794896992,
+  "scan_time": "2026-11-18T06:30:19.172000+00:00",
+  "feed_timestamp": 1794983401,
   "agency": "London Transit Commission",
   "city": "London, ON",
   "transit_system": "LTC",
@@ -9,69 +9,69 @@
   "country": "Canada",
   "source": "live",
   "total_scheduled_trips": 9,
-  "total_tracked_vehicles": 9,
+  "total_tracked_vehicles": 8,
   "total_ghost_trips": 0,
   "ghost_bus_rate_pct": 0.0,
   "vehicle_tracking_rate_pct": 100.0,
-  "overall_on_time_pct": 75.0,
+  "overall_on_time_pct": 50.0,
   "delay_distribution": {
     "early": 1,
-    "on_time": 6,
+    "on_time": 3,
     "minor_delay": 0,
-    "severe_delay": 1,
+    "severe_delay": 2,
     "ghost": 0,
     "canceled": 0
   },
-  "mean_delay_sec": 134.6,
-  "median_delay_sec": 36.0,
+  "mean_delay_sec": 443.5,
+  "median_delay_sec": 76.0,
   "worst_routes_by_ghost": [
-    {
-      "route_id": "02",
-      "route_name": "Route 02",
-      "total_trips": 2,
-      "tracked_vehicles": 2,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 1,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 396.0,
-      "max_delay_sec": 912
-    },
     {
       "route_id": "10",
       "route_name": "Route 10",
-      "total_trips": 5,
-      "tracked_vehicles": 4,
+      "total_trips": 4,
+      "tracked_vehicles": 3,
       "ghost_trips": 0,
       "canceled_trips": 0,
-      "on_time_trips": 5,
-      "delayed_trips": 0,
+      "on_time_trips": 1,
+      "delayed_trips": 2,
       "ghost_rate_pct": 0.0,
-      "on_time_pct": 100.0,
-      "avg_delay_sec": 40.4,
-      "max_delay_sec": 166
-    }
-  ],
-  "most_delayed_routes": [
-    {
-      "route_id": "02",
-      "route_name": "Route 02",
-      "total_trips": 2,
-      "tracked_vehicles": 2,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 1,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 396.0,
-      "max_delay_sec": 912
+      "on_time_pct": 25.0,
+      "avg_delay_sec": 627.2,
+      "max_delay_sec": 1410
     },
     {
       "route_id": "16",
       "route_name": "Route 16",
+      "total_trips": 2,
+      "tracked_vehicles": 2,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 1,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 100.0,
+      "avg_delay_sec": 48.0,
+      "max_delay_sec": 48
+    }
+  ],
+  "most_delayed_routes": [
+    {
+      "route_id": "10",
+      "route_name": "Route 10",
+      "total_trips": 4,
+      "tracked_vehicles": 3,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 1,
+      "delayed_trips": 2,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 25.0,
+      "avg_delay_sec": 627.2,
+      "max_delay_sec": 1410
+    },
+    {
+      "route_id": "02",
+      "route_name": "Route 02",
       "total_trips": 1,
       "tracked_vehicles": 1,
       "ghost_trips": 0,
@@ -80,28 +80,42 @@
       "delayed_trips": 0,
       "ghost_rate_pct": 0.0,
       "on_time_pct": 100.0,
-      "avg_delay_sec": 83.0,
-      "max_delay_sec": 83
+      "avg_delay_sec": 104.0,
+      "max_delay_sec": 104
     },
     {
-      "route_id": "10",
-      "route_name": "Route 10",
-      "total_trips": 5,
-      "tracked_vehicles": 4,
+      "route_id": "16",
+      "route_name": "Route 16",
+      "total_trips": 2,
+      "tracked_vehicles": 2,
       "ghost_trips": 0,
       "canceled_trips": 0,
-      "on_time_trips": 5,
+      "on_time_trips": 1,
       "delayed_trips": 0,
       "ghost_rate_pct": 0.0,
       "on_time_pct": 100.0,
-      "avg_delay_sec": 40.4,
-      "max_delay_sec": 166
+      "avg_delay_sec": 48.0,
+      "max_delay_sec": 48
     }
   ],
   "route_metrics": [
     {
-      "route_id": "17",
-      "route_name": "Route 17",
+      "route_id": "10",
+      "route_name": "Route 10",
+      "total_trips": 4,
+      "tracked_vehicles": 3,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 1,
+      "delayed_trips": 2,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 25.0,
+      "avg_delay_sec": 627.2,
+      "max_delay_sec": 1410
+    },
+    {
+      "route_id": "06",
+      "route_name": "Route 06",
       "total_trips": 1,
       "tracked_vehicles": 1,
       "ghost_trips": 0,
@@ -114,36 +128,22 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "02",
-      "route_name": "Route 02",
+      "route_id": "16",
+      "route_name": "Route 16",
       "total_trips": 2,
       "tracked_vehicles": 2,
       "ghost_trips": 0,
       "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 1,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 396.0,
-      "max_delay_sec": 912
-    },
-    {
-      "route_id": "10",
-      "route_name": "Route 10",
-      "total_trips": 5,
-      "tracked_vehicles": 4,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 5,
+      "on_time_trips": 1,
       "delayed_trips": 0,
       "ghost_rate_pct": 0.0,
       "on_time_pct": 100.0,
-      "avg_delay_sec": 40.4,
-      "max_delay_sec": 166
+      "avg_delay_sec": 48.0,
+      "max_delay_sec": 48
     },
     {
-      "route_id": "16",
-      "route_name": "Route 16",
+      "route_id": "02",
+      "route_name": "Route 02",
       "total_trips": 1,
       "tracked_vehicles": 1,
       "ghost_trips": 0,
@@ -152,35 +152,41 @@
       "delayed_trips": 0,
       "ghost_rate_pct": 0.0,
       "on_time_pct": 100.0,
-      "avg_delay_sec": 83.0,
-      "max_delay_sec": 83
+      "avg_delay_sec": 104.0,
+      "max_delay_sec": 104
+    },
+    {
+      "route_id": "127",
+      "route_name": "Route 127",
+      "total_trips": 1,
+      "tracked_vehicles": 1,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
     }
   ],
   "sample_ghost_trips": [],
   "headway_metrics": [
     {
-      "route_id": "02",
-      "direction_id": null,
-      "scheduled_headway_min": 9.0,
-      "observed_headway_min": 9.0,
-      "excess_wait_time_min": 4.11,
-      "headway_regularity_score": 4.4
-    },
-    {
       "route_id": "10",
       "direction_id": 1,
       "scheduled_headway_min": 35.0,
       "observed_headway_min": 35.0,
-      "excess_wait_time_min": 0.04,
-      "headway_regularity_score": 95.1
+      "excess_wait_time_min": 2.21,
+      "headway_regularity_score": 64.5
     },
     {
       "route_id": "10",
       "direction_id": 11,
-      "scheduled_headway_min": 45.5,
-      "observed_headway_min": 45.5,
-      "excess_wait_time_min": 0.0,
-      "headway_regularity_score": 99.4
+      "scheduled_headway_min": 61.0,
+      "observed_headway_min": 61.0,
+      "excess_wait_time_min": 0.89,
+      "headway_regularity_score": 82.9
     }
   ]
 }
