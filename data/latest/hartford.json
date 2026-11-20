@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-11-19T07:00:19.647000+00:00",
-  "feed_timestamp": 1795071615,
+  "scan_time": "2026-11-20T07:00:30.846000+00:00",
+  "feed_timestamp": 1795158019,
   "agency": "Connecticut Transit",
   "city": "Hartford, CT",
   "transit_system": "CTtransit",
@@ -9,7 +9,7 @@
   "country": "USA",
   "source": "live",
   "total_scheduled_trips": 1,
-  "total_tracked_vehicles": 2,
+  "total_tracked_vehicles": 1,
   "total_ghost_trips": 0,
   "ghost_bus_rate_pct": 0.0,
   "vehicle_tracking_rate_pct": 100.0,
@@ -28,8 +28,8 @@
   "most_delayed_routes": [],
   "route_metrics": [
     {
-      "route_id": "16433",
-      "route_name": "Route 16433",
+      "route_id": "16205",
+      "route_name": "Route 16205",
       "total_trips": 1,
       "tracked_vehicles": 1,
       "ghost_trips": 0,

@@ -1,7 +1,7 @@
 # 🚌 Automated Public Transit Reliability & Ghost Bus Tracker
 
 > Real-time monitoring and git-scraping reliability index for **Hamilton Street Railway** in **Hamilton, ON** (City of Hamilton, Ontario).
-> **Transit System:** HSR | **Location:** Hamilton, ON | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-11-19T07:00:19.963000+00:00` | **Source:** live GTFS-RT feed
+> **Transit System:** HSR | **Location:** Hamilton, ON | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-11-20T06:30:18.977000+00:00` | **Source:** live GTFS-RT feed
 
 ---
 
@@ -9,13 +9,13 @@
 
 | Metric | Value | Status / Description |
 | :--- | :--- | :--- |
-| **Ghost Bus Rate** | **`97.51%`** | Scheduled runs with missing transponders or unannounced cuts |
-| **On-Time Adherence** | **`100.0%`** | Departures within standard window (-1m to +5m) |
-| **Scheduled Active Trips** | `481` | Total runs operating in current transit schedule window |
-| **Tracked Fleet Vehicles** | `10` | GPS transponders broadcasting valid coordinates |
-| **Confirmed Ghost Trips** | `469` | Disappeared or unassigned scheduled runs |
-| **Mean Delay** | `+44.0s` (`+0.7 min`) | Average delay across all active tracked runs |
-| **Median Delay** | `+44.0s` (`+0.7 min`) | Median schedule deviation |
+| **Ghost Bus Rate** | **`82.72%`** | Scheduled runs with missing transponders or unannounced cuts |
+| **On-Time Adherence** | **`87.5%`** | Departures within standard window (-1m to +5m) |
+| **Scheduled Active Trips** | `301` | Total runs operating in current transit schedule window |
+| **Tracked Fleet Vehicles** | `51` | GPS transponders broadcasting valid coordinates |
+| **Confirmed Ghost Trips** | `249` | Disappeared or unassigned scheduled runs |
+| **Mean Delay** | `-15.8s` (`-0.3 min`) | Average delay across all active tracked runs |
+| **Median Delay** | `+0.0s` (`+0.0 min`) | Median schedule deviation |
 
 ---
 
@@ -23,11 +23,11 @@
 
 | Category | Threshold / Definition | Trip Count | Percentage |
 | :--- | :--- | :--- | :--- |
-| 🟢 **On-Time** | Within -60s to +300s | 2 | 0.4% |
-| ⏩ **Early Departure** | More than 1 min ahead of schedule | 0 | 0.0% |
+| 🟢 **On-Time** | Within -60s to +300s | 7 | 2.3% |
+| ⏩ **Early Departure** | More than 1 min ahead of schedule | 1 | 0.3% |
 | 🟡 **Minor Delay** | +5m to +15m late | 0 | 0.0% |
 | 🔴 **Severe Delay** | Over 15m late | 0 | 0.0% |
-| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 469 | 97.5% |
+| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 249 | 82.7% |
 | ❌ **Agency Canceled** | Explicitly reported CANCELED | 0 | 0.0% |
 
 ---
@@ -36,13 +36,16 @@
 
 | Route | Total Scheduled | Tracked | Ghost Trips | Ghost Rate (%) | On-Time (%) | Avg Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Route 5794** | 126 | 0 | 126 | **`100.0%`** | `0.0%` | `+0.0s` |
-| **Route 5801** | 96 | 0 | 96 | **`100.0%`** | `0.0%` | `+0.0s` |
-| **Route 5807** | 65 | 1 | 64 | **`98.46%`** | `0.0%` | `+0.0s` |
-| **Route 5782** | 109 | 1 | 107 | **`98.17%`** | `100.0%` | `+0.7 min` |
-| **Route 5783** | 78 | 2 | 76 | **`97.44%`** | `0.0%` | `+0.0s` |
-| **Route 5808** | 2 | 2 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
-| **Route 5813** | 2 | 1 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| **Route 5782** | 109 | 1 | 107 | **`98.17%`** | `100.0%` | `+0.0s` |
+| **Route 5794** | 68 | 2 | 66 | **`97.06%`** | `100.0%` | `-2.0s` |
+| **Route 5783** | 85 | 9 | 76 | **`89.41%`** | `100.0%` | `+0.2 min` |
+| **Route 5793** | 3 | 3 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| **Route 5807** | 3 | 3 | 0 | **`0.0%`** | `0.0%` | `-146.0s` |
+| **Route 5830** | 3 | 3 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| **Route 5806** | 2 | 2 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| **Route 5795** | 2 | 2 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| **Route 5792** | 2 | 2 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| **Route 5780** | 5 | 5 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
 
 ---
 
@@ -50,7 +53,7 @@
 
 | Route | Avg Delay | Max Delay | Tracked Runs | On-Time Adherence |
 | :--- | :---: | :---: | :---: | :---: |
-| **Route 5782** | `+0.7 min (+44.0s)` | `+1.5 min (+88s)` | 1 | `100.0%` |
+| **Route 5783** | `+0.2 min (+12.0s)` | `+0.4 min (+24s)` | 9 | `100.0%` |
 
 ---
 
@@ -60,7 +63,8 @@
 
 | Route | Nominal Headway | Observed Headway | Excess Wait Time (EWT) | Regularity Score |
 | :--- | :---: | :---: | :---: | :---: |
-| **Route 5782** | ~20.0m | ~20.0m | **`+0.0 min`** | `96.3 / 100` |
+| **Route 5783** | ~15.0m | ~15.0m | **`+0.0 min`** | `98.7 / 100` |
+| **Route 5782** | ~20.0m | ~20.0m | **`+0.0 min`** | `100.0 / 100` |
 
 ---
 
@@ -68,21 +72,21 @@
 
 | Trip ID | Route | Scheduled Departure | Status | Diagnosis / Reason |
 | :--- | :---: | :---: | :--- | :--- |
-| `2200165` | Route 5794 | `25:00:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `2200230` | Route 5794 | `24:20:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `2200148` | Route 5794 | `17:15:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `2200211` | Route 5794 | `16:26:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `2200140` | Route 5794 | `15:15:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `2200142` | Route 5794 | `15:45:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `2200205` | Route 5794 | `14:56:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `2200134` | Route 5794 | `13:45:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `2200218` | Route 5794 | `18:11:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `2200147` | Route 5794 | `17:00:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `2200210` | Route 5794 | `16:11:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `2200139` | Route 5794 | `15:00:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `2200111` | Route 5794 | `08:00:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `2200183` | Route 5794 | `09:27:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `2200113` | Route 5794 | `08:30:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `2190450` | Route 5783 | `24:22:00` | `SCHEDULED` | Assigned vehicle 32316 is broadcasting off-schedule with no vehicle covering 2190450 |
+| `2189879` | Route 5782 | `04:45:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `2189932` | Route 5782 | `05:56:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `2189911` | Route 5782 | `07:00:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `2189942` | Route 5782 | `08:32:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `2189885` | Route 5782 | `09:40:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `2189949` | Route 5782 | `10:56:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `2189894` | Route 5782 | `12:00:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `2189956` | Route 5782 | `13:16:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `2189898` | Route 5782 | `14:20:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `2189964` | Route 5782 | `15:52:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `2189906` | Route 5782 | `17:00:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `2189921` | Route 5782 | `18:27:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `2189875` | Route 5782 | `19:38:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `2189926` | Route 5782 | `21:01:00` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
 
 ---
 
@@ -90,14 +94,14 @@
 
 | Timestamp | Ghost Rate (%) | On-Time (%) | Scheduled Runs | Tracked Fleet | Mean Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| `2026-11-19 07:00:19` | `97.51%` | `100.0%` | 481 | 10 | `+44.0s` |
-| `2026-11-19 06:30:19` | `90.0%` | `100.0%` | 520 | 48 | `+15.0s` |
-| `2026-11-19 06:00:20` | `83.7%` | `92.31%` | 552 | 76 | `+8.8s` |
-| `2026-11-19 05:30:25` | `81.4%` | `100.0%` | 570 | 86 | `+3.3s` |
-| `2026-11-19 05:00:18` | `8.82%` | `90.0%` | 102 | 90 | `+8.3s` |
-| `2026-11-19 04:30:19` | `13.89%` | `90.0%` | 108 | 91 | `+71.5s` |
-| `2026-11-19 04:00:21` | `16.52%` | `91.67%` | 115 | 93 | `+60.1s` |
-| `2026-11-19 03:30:18` | `18.7%` | `100.0%` | 123 | 95 | `+17.6s` |
+| `2026-11-20 06:30:18` | `82.72%` | `87.5%` | 301 | 51 | `-15.8s` |
+| `2026-11-20 06:00:20` | `74.77%` | `94.44%` | 329 | 78 | `+16.3s` |
+| `2026-11-20 05:30:18` | `73.39%` | `92.0%` | 342 | 86 | `-8.2s` |
+| `2026-11-20 05:00:19` | `8.0%` | `94.12%` | 100 | 90 | `+12.1s` |
+| `2026-11-20 04:30:18` | `12.5%` | `87.5%` | 104 | 91 | `+80.1s` |
+| `2026-11-20 04:00:18` | `13.89%` | `85.0%` | 108 | 93 | `+46.3s` |
+| `2026-11-20 03:30:20` | `17.09%` | `95.0%` | 117 | 98 | `+39.0s` |
+| `2026-11-20 03:00:19` | `23.13%` | `86.36%` | 147 | 110 | `+89.0s` |
 
 ---
 
@@ -109,4 +113,4 @@
 - **Excess Wait Time (EWT)**: Transit standard metric measuring variance in vehicle headway caused by vehicle bunching.
 - **Git-Scraping**: Every run fetches upstream GTFS-RT binary protobuf feeds, computes reliability metrics, commits versioned JSON snapshots, and renders this dashboard automatically.
 
-*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-19T07:00:19.963000+00:00`.*
+*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-20T06:30:18.977000+00:00`.*
