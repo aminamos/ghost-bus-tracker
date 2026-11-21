@@ -1,7 +1,7 @@
 # 🚌 Automated Public Transit Reliability & Ghost Bus Tracker
 
 > Real-time monitoring and git-scraping reliability index for **Regional Transportation District** in **Denver, CO** (Denver Metropolitan Area, Colorado).
-> **Transit System:** RTD | **Location:** Denver, CO | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-11-20T06:30:18.965000+00:00` | **Source:** live GTFS-RT feed
+> **Transit System:** RTD | **Location:** Denver, CO | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-11-21T07:00:18.863000+00:00` | **Source:** live GTFS-RT feed
 
 ---
 
@@ -9,11 +9,11 @@
 
 | Metric | Value | Status / Description |
 | :--- | :--- | :--- |
-| **Ghost Bus Rate** | **`35.75%`** | Scheduled runs with missing transponders or unannounced cuts |
+| **Ghost Bus Rate** | **`32.1%`** | Scheduled runs with missing transponders or unannounced cuts |
 | **On-Time Adherence** | **`0.0%`** | Departures within standard window (-1m to +5m) |
-| **Scheduled Active Trips** | `207` | Total runs operating in current transit schedule window |
-| **Tracked Fleet Vehicles** | `253` | GPS transponders broadcasting valid coordinates |
-| **Confirmed Ghost Trips** | `74` | Disappeared or unassigned scheduled runs |
+| **Scheduled Active Trips** | `162` | Total runs operating in current transit schedule window |
+| **Tracked Fleet Vehicles** | `186` | GPS transponders broadcasting valid coordinates |
+| **Confirmed Ghost Trips** | `52` | Disappeared or unassigned scheduled runs |
 | **Mean Delay** | `+0.0s` (`+0.0 min`) | Average delay across all active tracked runs |
 | **Median Delay** | `+0.0s` (`+0.0 min`) | Median schedule deviation |
 
@@ -27,8 +27,8 @@
 | ⏩ **Early Departure** | More than 1 min ahead of schedule | 0 | 0.0% |
 | 🟡 **Minor Delay** | +5m to +15m late | 0 | 0.0% |
 | 🔴 **Severe Delay** | Over 15m late | 0 | 0.0% |
-| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 74 | 35.7% |
-| ❌ **Agency Canceled** | Explicitly reported CANCELED | 1 | 0.5% |
+| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 52 | 32.1% |
+| ❌ **Agency Canceled** | Explicitly reported CANCELED | 1 | 0.6% |
 
 ---
 
@@ -36,16 +36,16 @@
 
 | Route | Total Scheduled | Tracked | Ghost Trips | Ghost Rate (%) | On-Time (%) | Avg Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Route 88** | 2 | 1 | 2 | **`100.0%`** | `0.0%` | `+0.0s` |
-| **Route SKIP** | 4 | 1 | 3 | **`75.0%`** | `0.0%` | `+0.0s` |
-| **Route FREE** | 7 | 2 | 5 | **`71.43%`** | `0.0%` | `+0.0s` |
-| **Route 65** | 3 | 1 | 2 | **`66.67%`** | `0.0%` | `+0.0s` |
-| **Route 76** | 3 | 1 | 2 | **`66.67%`** | `0.0%` | `+0.0s` |
-| **Route 42** | 5 | 3 | 3 | **`60.0%`** | `0.0%` | `+0.0s` |
+| **Route 7** | 2 | 0 | 2 | **`100.0%`** | `0.0%` | `+0.0s` |
+| **Route FREE** | 4 | 1 | 3 | **`75.0%`** | `0.0%` | `+0.0s` |
+| **Route 3** | 3 | 1 | 2 | **`66.67%`** | `0.0%` | `+0.0s` |
+| **Route 83L** | 3 | 1 | 2 | **`66.67%`** | `0.0%` | `+0.0s` |
+| **Route 42** | 6 | 3 | 3 | **`50.0%`** | `0.0%` | `+0.0s` |
 | **Route 12** | 4 | 3 | 2 | **`50.0%`** | `0.0%` | `+0.0s` |
 | **Route 16** | 4 | 3 | 2 | **`50.0%`** | `0.0%` | `+0.0s` |
 | **Route 17** | 4 | 2 | 2 | **`50.0%`** | `0.0%` | `+0.0s` |
-| **Route 21** | 4 | 3 | 2 | **`50.0%`** | `0.0%` | `+0.0s` |
+| **Route 31** | 4 | 3 | 2 | **`50.0%`** | `0.0%` | `+0.0s` |
+| **Route 40** | 4 | 2 | 2 | **`50.0%`** | `0.0%` | `+0.0s` |
 
 ---
 
@@ -71,21 +71,21 @@
 
 | Trip ID | Route | Scheduled Departure | Status | Diagnosis / Reason |
 | :--- | :---: | :---: | :--- | :--- |
-| `116031374` | Route 0 | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `116031468` | Route 0 | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `116031713` | Route 0B | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `116032090` | Route 10 | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `116034451` | Route 103W | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `116034527` | Route 103W | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `116034946` | Route 104L | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `116035209` | Route 105 | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `116035314` | Route 105 | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `116036008` | Route 11 | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `116036410` | Route 113G | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `116037327` | Route 12 | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `116037406` | Route 12 | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `116037970` | Route 121 | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
-| `116038069` | Route 121 | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `116031373` | Route 0 | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `116031453` | Route 0 | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `116031717` | Route 0B | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `116034328` | Route 103W | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `116034398` | Route 103W | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `116035251` | Route 105 | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `116037378` | Route 12 | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `116037391` | Route 12 | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `116037983` | Route 121 | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `116038504` | Route 133 | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `116039210` | Route 15 | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `116039250` | Route 15 | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `116039308` | Route 15 | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `116039313` | Route 15 | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
+| `116039959` | Route 15L | `N/A` | `SCHEDULED` | No vehicle assigned and no active GPS broadcast |
 
 ---
 
@@ -93,14 +93,14 @@
 
 | Timestamp | Ghost Rate (%) | On-Time (%) | Scheduled Runs | Tracked Fleet | Mean Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| `2026-11-20 06:30:18` | `35.75%` | `0.0%` | 207 | 253 | `+0.0s` |
-| `2026-11-20 06:00:21` | `37.5%` | `0.0%` | 248 | 269 | `+0.0s` |
-| `2026-11-20 05:30:18` | `35.13%` | `0.0%` | 279 | 304 | `+0.0s` |
-| `2026-11-20 05:00:20` | `38.64%` | `0.0%` | 308 | 319 | `+0.0s` |
-| `2026-11-20 04:30:18` | `35.45%` | `0.0%` | 330 | 331 | `+0.0s` |
-| `2026-11-20 04:00:19` | `38.02%` | `0.0%` | 363 | 329 | `+0.0s` |
-| `2026-11-20 03:30:21` | `36.41%` | `0.0%` | 390 | 345 | `+0.0s` |
-| `2026-11-20 03:00:19` | `36.52%` | `0.0%` | 408 | 358 | `+0.0s` |
+| `2026-11-21 07:00:18` | `32.1%` | `0.0%` | 162 | 186 | `+0.0s` |
+| `2026-11-21 06:00:18` | `36.51%` | `0.0%` | 252 | 245 | `+0.0s` |
+| `2026-11-21 05:30:18` | `37.54%` | `0.0%` | 285 | 273 | `+0.0s` |
+| `2026-11-21 05:00:21` | `36.81%` | `0.0%` | 307 | 286 | `+0.0s` |
+| `2026-11-21 04:30:18` | `34.55%` | `0.0%` | 330 | 300 | `+0.0s` |
+| `2026-11-21 04:00:18` | `37.14%` | `0.0%` | 350 | 303 | `+0.0s` |
+| `2026-11-21 03:30:19` | `36.63%` | `0.0%` | 374 | 329 | `+0.0s` |
+| `2026-11-21 03:00:18` | `38.98%` | `0.0%` | 431 | 362 | `+0.0s` |
 
 ---
 
@@ -112,4 +112,4 @@
 - **Excess Wait Time (EWT)**: Transit standard metric measuring variance in vehicle headway caused by vehicle bunching.
 - **Git-Scraping**: Every run fetches upstream GTFS-RT binary protobuf feeds, computes reliability metrics, commits versioned JSON snapshots, and renders this dashboard automatically.
 
-*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-20T06:30:18.965000+00:00`.*
+*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-21T07:00:18.863000+00:00`.*
