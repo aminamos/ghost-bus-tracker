@@ -1,7 +1,7 @@
 # 🚌 Automated Public Transit Reliability & Ghost Bus Tracker
 
 > Real-time monitoring and git-scraping reliability index for **Champaign-Urbana Mass Transit District** in **Champaign–Urbana, IL** (Champaign County, Illinois).
-> **Transit System:** MTD | **Location:** Champaign–Urbana, IL | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-11-21T07:00:18.375000+00:00` | **Source:** live GTFS-RT feed
+> **Transit System:** MTD | **Location:** Champaign–Urbana, IL | **Status:** 🟢 **HEALTHY** | **Last Scan:** `2026-11-22T07:00:18.088000+00:00` | **Source:** live GTFS-RT feed
 
 ---
 
@@ -9,11 +9,11 @@
 
 | Metric | Value | Status / Description |
 | :--- | :--- | :--- |
-| **Ghost Bus Rate** | **`28.26%`** | Scheduled runs with missing transponders or unannounced cuts |
+| **Ghost Bus Rate** | **`0.0%`** | Scheduled runs with missing transponders or unannounced cuts |
 | **On-Time Adherence** | **`0.0%`** | Departures within standard window (-1m to +5m) |
-| **Scheduled Active Trips** | `46` | Total runs operating in current transit schedule window |
-| **Tracked Fleet Vehicles** | `14` | GPS transponders broadcasting valid coordinates |
-| **Confirmed Ghost Trips** | `13` | Disappeared or unassigned scheduled runs |
+| **Scheduled Active Trips** | `0` | Total runs operating in current transit schedule window |
+| **Tracked Fleet Vehicles** | `0` | GPS transponders broadcasting valid coordinates |
+| **Confirmed Ghost Trips** | `0` | Disappeared or unassigned scheduled runs |
 | **Mean Delay** | `+0.0s` (`+0.0 min`) | Average delay across all active tracked runs |
 | **Median Delay** | `+0.0s` (`+0.0 min`) | Median schedule deviation |
 
@@ -23,12 +23,12 @@
 
 | Category | Threshold / Definition | Trip Count | Percentage |
 | :--- | :--- | :--- | :--- |
-| 🟢 **On-Time** | Within -60s to +300s | 0 | 0.0% |
-| ⏩ **Early Departure** | More than 1 min ahead of schedule | 0 | 0.0% |
-| 🟡 **Minor Delay** | +5m to +15m late | 0 | 0.0% |
-| 🔴 **Severe Delay** | Over 15m late | 0 | 0.0% |
-| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 13 | 28.3% |
-| ❌ **Agency Canceled** | Explicitly reported CANCELED | 1 | 2.2% |
+| 🟢 **On-Time** | Within -60s to +300s | 0 | 0% |
+| ⏩ **Early Departure** | More than 1 min ahead of schedule | 0 | 0% |
+| 🟡 **Minor Delay** | +5m to +15m late | 0 | 0% |
+| 🔴 **Severe Delay** | Over 15m late | 0 | 0% |
+| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 0 | 0% |
+| ❌ **Agency Canceled** | Explicitly reported CANCELED | 0 | 0% |
 
 ---
 
@@ -36,11 +36,7 @@
 
 | Route | Total Scheduled | Tracked | Ghost Trips | Ghost Rate (%) | On-Time (%) | Avg Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Route GREEN LATE NIGHT** | 7 | 2 | 7 | **`100.0%`** | `0.0%` | `+0.0s` |
-| **Route YELLOW LATE NIGHT** | 6 | 2 | 3 | **`50.0%`** | `0.0%` | `+0.0s` |
-| **Route ILLINI EVENING** | 18 | 6 | 3 | **`16.67%`** | `0.0%` | `+0.0s` |
-| **Route TEAL LATE NIGHT** | 8 | 2 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
-| **Route SILVER LATE NIGHT** | 7 | 2 | 0 | **`0.0%`** | `0.0%` | `+0.0s` |
+| *No multi-trip routes recorded in current window* | - | - | - | - | - | - |
 
 ---
 
@@ -66,19 +62,7 @@
 
 | Trip ID | Route | Scheduled Departure | Status | Diagnosis / Reason |
 | :--- | :---: | :---: | :--- | :--- |
-| `3GR788__GR3_UI` | Route GREEN LATE NIGHT | `01:03:00` | `SCHEDULED` | Assigned vehicle 2148 is broadcasting off-schedule with no vehicle covering 3GR788__GR3_UI |
-| `[@7.0.38112640@][4][1219153573468]/8__GN7_UIF` | Route GREEN LATE NIGHT | `01:23:00` | `SCHEDULED` | Assigned vehicle 1610 is broadcasting off-schedule with no vehicle covering [@7.0.38112640@][4][1219153573468]/8__GN7_UIF |
-| `[@7.0.41950648@][1244056065453]/111__I7_UIF_LATE` | Route ILLINI EVENING | `01:15:00` | `SCHEDULED` | Assigned vehicle 2645 is missing from active GPS transponder fleet |
-| `[@7.0.38112640@][4][1219153573468]/9__GR3_UI` | Route GREEN LATE NIGHT | `01:43:00` | `SCHEDULED` | Assigned vehicle 2148 is broadcasting off-schedule with no vehicle covering [@7.0.38112640@][4][1219153573468]/9__GR3_UI |
-| `[@7.0.38112640@][3][1219153533843]/3__GN7_UIF` | Route GREEN LATE NIGHT | `01:40:00` | `SCHEDULED` | Assigned vehicle 1610 is broadcasting off-schedule with no vehicle covering [@7.0.38112640@][3][1219153533843]/3__GN7_UIF |
-| `[@7.0.41950648@][1244056065453]/239__I7_UIF_LATE` | Route ILLINI EVENING | `00:40:00` | `SCHEDULED` | Assigned vehicle 2645 is missing from active GPS transponder fleet |
-| `[@7.0.38112640@][3][1219153533843]/4__GR3_UI` | Route GREEN LATE NIGHT | `02:00:00` | `SCHEDULED` | Assigned vehicle 2148 is broadcasting off-schedule with no vehicle covering [@7.0.38112640@][3][1219153533843]/4__GR3_UI |
-| `[@7.0.38114521@][1][1214492461671]/4__Y2_UI_MF` | Route YELLOW LATE NIGHT | `02:00:00` | `SCHEDULED` | Assigned vehicle 1351 is broadcasting off-schedule with no vehicle covering [@7.0.38114521@][1][1214492461671]/4__Y2_UI_MF |
-| `[@7.0.41950648@][1244056065453]/246__I7_UIF_LATE` | Route ILLINI EVENING | `01:50:00` | `SCHEDULED` | Assigned vehicle 2645 is missing from active GPS transponder fleet |
-| `[@7.0.38112640@][3][1219153533843]/2__GN7_UIF` | Route GREEN LATE NIGHT | `01:00:00` | `SCHEDULED` | Assigned vehicle 1610 is broadcasting off-schedule with no vehicle covering [@7.0.38112640@][3][1219153533843]/2__GN7_UIF |
-| `[@7.0.38114521@][2][1214492894609]/13__Y2_UI_MF` | Route YELLOW LATE NIGHT | `01:31:00` | `SCHEDULED` | Assigned vehicle 1351 is broadcasting off-schedule with no vehicle covering [@7.0.38114521@][2][1214492894609]/13__Y2_UI_MF |
-| `8GN531__GR3_UI` | Route GREEN LATE NIGHT | `01:20:00` | `SCHEDULED` | Assigned vehicle 2148 is broadcasting off-schedule with no vehicle covering 8GN531__GR3_UI |
-| `[@7.0.38114521@][1][1214492461671]/2__Y2_UI_MF` | Route YELLOW LATE NIGHT | `01:00:00` | `SCHEDULED` | Assigned vehicle 1351 is broadcasting off-schedule with no vehicle covering [@7.0.38114521@][1][1214492461671]/2__Y2_UI_MF |
+| *Zero ghost trips detected! All scheduled runs have verified GPS transponders.* | - | - | - | - |
 
 ---
 
@@ -86,14 +70,14 @@
 
 | Timestamp | Ghost Rate (%) | On-Time (%) | Scheduled Runs | Tracked Fleet | Mean Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| `2026-11-21 07:00:18` | `28.26%` | `0.0%` | 46 | 14 | `+0.0s` |
-| `2026-11-21 06:30:20` | `6.25%` | `0.0%` | 48 | 14 | `+0.0s` |
-| `2026-11-21 06:00:18` | `22.22%` | `0.0%` | 45 | 14 | `+0.0s` |
-| `2026-11-21 05:30:17` | `12.73%` | `0.0%` | 55 | 23 | `+0.0s` |
-| `2026-11-21 05:00:19` | `25.0%` | `0.0%` | 60 | 27 | `+0.0s` |
-| `2026-11-21 04:30:18` | `16.42%` | `0.0%` | 67 | 28 | `+0.0s` |
-| `2026-11-21 04:00:17` | `21.13%` | `0.0%` | 71 | 29 | `+0.0s` |
-| `2026-11-21 03:30:17` | `10.0%` | `0.0%` | 70 | 31 | `+0.0s` |
+| `2026-11-22 07:00:18` | `0.0%` | `0.0%` | 0 | 0 | `+0.0s` |
+| `2026-11-22 06:30:18` | `0.0%` | `0.0%` | 0 | 1 | `+0.0s` |
+| `2026-11-22 06:00:17` | `0.0%` | `0.0%` | 5 | 6 | `+0.0s` |
+| `2026-11-22 05:30:20` | `0.0%` | `0.0%` | 30 | 17 | `+0.0s` |
+| `2026-11-22 05:00:18` | `15.91%` | `0.0%` | 44 | 22 | `+0.0s` |
+| `2026-11-22 04:30:17` | `3.57%` | `0.0%` | 56 | 23 | `+0.0s` |
+| `2026-11-22 04:00:17` | `6.9%` | `0.0%` | 58 | 23 | `+0.0s` |
+| `2026-11-22 03:30:19` | `3.33%` | `0.0%` | 60 | 23 | `+0.0s` |
 
 ---
 
@@ -105,4 +89,4 @@
 - **Excess Wait Time (EWT)**: Transit standard metric measuring variance in vehicle headway caused by vehicle bunching.
 - **Git-Scraping**: Every run fetches upstream GTFS-RT binary protobuf feeds, computes reliability metrics, commits versioned JSON snapshots, and renders this dashboard automatically.
 
-*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-21T07:00:18.375000+00:00`.*
+*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-22T07:00:18.088000+00:00`.*
