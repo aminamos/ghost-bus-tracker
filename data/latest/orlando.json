@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-11-22T07:00:18.028000+00:00",
-  "feed_timestamp": 1795330795,
+  "scan_time": "2026-11-23T07:00:17.960000+00:00",
+  "feed_timestamp": 1795417197,
   "agency": "Central Florida Regional Transportation Authority",
   "city": "Orlando, FL",
   "transit_system": "LYNX",
@@ -9,52 +9,37 @@
   "country": "USA",
   "source": "live",
   "total_scheduled_trips": 1,
-  "total_tracked_vehicles": 1,
+  "total_tracked_vehicles": 0,
   "total_ghost_trips": 0,
   "ghost_bus_rate_pct": 0.0,
-  "vehicle_tracking_rate_pct": 100.0,
+  "vehicle_tracking_rate_pct": 0.0,
   "overall_on_time_pct": 0.0,
   "delay_distribution": {
     "early": 0,
     "on_time": 0,
     "minor_delay": 0,
-    "severe_delay": 1,
+    "severe_delay": 0,
     "ghost": 0,
-    "canceled": 0
+    "canceled": 1
   },
-  "mean_delay_sec": 3126.0,
-  "median_delay_sec": 3126.0,
+  "mean_delay_sec": 0.0,
+  "median_delay_sec": 0.0,
   "worst_routes_by_ghost": [],
-  "most_delayed_routes": [
-    {
-      "route_id": "17592",
-      "route_name": "Route 17592",
-      "total_trips": 1,
-      "tracked_vehicles": 1,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 1,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 3126.0,
-      "max_delay_sec": 3126
-    }
-  ],
+  "most_delayed_routes": [],
   "route_metrics": [
     {
-      "route_id": "17592",
-      "route_name": "Route 17592",
+      "route_id": "17582",
+      "route_name": "Route 17582",
       "total_trips": 1,
-      "tracked_vehicles": 1,
+      "tracked_vehicles": 0,
       "ghost_trips": 0,
-      "canceled_trips": 0,
+      "canceled_trips": 1,
       "on_time_trips": 0,
-      "delayed_trips": 1,
+      "delayed_trips": 0,
       "ghost_rate_pct": 0.0,
       "on_time_pct": 0.0,
-      "avg_delay_sec": 3126.0,
-      "max_delay_sec": 3126
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
     }
   ],
   "sample_ghost_trips": [],
