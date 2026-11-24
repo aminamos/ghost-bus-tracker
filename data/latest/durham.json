@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-11-23T07:00:18.671000+00:00",
-  "feed_timestamp": 1795417193,
+  "scan_time": "2026-11-24T07:00:19.630000+00:00",
+  "feed_timestamp": 1795503592,
   "agency": "Durham Region Transit",
   "city": "Durham, ON",
   "transit_system": "DRT",
@@ -9,7 +9,7 @@
   "country": "Canada",
   "source": "live",
   "total_scheduled_trips": 16,
-  "total_tracked_vehicles": 8,
+  "total_tracked_vehicles": 10,
   "total_ghost_trips": 3,
   "ghost_bus_rate_pct": 18.75,
   "vehicle_tracking_rate_pct": 81.25,
@@ -90,25 +90,25 @@
       "trip_id": "417__491001_Timetable_-_2026-10",
       "route_id": "N2",
       "start_time": "N/A",
-      "start_date": "20261123",
+      "start_date": "20261124",
       "status": "SCHEDULED",
-      "reason": "Assigned vehicle 8589 is broadcasting off-schedule with no vehicle covering 417__491001_Timetable_-_2026-10"
+      "reason": "Assigned vehicle 8574 is broadcasting off-schedule with no vehicle covering 417__491001_Timetable_-_2026-10"
     },
     {
       "trip_id": "5159__491001_Timetable_-_2026-10",
       "route_id": "N2",
       "start_time": "N/A",
-      "start_date": "20261123",
+      "start_date": "20261124",
       "status": "SCHEDULED",
-      "reason": "Assigned vehicle 8589 is broadcasting off-schedule with no vehicle covering 5159__491001_Timetable_-_2026-10"
+      "reason": "Assigned vehicle 8574 is broadcasting off-schedule with no vehicle covering 5159__491001_Timetable_-_2026-10"
     },
     {
       "trip_id": "406__491001_Timetable_-_2026-10",
       "route_id": "N2",
       "start_time": "N/A",
-      "start_date": "20261123",
+      "start_date": "20261124",
       "status": "SCHEDULED",
-      "reason": "Assigned vehicle 8589 is broadcasting off-schedule with no vehicle covering 406__491001_Timetable_-_2026-10"
+      "reason": "Assigned vehicle 8574 is broadcasting off-schedule with no vehicle covering 406__491001_Timetable_-_2026-10"
     }
   ],
   "headway_metrics": []
