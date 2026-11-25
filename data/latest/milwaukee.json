@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-11-24T07:00:19.158000+00:00",
-  "feed_timestamp": 1795503615,
+  "scan_time": "2026-11-25T07:00:18.926000+00:00",
+  "feed_timestamp": 1795589992,
   "agency": "Milwaukee County Transit System",
   "city": "Milwaukee, WI",
   "transit_system": "MCTS",
@@ -8,18 +8,18 @@
   "state": "Wisconsin",
   "country": "USA",
   "source": "live",
-  "total_scheduled_trips": 36,
-  "total_tracked_vehicles": 43,
-  "total_ghost_trips": 5,
-  "ghost_bus_rate_pct": 13.89,
-  "vehicle_tracking_rate_pct": 86.11,
+  "total_scheduled_trips": 35,
+  "total_tracked_vehicles": 42,
+  "total_ghost_trips": 3,
+  "ghost_bus_rate_pct": 8.57,
+  "vehicle_tracking_rate_pct": 91.43,
   "overall_on_time_pct": 0.0,
   "delay_distribution": {
     "early": 0,
     "on_time": 0,
     "minor_delay": 0,
     "severe_delay": 0,
-    "ghost": 5,
+    "ghost": 3,
     "canceled": 0
   },
   "mean_delay_sec": 0.0,
@@ -54,20 +54,6 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "CN1",
-      "route_name": "Route CN1",
-      "total_trips": 4,
-      "tracked_vehicles": 3,
-      "ghost_trips": 1,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 25.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
       "route_id": "21",
       "route_name": "Route 21",
       "total_trips": 4,
@@ -82,24 +68,10 @@
       "max_delay_sec": 0
     },
     {
-      "route_id": "BLU",
-      "route_name": "Route BLU",
+      "route_id": "CN1",
+      "route_name": "Route CN1",
       "total_trips": 4,
       "tracked_vehicles": 3,
-      "ghost_trips": 1,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 25.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
-      "route_id": "19",
-      "route_name": "Route 19",
-      "total_trips": 4,
-      "tracked_vehicles": 4,
       "ghost_trips": 0,
       "canceled_trips": 0,
       "on_time_trips": 0,
@@ -124,10 +96,38 @@
       "max_delay_sec": 0
     },
     {
+      "route_id": "19",
+      "route_name": "Route 19",
+      "total_trips": 3,
+      "tracked_vehicles": 3,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
       "route_id": "15",
       "route_name": "Route 15",
       "total_trips": 2,
       "tracked_vehicles": 2,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
+      "route_id": "BLU",
+      "route_name": "Route BLU",
+      "total_trips": 4,
+      "tracked_vehicles": 3,
       "ghost_trips": 0,
       "canceled_trips": 0,
       "on_time_trips": 0,
@@ -159,11 +159,11 @@
       "route_name": "Route CN1",
       "total_trips": 4,
       "tracked_vehicles": 3,
-      "ghost_trips": 1,
+      "ghost_trips": 0,
       "canceled_trips": 0,
       "on_time_trips": 0,
       "delayed_trips": 0,
-      "ghost_rate_pct": 25.0,
+      "ghost_rate_pct": 0.0,
       "on_time_pct": 0.0,
       "avg_delay_sec": 0.0,
       "max_delay_sec": 0
@@ -178,20 +178,6 @@
       "on_time_trips": 0,
       "delayed_trips": 0,
       "ghost_rate_pct": 33.33,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    },
-    {
-      "route_id": "19",
-      "route_name": "Route 19",
-      "total_trips": 4,
-      "tracked_vehicles": 4,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
       "on_time_pct": 0.0,
       "avg_delay_sec": 0.0,
       "max_delay_sec": 0
@@ -220,6 +206,20 @@
       "on_time_trips": 0,
       "delayed_trips": 0,
       "ghost_rate_pct": 25.0,
+      "on_time_pct": 0.0,
+      "avg_delay_sec": 0.0,
+      "max_delay_sec": 0
+    },
+    {
+      "route_id": "19",
+      "route_name": "Route 19",
+      "total_trips": 3,
+      "tracked_vehicles": 3,
+      "ghost_trips": 0,
+      "canceled_trips": 0,
+      "on_time_trips": 0,
+      "delayed_trips": 0,
+      "ghost_rate_pct": 0.0,
       "on_time_pct": 0.0,
       "avg_delay_sec": 0.0,
       "max_delay_sec": 0
@@ -257,11 +257,11 @@
       "route_name": "Route BLU",
       "total_trips": 4,
       "tracked_vehicles": 3,
-      "ghost_trips": 1,
+      "ghost_trips": 0,
       "canceled_trips": 0,
       "on_time_trips": 0,
       "delayed_trips": 0,
-      "ghost_rate_pct": 25.0,
+      "ghost_rate_pct": 0.0,
       "on_time_pct": 0.0,
       "avg_delay_sec": 0.0,
       "max_delay_sec": 0
@@ -344,7 +344,7 @@
       "start_time": "N/A",
       "start_date": "N/A",
       "status": "SCHEDULED",
-      "reason": "Assigned vehicle 5722 is broadcasting off-schedule with no vehicle covering 37803457"
+      "reason": "Assigned vehicle 5510 is broadcasting off-schedule with no vehicle covering 37803457"
     },
     {
       "trip_id": "37803340",
@@ -352,23 +352,7 @@
       "start_time": "N/A",
       "start_date": "N/A",
       "status": "SCHEDULED",
-      "reason": "Assigned vehicle 5728 is missing from active GPS transponder fleet"
-    },
-    {
-      "trip_id": "37806695",
-      "route_id": "BLU",
-      "start_time": "N/A",
-      "start_date": "N/A",
-      "status": "SCHEDULED",
-      "reason": "Assigned vehicle 5705 is broadcasting off-schedule with no vehicle covering 37806695"
-    },
-    {
-      "trip_id": "37804690",
-      "route_id": "CN1",
-      "start_time": "N/A",
-      "start_date": "N/A",
-      "status": "SCHEDULED",
-      "reason": "Assigned vehicle 6253 is broadcasting off-schedule with no vehicle covering 37804690"
+      "reason": "Assigned vehicle 6404 is missing from active GPS transponder fleet"
     },
     {
       "trip_id": "37843613",
@@ -376,7 +360,7 @@
       "start_time": "N/A",
       "start_date": "N/A",
       "status": "SCHEDULED",
-      "reason": "Assigned vehicle 5802 is broadcasting off-schedule with no vehicle covering 37843613"
+      "reason": "Assigned vehicle 6223 is broadcasting off-schedule with no vehicle covering 37843613"
     }
   ],
   "headway_metrics": []
