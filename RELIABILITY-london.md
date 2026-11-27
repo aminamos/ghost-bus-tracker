@@ -1,7 +1,7 @@
 # 🚌 Automated Public Transit Reliability & Ghost Bus Tracker
 
 > Real-time monitoring and git-scraping reliability index for **London Transit Commission** in **London, ON** (City of London, Ontario).
-> **Transit System:** LTC | **Location:** London, ON | **Status:** 🟡 **ELEVATED GHOSTS** | **Last Scan:** `2026-11-26T06:30:20.134000+00:00` | **Source:** live GTFS-RT feed
+> **Transit System:** LTC | **Location:** London, ON | **Status:** 🟢 **HEALTHY** | **Last Scan:** `2026-11-27T07:00:20.017000+00:00` | **Source:** live GTFS-RT feed
 
 ---
 
@@ -9,13 +9,13 @@
 
 | Metric | Value | Status / Description |
 | :--- | :--- | :--- |
-| **Ghost Bus Rate** | **`7.69%`** | Scheduled runs with missing transponders or unannounced cuts |
-| **On-Time Adherence** | **`71.43%`** | Departures within standard window (-1m to +5m) |
-| **Scheduled Active Trips** | `13` | Total runs operating in current transit schedule window |
-| **Tracked Fleet Vehicles** | `13` | GPS transponders broadcasting valid coordinates |
-| **Confirmed Ghost Trips** | `1` | Disappeared or unassigned scheduled runs |
-| **Mean Delay** | `+116.7s` (`+1.9 min`) | Average delay across all active tracked runs |
-| **Median Delay** | `-10.0s` (`-0.2 min`) | Median schedule deviation |
+| **Ghost Bus Rate** | **`0.0%`** | Scheduled runs with missing transponders or unannounced cuts |
+| **On-Time Adherence** | **`100.0%`** | Departures within standard window (-1m to +5m) |
+| **Scheduled Active Trips** | `1` | Total runs operating in current transit schedule window |
+| **Tracked Fleet Vehicles** | `1` | GPS transponders broadcasting valid coordinates |
+| **Confirmed Ghost Trips** | `0` | Disappeared or unassigned scheduled runs |
+| **Mean Delay** | `+235.0s` (`+3.9 min`) | Average delay across all active tracked runs |
+| **Median Delay** | `+235.0s` (`+3.9 min`) | Median schedule deviation |
 
 ---
 
@@ -23,11 +23,11 @@
 
 | Category | Threshold / Definition | Trip Count | Percentage |
 | :--- | :--- | :--- | :--- |
-| 🟢 **On-Time** | Within -60s to +300s | 5 | 38.5% |
-| ⏩ **Early Departure** | More than 1 min ahead of schedule | 1 | 7.7% |
-| 🟡 **Minor Delay** | +5m to +15m late | 1 | 7.7% |
+| 🟢 **On-Time** | Within -60s to +300s | 1 | 100.0% |
+| ⏩ **Early Departure** | More than 1 min ahead of schedule | 0 | 0.0% |
+| 🟡 **Minor Delay** | +5m to +15m late | 0 | 0.0% |
 | 🔴 **Severe Delay** | Over 15m late | 0 | 0.0% |
-| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 1 | 7.7% |
+| 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 0 | 0.0% |
 | ❌ **Agency Canceled** | Explicitly reported CANCELED | 0 | 0.0% |
 
 ---
@@ -36,10 +36,7 @@
 
 | Route | Total Scheduled | Tracked | Ghost Trips | Ghost Rate (%) | On-Time (%) | Avg Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Route 12** | 2 | 2 | 1 | **`50.0%`** | `0.0%` | `+0.0s` |
-| **Route 16** | 2 | 2 | 0 | **`0.0%`** | `100.0%` | `+1.3 min` |
-| **Route 02** | 3 | 3 | 0 | **`0.0%`** | `50.0%` | `+6.6 min` |
-| **Route 10** | 4 | 4 | 0 | **`0.0%`** | `75.0%` | `-11.8s` |
+| *No multi-trip routes recorded in current window* | - | - | - | - | - | - |
 
 ---
 
@@ -47,8 +44,7 @@
 
 | Route | Avg Delay | Max Delay | Tracked Runs | On-Time Adherence |
 | :--- | :---: | :---: | :---: | :---: |
-| **Route 02** | `+6.6 min (+393.5s)` | `+13.8 min (+826s)` | 3 | `50.0%` |
-| **Route 16** | `+1.3 min (+77.0s)` | `+1.3 min (+77s)` | 2 | `100.0%` |
+| **Route 10** | `+3.9 min (+235.0s)` | `+3.9 min (+235s)` | 1 | `100.0%` |
 
 ---
 
@@ -58,9 +54,7 @@
 
 | Route | Nominal Headway | Observed Headway | Excess Wait Time (EWT) | Regularity Score |
 | :--- | :---: | :---: | :---: | :---: |
-| **Route 02** | ~5.0m | ~5.0m | **`+0.1 min`** | `0.0 / 100` |
-| **Route 10** | ~35.0m | ~35.0m | **`+0.0 min`** | `95.5 / 100` |
-| **Route 10** | ~61.0m | ~61.0m | **`+0.0 min`** | `99.6 / 100` |
+| *Insufficient route frequency data in current snapshot* | - | - | - | - |
 
 ---
 
@@ -68,7 +62,7 @@
 
 | Trip ID | Route | Scheduled Departure | Status | Diagnosis / Reason |
 | :--- | :---: | :---: | :--- | :--- |
-| `2388911` | Route 12 | `24:16:00` | `SCHEDULED` | Assigned vehicle 3609 is broadcasting off-schedule with no vehicle covering 2388911 |
+| *Zero ghost trips detected! All scheduled runs have verified GPS transponders.* | - | - | - | - |
 
 ---
 
@@ -76,14 +70,14 @@
 
 | Timestamp | Ghost Rate (%) | On-Time (%) | Scheduled Runs | Tracked Fleet | Mean Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| `2026-11-26 06:30:20` | `7.69%` | `71.43%` | 13 | 13 | `+116.7s` |
-| `2026-11-26 06:00:18` | `2.38%` | `68.42%` | 42 | 32 | `+182.7s` |
-| `2026-11-26 05:00:18` | `5.66%` | `81.44%` | 106 | 60 | `+122.1s` |
-| `2026-11-26 04:30:21` | `14.09%` | `83.47%` | 149 | 72 | `+137.1s` |
-| `2026-11-26 04:00:20` | `16.95%` | `89.51%` | 177 | 77 | `+135.3s` |
-| `2026-11-26 03:30:20` | `27.44%` | `80.54%` | 215 | 80 | `+169.1s` |
-| `2026-11-26 03:00:17` | `32.5%` | `77.07%` | 240 | 81 | `+216.9s` |
-| `2026-11-26 02:30:20` | `38.49%` | `74.84%` | 265 | 83 | `+209.0s` |
+| `2026-11-27 07:00:20` | `0.0%` | `100.0%` | 1 | 1 | `+235.0s` |
+| `2026-11-27 06:30:20` | `0.0%` | `71.43%` | 10 | 10 | `+105.6s` |
+| `2026-11-27 06:00:18` | `2.63%` | `80.0%` | 38 | 26 | `+158.5s` |
+| `2026-11-27 05:30:20` | `3.03%` | `72.88%` | 66 | 41 | `+167.5s` |
+| `2026-11-27 05:00:17` | `8.26%` | `77.55%` | 109 | 60 | `+155.0s` |
+| `2026-11-27 04:30:20` | `12.93%` | `78.4%` | 147 | 70 | `+158.8s` |
+| `2026-11-27 04:00:17` | `16.67%` | `81.82%` | 174 | 75 | `+168.6s` |
+| `2026-11-27 03:30:20` | `27.36%` | `82.0%` | 212 | 78 | `+171.9s` |
 
 ---
 
@@ -95,4 +89,4 @@
 - **Excess Wait Time (EWT)**: Transit standard metric measuring variance in vehicle headway caused by vehicle bunching.
 - **Git-Scraping**: Every run fetches upstream GTFS-RT binary protobuf feeds, computes reliability metrics, commits versioned JSON snapshots, and renders this dashboard automatically.
 
-*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-26T06:30:20.134000+00:00`.*
+*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-27T07:00:20.017000+00:00`.*

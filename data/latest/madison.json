@@ -1,6 +1,6 @@
 {
-  "scan_time": "2026-11-26T07:00:23.724000+00:00",
-  "feed_timestamp": 1795676379,
+  "scan_time": "2026-11-27T07:00:20.048000+00:00",
+  "feed_timestamp": 1795762792,
   "agency": "Metro Transit (City of Madison)",
   "city": "Madison, WI",
   "transit_system": "Metro Transit",
@@ -8,11 +8,11 @@
   "state": "Wisconsin",
   "country": "USA",
   "source": "live",
-  "total_scheduled_trips": 2,
-  "total_tracked_vehicles": 1,
+  "total_scheduled_trips": 0,
+  "total_tracked_vehicles": 0,
   "total_ghost_trips": 0,
   "ghost_bus_rate_pct": 0.0,
-  "vehicle_tracking_rate_pct": 100.0,
+  "vehicle_tracking_rate_pct": 0.0,
   "overall_on_time_pct": 0.0,
   "delay_distribution": {
     "early": 0,
@@ -24,39 +24,9 @@
   },
   "mean_delay_sec": 0.0,
   "median_delay_sec": 0.0,
-  "worst_routes_by_ghost": [
-    {
-      "route_id": "80",
-      "route_name": "Route 80",
-      "total_trips": 2,
-      "tracked_vehicles": 1,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    }
-  ],
+  "worst_routes_by_ghost": [],
   "most_delayed_routes": [],
-  "route_metrics": [
-    {
-      "route_id": "80",
-      "route_name": "Route 80",
-      "total_trips": 2,
-      "tracked_vehicles": 1,
-      "ghost_trips": 0,
-      "canceled_trips": 0,
-      "on_time_trips": 0,
-      "delayed_trips": 0,
-      "ghost_rate_pct": 0.0,
-      "on_time_pct": 0.0,
-      "avg_delay_sec": 0.0,
-      "max_delay_sec": 0
-    }
-  ],
+  "route_metrics": [],
   "sample_ghost_trips": [],
   "headway_metrics": []
 }

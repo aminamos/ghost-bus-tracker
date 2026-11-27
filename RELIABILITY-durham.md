@@ -1,7 +1,7 @@
 # 🚌 Automated Public Transit Reliability & Ghost Bus Tracker
 
 > Real-time monitoring and git-scraping reliability index for **Durham Region Transit** in **Durham, ON** (Regional Municipality of Durham, Ontario).
-> **Transit System:** DRT | **Location:** Durham, ON | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-11-26T07:00:22.909000+00:00` | **Source:** live GTFS-RT feed
+> **Transit System:** DRT | **Location:** Durham, ON | **Status:** 🔴 **CRITICAL GHOSTING** | **Last Scan:** `2026-11-27T07:00:19.943000+00:00` | **Source:** live GTFS-RT feed
 
 ---
 
@@ -12,7 +12,7 @@
 | **Ghost Bus Rate** | **`43.75%`** | Scheduled runs with missing transponders or unannounced cuts |
 | **On-Time Adherence** | **`0.0%`** | Departures within standard window (-1m to +5m) |
 | **Scheduled Active Trips** | `16` | Total runs operating in current transit schedule window |
-| **Tracked Fleet Vehicles** | `9` | GPS transponders broadcasting valid coordinates |
+| **Tracked Fleet Vehicles** | `8` | GPS transponders broadcasting valid coordinates |
 | **Confirmed Ghost Trips** | `7` | Disappeared or unassigned scheduled runs |
 | **Mean Delay** | `+0.0s` (`+0.0 min`) | Average delay across all active tracked runs |
 | **Median Delay** | `+0.0s` (`+0.0 min`) | Median schedule deviation |
@@ -63,13 +63,13 @@
 
 | Trip ID | Route | Scheduled Departure | Status | Diagnosis / Reason |
 | :--- | :---: | :---: | :--- | :--- |
-| `420__491003_Timetable_-_2026-10` | Route N2 | `N/A` | `SCHEDULED` | Assigned vehicle 8535 is broadcasting off-schedule with no vehicle covering 420__491003_Timetable_-_2026-10 |
-| `417__491001_Timetable_-_2026-10` | Route N2 | `N/A` | `SCHEDULED` | Assigned vehicle 8580 is broadcasting off-schedule with no vehicle covering 417__491001_Timetable_-_2026-10 |
-| `5159__491001_Timetable_-_2026-10` | Route N2 | `N/A` | `SCHEDULED` | Assigned vehicle 8580 is broadcasting off-schedule with no vehicle covering 5159__491001_Timetable_-_2026-10 |
-| `5160__491003_Timetable_-_2026-10` | Route N2 | `N/A` | `SCHEDULED` | Assigned vehicle 8535 is broadcasting off-schedule with no vehicle covering 5160__491003_Timetable_-_2026-10 |
-| `406__491001_Timetable_-_2026-10` | Route N2 | `N/A` | `SCHEDULED` | Assigned vehicle 8580 is broadcasting off-schedule with no vehicle covering 406__491001_Timetable_-_2026-10 |
-| `402__491003_Timetable_-_2026-10` | Route N2 | `N/A` | `SCHEDULED` | Assigned vehicle 8535 is broadcasting off-schedule with no vehicle covering 402__491003_Timetable_-_2026-10 |
-| `400__491003_Timetable_-_2026-10` | Route N2 | `N/A` | `SCHEDULED` | Assigned vehicle 8535 is broadcasting off-schedule with no vehicle covering 400__491003_Timetable_-_2026-10 |
+| `420__491003_Timetable_-_2026-10` | Route N2 | `N/A` | `SCHEDULED` | Assigned vehicle 8556 is broadcasting off-schedule with no vehicle covering 420__491003_Timetable_-_2026-10 |
+| `417__491001_Timetable_-_2026-10` | Route N2 | `N/A` | `SCHEDULED` | Assigned vehicle 8567 is broadcasting off-schedule with no vehicle covering 417__491001_Timetable_-_2026-10 |
+| `5159__491001_Timetable_-_2026-10` | Route N2 | `N/A` | `SCHEDULED` | Assigned vehicle 8567 is broadcasting off-schedule with no vehicle covering 5159__491001_Timetable_-_2026-10 |
+| `406__491001_Timetable_-_2026-10` | Route N2 | `N/A` | `SCHEDULED` | Assigned vehicle 8567 is broadcasting off-schedule with no vehicle covering 406__491001_Timetable_-_2026-10 |
+| `5160__491003_Timetable_-_2026-10` | Route N2 | `N/A` | `SCHEDULED` | Assigned vehicle 8556 is broadcasting off-schedule with no vehicle covering 5160__491003_Timetable_-_2026-10 |
+| `402__491003_Timetable_-_2026-10` | Route N2 | `N/A` | `SCHEDULED` | Assigned vehicle 8556 is broadcasting off-schedule with no vehicle covering 402__491003_Timetable_-_2026-10 |
+| `400__491003_Timetable_-_2026-10` | Route N2 | `N/A` | `SCHEDULED` | Assigned vehicle 8556 is broadcasting off-schedule with no vehicle covering 400__491003_Timetable_-_2026-10 |
 
 ---
 
@@ -77,14 +77,14 @@
 
 | Timestamp | Ghost Rate (%) | On-Time (%) | Scheduled Runs | Tracked Fleet | Mean Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| `2026-11-26 07:00:22` | `43.75%` | `0.0%` | 16 | 9 | `+0.0s` |
-| `2026-11-26 06:30:19` | `18.75%` | `0.0%` | 16 | 9 | `+0.0s` |
-| `2026-11-26 06:00:18` | `13.04%` | `0.0%` | 23 | 15 | `+0.0s` |
-| `2026-11-26 05:30:23` | `15.0%` | `0.0%` | 40 | 30 | `+0.0s` |
-| `2026-11-26 05:00:18` | `10.91%` | `0.0%` | 55 | 38 | `+0.0s` |
-| `2026-11-26 04:30:21` | `0.0%` | `0.0%` | 80 | 44 | `+0.0s` |
-| `2026-11-26 04:00:20` | `4.17%` | `0.0%` | 96 | 48 | `+0.0s` |
-| `2026-11-26 03:30:20` | `7.62%` | `0.0%` | 105 | 58 | `+0.0s` |
+| `2026-11-27 07:00:19` | `43.75%` | `0.0%` | 16 | 8 | `+0.0s` |
+| `2026-11-27 06:30:19` | `18.75%` | `0.0%` | 16 | 9 | `+0.0s` |
+| `2026-11-27 06:00:18` | `13.04%` | `0.0%` | 23 | 17 | `+0.0s` |
+| `2026-11-27 05:30:20` | `12.5%` | `0.0%` | 40 | 32 | `+0.0s` |
+| `2026-11-27 05:00:17` | `14.55%` | `0.0%` | 55 | 38 | `+0.0s` |
+| `2026-11-27 04:30:20` | `4.94%` | `0.0%` | 81 | 43 | `+0.0s` |
+| `2026-11-27 04:00:17` | `5.21%` | `0.0%` | 96 | 52 | `+0.0s` |
+| `2026-11-27 03:30:20` | `11.82%` | `0.0%` | 110 | 57 | `+0.0s` |
 
 ---
 
@@ -96,4 +96,4 @@
 - **Excess Wait Time (EWT)**: Transit standard metric measuring variance in vehicle headway caused by vehicle bunching.
 - **Git-Scraping**: Every run fetches upstream GTFS-RT binary protobuf feeds, computes reliability metrics, commits versioned JSON snapshots, and renders this dashboard automatically.
 
-*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-26T07:00:22.909000+00:00`.*
+*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-27T07:00:19.943000+00:00`.*
