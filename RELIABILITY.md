@@ -1,7 +1,7 @@
 # 🚌 Automated Public Transit Reliability & Ghost Bus Tracker
 
 > Real-time monitoring and git-scraping reliability index for **Metro Transit (Twin Cities)** in **Minneapolis–Saint Paul, MN** (Twin Cities Metropolitan Area, Minnesota).
-> **Transit System:** Metro Transit | **Location:** Minneapolis–Saint Paul, MN | **Status:** 🟢 **HEALTHY** | **Last Scan:** `2026-11-27T07:00:18.069000+00:00` | **Source:** live GTFS-RT feed
+> **Transit System:** Metro Transit | **Location:** Minneapolis–Saint Paul, MN | **Status:** 🟢 **HEALTHY** | **Last Scan:** `2026-11-28T07:00:18.006000+00:00` | **Source:** live GTFS-RT feed
 
 ---
 
@@ -10,12 +10,12 @@
 | Metric | Value | Status / Description |
 | :--- | :--- | :--- |
 | **Ghost Bus Rate** | **`0.0%`** | Scheduled runs with missing transponders or unannounced cuts |
-| **On-Time Adherence** | **`63.04%`** | Departures within standard window (-1m to +5m) |
-| **Scheduled Active Trips** | `46` | Total runs operating in current transit schedule window |
-| **Tracked Fleet Vehicles** | `46` | GPS transponders broadcasting valid coordinates |
+| **On-Time Adherence** | **`75.0%`** | Departures within standard window (-1m to +5m) |
+| **Scheduled Active Trips** | `56` | Total runs operating in current transit schedule window |
+| **Tracked Fleet Vehicles** | `56` | GPS transponders broadcasting valid coordinates |
 | **Confirmed Ghost Trips** | `0` | Disappeared or unassigned scheduled runs |
-| **Mean Delay** | `+102.8s` (`+1.7 min`) | Average delay across all active tracked runs |
-| **Median Delay** | `+53.0s` (`+0.9 min`) | Median schedule deviation |
+| **Mean Delay** | `+126.9s` (`+2.1 min`) | Average delay across all active tracked runs |
+| **Median Delay** | `+66.0s` (`+1.1 min`) | Median schedule deviation |
 
 ---
 
@@ -23,10 +23,10 @@
 
 | Category | Threshold / Definition | Trip Count | Percentage |
 | :--- | :--- | :--- | :--- |
-| 🟢 **On-Time** | Within -60s to +300s | 29 | 63.0% |
-| ⏩ **Early Departure** | More than 1 min ahead of schedule | 9 | 19.6% |
-| 🟡 **Minor Delay** | +5m to +15m late | 8 | 17.4% |
-| 🔴 **Severe Delay** | Over 15m late | 0 | 0.0% |
+| 🟢 **On-Time** | Within -60s to +300s | 42 | 75.0% |
+| ⏩ **Early Departure** | More than 1 min ahead of schedule | 6 | 10.7% |
+| 🟡 **Minor Delay** | +5m to +15m late | 6 | 10.7% |
+| 🔴 **Severe Delay** | Over 15m late | 2 | 3.6% |
 | 👻 **Ghost / Missing** | Scheduled but no GPS or vehicle transponder | 0 | 0.0% |
 | ❌ **Agency Canceled** | Explicitly reported CANCELED | 0 | 0.0% |
 
@@ -36,16 +36,16 @@
 
 | Route | Total Scheduled | Tracked | Ghost Trips | Ghost Rate (%) | On-Time (%) | Avg Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Route 10** | 2 | 2 | 0 | **`0.0%`** | `100.0%` | `+1.5 min` |
-| **Route 11** | 2 | 2 | 0 | **`0.0%`** | `100.0%` | `+1.9 min` |
-| **Route 17** | 3 | 3 | 0 | **`0.0%`** | `33.33%` | `-235.7s` |
-| **Route 18** | 3 | 3 | 0 | **`0.0%`** | `100.0%` | `+3.0 min` |
-| **Route 22** | 3 | 3 | 0 | **`0.0%`** | `33.33%` | `+2.8 min` |
-| **Route 3** | 4 | 4 | 0 | **`0.0%`** | `50.0%` | `+2.5 min` |
-| **Route 4** | 3 | 3 | 0 | **`0.0%`** | `66.67%` | `+2.8 min` |
-| **Route 5** | 2 | 2 | 0 | **`0.0%`** | `100.0%` | `+0.8 min` |
-| **Route 62** | 2 | 1 | 0 | **`0.0%`** | `100.0%` | `+1.2 min` |
-| **Route 63** | 2 | 2 | 0 | **`0.0%`** | `0.0%` | `-161.0s` |
+| **Route 10** | 2 | 2 | 0 | **`0.0%`** | `100.0%` | `+3.8 min` |
+| **Route 11** | 2 | 2 | 0 | **`0.0%`** | `100.0%` | `+0.1 min` |
+| **Route 17** | 3 | 3 | 0 | **`0.0%`** | `100.0%` | `+2.0 min` |
+| **Route 18** | 3 | 3 | 0 | **`0.0%`** | `66.67%` | `+4.4 min` |
+| **Route 2** | 2 | 2 | 0 | **`0.0%`** | `100.0%` | `+4.6 min` |
+| **Route 22** | 3 | 3 | 0 | **`0.0%`** | `66.67%` | `+4.9 min` |
+| **Route 3** | 4 | 4 | 0 | **`0.0%`** | `25.0%` | `+6.0 min` |
+| **Route 4** | 3 | 3 | 0 | **`0.0%`** | `33.33%` | `-418.0s` |
+| **Route 5** | 2 | 2 | 0 | **`0.0%`** | `50.0%` | `-41.0s` |
+| **Route 62** | 2 | 1 | 0 | **`0.0%`** | `50.0%` | `+3.3 min` |
 
 ---
 
@@ -53,16 +53,16 @@
 
 | Route | Avg Delay | Max Delay | Tracked Runs | On-Time Adherence |
 | :--- | :---: | :---: | :---: | :---: |
-| **Route 2** | `+9.7 min (+582.0s)` | `+9.7 min (+582s)` | 1 | `0.0%` |
-| **Route 54** | `+9.4 min (+567.0s)` | `+9.4 min (+567s)` | 1 | `0.0%` |
-| **Route 924** | `+4.5 min (+268.3s)` | `+11.9 min (+714s)` | 3 | `66.67%` |
-| **Route 323** | `+3.8 min (+229.0s)` | `+3.8 min (+229s)` | 1 | `100.0%` |
-| **Route 923** | `+3.7 min (+220.7s)` | `+5.4 min (+324s)` | 3 | `33.33%` |
-| **Route 18** | `+3.0 min (+180.0s)` | `+4.2 min (+255s)` | 3 | `100.0%` |
-| **Route 22** | `+2.8 min (+169.0s)` | `+9.2 min (+551s)` | 3 | `33.33%` |
-| **Route 4** | `+2.8 min (+165.3s)` | `+5.8 min (+345s)` | 3 | `66.67%` |
-| **Route 724** | `+2.7 min (+162.0s)` | `+2.7 min (+162s)` | 1 | `100.0%` |
-| **Route 922** | `+2.6 min (+154.5s)` | `+4.2 min (+254s)` | 2 | `100.0%` |
+| **Route 54** | `+21.1 min (+1269.0s)` | `+21.1 min (+1269s)` | 1 | `0.0%` |
+| **Route 924** | `+6.6 min (+394.5s)` | `+18.9 min (+1131s)` | 4 | `75.0%` |
+| **Route 3** | `+6.0 min (+362.8s)` | `+10.7 min (+640s)` | 4 | `25.0%` |
+| **Route 22** | `+4.9 min (+294.7s)` | `+6.9 min (+414s)` | 3 | `66.67%` |
+| **Route 2** | `+4.6 min (+277.0s)` | `+4.9 min (+295s)` | 2 | `100.0%` |
+| **Route 18** | `+4.4 min (+261.3s)` | `+5.2 min (+313s)` | 3 | `66.67%` |
+| **Route 10** | `+3.8 min (+226.0s)` | `+4.4 min (+265s)` | 2 | `100.0%` |
+| **Route 62** | `+3.3 min (+195.5s)` | `+7.0 min (+418s)` | 1 | `50.0%` |
+| **Route 925** | `+2.5 min (+151.5s)` | `+4.6 min (+275s)` | 2 | `100.0%` |
+| **Route 17** | `+2.0 min (+118.3s)` | `+2.8 min (+170s)` | 3 | `100.0%` |
 
 ---
 
@@ -88,14 +88,14 @@
 
 | Timestamp | Ghost Rate (%) | On-Time (%) | Scheduled Runs | Tracked Fleet | Mean Delay |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| `2026-11-27 07:00:18` | `0.0%` | `63.04%` | 46 | 46 | `+102.8s` |
-| `2026-11-27 06:30:18` | `0.0%` | `72.04%` | 93 | 93 | `+81.3s` |
-| `2026-11-27 06:00:17` | `2.13%` | `68.12%` | 141 | 138 | `+69.7s` |
-| `2026-11-27 05:30:18` | `5.11%` | `68.86%` | 176 | 167 | `+66.6s` |
-| `2026-11-27 05:00:17` | `4.82%` | `71.43%` | 228 | 217 | `+58.3s` |
-| `2026-11-27 04:30:18` | `5.51%` | `73.15%` | 272 | 257 | `+64.9s` |
-| `2026-11-27 04:00:17` | `6.31%` | `78.37%` | 301 | 282 | `+53.0s` |
-| `2026-11-27 03:30:18` | `8.16%` | `75.0%` | 331 | 304 | `+47.5s` |
+| `2026-11-28 07:00:18` | `0.0%` | `75.0%` | 56 | 56 | `+126.9s` |
+| `2026-11-28 06:30:17` | `0.0%` | `57.41%` | 108 | 108 | `+188.7s` |
+| `2026-11-28 06:00:17` | `2.42%` | `59.01%` | 165 | 161 | `+92.5s` |
+| `2026-11-28 05:30:18` | `4.98%` | `60.29%` | 221 | 209 | `+114.6s` |
+| `2026-11-28 05:00:18` | `5.51%` | `64.45%` | 272 | 256 | `+98.8s` |
+| `2026-11-28 04:30:17` | `6.1%` | `62.54%` | 328 | 307 | `+101.4s` |
+| `2026-11-28 04:00:18` | `7.59%` | `65.59%` | 369 | 340 | `+90.3s` |
+| `2026-11-28 03:30:18` | `9.2%` | `71.77%` | 424 | 379 | `+90.9s` |
 
 ---
 
@@ -107,4 +107,4 @@
 - **Excess Wait Time (EWT)**: Transit standard metric measuring variance in vehicle headway caused by vehicle bunching.
 - **Git-Scraping**: Every run fetches upstream GTFS-RT binary protobuf feeds, computes reliability metrics, commits versioned JSON snapshots, and renders this dashboard automatically.
 
-*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-27T07:00:18.069000+00:00`.*
+*Generated by Ghost Bus Tracker v0.1.0 at `2026-11-28T07:00:18.006000+00:00`.*
